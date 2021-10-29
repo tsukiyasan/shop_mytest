@@ -1,0 +1,119 @@
+<script type="text/ng-template" id="SelectPageModal.html">
+    <div class="modal-header">
+		<button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+		<h4 class="modal-title" ng-bind="'lg_main.dbpage_select_page'|translate"></h4>
+    </div>
+    <div class="modal-body">
+		<div class="form-group form-group-select2" ng-repeat="list in ctrl.selectlist track by $index">
+			<select class="form-control" ng-model="ctrl.selected[$index]" ng-change="ctrl.select($index)" ng-if="$index == 0"
+				ng-options="('lg_'+key+'.'+key|translate) for (key, option)  in list">
+                <option value="" disabled selected hidden>-- {{'lg_main.please_select'|translate}} --</option>
+            </select>
+            
+			<select class="form-control" ng-model="ctrl.selected[$index]" ng-change="ctrl.select($index)" ng-if="$index > 0"
+				ng-options="option.name for (key, option)  in list">
+                <option value="" disabled selected hidden>-- {{'lg_main.please_select'|translate}} --</option>
+            </select>
+		</div>
+    </div>
+    <div class="modal-footer">				
+		<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-danger">
+			<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+		</a>													
+		<a href="javascript:void(0)" ng-click="ctrl.confirm()" class="btn btn-primary">
+			<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.save_and_change'|translate"></span>
+		</a>
+    </div>
+</script>
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_bottommenu.manager' | translate"></span></li>
+			<li class="active"><span ng-bind="'lg_main.edit' | translate"></span></li>
+		</ol>
+		
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="md-overlay"></div><!-- the overlay element -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_bottommenu.manager' | translate"></span></h2>
+				
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#bottommenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>	
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" >{{'lg_bottommenu.name' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.bottommenu_dtl.name" id="bottommenu_name" placeholder="{{'lg_bottommenu.name' | translate}}"></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}} {{'lg_bottommenu.name' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" id="bottommenu_name{{text.code}}" placeholder="{{'lg_bottommenu.name' | translate}}"></td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_main.onoff' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.bottommenu_dtl.publish" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.bottommenu_dtl.publish" id="bottommenu_state" >
+										<label class="onoffswitch-label" for="bottommenu_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td ng-bind="'lg_main.page_type' | translate"></td>
+								<td>                                                            
+									<div class="btn-group">
+									    <label class="btn btn-primary" ng-init="ctrl.bottommenu_dtl.linktype='link'" ng-model="ctrl.bottommenu_dtl.linktype" uib-btn-radio="'link'"> {{'lg_main.page_type_link' | translate}}</label>
+									    <label class="btn btn-primary" ng-model="ctrl.bottommenu_dtl.linktype" uib-btn-radio="'database'">{{'lg_main.page_type_dbpage' | translate}}</label>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.bottommenu_dtl.linktype=='link'">
+								<td ng-bind="'lg_main.linkurl' | translate"></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.bottommenu_dtl.linkurl" placeholder="{{'lg_main.linkurl' | translate}}" /></td>
+							</tr>
+							
+							<tr id="bottommenu_pagetype_tr_2" ng-show="ctrl.bottommenu_dtl.linktype=='database'">
+								<td ng-bind="'lg_main.select_page' | translate"></td>
+								<td>
+									<span ng-bind="ctrl.bottommenu_dtl.path"></span>
+									<a href="javascript:void(0)" class="md-trigger btn btn-primary" ng-click="ctrl.select_page()" ng-bind="'lg_main.select_page' | translate"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#bottommenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

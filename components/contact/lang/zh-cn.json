@@ -1,0 +1,21 @@
+"lg_contact":{
+	"contact":"联络我们",	
+	"contact_msg1":"倘若您对网页所提供的信息有任何疑问，请洽客服专线",	
+	"contact_msg2":"，我们的客服人员将乐意为您提供进一步的说明和服务。",	
+	"contact_tel":"客服专线：",	
+	"contact_fax":"传真号码：",	
+	"contact_email":"E-MAIL：",	
+	"contact_addr":"地址：",	
+	"contact_map":"检视地图",	
+	"contact_name":"姓名",	
+	"contact_phone":"联络电话",	
+	"contact_mail":"电子信箱",	
+	"contact_question_type":"问题类型",	
+	"contact_question_type1":"一般购物",	
+	"contact_question_type2":"会员注册",	
+	"contact_question_type3":"ｅ化入会",	
+	"contact_city":"居住县市",	
+	"contact_notes":"讯息内容",	
+	"contact_submit":"确定送出",	
+	"end":""
+}

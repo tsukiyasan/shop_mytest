@@ -1,0 +1,103 @@
+<div >
+	<div class="main-box-body clearfix">
+		<div id="hero-graph">
+	  	<canvas height="60%" chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.data_list.view.data" chart-labels="ctrl.data_list.view.labels" chart-legend="true" chart-series="ctrl.data_list.view.series" ></canvas>
+	    
+	    </div>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center" ng-repeat="data in ctrl.list_orderby">
+					<span ng-bind="'lg_report.{{data.name}}' | translate"></span>
+				</th>
+			</tr>
+		</thead>
+		<tbody >
+			
+			<tr ng-repeat="data in ctrl.data_list.data track by $index" >
+				
+				<td class="text-center" style="width:10%;" ng-if="data.index==0"  rowspan="{{data.rowspan}}" >
+					<span>{{data.buyDate}}</span>
+				</td>
+				
+				<td class="text-center" style="width:10%;" ng-if="data.index==0"  rowspan="{{data.rowspan}}" >
+					<span >{{data.totalAmt | formatnumber}}</span>
+				</td>
+				<td class="text-left" style="width:35%;" >
+					<txt ng-bind="data.pName"></txt>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.totalItem"></txt>
+					<a href="javascript:void(0);" 
+						ng-click="ctrl.showData(data.buyDate,data.keyStr,1,$index)">
+						<txt ng-if="data.icon1">▲</txt>
+						<txt ng-if="!data.icon1">▼</txt>
+					</a>
+					<table id="salesdetails{{data.buyDate}}{{data.keyStr}}1" class="salesdetails" style="display:none; margin-top:10px;" width="100%">
+						<tr>
+							<td class="text-center">
+								<span ng-repeat="onl in data.orderNumList track by $index">
+									<a ng-if="onl.orderNum" href="javascript:void(0);" ng-click="ctrl.gopage(onl.id)">
+									{{onl.orderNum}}
+									</a>
+									<br ng-if="onl.orderNum" />
+								</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.shipment"></txt>
+					<a href="javascript:void(0);" 
+						ng-click="ctrl.showData(data.buyDate,data.keyStr,2,$index)">
+						<txt ng-if="data.icon2">▲</txt>
+						<txt ng-if="!data.icon2">▼</txt>
+					</a>
+					<table id="salesdetails{{data.buyDate}}{{data.keyStr}}2" class="salesdetails" style="display:none; margin-top:10px;" width="100%">
+						<tr>
+							<td class="text-center">
+								<span ng-repeat="onl in data.orderNumList_shipment track by $index">
+								<a ng-if="onl.orderNum" href="javascript:void(0);" ng-click="ctrl.gopage(onl.id)">
+								{{onl.orderNum}}
+								</a>
+								<br ng-if="onl.orderNum" />
+								</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.unShipment"></txt>
+					<a href="javascript:void(0);" 
+						ng-click="ctrl.showData(data.buyDate,data.keyStr,3,$index)">
+						<txt ng-if="data.icon3">▲</txt>
+						<txt ng-if="!data.icon3">▼</txt>
+					</a>
+					<table id="salesdetails{{data.buyDate}}{{data.keyStr}}3" class="salesdetails" style="display:none; margin-top:10px;" width="100%">
+						<tr>
+							<td class="text-center">
+								<span ng-repeat="onl in data.orderNumList_unShipment track by $index">
+								<a ng-if="onl.orderNum" href="javascript:void(0);" ng-click="ctrl.gopage(onl.id)">
+								{{onl.orderNum}}
+								</a>
+								<br ng-if="onl.orderNum" />
+								</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+						
+			<tr>
+				<td class="text-center" ng-bind="'lg_report.total' | translate">合計</td>
+				<td class="text-center">{{ctrl.totalAmtSum | formatnumber}}</td>
+				<td></td>
+				<td class="text-center">{{ctrl.totalItemSum}}</td>
+				<td class="text-center">{{ctrl.shipmentSum}}</td>
+				<td class="text-center">{{ctrl.unShipmentSum}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>		
+	

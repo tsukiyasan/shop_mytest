@@ -1,0 +1,21 @@
+"lg_contact":{
+	"contact":"hubungi kami",
+	"contact_msg1":"jika anda memiliki pertanyaan tentang informasi yang diberikan oleh halaman web, silakan hubungi customer line",
+	"contact_msg2":"layanan pelanggan kami akan dengan senang hati memberi anda deskripsi dan layanan lebih lanjut",
+	"contact_tel":"customer line",
+	"contact_fax":"nomor fax",
+	"contact_email":"email",
+	"contact_addr":"alamat",
+	"contact_map":"lihat peta ",
+	"contact_name":"nama",
+	"contact_phone":"nomor kontak",
+	"contact_mail":"email",
+	"contact_question_type":"tipe pertanyaan",
+	"contact_question_type1":"belanja umum",
+	"contact_question_type2":"daftar menjadi anggota",
+	"contact_question_type3":"e-anggota",
+	"contact_city":"kota tempat tinggal",
+	"contact_notes":"konten informasi",
+	"contact_submit":"konfirmasi untuk mengirim",
+	"end":""
+}

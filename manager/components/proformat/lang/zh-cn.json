@@ -1,0 +1,19 @@
+"lg_proformat": {
+	"proformat": "商品规格",
+	"manager": "商品规格管理",
+	"name": "类别名称",
+	"status": "状态",
+	"odring": "排序",
+	"url": "连结网址",
+	"page": "自定义页面",
+	"imgtext": "图文模块",
+	"img":"加入图片",
+	"text":"加入文字",
+	"imgupd":"选择图片",
+	"content":"编辑页面",
+	"var1":"简述",
+	"formchk":"使用窗体做商品页",
+	"formchkMsg":"若勾选此选项，系统将自动于页面下方带入窗体模块",
+	"formatselect":"规格选择",
+	"end": ""
+}

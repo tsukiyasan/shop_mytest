@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li ><a href="#/" ng-bind="'lg_main.odring' | translate"></a></li>
+			
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" >{{'lg_main.odring' | translate}}&emsp;<span class="text-red">{{'lg_main.odring_msg' | translate}}</span></span></h2>
+				
+				<div class="filter-block pull-right">
+					<a id="backBtn" ng-href="#{{ctrl.backpath}}#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_odring.odring_back' | translate">回上一頁</span>
+					</a>
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><span ng-bind="'lg_main.title' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_main.onoff' | translate"></span></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody dnd-list="ctrl.data_list">
+							
+							<tr ng-repeat="data in ctrl.data_list" >
+								
+								<td  style="width:35%;" >
+									<span>{{data.name}}</span>
+								</td>
+								<td class="text-center"><span ng-class="{1: 'label label-success', 0: 'label label-gray'}[data.publish]" ng-bind="{1: 'ON', 0: 'OFF'}[data.publish]"></span></td>
+								
+							</tr>
+						</tbody>
+					</table>
+		</div>	
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

@@ -1,0 +1,17 @@
+"lg_indexset":{
+	"indexset":"Home page Management",
+	"adv_title":"Advertising Area",
+	"adv1_title":"The first column of advertising area",
+	"adv2_title":"Second column of advertising area",
+	"adv3_title":"The third column of advertising area",
+	"rownum":"Please select the number displayed in each row",
+	"imgupd":"Picture Upload",
+	"url":"URL link",
+	"media":"Media Report",
+	"media_url":"Video Link",
+	"media_name":"Video Name",
+	"media_date":"Video Date",
+	"upload_msg1": "Image file size limit 1M or 1110 x 345",
+	"upload_msg2": "Image file size limit 1M or 565 x 345",
+	"upload_msg3": "Image file size limit 1M or 350 x 345"
+}

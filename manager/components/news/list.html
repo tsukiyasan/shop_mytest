@@ -1,0 +1,101 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li>
+				<a href="#/" ng-bind="'lg_main.index' | translate"></a>
+			</li>
+			<li class="active"><span ng-bind="'lg_news.news_manager' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_news.news_manager' | translate">&nbsp;</span></h2>
+
+				<div class="filter-block pull-right">
+					<div ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
+						<button class="form-control" data-toggle="dropdown" >
+							{{'lg_main.operate'|translate}}
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.batchOperate('open')"><i class="fa fa-eye"></i>{{'lg_main.openitem'|translate}}</a></li>
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.batchOperate('close')"><i class="fa fa-eye-slash"></i>{{'lg_main.closeitem'|translate}}</a></li>
+							<li ng-if="ctrl.funcPerm.D == 'true'" ><a ng-click="ctrl.batchOperate('delete')"><i class="fa fa-trash-o"></i>{{'lg_main.delitem'|translate}}</a></li>
+						</ul>
+					</div>
+					<div ng-if="ctrl.funcPerm.R == 'true'" class="form-group pull-left">
+						<input type="text" class="form-control" date-range-picker ng-model="ctrl.params.search.newsDate" options="{singleDatePicker: true}" placeholder=" {{'lg_main.fdate' | translate}}">
+					</div>
+					<div ng-if="ctrl.funcPerm.R == 'true'" class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.params.search.name" my-enter="ctrl.refresh()" placeholder="{{'lg_main.search' | translate}}">
+						<a ng-click="ctrl.refresh()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+
+					<a ng-if="ctrl.funcPerm.C == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage()" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+				</div>
+			</header>
+
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center" width="60">
+									<md-checkbox md-no-ink
+												 ng-checked="ctrl.isChecked()"
+						                         md-indeterminate="ctrl.isIndeterminate()"
+						                         ng-click="ctrl.toggleAll()"
+						                         aria-label=" "
+						                         class="md-primary"
+						                         style="margin-bottom:0px;">
+						            </md-checkbox>
+								</th>
+								<th><span ng-bind="'lg_main.title' | translate"></span></th>
+								<th class="text-center"><a ng-click="ctrl.sort('newsDate')" id="newsDate" class="{{ctrl.params.orderby.newsDate}}"><span ng-bind="'lg_main.fdate' | translate"></span></a></th>
+								<th class="text-center"><a ng-click="ctrl.sort('pubDate')" id="pubDate" class="{{ctrl.params.orderby.pubDate}}"><span ng-bind="'lg_main.edate' | translate"></span></a></th>
+								<th class="text-center"><span id="news_hintMsg1" ng-bind="'lg_main.mstate' | translate"> </span></th>
+								<th width="15%">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="news in ctrl.data_list">
+								<td class="text-center">
+									<md-checkbox md-no-ink ng-checked="ctrl.exists(news, ctrl.selected)" ng-click="ctrl.toggle(news, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+								</td>
+								<td ng-bind="news.name"></td>
+								<td class="text-center" ng-bind="news.newsDate"></td>
+								<td class="text-center" ng-bind="news.pubDate == '' ? '無截止日' : news.pubDate">
+								<td class="text-center"><a ng-class="{'1': 'label label-success', '0': 'label label-gray'}[news.publish]" ng-click="ctrl.publishChange(news.id, news.publish)" ng-bind="{'1': 'ON', '0': 'OFF'}[news.publish]"></a></td>
+								
+								</td>
+								<td style="width: 15%;">
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage(news.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" ng-click="ctrl.delete(news.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+
+</div>

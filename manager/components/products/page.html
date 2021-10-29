@@ -1,0 +1,580 @@
+<script type="text/ng-template" id="AddProductTypeModal.html">
+    <div class="modal-header">
+		<button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+		<h4 class="modal-title" ng-bind="'lg_products.productType_add_title'|translate"></h4>
+    </div>
+    <div class="modal-body">
+		<div class="form-group form-group-select2">
+			<select ng-options="item.id as item.name for item in ctrl.TypeListMArr" ng-model="ctrl.TypeListM" class="form-control" >
+				<option value="" disabled selected hidden> {{'lg_main.choose' | translate}} </option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" ng-model="ctrl.TypeListMName" id="products_TypeListMName" placeholder="{{'lg_products.productType_name' | translate}}" >
+		</div>
+    </div>
+    <div class="modal-footer">				
+		<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-danger">
+			<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+		</a>
+		<a href="javascript:void(0)" ng-click="ctrl.confirm()" class="btn btn-primary">
+			<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.save_and_change'|translate"></span>
+		</a>
+    </div>
+</script>
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_products.{{ctrl.title}}' | translate"></span></li>
+			<li class="active">
+				<span ng-if="!ctrl.products_dtl.id" ng-bind="'lg_main.add' | translate"></span>
+				<span ng-if="ctrl.products_dtl.id" ng-bind="'lg_main.edit' | translate"></span>
+			</li>
+		</ol>
+	</div>
+</div>
+
+<div class="md-overlay"></div><!-- the overlay element -->
+
+<div class="row">
+	<div class="col-md-7">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;
+					<span  ng-if="!ctrl.products_dtl.id" ng-bind="('lg_products.{{ctrl.title}}' | translate)+('lg_products.manager_add' | translate)"></span>
+					<span  ng-if="ctrl.products_dtl.id" ng-bind="('lg_products.{{ctrl.title}}' | translate)+('lg_products.manager_edit' | translate)"></span>
+				</h2>
+				
+				<div class="filter-block pull-right">
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#{{ctrl.from}}_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>	
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" ><span ng-bind="'lg_products.name' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.products_dtl.name" id="products_name" placeholder="{{'lg_products.name' | translate}}" ></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}<span ng-bind="'lg_products.name' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" id="products_name{{text.code}}" placeholder="{{'lg_products.name' | translate}}" ></td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.var05' | translate"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.var05" id="products_var05" placeholder="{{'lg_products.var05' | translate}}"></td>
+							</tr>
+							
+
+							<tr>
+								<td ng-bind="'lg_main.onoff' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.publish" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.publish" id="products_state" >
+										<label class="onoffswitch-label" for="products_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td><span ng-bind="'lg_products.newDate' | translate"></span></td>
+								<td>                         
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.products_dtl.newDate" options="{singleDatePicker: true}" clearable="true" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_products.hotChk' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.hotChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.hotChk" id="products_hotChk" >
+										<label class="onoffswitch-label" for="products_hotChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+									<span ng-bind="'lg_products.notes_msg' | translate">（若開啟此選項，將會顯示於首頁熱門商品區，注意：此區限制顯示4筆）</span>
+								</td>
+							</tr>
+							<!--
+							<tr rowspan="2">
+								<td ng-bind="'lg_products.upload_image' | translate"></td>
+								<td>
+									<label class="btn btn-primary" id="btnUpload" ng-bind="'lg_main.upload_file_msg' | translate">
+
+									</label> <span class="text-red" ng-bind="('lg_main.img_limit' | translate )+'，尺寸xx * yy'">&emsp;&emsp;</span>
+									<br /><br />
+									<div id='files'><div></div><span id="btnUpload_tobig" class="text-red" style="display:none;" ng-bind="'lg_main.img_to_big' | translate"></span><ul><img ng-src="{{ctrl.products_dtl.img}}" alt="" style="max-width:300px" /></ul></div>
+								</td>
+							</tr>
+							-->
+							<tr rowspan="2" ng-repeat="seq in ctrl.imagelist" >
+								<td ng-if="ctrl.imagelist.length>1">{{('lg_products.upload_image' | translate)+seq}} <span ng-if="seq<2" class="text-red">*</span></td>
+								<td ng-if="ctrl.imagelist.length<2" ><span ng-bind="('lg_products.upload_image' | translate)"></span> <span class="text-red">*</span> </td>
+								<td>
+									<img ng-show="!previewImage[seq] && ctrl.products_dtl.img[seq]"  ng-src="{{ctrl.products_dtl.img[seq]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+                                    <img ng-show="previewImage[seq]" ng-src="{{previewImage[seq]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+                                    <span ng-if="ctrl.productimg[seq].size > ctrl.imagesizelimit" id="btnUpload_tobig" class="text-red" ng-bind="'lg_main.img_to_big' | translate"></span>
+									<br>
+                                    <file-field ng-model="ctrl.productimg[seq]" preview="previewImage" seq="{{seq}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+                                    <span class="text-red" ng-bind="'lg_products.products_upload_msg' | translate"></span>
+                                    <a ng-if="$index > 0 && ctrl.products_dtl.img[seq]" ng-click="ctrl.imgdel(seq)" class="btn btn-danger pull-right">
+										<i class="fa fa-times fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.del' | translate"></span>
+									</a>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.textList.length == 0">
+								<td><span ng-bind="'lg_products.var03' | translate"></span> <span class="text-red">*</span></td>
+								<td>
+									<div class="clearfix"><div class="form-group"><textarea class="form-control " el2-editor id="products_content" ng-model="ctrl.products_dtl.var03" rows="3"></textarea></div></div>
+								</td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td>{{('lg_lang.'+text.code) | translate}}<br /><span ng-bind="'lg_products.var03' | translate"></span> <span class="text-red">*</span></td>
+								<td>
+									<div class="clearfix"><div class="form-group"><textarea class="form-control " el2-editor id="products_content{{text.code}}" ng-model="ctrl.var03List[text.code]" rows="3"></textarea></div></div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td ng-bind="'lg_products.var04' | translate"></td>
+								<td>
+									https://www.youtube.com/embed/<input type="text" style="display:inline;width:auto;" class="form-control" ng-model="ctrl.products_dtl.var04" id="products_var04" placeholder="lJIrF4YjHfQ" >
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="filter-block pull-right">									
+					<a href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#{{ctrl.from}}_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-5">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.amtSetting' | translate"></span> </h2>
+			</header>
+					
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_products.highAmt' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.products_dtl.highAmt" id="products_highAmt" placeholder="{{'lg_products.highAmt' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.siteAmt' | translate"></span> <span class="text-red"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.siteAmt" id="products_siteAmt" placeholder="{{'lg_products.siteAmt' | translate}}" ></td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.pv' | translate"></span> <span class="text-red"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.pv" id="products_pv" placeholder="{{'lg_products.pv' | translate}}" ></td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.bv' | translate"></span></td>
+								<td><input type="text" class="form-control" ng-value="(ctrl.products_dtl.pv) * (ctrl.pvbvratio)" id="products_bv" placeholder="{{'lg_products.bv' | translate}}" readonly ></td>
+							</tr>	
+
+							<tr>
+                                <td><span ng-bind="'lg_products.ccv' | translate"></span> <span class="text-red"></span></td>
+                                <td><input type="text" class="form-control" ng-model="ctrl.products_dtl.ccv" id="products_ccv" placeholder="{{'lg_products.ccv' | translate}}"></td>
+                            </tr>
+							
+							<tr>
+								<td ng-bind="'lg_products.need_tax' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch7" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.need_tax" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.need_tax" id="products_need_tax" >
+										<label class="onoffswitch-label" for="products_need_tax">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+				</div>
+			</div>
+			
+			
+			<header class="main-box-header clearfix" ng-if="ctrl.instockMode != 'none'">
+				<span ng-if="ctrl.instockMode == 'single'">
+					<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.instockSetting' | translate"></span></h2>
+				</span>
+				<span ng-if="ctrl.instockMode == 'multiple'">
+					<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.instockSetting2' | translate"></span></h2>
+					<a href="javascript:void(null);" ng-click="ctrl.addInstockTR()" class="btn btn-primary pull-right">
+						<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.specification_add' | translate"></span>
+					</a>
+				</span>
+				
+			</header>
+			
+			
+			<div class="main-box-body clearfix" style="margin-bottom:-45px;" ng-if="ctrl.instockMode != 'none'">
+				<div class="table-responsive">
+					<table class="table" ng-if="ctrl.instockMode == 'single'" >
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_products.safetystock' | translate"></span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.products_dtl.safetystock" id="products_safetystock" placeholder="{{'lg_products.safetystock' | translate}}" ></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_products.instock' | translate"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.instock" id="products_instock" placeholder="{{'lg_products.instock' | translate}}" ></td>
+							</tr>
+						</tbody>
+					</table> 
+					
+					<table class="table" ng-if="ctrl.instockMode == 'multiple'" >
+						<tbody>
+							<tr>
+								<td colspan="2" style="border:0;">
+								<table class="table">
+								<tr>
+									<th style="border:0;"><span ng-bind="'lg_products.specification' | translate"></span> <span class="text-red">*</span></th>
+									<th style="border:0;"><span ng-bind="'lg_products.safetystock' | translate"></span></th>
+									<th style="border:0;"><span ng-bind="'lg_products.instock' | translate"></span></th>
+									<th width="30" style="border:0;"></th>
+								</tr>
+																
+								<tr ng-repeat="proNum in ctrl.proNum_arr track by $index" ng-show="ctrl.proNum_arr.length > 0">
+									<td style="border:0;"><input type="text" class="form-control" id="proNum_name_{{$index}}" ng-model="proNum.name"></td>
+									<td style="border:0;"><input type="text" class="form-control" id="proNum_safetystock_{{$index}}" ng-model="proNum.safetystock"></td>
+									<td style="border:0;"><input type="text" class="form-control" id="proNum_instock_{{$index}}" ng-model="proNum.instock"></td>
+									<td style="border:0;">
+									<a href="javascript:void(null);" ng-click="ctrl.deleteInstockTR($index)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									</td>
+								</tr>
+
+								</table>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+					
+				</div>
+			</div>
+			
+
+			
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.productAttr' | translate"></span></h2>
+			</header>
+			
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td style="border:0;" ng-bind="'lg_products.bonus_chk' | translate"></td>
+								<td style="border:0;">        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.bonusChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.bonusChk" id="products_bonusChk" >
+										<label class="onoffswitch-label" for="products_bonusChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.bonus_amt' | translate"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.bonusAmt" id="products_bonus_amt" placeholder="{{'lg_products.bonus_amt' | translate}}" ></td>
+							</tr>
+							
+							<tr>
+								<td style="border:0;" ng-bind="'lg_products.amtProChk' | translate"></td>
+								<td style="border:0;">        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.amtProChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.amtProChk" id="products_amtProChk" >
+										<label class="onoffswitch-label" for="products_amtProChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_products.amtProAmt' | translate"></span></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.products_dtl.amtProAmt" id="products_amtProAmt" placeholder="{{'lg_products.amtProAmt' | translate}}" ></td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_products.freeProChk' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.freeProChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.freeProChk" id="products_freeProChk" >
+										<label class="onoffswitch-label" for="products_freeProChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_products.bundleProChk' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.bundleProChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.bundleProChk" id="products_bundleProChk" >
+										<label class="onoffswitch-label" for="products_bundleProChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+                                <td ng-bind="'lg_products.not_count_cb' | translate"></td>
+                                <td>
+                                    <div class="onoffswitch onoffswitch-success">
+                                        <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.nccbChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.nccbChk" id="products_nccb">
+                                        <label class="onoffswitch-label" for="products_nccb">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+                                    </div>
+                                </td>
+                            </tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.productType' | translate"></span> <span class="text-red">*</span></h2>
+					<a href="javascript:void(null);" ng-click="ctrl.addProType()"  class="btn btn-primary pull-right">
+						<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.productType_add' | translate" ></span>
+					</a>
+			</header>
+			
+			
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td style="border:0;">
+									<div id="tree-container">
+										
+										<fieldset class="demo-fieldset" ng-repeat="type in ctrl.proTypeArrays track by $index">
+											
+											<div layout="row" layout-wrap flex ng-if="type[0] == 'page'">
+												<div class="demo-select-all-checkboxes" flex="100" >
+													<md-checkbox ng-checked="ctrl.exists(type[1][0], type[3])" ng-click="ctrl.toggle(type[1][0], type[3])">
+													{{ type[2] }}
+													</md-checkbox>
+												</div>
+											</div>
+											
+											<div layout="row" layout-wrap flex ng-if="type[0] == 'dir'">
+												<div flex-xs flex="75">
+													<span ng-if="ctrl.isOpen($index)" ng-click="ctrl.toggleOpen($index)" ><i class="fa fa-chevron-down"></i>&emsp;</span>
+													<span ng-if="!ctrl.isOpen($index)" ng-click="ctrl.toggleOpen($index)" ><i class="fa fa-chevron-right"></i>&emsp;</span>
+													<md-checkbox aria-label="Select All" ng-checked="ctrl.isChecked(type[4],type[6])" md-indeterminate="ctrl.isIndeterminate(type[4],type[6])" ng-click="ctrl.toggleAll(type[4],type[6],$index)">
+														{{type[2]}}
+													</md-checkbox>
+												</div>
+												<div class="demo-select-all-checkboxes" flex="100" ng-hide="type[7]" ng-repeat="item in type[4] track by $index" style="padding-left: 50px;">
+													<md-checkbox ng-checked="ctrl.exists(item, type[6])" ng-click="ctrl.toggle(item, type[6])">
+													{{ type[5][$index] }}
+													</md-checkbox>
+												</div>
+											</div>
+											
+											
+
+										</fieldset>
+									</div>
+								</td>
+							</tr>												
+						</tbody>
+					</table> 
+				</div>
+								
+				
+			</div>
+			<header class="main-box-header clearfix">
+				<span >
+					<h2 class="pull-left"><i class="fa fa-cube"></i>&nbsp;<span ng-bind="'lg_products.setting' | translate"></span> <span class="text-red">*</span> <i class="fa fa-question-circle" aria-hidden="true" uib-tooltip="{{'lg_products.howtouse' | translate}}"></i></h2>
+					
+					<a ng-if="ctrl.format_mode==2" href="javascript:void(null);" data-toggle="modal" data-target="#format_selector" class="btn btn-primary pull-right">
+						<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.specification_add' | translate"></span>
+					</a>
+					<a ng-if="ctrl.format_mode==1" href="javascript:void(null);" data-toggle="modal" data-target="#format_selector2" class="btn btn-primary pull-right">
+						<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.specification_add' | translate"></span>
+					</a>
+				</span>
+				
+			</header>
+			
+			
+			<div ng-show="ctrl.format_mode==2" class="main-box-body clearfix" style="margin-bottom:-45px;">
+				<div class="table-responsive">
+					<table class="table" >
+						<tbody>
+							<tr >
+								<td style="border:0;width:20%">
+									{{useformat1.mname?useformat1.mname:'lg_products.format1' | translate}}
+								</td>
+								<td style="border:0;">
+									{{useformat2.mname?useformat2.mname:'lg_products.format2' | translate}}
+								</td>
+								<td style="border:0;width:12%">
+									{{'lg_products.instock' | translate}}
+								</td>
+								<td style="border:0;width:22%">
+									{{'lg_products.code' | translate}}
+								</td>	
+								<td style="border:0;width:30%">
+								</td>	
+							</tr>
+							<tr ng-repeat="data in format1_arr track by $index">
+								<td  style="border:0;" colspan="5">
+									<table style="width:100%">
+										<tr>
+											<td style="width:20%">
+												<span>{{data.name}}</span>
+											</td>
+											<td style="width:50%" colspan="3">
+												<table style="width:100%">
+													<tr ng-repeat="text in format2_arr[data.id]">
+														<td style="border:0;width:30%;">
+															{{text.name}}
+														</td>
+														<td style="border:0;width:30%;">
+															<input style="width:100%" type="text" ng-model="checked2_instock[data.id][text.id]">
+														</td>	
+														<td style="border:0;width:40%;">
+															<input style="width:100%" type="text" ng-model="checked2_procode[data.id][text.id]">
+														</td>	
+													</tr>	
+												</table>
+											</td>
+											
+											<td style="width:30%">
+												<a href="javascript:void(null);" ng-click="getFormat2(data.id)" data-toggle="modal" data-target="#format_selector2" class="btn btn-primary pull-right">
+													<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.formatselect2' | translate"></span>
+												</a>
+											</td>
+										</tr>	
+									</table>	
+								</td>
+								
+							</tr>
+							<tr >
+								<td  style="border:0;">
+									
+								</td>
+								
+							</tr>
+							<tr >
+								<td  style="border:0;">
+									
+								</td>
+								
+							</tr>
+						</tbody>
+					</table> 
+					<div class="filter-block pull-right" style="margin-bottom: 40px;">									
+						<a href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</a>											
+						<a href="#{{ctrl.from}}_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>			
+					</div>
+				</div>
+				
+			</div>	
+			
+			<div ng-show="ctrl.format_mode==1" class="main-box-body clearfix" style="margin-bottom:-45px;">
+				<div class="table-responsive">
+					<table class="table" >
+						<tbody>
+							<tr >
+								<td style="border:0;width:20%">
+									{{useformat1.mname?useformat1.mname:'lg_products.format1' | translate}}
+								</td>
+								<td style="border:0;width:20%">
+									{{'lg_products.instock' | translate}}
+								</td>
+								<td style="border:0;width:30%">
+								</td>
+							</tr>
+							
+							<tr ng-repeat="data in format2_arr track by $index">
+								<td  style="border:0;" colspan="4">
+									<table style="width:100%">
+										<tr>
+											<td style="width:20%">
+												<span>{{data.name}}</span>
+											</td>
+											<td style="border:0;width:70%;">
+												<input type="text" ng-model="checked2_instock[data.id]">
+											</td>
+										</tr>	
+									</table>	
+								</td>
+								
+							</tr>
+							<tr >
+								<td  style="border:0;">
+									
+								</td>
+								
+							</tr>
+						</tbody>
+					</table> 
+					<div class="filter-block pull-right" style="margin-bottom: 40px;">									
+						<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</a>											
+						<a href="#{{ctrl.from}}_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>			
+					</div>
+				</div>
+				
+			</div>	
+			
+		</div><!--main-box end-->
+	</div>
+	
+	
+</div>
+<format-selector ng-show="ctrl.format_mode==2"></format-selector>
+<format-selector2 formatmode="{{ctrl.format_mode}}" ng-show="ctrl.format_mode==1 || ctrl.format_mode==2"></format-selector2>

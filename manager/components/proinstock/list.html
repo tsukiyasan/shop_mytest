@@ -1,0 +1,129 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#index_page" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_proinstock.proinstock' | translate"></span></li>
+			<li class="active" ng-if="ctrl.belongname"><span ng-bind="ctrl.belongname"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left">
+					<i class="fa fa-cube"></i>&nbsp;
+					<span ng-if="ctrl.belongname" ng-bind="ctrl.belongname+'：'"></span>
+					<span ng-bind="'lg_proinstock.manager' | translate"></span>
+				</h2>
+				<div class="filter-block pull-right">
+					<!--div class="form-group pull-left">
+						<a class="form-control" data-toggle="dropdown" >
+							<span ng-bind="'lg_main.batch_opt' | translate"></span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a ng-click="ctrl.operateChg(1)"><i class="fa fa-cart-plus"></i><span ng-bind="'lg_main.batch_opt1_product' | translate"></span></a></li>
+							<li><a ng-click="ctrl.operateChg(2)"><i class="fa fa-cart-arrow-down"></i><span ng-bind="'lg_main.batch_opt2_product' | translate"></span></a></li>
+							<li><a ng-click="ctrl.operateChg(3)"><i class="fa fa-trash"></i><span ng-bind="'lg_main.batch_opt3_product' | translate"></span></a></li>
+							
+						</ul>
+					</div-->
+					
+					<div class="form-group pull-left">
+						<a class="form-control" data-toggle="dropdown" >
+							<span ng-bind="ctrl.nowtype.name?ctrl.nowtype.name:'lg_proinstock.instockOrder' | translate"></span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a ng-click="ctrl.orderChg(0)"><i class="fa fa-cube"></i><span ng-bind="'lg_proinstock.instockOrder_0' | translate"></span></a>
+							</li>
+							<li>
+								<a ng-click="ctrl.orderChg('asc')"><i class="fa fa-cube"></i><span ng-bind="'lg_proinstock.instockOrder_asc' | translate"></span></a>
+							</li>
+							<li>
+								<a ng-click="ctrl.orderChg('desc')"><i class="fa fa-cube"></i><span ng-bind="'lg_proinstock.instockOrder_desc' | translate"></span></a>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#proinstock_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back_page' | translate"></span>
+					</a>
+					<!--
+					<a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					<a ng-href="#proinstock_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					-->
+					<!--
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#proinstock_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#proinstock_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back_page' | translate"></span>
+					</a>
+					-->
+				</div>
+			</header>
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<!--th class="text-center" width="60"><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl" ng-model="allCB" /><label for="checkbox-inl"></label></div></th-->
+								<th class="text-center" width="120"><span><txt ng-bind="'lg_proinstock.instock_msg1' | translate">下單不可</txt><br /><txt ng-bind="'lg_proinstock.instock_msg2' | translate">超過庫存</txt></span></th>
+								<th class="text-center" width="120"><span ng-bind="'lg_proinstock.instockType' | translate">庫存狀態</span></th>
+								<th><span ng-bind="'lg_proinstock.name' | translate"></span></th>
+								<th class="text-center" width="60"><span ng-bind="'lg_proinstock.siteAmt' | translate"></span></th>
+								<th class="text-center" ><span  ng-bind="'lg_proinstock.productType_format1' | translate"></span></th>
+								<th class="text-center" ><span  ng-bind="'lg_proinstock.productType_format2' | translate"></span></th>
+								<th class="text-center" ><span  ng-bind="'lg_proinstock.instock' | translate"></span></th>
+								<!--th class="text-center" ><span ng-bind="'lg_main.onoff' | translate"></span></th-->
+								<!--th>&nbsp;</th-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="proinstock in ctrl.data_list track by $index" ng-show="proinstock.id">
+								<!--td style="width:5%;" class="text-center" ><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl-{{proinstock.id}}" ng-init="ctrl.listCB[proinstock.id]=false" ng-model="ctrl.listCB[proinstock.id]"/><label for="checkbox-inl-{{proinstock.id}}"></label></div></td-->
+								<td class="text-center"><a ng-class="{'1': 'label label-success', '0': 'label label-gray'}[proinstock.instockchk]" ng-click="ctrl.instockchkChange(proinstock.id, proinstock.instockchk)" ng-bind="{'1': 'ON', '0': 'OFF'}[proinstock.instockchk]"></a></td>
+								<td class="text-center"><span class="label label-success"  ng-class="{'0':'label label-danger','1':'label label-success'}[proinstock.safeCode]" ng-bind="proinstock.safe" >安全</span></td>
+								<td><!--a ng-href="#proinstock_list#{{proinstock.param}}"--><span ng-bind="proinstock.name" ></span><!--/a--></td>
+								<td class="text-center"><span ng-bind="proinstock.siteAmt" ></span></td>
+								<td class="text-center"><span ng-bind="proinstock.format1" ></span></td>
+								<td class="text-center"><span ng-bind="proinstock.format2" ></span></td>
+								
+								
+								
+								<td>
+									<span>
+										<input type="text" class="form-control center-block" ng-model="proinstock.instock" style="width:80px;" ng-change="ctrl.instockchg(proinstock.id,proinstock.instock)" placeholder="{{'lg_proinstock.instock_str' | translate}}">
+									</span>
+								</td>
+								<!--td class="text-center" width="10%" ><span ng-click="ctrl.publishChange(proinstock.id,proinstock.publish)" ng-class="{'1': 'label label-success', '0': 'label label-gray'}[proinstock.publish]" ng-bind="{1: 'ON', 0: 'OFF'}[proinstock.publish]"></span></td-->								
+
+							</tr>
+							
+							<tr ng-if="ctrl.cnt == 0">
+								<td class="text-center" colspan="999">
+									<span ng-bind="'lg_main.no_row' | translate" ></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

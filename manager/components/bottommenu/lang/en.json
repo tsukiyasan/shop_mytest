@@ -1,0 +1,15 @@
+"lg_bottommenu": {
+	"bottommenu": "Quick Link",
+	"manager": "Quick Link Management",
+	"name": "Name",
+	"status": "Status",
+	"odring": "Sort",
+	"url": "Link URL",
+	"page": "Custom page",
+	"imgtext": "Graphic Module",
+	"img": "Add picture",
+	"text": "Add text",
+	"imgupd": "Page Picture",
+	"msg": "(Click the title to enter the next level of settings, click the pencil button to edit the name and enable it)",
+	"end": ""
+}

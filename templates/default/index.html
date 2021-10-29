@@ -1,0 +1,301 @@
+<link rel="stylesheet" type="text/css" href="templates/default/css/style.css?v=081102" />
+<!-- Facebook貼紙 -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.6";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+<top-btn></top-btn>
+<div id="theme-wrapper" ng-controller="main_ctrl as mainctrl">
+
+
+	<!-- PHONE MENU -->
+	<header class="hidden-lg hidden-md">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+
+				<div class="navbar-header" style="float: right;">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+						aria-expanded="false" aria-controls="navbar"><i class="fa fa-bars"></i></button>
+					<!--button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="navbar" ng-click="mainctrl.go('member_page/login')"><i class="fa fa-user"></i></button-->
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false"
+						aria-controls="navbar" ng-click="mainctrl.go_cart()"><i class="fa fa-shopping-cart"><span
+								class="cart_num" ng-bind="$root.cartCnt">0</span></i></button>
+					<!--button type="button" class="navbar-toggle collapsed" data-toggle="modal" data-target="#myModal_Search"><i class="fa fa-search"></i></button-->
+					<!-- <div style="position:absolute;top:12px;left:5px;">
+						<img src="img/us_flag.png" style="height:32px;">
+						<div style="display:flex;justify-content:space-between;font-weight:bold">
+							<span>U</span>
+							<span>S</span>
+							<span>A</span>
+						</div>
+					</div> -->
+
+					<form class="navbar-formnavbar-left col-sm-10 ng-hides-none" role="search">
+						<div class="form-group col-sm-12 input-group"
+							style="padding: 10px 15px 0 0;width: 60%;float: right; ">
+
+							<input type="text" ng-model="mainctrl.search_text" id="searchKey" class="form-control"
+								style="height: 40px;" placeholder="{{'lg_index.index_search' | translate}}">
+							<span class="input-group-btn">
+								<button ng-click="mainctrl.search()" type="button" class="btn btn-default"
+									style="width: 40px;height: 40px;"><i class="fa fa-search"></i></button>
+							</span>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<div id="navbar" class="navbar-collapse collapse padding_change navMenu9999"
+				style="max-height: 200px; overflow-y: auto;">
+				<ul class="col-xs-12 nav navbar-nav padding_0 visible-xs visible-sm" id="navMenu">
+					<li class="col-xs-12 ng-hides-none">
+						<p style="font-weight:600;color:#0d924a;">-Menu-</p>
+					</li>
+					<li class="col-xs-12 padding_0 ng-hides-none"
+						ng-repeat="mainmenu in mainctrl.mainmenus.root track by mainmenu.id"><a
+							ng-href="{{mainmenu.linkurl}}" ng-click="mainctrl.clickmenu()" ng-bind="mainmenu.name"></a>
+					</li>
+					<!--<div class="clearfix"></div>-->
+
+					<li class="col-xs-12 ng-hides-none">
+						<p style="font-weight:600;color:#0d924a;padding-top:20px;">-Member-</p>
+					</li>
+					<li ng-if="!member_status" class="col-xs-12 padding_0 ng-hides-none">
+						<a ng-href="member_page/login"
+							ng-click="mainctrl.clickmenu()">
+							<span ng-bind="'lg_index.index_login' | translate"></span>
+						</a>
+					</li>
+					<!-- <li ng-if="!member_status" class="col-xs-12 padding_0"><a ng-href="member_page/signup"
+							ng-click="mainctrl.clickmenu()"><span
+								ng-bind="'lg_index.index_signup' | translate"></span></a></li> -->
+					<li class="col-xs-12 padding_0 ng-hides-none">
+						<a ng-href="member_page/signup" ng-click="mainctrl.clickmenu()" ng-if="!member_status">
+							<span ng-bind="'lg_index.index_signup' | translate">會員e化註冊</span>
+						</a>
+					</li>
+					<!-- <li ng-if="!member_status" class="col-xs-12 padding_0"><a ng-href="member_page/signupNew"
+							ng-click="mainctrl.clickmenu()"><span
+								ng-bind="'lg_index.index_esignup' | translate"></span></a></li> -->
+					<!-- <li ng-if="member_status" class="col-xs-12 padding_0"><a ng-href="member_page/info"
+							ng-click="mainctrl.clickmenu()"><span
+								ng-bind="'lg_index.index_info' | translate"></span></a></li> -->
+					<li class="col-sm-12 padding_0 ng-hides-none">
+						<a ng-href="member_page/info" ng-click="mainctrl.clickmenu()" ng-if="member_status">
+							<!-- <span ng-bind="'lg_index.index_member' | translate"></span> -->
+							<span class="n_center" ng-if="om=='1'">會員中心</span>
+							<span class="n_center" ng-if="om=='0' || !om">經銷商中心</span>
+						</a>
+					</li>
+					<li ng-if="member_status" class="col-xs-12 padding_0 ng-hides-none"><a ng-href="member_page/order"
+							ng-click="mainctrl.clickmenu()"><span
+								ng-bind="'lg_index.index_order' | translate"></span></a></li>
+					<!--<div class="clearfix"></div>-->
+
+					<li class="col-xs-12">
+						<p style="font-weight:600;color:#0d924a;padding-top:20px;">-Language-</p>
+					</li>
+					<li class="col-xs-12 padding_0" ng-repeat="lang in mainctrl.langList ">
+						<a ng-href="javascript:void(0)" ng-click="mainctrl.set_lang(lang.code)">{{('lg_lang.'+lang.code)
+							| translate}}</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<!-- PC MENU -->
+	<div id="header_area">
+		<div class="container">
+			<div class="col-md-2 hidden-xs hidden-sm" id="logo" style="position:relative">
+				<a href="index_page">
+					<img src="templates/default/images/logo.png" class="img-responsive" style="max-width:100%">
+					<!-- <div
+						style="position:absolute;top: 40px;left: 170px;width: 200px;color: red;font-weight: bold;font-size: 120%;">
+						<span>HOMEWAY BIOTECH</span>
+						<span>CORPORATION</span>
+					</div> -->
+				</a>
+			</div>
+			<div class="col-md-2 visible-xs visible-sm" id="logo"><a href="index_page"><img
+						src="templates/default/images/logo_m.png" class="img-responsive" style="width:20vmin;"></a></div>
+
+			<div class="col-md-10">
+				<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+					<!-- <li style="position:relative">
+						<img src="img/us_flag.png" style="height:32px;margin:10px auto 0 auto">
+						<div style="display:flex;justify-content:space-between;font-weight:bold">
+							<span>U</span>
+							<span>S</span>
+							<span>A</span>
+						</div>
+					</li> -->
+					<li>
+
+						<form class="form-wrapper cf ng-pristine ng-valid ng-hides-none">
+							<input type="text" ng-model="mainctrl.search_text" id="searchKey"
+								placeholder="{{'lg_index.index_search' | translate}}"
+								style="height:30px; padding:5px 10px;">
+							<button type="button" ng-click="mainctrl.search()"><i class="fa fa-search"></i></button>
+						</form>
+					</li>
+					<li><a ng-href="javascript:void(0)" ng-click="mainctrl.go_cart()"><i class="fa fa-shopping-cart"
+								style="position: relative;"></i>&nbsp;<span
+								ng-bind="'lg_index.index_shopcart' | translate"></span>&nbsp;(<span
+								ng-bind="$root.cartCnt"></span>)</a></li>
+					<li><a href="member_page/login" ng-if="!member_status"><i class="fa fa-user"></i>&nbsp;<span
+								ng-bind="'lg_index.index_login' | translate"></span></a></li>
+					<li><a href="member_page/signup" ng-if="!member_status"><i class="fa fa-user-plus"></i>&nbsp;<span
+								ng-bind="'lg_index.index_signup' | translate"></span></a></li>
+					<!-- <li><a href="member_page/signupNew" ng-if="!member_status"><i
+								class="fa fa-user-plus"></i>&nbsp;<span
+								ng-bind="'lg_index.index_esignup' | translate"></span></a></li> -->
+					<!-- <li><a href="member_page/info" ng-if="member_status"><i class="fa fa-user"></i>&nbsp;<span
+								ng-bind="'lg_index.index_member' | translate"></span></a></li> -->
+					<li><a href="member_page/info" ng-if="member_status"><i class="fa fa-user"></i>&nbsp;
+							<!-- <span ng-bind="'lg_index.index_member' | translate"></span> -->
+							<span class="n_center" ng-if="om=='1'"
+								ng-bind="'lg_index.index_member' | translate">會員中心</span>
+							<span class="n_center" ng-if="om=='0' || !om"
+								ng-bind="'lg_index.index_member2' | translate">經銷商中心</span>
+						</a></li>
+					<li><a ng-href="javascript:void(0)" ng-if="member_status" ng-click="mainctrl.index_logout()"><i
+								class="fa fa-sign-out fa-flip-horizontal"></i>&nbsp;<span
+								ng-bind="'lg_index.index_logout' | translate"></span></a></li>
+					<li>
+						<a data-toggle="dropdown">
+							<txt ng-bind="'lg_lang.language' | translate">語言</txt>
+							<txt ng-if="false"
+								ng-bind="(mainctrl.syslang) ? (('lg_lang.'+mainctrl.syslang) | translate) : ''"></txt>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li ng-repeat="lang in mainctrl.langList ">
+								<a ng-href="javascript:void(0)"
+									ng-click="mainctrl.set_lang(lang.code)">{{('lg_lang.'+lang.code) | translate}}</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div class="clearfix"></div>
+			<div class="col-md-12">
+				<ul class="nav navbar-nav navbar-right TopIcon hidden-xs hidden-sm">
+					<li ng-if="mainctrl.siteinfo.ytUrl"><a ng-href="{{mainctrl.siteinfo.ytUrl}}" target="_block"><img
+								src="templates/default/images/TopIcon01.png" class="img-responsive" alt="" /></a></li>
+					<li ng-if="mainctrl.siteinfo.fbUrl"><a ng-href="{{mainctrl.siteinfo.fbUrl}}" target="_block"><img
+								src="templates/default/images/TopIcon02.png" class="img-responsive" alt="" /></a></li>
+					<li ng-if="mainctrl.siteinfo.gpUrl"><a ng-href="{{mainctrl.siteinfo.gpUrl}}"><img
+								src="templates/default/images/TopIcon03.png" class="img-responsive" alt="" /></a></li>
+					<li ng-if="mainctrl.siteinfo.lineUrl"><a ng-href="{{mainctrl.siteinfo.lineUrl}}"
+							style="padding:15px 15px 10px 3px !important;"><img
+								src="templates/default/images/TopIcon04.png" class="img-responsive" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-12" id="center_area">
+				<div id="navbarpc" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li ng-repeat="mainmenu in mainctrl.mainmenus.root track by mainmenu.id">
+							<a ng-href="{{mainmenu.linkurl}}" ng-bind="mainmenu.name"
+								ng-class="{active: mainmenu.id==mainctrl.mainmenuid}"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<main id="main" class="site-main" cg-busy="{promise:promise,message:appctrl.plswaittext}">
+
+		<div class="container visible-xs visible-sm ng-hides-none" style="margin-top: 20px;margin-bottom: 20px;font-weight: bold;">
+			<div class="row">
+				<div class="col-xs-4 text-center" style="border-right:1px solid #000;">
+					<a href="product_list/22?id=23">
+						<txt ng-bind="'lg_index.index_productType1' | translate"></txt>
+					</a>
+				</div>
+				<div class="col-xs-4 text-center" style="border-right:1px solid #000;">
+					<a href="product_list/21?id=34">
+						<txt ng-bind="'lg_index.index_productType2' | translate"></txt>
+					</a>
+				</div>
+				<div class="col-xs-4 text-center">
+					<a href="product_list/44?id=45">
+						<txt ng-bind="'lg_index.index_productType3' | translate"></txt>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- view -->
+		<div class="slide-main-container">
+
+			<section ng-if="mainctrl.mainmenuid!=0" class="page_banner"
+				style="background: url({{mainctrl.menubanner.img}}) center center no-repeat;">
+				<div class="container title_padding">
+					<div class="top_title">
+						<span class="cht">{{mainctrl.menubanner.name}}</span><br>
+						<span class="small">-{{mainctrl.menubanner.imgname}}-</span>
+					</div>
+				</div>
+			</section>
+
+			<div ng-view autoscroll="true" class="slide-main-animation"></div>
+		</div>
+
+
+
+		<section class="footer_link">
+			<div class="container footer_padding">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-4">
+						<h3>Homeway Biotech Corp.&nbsp;&nbsp;<span></span></h3>
+						<p ng-bind="mainctrl.siteinfo.addr"></p>
+						<p>TEL:&nbsp;<span ng-bind="mainctrl.siteinfo.tel"></span></p>
+						<p>FAX:&nbsp;<span ng-bind="mainctrl.siteinfo.fax"></span></p>
+						<p>E-mail:&nbsp;<span ng-bind="mainctrl.siteinfo.email"></span></p>
+						<addthis-content></addthis-content>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-4">
+						<h3>Quick Links&nbsp;&nbsp;<span></span></h3>
+						<p class="col-xs-6" ng-repeat="bottommenu in mainctrl.bottommenus track by bottommenu.id">
+							<a ng-href="{{bottommenu.linkurl}}" ng-bind="bottommenu.name"></a>
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-4">
+						<h3>Facebook&nbsp;&nbsp;<span></span></h3>
+						<iframe
+							src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgoodarch2u%2F&tabs&width=280&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+							width="280" height="130" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+							allowTransparency="true"></iframe>
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+	</main>
+
+	<search-content></search-content>
+	<footer id="footer_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">Copyright © 2016 <b><a href="/">GoodARCH</a></b>. All rights
+					reserved.&nbsp;&nbsp; </div>
+			</div>
+		</div>
+	</footer>
+
+</div>

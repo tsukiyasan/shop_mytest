@@ -1,0 +1,21 @@
+"lg_contact":{
+	"contact":"聯絡我們",	
+	"contact_msg1":"倘若您對網頁所提供的資訊有任何疑問，請洽客服專線",	
+	"contact_msg2":"，我們的客服人員將樂意為您提供進一步的說明和服務。",	
+	"contact_tel":"客服專線：",	
+	"contact_fax":"傳真號碼：",	
+	"contact_email":"E-MAIL：",	
+	"contact_addr":"地址：",	
+	"contact_map":"檢視地圖",	
+	"contact_name":"姓名",	
+	"contact_phone":"聯絡電話",	
+	"contact_mail":"電子信箱",	
+	"contact_question_type":"問題類型",	
+	"contact_question_type1":"一般購物",	
+	"contact_question_type2":"會員註冊",	
+	"contact_question_type3":"ｅ化入會",	
+	"contact_city":"居住縣市",	
+	"contact_notes":"訊息內容",	
+	"contact_submit":"確定送出",	
+	"end":""
+}

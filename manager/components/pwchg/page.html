@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#">{{'lg_main.index' | translate}}</a></li>
+			<li class="active"><span>{{'lg_main.pwchg' | translate}}</span></li>
+		</ol>
+
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_main.pwchg' | translate}}</h2>
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()"  class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>	
+				</div>
+			</header>
+
+			<div class="main-box-body clearfix" >
+				<div class="table-responsive" >
+					<table class="table" >
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;">{{'lg_main.pwold' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="password" class="form-control" ng-model="ctrl.opw" placeholder="{{'lg_main.pwlimit' | translate}}"/></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;">{{'lg_main.pwnew' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="password" class="form-control" ng-model="ctrl.pw1" placeholder="{{'lg_main.pwlimit' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;">{{'lg_main.pwcfm' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="password" class="form-control" ng-model="ctrl.pw2" placeholder="{{'lg_main.pwlimit' | translate}}" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

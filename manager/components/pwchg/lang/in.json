@@ -1,0 +1,8 @@
+"lg_pwchg":{
+	"pwchg":"ganti kata sandi",
+	"pwchg_msg1":"masukan kata sandi lama",
+	"pwchg_msg2":"masukan kata sandi baru",
+	"pwchg_msg3":"kata sandi baru berbeda dari kata sandi yang dikonfirmasi",
+	"pwchg_msg4":"kata sandi baru terlalu pendek",
+	"end":""
+}

@@ -1,0 +1,216 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_adminmanagers.adminmanagers' | translate"></span></li>
+			<li class="active">
+				<span ng-if="!ctrl.params.id" ng-bind="'lg_adminmanagers.add'|translate"></span>
+				<span ng-if="ctrl.params.id" ng-bind="'lg_adminmanagers.edit'|translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-user"></i>&nbsp;
+						<span ng-if="!ctrl.params.id" ng-bind="'lg_adminmanagers.add'|translate"></span>
+						<span ng-if="ctrl.params.id" ng-bind="'lg_adminmanagers.edit'|translate"></span>
+					</h2>
+					
+					<div class="filter-block pull-right">									
+						<button ng-if="ctrl.params.view == 'edit'" type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+						</button>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+				</header>
+				
+				<div class="main-box-body clearfix" >
+					<div class="table-responsive" >
+						<table class="table" >
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.name' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.name" placeholder="{{'lg_adminmanagers.name' | translate}}" /></td>
+								</tr>
+								<tr ng-show="false">
+									<td ng-bind="'lg_adminmanagers.rootFlag' | translate"></td>
+									<td>        
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-disabled="ctrl.params.view != 'edit'" ng-checked="ctrl.detailData.rootFlag" ng-true-value="'0'" ng-false-value="'1'" ng-model="ctrl.detailData.rootFlag" id="adminmanagers_rootFlag" >
+											<label class="onoffswitch-label" for="adminmanagers_rootFlag">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_main.onoff' | translate"></td>
+									<td>        
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-disabled="ctrl.params.view != 'edit'" ng-checked="ctrl.detailData.locked" ng-true-value="'0'" ng-false-value="'1'" ng-model="ctrl.detailData.locked" id="adminmanagers_locked" >
+											<label class="onoffswitch-label" for="adminmanagers_locked">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.loginid' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.loginid" placeholder="{{'lg_adminmanagers.loginid' | translate}}" /></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.passwd' | translate"></span></td>
+									<td style="border:0;"><input type="password" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.passwd" placeholder="{{'lg_adminmanagers.passwd' | translate}}" ></td>
+								</tr>
+								<!--
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.sid' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.sid" placeholder="{{'lg_adminmanagers.sid' | translate}}" ></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.depTitle' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.depTitle" placeholder="{{'lg_adminmanagers.depTitle' | translate}}" ></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.mobile' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.mobile" placeholder="{{'lg_adminmanagers.mobile' | translate}}" ></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.email' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.detailData.email" placeholder="{{'lg_adminmanagers.email' | translate}}" ></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_adminmanagers.seeAmtChk' | translate"></td>
+									<td>        
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-disabled="ctrl.params.view != 'edit'" ng-checked="ctrl.detailData.seeAmtChk" ng-true-value="'0'" ng-false-value="'1'" ng-model="ctrl.detailData.seeAmtChk" id="adminmanagers_seeAmtChk" >
+											<label class="onoffswitch-label" for="adminmanagers_seeAmtChk">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								-->
+								<!--tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_adminmanagers.loginCnt' | translate"></span></td>
+									<td style="border:0;"><span ng-bind="ctrl.detailData.loginCnt"></span></td>
+								</tr-->
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div class="filter-block pull-right">									
+						<button ng-if="ctrl.params.view == 'edit'" type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+						</button>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+						
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="main-box clearfix">
+							<header class="main-box-header clearfix">
+								<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_adminmanagers.function' | translate"></span></h2>
+							</header>
+							<div class="main-box-body clearfix">
+								<div class="table-responsive">      
+									<table class="table">
+										<thead>
+											<tr bgcolor="#DDD">
+												<th class="text-center" width="30%"><span ng-bind="'lg_adminmanagers.funcName' | translate"></span></th>
+												<th class="text-center" ng-bind="'lg_adminmanagers.selectAll' | translate">全選</th>
+												<th class="text-center"><span ng-bind="'lg_adminmanagers.funcAdd' | translate"></span></th>
+												<th class="text-center"><span ng-bind="'lg_adminmanagers.funcEdit' | translate"></span></th>
+												<th class="text-center"><span ng-bind="'lg_adminmanagers.funcDelete' | translate"></span></th>
+												<th class="text-center"><span ng-bind="'lg_adminmanagers.funcSearch' | translate"></span></th>
+												<th class="text-center"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr bgcolor="{{($index % 2 == 0) ? '#EEE':'#DDD'}}" ng-repeat="functions in ctrl.functions_list track by $index" >
+												<td class="text-center"><span ng-bind="'lg_{{functions.func}}.{{functions.func}}' | translate" ></span></td>
+												<td class="text-center">
+													<div class="checkbox-nice checkbox-inline">
+														<input type="checkbox" id="checkbox-inl-{{$index}}" ng-disabled="ctrl.params.view != 'edit'" ng-model="ctrl.allCB[functions.func]" ng-click="ctrl.selectAll(functions.func,ctrl.allCB[functions.func])" />
+														<label for="checkbox-inl-{{$index}}"></label>
+													</div>
+												</td>
+												<td class="text-center">
+													<span ng-if="functions.C == '1'" >
+														<div class="checkbox-nice checkbox-inline">
+															<input type="checkbox" id="checkbox-inl-{{$index}}C" ng-disabled="ctrl.params.view != 'edit'" ng-init="ctrl.listCB[functions.func]['C']" ng-model="ctrl.listCB[functions.func]['C']" ng-click="ctrl.selectClick(functions.func,'C')" />
+															<label for="checkbox-inl-{{$index}}C"></label>
+														</div>
+													</span>
+												</td>
+												<td class="text-center">
+													<span ng-if="functions.U == '1'" >
+														<div class="checkbox-nice checkbox-inline">
+															<input type="checkbox" id="checkbox-inl-{{$index}}U" ng-disabled="ctrl.params.view != 'edit'" ng-init="ctrl.listCB[functions.func]['U']" ng-model="ctrl.listCB[functions.func]['U']" ng-click="ctrl.selectClick(functions.func,'U')" />
+															<label for="checkbox-inl-{{$index}}U"></label>
+														</div>
+													</span>
+												</td>
+												<td class="text-center">
+													<span ng-if="functions.D == '1'" >
+														<div class="checkbox-nice checkbox-inline">
+															<input type="checkbox" id="checkbox-inl-{{$index}}D" ng-disabled="ctrl.params.view != 'edit'" ng-init="ctrl.listCB[functions.func]['D']" ng-model="ctrl.listCB[functions.func]['D']" ng-click="ctrl.selectClick(functions.func,'D')" />
+															<label for="checkbox-inl-{{$index}}D"></label>
+														</div>
+													</span>
+												</td>
+												<td class="text-center">
+													<span ng-if="functions.R == '1'" >
+														<div class="checkbox-nice checkbox-inline">
+															<input type="checkbox" id="checkbox-inl-{{$index}}R" ng-disabled="ctrl.params.view != 'edit'" ng-init="ctrl.listCB[functions.func]['R']" ng-model="ctrl.listCB[functions.func]['R']" ng-click="ctrl.selectClick(functions.func,'R')" />
+															<label for="checkbox-inl-{{$index}}R"></label>
+														</div>
+													</span>
+												</td>
+												<td class="text-center">
+													<span ng-if="functions.name == '訂單管理'" >
+														<txt ng-bind="'lg_adminmanagers.orderExport' | translate">訂單匯出</txt>：
+														<div class="checkbox-nice checkbox-inline">
+															<input type="checkbox" id="checkbox-orderExport" ng-disabled="ctrl.params.view != 'edit'" ng-init="ctrl.detailData.orderExport" ng-model="ctrl.detailData.orderExport" />
+															<label for="checkbox-orderExport"></label>
+														</div>
+													</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								
+								<div class="filter-block pull-right">									
+									<button ng-if="ctrl.params.view == 'edit'" type="submit" class="btn btn-success pull-right">
+										<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+									</button>											
+									<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+										<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+									</a>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+</div>

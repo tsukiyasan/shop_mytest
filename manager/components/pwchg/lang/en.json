@@ -1,0 +1,8 @@
+"lg_pwchg":{
+	"pwchg":"Change password",
+	"pwchg_msg1":"Please enter old password",
+	"pwchg_msg2":"Please enter new password",
+	"pwchg_msg3":"The new password is different from the confirmed password",
+	"pwchg_msg4":"New password length is too short",
+	"end":""
+}

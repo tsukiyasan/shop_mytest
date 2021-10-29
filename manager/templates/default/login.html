@@ -1,0 +1,77 @@
+<!-- theme scripts -->
+<div id="login-page-full">
+	<div id="login-full-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="login-box">
+						<div id="login-box-holder">
+							<div class="row">
+								<div class="col-xs-12">
+									<header id="login-header">
+										<div id="login-logo">
+											<img src="templates/default/img/logo_cht.png" alt=""/>
+										</div>
+									</header>
+									<div id="login-box-inner" ng-controller="login_ctrl">
+										<form role="form" >
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-language"></i></span>
+												<select class="form-control" ng-model="selectLang" ng-change = "set_lang()" >
+													<option ng-repeat="lang in langList" value="{{lang.code}}" >{{('lg_lang.'+lang.code) | translate}}</option>
+												</select>												
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<input class="form-control" ng-model="loginparm.loginid" type="text" placeholder="{{'lg_login.login_loginid' | translate}}" my-enter="login()">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-key"></i></span>
+												<input type="password" ng-model="loginparm.passwd" class="form-control" placeholder="{{'lg_login.login_password' | translate}}" my-enter="login()">
+											</div>
+											<div id="remember-me-wrapper">
+												<div class="row">
+													<div class="col-xs-6">
+														<div class="checkbox-nice">
+															<input type="checkbox" ng-model="loginparm.rememberme" id="remember-me"/>
+															<label for="remember-me">
+																{{'lg_login.login_remember_me' | translate}}
+															</label>
+														</div>
+													</div>
+													<!--
+													<a href="forgot-password-full.html" id="login-forget-link" class="col-xs-6">
+														{{lg_login.login_forgot_pwd}}
+													</a>
+													-->
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-key"></i></span>
+												<input  class="form-control" ng-model="loginparm.checkcode" type="text" placeholder="{{'lg_login.login_checkcode' | translate}}" my-enter="login()">
+											</div>
+											<div class="col-xs-12">
+												<img id="CertifImg" src="" border="0" style="display:none;" />
+												<a href="javascript:void(null);" ng-click="CertifImgChange()"><img src="templates/default/img/Refresh.png"  border="0"></a>
+												<span ng-bind="'lg_login.login_checkcode_msg' | translate">不分大小寫</span>
+											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													<button type="button" class="btn btn-success col-xs-12" ng-click="login()">{{'lg_login.login_login' | translate}}</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	
+		
+	</div>
+	
+</div>

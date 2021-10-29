@@ -1,0 +1,367 @@
+#first_tb3 img{
+   image-rendering: -webkit-optimize-contrast;
+ }
+ .mb_no{
+	width:100px;
+	height:22px;
+	margin-right:5px;
+}
+
+div#BLOCK_orgseq{
+	text-align:left;
+}
+.r_m002{
+   width:550px;
+   margin-left:10px;
+   float:left;
+}
+.org_kind_div{
+	text-align:left;
+	padding-right:10px;
+}
+table#main td#container .org_kind_div img{
+	display:inline;
+}
+.org_kind_div input,.org_kind_div select{
+	font:11px verdana;
+}
+#print_in_org,#mail_org{
+	color:#990066;
+	background:#FFCC00;
+}
+#print_in_org,#print_out_org{
+	color:#FFFFFF;
+	background:#006699;
+}
+.filter_div{
+	margin-top:-15px;
+	font:12px verdana,arial;
+	padding-left:0px;
+	line-height:20px;
+	color:#006601;
+	border-bottom:3px #FEFEFE double;
+	text-align:left;
+	margin-bottom:10px;
+}
+#exp_orgseq_btn{
+	color:#F00;
+	background:#FFE5E5;
+}
+table#main td#container .filter_div img{
+	display:inline;
+	vertical-align:middle;
+	margin-right:4px;
+}
+.limit{
+	margin-left:4px;
+	margin-bottom:5px;
+	vertical-align:middle;
+	font:10px verdana,arial;
+	color:#333;
+}
+table#main td#container .org_tree_div img{
+	display:inline;
+}
+.org_tree_div{
+	border-collapse:collapse;
+	width:800px;
+	margin-bottom:30px;
+}
+.org_tree_div td{
+	text-align:left;
+	font:12px verdana,arial;
+	padding:0;
+}
+.org_tree_div .name{
+	color:#3F3E4E;
+}
+.org_tree_div span{
+	font:12px verdana,arial;
+	margin-left:5px;
+}
+.org_tree_div .name{
+	color:#4D4F8D;
+}
+.org_tree_div .id{
+	margin-left:-5px;
+}
+.org_tree_div .mb_kind{
+	color:#6D3030;
+}
+.org_tree_div .per_m{
+	color:#B05425;
+	
+}
+.org_tree_div .grade{
+	color:#5F5500;
+}
+.org_tree_div .pg_date{
+	color:#4E4E4E;
+}
+table#main td#container .org_tree_div img{
+	vertical-align:middle;
+	margin:0;
+}
+table#main td#container .org_tree_div .line_flag img{
+	vertical-align:top;
+	margin-right:5px;
+}
+table#main td#container .loading img{
+	vertical-align:top;
+}
+div#BLOCK_orgseq2 table{
+	width:900px;
+}
+
+div#BLOCK_orgseq3 table{
+	/*border: 1px #4E4E4E solid;*/
+	margin: 10px auto;
+	table-layout: fixed;
+	border-collapse:collapse;
+}
+div#BLOCK_orgseq3 td{
+	/*border: 1px #4E4E4E solid;*/
+	overflow: hidden;
+	white-space: nowrap;
+	margin: 0;
+	padding: 0;
+}
+
+div#BLOCK_orgseq2, div#BLOCK_orgseq3{
+	text-align:left;
+}
+div#BLOCK_orgseq2 td, div#BLOCK_orgseq3 td{
+	text-align:center;
+	font:12px verdana;
+}
+div#BLOCK_orgseq2 td img, div#BLOCK_orgseq3 td img{
+	display:inline;
+}
+.tooltip{
+	padding:5px;
+	/*background:url(../../../images/orgbg.gif);*/
+	background:#D6EFFF;
+	color:#333;
+	text-align:left;
+	z-index:101;
+	border:1px #EEE solid;
+	border:5px #B9CFDC solid;
+}
+.tooltip table.org_mb_info td{
+	background:#FFF;
+	padding-left:5px;
+	padding-right:5px;
+	border-bottom:1px #CCC solid;
+	color:#313131;
+}
+/*
+.tooltip{
+	padding:5px;
+	/*background:url(../../../images/orgbg.gif);
+	background:#FFF7D3;
+	color:#333;
+	text-align:left;
+	z-index:101;
+	border:1px #EEE solid;
+	border:5px #DBD8B8 solid;
+}*/
+.tooltip table.list_txt td{
+	background:#FFF;
+	padding-left:5px;
+	padding-right:5px;
+	border-bottom:1px #CCC solid;
+	color:#313131;
+}
+
+
+#sha{
+	position:absolute;
+	background:url(../../../images/sha.gif) bottom right;
+	z-index:100;
+}
+.s_org1{
+   font:13px arial;
+   color:#333;
+   text-align:center;
+}
+#s_org2{
+   font:13px arial;
+   color:#333;
+   text-align:center;
+   margin:5px;
+}
+.s_org3{
+   color:#C00;
+   font:13px arial;
+   text-align:center;
+}
+table#main td#container .org_tree_div2 img{
+	display:inline;
+}
+.org_tree_div2{
+	text-align:left;
+	color:#333;
+}
+.org_tree_div2{
+	border-collapse:collapse;
+	width:300px;
+	height:550px;
+	margin-bottom:0px;
+	overflow:scroll;
+	float:left;
+}
+.org_tree_div2 td{
+	text-align:left;
+	font:12px verdana,arial;
+	padding:0;
+}
+.org_tree_div2 .name{
+	color:#3F3E4E;
+}
+.org_tree_div2 span{
+	font:12px verdana,arial;
+	margin-left:5px;
+}
+.org_tree_div2 .name{
+	color:#4D4F8D;
+}
+.org_tree_div2 .id{
+	margin-left:-5px;
+}
+.org_tree_div2 .mb_kind{
+	color:#6D3030;
+}
+.org_tree_div2 .per_m{
+	color:#B05425;
+	
+}
+.org_tree_div2 .grade{
+	color:#5F5500;
+}
+.org_tree_div2 .pg_date{
+	color:#4E4E4E;
+}
+table#main td#container .org_tree_div2 img{
+	vertical-align:middle;
+	margin:0;
+}
+table#main td#container .org_tree_div2 .line_flag img{
+	vertical-align:top;
+	margin-right:5px;
+}
+
+
+table#main td#container .org_tree_div5 img{
+	display:inline;
+}
+.org_tree_div5{
+	text-align:left;
+	color:#333;
+}
+.org_tree_div5{
+	border-collapse:collapse;
+	width:300px;
+	height:550px;
+	margin-bottom:0px;
+	margin-top:10px;
+	overflow:scroll;
+	float:left;
+}
+.org_tree_div5 td{
+	text-align:left;
+	font:12px verdana,arial;
+	padding:0;
+}
+.org_tree_div5 .name{
+	color:#3F3E4E;
+}
+.org_tree_div5 span{
+	font:12px verdana,arial;
+	margin-left:5px;
+}
+.org_tree_div5 .name{
+	color:#4D4F8D;
+}
+.org_tree_div5 .id{
+	margin-left:-5px;
+}
+.org_tree_div5 .mb_kind{
+	color:#6D3030;
+}
+.org_tree_div5 .per_m{
+	color:#B05425;
+	
+}
+.org_tree_div5 .grade{
+	color:#5F5500;
+}
+.org_tree_div5 .pg_date{
+	color:#4E4E4E;
+}
+table#main td#container .org_tree_div5 img{
+	vertical-align:middle;
+	margin:0;
+}
+table#main td#container .org_tree_div5 .line_flag img{
+	vertical-align:top;
+	margin-right:5px;
+}
+.r_m006{
+    border-collapse: collapse;
+    float: left;
+    height: 31px;
+    margin-bottom: 0;
+    overflow: auto;
+    width: 900px;
+}
+div#r_m006 div#for_title{
+	background:#FDFFDD;
+	width:175px;
+	float:left;
+	height:22px;
+	font-weight:bold;
+}
+div#orgseq_list6{
+	float:left;
+	white-space:nowrap;
+	min-width: 575px;
+	width: 900px;
+	overflow:auto;
+}
+
+.r_m005{
+    border-collapse: collapse;
+    float: left;
+    height: 530px;
+    margin-bottom: 0;
+    overflow: hidden;
+    width: 900px;
+}
+
+div#orgseq_list5{
+	float:left;
+	white-space:nowrap;
+	min-width: 575px;
+	width: 1000px;
+	overflow:auto;
+}
+div#r_m005 div#for_title{
+	background:#FDFFDD;
+	width:100px;
+	float:left;
+	height:22px;
+	font-weight:bold;
+}
+.right_org_data{
+	float: left;
+    height:22px;
+    width: 175px;
+	padding-top:8px;
+}
+.right_orgseq_list5{
+	float:left;
+	white-space:nowrap;
+	min-width: 575px;
+	width: 1000px;
+	overflow:auto;
+}

@@ -1,0 +1,8 @@
+"lg_selectProduct": {
+	"title": "選擇商品",
+	"productImage": "商品圖片",
+	"productName": "商品名稱",
+	"noFound": "找不到符合條件的商品。",
+	"search": "搜尋",
+	"noSelectProductType": "請選擇商品類別"
+}

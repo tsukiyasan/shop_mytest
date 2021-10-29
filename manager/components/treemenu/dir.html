@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_treemenu.manager' | translate"></span></li>
+			<li class="active"><span ng-bind="'lg_main.edit' | translate"></span></li>
+		</ol>
+		
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="md-overlay"></div><!-- the overlay element -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_treemenu.manager' | translate"></span></h2>
+				
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#treemenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>	
+				</div>
+			</header>
+			<div class="main-box-body clearfix" >
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr  ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" >{{'lg_treemenu.name' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.treemenu_dtl.name" id="treemenu_name" placeholder="{{'lg_treemenu.name' | translate}}"></td>
+							</tr>
+							<tr  ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}{{'lg_treemenu.name' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" id="treemenu_name{{text.code}}" placeholder="{{'lg_treemenu.name' | translate}}"></td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_main.onoff' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.treemenu_dtl.publish" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.treemenu_dtl.publish" id="treemenu_state" >
+										<label class="onoffswitch-label" for="treemenu_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#treemenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

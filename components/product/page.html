@@ -1,0 +1,146 @@
+<section>
+	<div class="container page_padding detail_p">
+	  
+	  <!-- 麵包屑 -->
+	  <div class="">
+		<div class="col-xs-12 padding_0">
+		  <div class="col-xs-12 col-sm-6" >
+			<span class="pathway">
+				<a href="index_page" ng-bind="'lg_index.index' | translate">首頁</a>
+				<span ng-if="!ctrl.searchmode">
+					<i class="fa fa-angle-right" ng-if="ctrl.product_type_title"></i>
+					<span ng-bind="ctrl.product_type_title"></span>
+					<i class="fa fa-angle-right" ng-if="ctrl.product_type2_title"></i>
+					<span class="txt_Green" ng-bind="ctrl.product_type2_title"></span>
+				</span>
+				<span ng-if="ctrl.searchmode">
+					<i class="fa fa-angle-right"></i>
+					<span ng-bind="'lg_products.search_result' | translate"></span>
+				</span>
+			</span>
+		  </div>
+		  <div class="col-xs-12 col-sm-6" style="text-align: right;">
+			<addthis-content></addthis-content>
+		  </div>
+		</div>
+	  </div>
+		<div class="page_padding">
+			<div class="row">
+				<!-- 左側選單 -->
+				<left-menu tlist="ctrl.tlist" usehref="{{ctrl.leftmenu_href}}"></left-menu>
+			
+		
+		
+				<!-- 內容 -->
+				
+				<div class="col-xs-12 col-sm-9 col-md-9 page_content">
+				  <div class="row">
+					<div class="col-xs-12 padding_0">
+					  <div class="Products text-center">
+						
+						<!--LEFT_PIC-->
+						<div class="col-xs-12 col-sm-5 col-md-5 product_detail_pic">
+						    <div class="col-xs-12" ng-class="$index==0?'col-xs-12':'col-xs-4 col-sm-4 col-md-4'" ng-repeat="data in ctrl.product_detail.img track by $index">
+							    <a href="{{data}}" class="simple-ajax-popup-align-top example-image-link" data-lightbox="example-set"><img ng-src="{{data}}" class="example-image img-responsive center-block"></a>
+						    </div>
+						</div>
+						<!--LEFT_PIC END-->
+				
+						<!--RIGHT_TXT-->
+						<div class="col-xs-12 col-sm-7 col-md-7">
+						  <div class="product_detail">
+							  <div class="col-xs-12 padding_0">
+								  <div class="name" ng-bind="ctrl.product_detail.name"></div>   
+								  <div class="price" ng-if="ctrl.member_status"><txt ng-if="ctrl.product_detail.siteAmt != ctrl.product_detail.highAmt " ng-bind="'lg_products.product_price' | translate">特惠價</txt> {{('lg_money.'+ctrl.currency) | translate}} <span ng-bind="ctrl.product_detail.siteAmt | formatnumber"></span><txt ng-if="ctrl.product_detail.siteAmt != ctrl.product_detail.highAmt ">&emsp;<span class="memo" ng-bind="ctrl.product_detail.highAmt | currency : ('lg_directives.directives_highAmt' | translate)+(('lg_money.'+ctrl.currency) | translate)+' ' : 0">{{('lg_money.'+ctrl.currency) | translate}} 1,500</span></txt>
+								  <br/><span class="pv" ng-if="ctrl.advuser">PV：2,980</span><span class="bv" ng-if="ctrl.advuser">BV：98,400</span></div>
+								  <div class="price" ng-if="!ctrl.member_status" style="font-size: 1.2em;">
+									<a ng-if="!ctrl.member_status" href="javascript:void(0)" ng-href="member_page/login?f=proPage" ><div class="shopping_button" style="font-size:1em" ng-bind="'lg_products.product_login_first' | translate">登入後顯示價格</div></a>
+								  </div>
+								  <div class="type col-xs-6 padding_0">
+									  <div class="box">
+									  <p>{{ctrl.product_detail.format.format1title}}：</p>
+									  <select class="form-control" ng-options="data.name for data in ctrl.product_detail.format.format1 track by data.id" ng-model="ctrl.format1">
+										 <option value="">{{'lg_products.product_select' | translate}}{{ctrl.product_detail.format.format1title}}</option>
+									  </select>
+									  </div>
+								  </div>
+								  <div class="type col-xs-6 padding_0">
+									  <div class="box">
+									  <p>{{ctrl.product_detail.format.format2title}}：</p>
+									  <select class="form-control" id="select" ng-model="ctrl.format2" ng-options="data.name for data in ctrl.product_detail.format.format22[ctrl.format1.id] track by data.id">
+										<option value="">{{'lg_products.product_select' | translate}}{{ctrl.product_detail.format.format2title}}</option>
+									  </select>
+									  </div>
+								  </div>
+								  <div class="type col-xs-12 padding_0">
+									  <div class="box">
+									  <p ng-bind="'lg_products.product_count' | translate">數量：</p>
+									  <div class="input-group">
+										  <span class="input-group-btn"><button type="button" ng-click="ctrl.modal_cart_num_chg(-1)" class="btn btn-default btn-checkout" style="height:36px;"><i class="fa fa-minus"></i></button></span>
+						                  <input valid-number class="form-control required form-control-xs form-control-inline" min="0" max="99999" ng-model="ctrl.num" type="text" maxlength="5" >
+						                  <span class="input-group-btn"><button type="button" ng-click="ctrl.modal_cart_num_chg(1)" class="btn btn-default btn-checkout" style="height:36px;"><i class="fa fa-plus"></i></button></span>
+					                  </div>
+									  <!--<select class="form-control" ng-init="ctrl.num='1'" ng-model="ctrl.num">
+										<option ng-repeat="i in [] | range:ctrl.format2.instock" >{{i}}</option>
+									  </select>-->
+									  </div>
+								  </div>
+								  <ul class="list col-xs-12 padding_0" ng-if="ctrl.showMsg">
+									  <li><strong style="color:#eb4023">
+										<txt ng-bind="'lg_products.product_mag1' | translate">該商品目前缺貨中! 仍可購買，但購買後無法立即出貨，</txt><br />
+										<txt ng-bind="'lg_products.product_mag2' | translate">必須等到商品到貨後另行通知出貨時間，如不想等待，</txt><br />
+										<txt ng-bind="'lg_products.product_mag3' | translate">請挑選購買其他商品，謝謝!</txt></strong></li>
+								  </ul>
+								  <ul class="list col-xs-12 padding_0" ng-if="ctrl.showMsg2">
+									  <li><strong style="color:#eb4023">
+										<txt ng-bind="'lg_products.product_mag4' | translate">注意：該商品目前庫存數量為</txt><txt ng-bind="ctrl.num"></txt><txt ng-bind="'lg_products.product_mag5' | translate">，您所購買數的量已經達到目前庫存，謝謝！</txt></strong></li>
+								  </ul>
+								  <ul ng-if="ctrl.member_status" class="list col-xs-12 padding_0" ng-if="ctrl.product_detail.actList">
+									  <li><strong ng-bind="'lg_products.product_active' | translate">優惠活動：</strong></li>
+									  <li style="font-size: 0.9em;" ng-repeat="data in ctrl.product_detail.actList">★&nbsp;<a href="{{(data.url) ? data.url:'javascript:void(0)'}}">{{data.name}}</a></li>
+								  </ul>
+							  </div>
+							  
+							  <div ng-if="ctrl.member_status && ctrl.showMode" class="col-xs-12 padding_0 row_area"> 
+								<a href="javascript:void(0)" ng-click="ctrl.add_to_cart('cart')"><div class="col-xs-12 col-md-6"><div class="shopping_button"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;<txt ng-bind="'lg_products.product_pay' | translate">立即結帳</txt></div></div></a>
+								<a href="javascript:void(0)" ng-click="ctrl.add_to_cart()"><div class="col-xs-12 col-md-6"><div class="shopping_button"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;<txt ng-bind="'lg_products.product_add_cart' | translate">加入購物車</txt></div></div></a>
+							  </div>
+							  
+							  
+						  </div>
+						</div>
+						<!--RIGHT_TXT END-->
+						
+						<div class="col-xs-12">
+							<h2 class="product_detail_title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i><txt ng-bind="'lg_products.product_data' | translate">商品資訊</txt></h2>
+							<div class="content_box" ng-bind-html="ctrl.content">
+								
+							</div>
+							<h2 ng-if="ctrl.vote_media_url" class="product_detail_title"><i class="fa fa-youtube-play" aria-hidden="true"></i><txt ng-bind="'lg_products.product_video' | translate">相關影片</txt></h2>
+							<div ng-if="ctrl.vote_media_url" class="content_box">
+								<div class="video_container"><iframe ng-src="{{ctrl.vote_media_url}}" frameborder="0" allowfullscreen></iframe></div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="line_button">
+							<a ng-if="ctrl.showMode" href="javascript:history.go(-1)"><i class="fa fa-chevron-left"></i>&nbsp;<txt ng-bind="'lg_products.product_return' | translate">返回</txt></a>
+							<a ng-if="!ctrl.showMode" href="/"><i class="fa fa-chevron-left"></i>&nbsp;<txt ng-bind="'lg_products.product_return' | translate">返回</txt></a>
+						</div>
+				
+				
+					  </div>
+				
+					</div>
+				  </div>
+		
+				</div>
+			 
+			 
+			</div>
+		</div>
+	</div>
+</section>
+
+		

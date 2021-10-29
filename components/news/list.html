@@ -1,0 +1,44 @@
+<section>
+        <div class="container page_padding">
+<!-- 麵包屑 -->
+          <div class="row">
+            <div class="col-xs-12 padding_0">
+              <div class="col-xs-12 col-sm-6">
+                <span class="pathway"><a href="index_page" ng-bind="'lg_index.index' | translate">首頁</a><i class="fa fa-angle-right"></i><span class="txt_Green" ng-bind="'lg_news.news' | translate">最新消息</span></span>
+              </div>
+              <div class="col-xs-12 col-sm-6" style="text-align: right;">
+                <addthis-content></addthis-content>
+              </div>
+            </div>
+          </div>
+        
+        <div class="page_padding">
+        <!-- 內容大標題 -->
+          <div class="title_padding2">
+            <div class="row">
+              <div class="col-xs-12 page_content_title">
+                <h3 ng-bind="'lg_news.news' | translate">最新消息</h3>
+              </div>
+            </div>
+          </div>
+            <div class="col-xs-12 col-sm-12 col-md-6" ng-repeat="data in ctrl.data_list" on-finish-render>
+                <div class="Lastest-News">
+                    <div class="col-xs-12 page_news_area_padding padding_0">
+                        <div class="col-xs-2 date">
+                            <a ng-href="news_page?cur={{ctrl.page}}&id={{data.id}}"><p>{{data.newsM}}<br><span>{{data.newsD}}</span></p></a>
+                        </div>      
+                        <div class="col-xs-10 content">
+                            <a ng-href="{{data.linkurl}}" target="{{data.linktype=='link'?'_blank':'_self'}}">
+                                <h4 ng-bind="data.name"></h4>
+                                <p ng-bind="data.summary"></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <page-ctrl-el cnt="ctrl.cnt"></page-ctrl-el>
+        </div>
+</div>
+      </section>        
+      

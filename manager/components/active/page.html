@@ -1,0 +1,397 @@
+<div>
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_active.active' | translate" ></span></li>
+			<li class="active">
+				<span ng-if="ctrl.actionType == '0'" ng-bind="'lg_main.add' | translate"></span>
+				<span ng-if="ctrl.actionType == '1'" ng-bind="'lg_main.edit' | translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_active.active' | translate"></span></h2>
+											
+					<div class="filter-block pull-right">											
+						<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</a>										
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+			</header>
+										
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">                    
+					<table class="table">
+						<tbody>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" >{{'lg_active.active_name' | translate}}<span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.active.name" /></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}{{'lg_active.active_name' | translate}}<span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" /></td>
+							</tr>
+							<tr>
+								<td>{{'lg_main.onoff' | translate}}</td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.active.publish" ng-model="ctrl.active.publish" id="active_state" ng-true-value="'1'" ng-false-value="'0'" checked>
+										<label class="onoffswitch-label" for="active_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>{{'lg_active.passwordChk' | translate}}</td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.active.passwordChk" ng-model="ctrl.active.passwordChk" id="active_passwordChk" ng-true-value="'1'" ng-false-value="'0'" checked>
+										<label class="onoffswitch-label" for="active_passwordChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+                            </tr>
+                            <tr ng-if="ctrl.active.passwordChk == '1'">
+								<td width="150" style="border:0;">
+									{{'lg_active.passwordText' | translate}}
+								</td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.active.passwordText">
+								</td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_active.limitChk' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.active.limitChk" ng-model="ctrl.active.limitChk" id="active_limitChk" ng-true-value="'1'" ng-false-value="'0'" checked>
+										<label class="onoffswitch-label" for="active_limitChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+                            </tr>
+                            <tr ng-if="ctrl.active.limitChk == '1'">
+								<td width="150" style="border:0;" ng-bind="'lg_active.limitCnt' | translate"></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.active.limitCnt" valid-number>
+									<span class="text-red" ng-bind="'lg_active.limitCntMsg' | translate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>{{'lg_active.active_sdate' | translate}}<span class="text-red">*</span></td>
+								<td>                         
+									<div id="active_sdate" class="input-append date input-group">
+										<span class="input-group-addon"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.active.sdate" options="ctrl.datepicker_opt" clearable="true" />
+      								</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" >
+									<span ng-bind="'lg_active.active_edate' | translate"></span>
+								</td>
+								<td style="border:0;">                                                            
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.active.edate" options="ctrl.datepicker_opt" clearable="true" />
+									</div>
+									<span class="text-red" ng-bind="'lg_active.active_edate_empty' | translate"></span>
+								</td>
+							</tr>
+							<!--tr>
+								<td>{{'lg_active.active_cative' | translate}}<span class="text-red">*</span></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.active.cative" ng-model="ctrl.active.cative" id="active_cative" ng-true-value="'1'" ng-false-value="'0'" checked>
+										<label class="onoffswitch-label" for="active_cative">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+										
+									</div>
+									<span class="text-red">{{'lg_active.active_cativemsg' | translate}}</span>
+									
+								</td>
+							</tr-->
+							
+							<tr>
+								<td>{{'lg_active.activePlans' | translate}}<span class="text-red">*</span></td>
+								<td>
+									<select class="form-control" ng-model="ctrl.active.activePlanid" 
+										ng-change = "ctrl.actPlanChg()"
+										ng-options="item.id as item.name for item in ctrl.activePlans_list">
+						                <option value=""  disabled selected hidden >-- {{'lg_main.please_select'|translate}} --</option>
+						            </select>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.active.activePlanid && ctrl.active.activePlanid != '8' && ctrl.active.activePlanid != '10'">
+								<td width="150" style="border:0;">
+									<span ng-bind="'lg_active.set' | translate">優惠設定</span> <span class="text-red">*</span>
+								</td>
+								
+								<td style="border:0;">
+									<input type="number" class="form-control" ng-model="ctrl.active.var02" />
+									<!--
+									<div class="input-group">
+										<span class="input-group-addon" ng-if="ctrl.activePlans_list[ctrl.active.activePlanid].msg1" ng-bind="ctrl.activePlans_list[ctrl.active.activePlanid].msg1" ></span>
+										<input type="number" class="form-control" ng-model="ctrl.active.var02" />
+										<span class="input-group-addon" ng-if="ctrl.activePlans_list[ctrl.active.activePlanid].unit" ng-bind="ctrl.activePlans_list[ctrl.active.activePlanid].unit" ></span>
+									</div>
+									-->
+									<span class="text-red" ng-if="ctrl.activePlans_list[ctrl.active.activePlanid].msg2" ng-bind="ctrl.activePlans_list[ctrl.active.activePlanid].msg2" ></span>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.active.activePlanid && ctrl.active.activePlanid == '3'">
+								<td width="150" style="border:0;">
+									<span ng-bind="'lg_active.PV' | translate">獲得PV</span> <span class="text-red">*</span>
+								</td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.active.pv" />
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.active.activePlanid && ctrl.active.activePlanid == '3'">
+								<td width="150" style="border:0;">
+									<span ng-bind="'lg_active.BV' | translate">獲得BV</span>
+								</td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-value="ctrl.active.pv * ctrl.pvbvratio" readonly >
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.active.activePlanid && ctrl.active.activePlanid == '13'">
+								<td width="150" style="border:0;">
+									<span ng-bind="'lg_active.PV_number' | translate">獲得PV折數</span> <span class="text-red">*</span>
+								</td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.active.pvp" />
+									<span class="text-red" ng-bind="'lg_active.active_msg6' | translate">填入90為九折、40為四折</span>
+								</td>
+							</tr>
+							
+							<tr ng-show="ctrl.active.activePlanid && (ctrl.active.activePlanid == '8' || ctrl.active.activePlanid == '9')">
+								<td style="border:0;">
+									<span ng-if="ctrl.active.activePlanid == '8'"><txt ng-bind="'lg_active.select_add_product' | translate">選擇加購商品</txt> <span class="text-red">*</span></span>
+									<span ng-if="ctrl.active.activePlanid == '9'"><txt ng-bind="'lg_active.select_free_product' | translate">選擇贈品</txt> <span class="text-red">*</span></span>
+								</td>
+								<td style="border:0;">        
+									<div class="main-box-body clearfix" >
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th><span ng-bind="'lg_active.active_proimg' | translate"></span></th>
+														<th><span ng-bind="'lg_active.active_proname' | translate"></span></th>
+														<th ng-if="ctrl.active.activePlanid == '8'">
+															<a href="javascript:void(null);" ng-click="ctrl.addPro('gift','amtPro')" class="btn btn-primary pull-right">
+																<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span style="color:#FFF;" ng-bind="'lg_active.active_addpro' | translate" ></span>
+															</a>
+														</th>
+														<th ng-if="ctrl.active.activePlanid == '9'">
+															<a href="javascript:void(null);" ng-click="ctrl.addPro('gift','freePro')" class="btn btn-primary pull-right">
+																<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span style="color:#FFF;" ng-bind="'lg_active.active_addpro' | translate" ></span>
+															</a>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="products in ctrl.selectgift_list track by $index" >
+														<td style="width:20%;"><img ng-src="{{products.img}}" alt="" style="max-width:50px" /></td>
+														<td><span ng-bind="products.name" ></span></td>
+														<td  style="width: 20%;">
+															<a href="javascript:void(0)" ng-click="ctrl.deletepro($index,'gift')" class="table-link danger">
+																<span class="fa-stack">
+																	<i class="fa fa-square fa-stack-2x"></i>
+																	<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+																</span>
+															</a>
+														</td>
+													</tr>
+													
+													<tr ng-if="ctrl.selectprocnt == 0">
+														<td class="text-center" colspan="999">
+															<span ng-bind="'lg_main.no_row' | translate" ></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td>{{'lg_active.actType' | translate}}</td>
+								<td>
+									<select class="form-control" ng-model="ctrl.active.actTypePCode" 
+										ng-change="ctrl.getActList('change')"
+										ng-options="item.id as item.name for item in ctrl.actType_list">
+						                <option value=""  disabled selected hidden >-- {{'lg_main.please_select'|translate}} --</option>
+						            </select>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.active.actTypePCode != '1'">
+								<td width="150" style="border:0;">
+									<span ng-bind="'lg_active.set' | translate">優惠設定</span> <span class="text-red">*</span>
+								</td>
+								
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" ng-if="ctrl.active.actTypePCode == '2' || ctrl.active.actTypePCode == '3'" ng-bind="'lg_active.all_order' | translate">全單滿</span>
+										<span class="input-group-addon" ng-if="ctrl.active.actTypePCode == '4' || ctrl.active.actTypePCode == '5'" ng-bind="'lg_active.one_order' | translate">單品滿</span>
+										<input type="number" class="form-control" ng-model="ctrl.active.var01" />
+										<span class="input-group-addon" ng-if="ctrl.active.actTypePCode == '2' || ctrl.active.actTypePCode == '4'" ng-bind="'lg_active.dollor' | translate">元</span>
+										<span class="input-group-addon" ng-if="ctrl.active.actTypePCode == '3' || ctrl.active.actTypePCode == '5'" ng-bind="'lg_active.piece' | translate">件</span>
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>{{'lg_active.actRange' | translate}}</td>
+								<td>
+									<select class="form-control" ng-model="ctrl.active.actRangePCode" 
+										ng-change="ctrl.getActList('change')"
+										ng-options="item.id as item.name for item in ctrl.actRange_list">
+						                <option value=""  disabled selected hidden >-- {{'lg_main.please_select'|translate}} --</option>
+						            </select>
+								</td>
+							</tr>
+							
+							<tr ng-show="ctrl.active.actRangePCode == '2'">
+								<td style="border:0;"><txt ng-bind="'lg_active.select_target_product' | translate">選擇指定商品</txt> <span class="text-red">*</span></td>
+								<td style="border:0;">        
+									<div class="main-box-body clearfix" >
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th><span ng-bind="'lg_active.active_proimg' | translate"></span></th>
+														<th><span ng-bind="'lg_active.active_proname' | translate"></span></th>
+														<th>
+															<a href="javascript:void(null);" ng-click="ctrl.addPro()" class="btn btn-primary pull-right">
+																<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span style="color:#FFF;" ng-bind="'lg_active.active_addpro' | translate" ></span>
+															</a>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="products in ctrl.selectpro_list track by $index" >
+														<td style="width:20%;"><img ng-src="{{products.img}}" alt="" style="max-width:50px" /></td>
+														<td><span ng-bind="products.name" ></span></td>
+														<td  style="width: 20%;">
+															<a href="javascript:void(0)" ng-click="ctrl.deletepro($index)" class="table-link danger">
+																<span class="fa-stack">
+																	<i class="fa fa-square fa-stack-2x"></i>
+																	<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+																</span>
+															</a>
+														</td>
+													</tr>
+													
+													<tr ng-if="ctrl.selectprocnt == 0">
+														<td class="text-center" colspan="999">
+															<span ng-bind="'lg_main.no_row' | translate" ></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</td>
+							</tr>
+							
+							
+							
+						</tbody>
+					</table> 
+				</div>
+                                        
+                                        
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>                            
+</div>
+
+
+<script type="text/ng-template" id="AddProductModal.html">
+    <div class="modal-header">
+		<button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+		<h4 class="modal-title" ng-bind="'lg_active.active_selectpro'|translate"></h4>
+    </div>
+    <div class="modal-body">
+		<div ng-if="ctrl.TypeListMArr.length" class="form-group form-group-select2">
+			<select ng-options="item.id as item.name for item in ctrl.TypeListMArr" ng-model="ctrl.TypeListM" class="form-control" ng-change="ctrl.TypeListChg()" >
+				<option value="" disabled selected hidden> {{'lg_main.choose' | translate}} </option>
+			</select>
+		</div>
+		<div class="form-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><span ng-bind="'lg_active.active_proimg' | translate"></span></th>
+						<th><span ng-bind="'lg_active.active_proname' | translate"></span></th>
+						<th>
+							<a href="javascript:void(null);" ng-click="ctrl.addproAll()" class="btn btn-primary">
+								<txt style="color:#FFF;" ng-bind="'lg_active.add_all_product' | translate">加入所有商品</txt>
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="products in ctrl.ProListArr track by $index" >
+						<td style="width:20%;"><img ng-src="{{products.img}}" alt="" style="max-width:50px" /></td>
+						<td><span ng-bind="products.name" ></span></td>
+						<td  style="width: 20%;">
+							<a ng-if="products.has == '0'" href="javascript:void(0)" ng-click="ctrl.addproM($index)" class="table-link">
+								<span class="fa-stack">
+									<i class="fa fa-square fa-stack-2x"></i>
+									<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</td>
+					</tr>
+					
+					<tr ng-if="ctrl.selectprocnt == 0">
+						<td class="text-center" colspan="999">
+							<span ng-bind="'lg_main.no_row' | translate" ></span>
+						</td>
+					</tr>
+				</tbody>
+			
+			</table>
+		</div>
+    </div>
+    <div class="modal-footer">				
+		<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-primary">
+			<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok'|translate"></span>
+		</a>
+    </div>
+</script>

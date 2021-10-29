@@ -1,0 +1,149 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_news.news_manager' | translate"></span></li>
+			<li class="active">
+				<span ng-if="!ctrl.params.id" ng-bind="('lg_main.add'|translate) + ('lg_news.news_title'|translate)"></span>
+				<span ng-if="ctrl.params.id" ng-bind="('lg_main.edit'|translate) + ('lg_news.news_title'|translate)"></span>
+			</li>
+		</ol>
+		
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_news.news_manager' | translate"></span></h2>
+					
+					<div class="filter-block pull-right">								
+						<button ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</button>													
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-rightt">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+				</header>
+				
+				<div class="main-box-body clearfix" >
+					<div class="table-responsive" >
+						<table class="table" >
+							<tbody>
+								<tr ng-if="ctrl.textList.length == 0">
+									<td width="150" style="border:0;"><span ng-bind="'lg_news.news_name' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.news_dtl.name" placeholder="{{'lg_news.news_name' | translate}}" /></td>
+								</tr>
+								<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+									<td width="150" style="border:0;">{{('lg_lang.'+text.code) | translate}} <span ng-bind="'lg_news.news_name' | translate"></span> <span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" placeholder="{{'lg_news.news_name' | translate}}" /></td>
+								</tr>
+								<tr>
+									<td><span ng-bind="('lg_main.fdate' | translate)"></span><span class="text-red">*</span></td>
+									<td>                         
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" date-range-picker ng-model="ctrl.news_dtl.newsDate" options="{singleDatePicker: true}" clearable="true" />
+          								</div>
+									</td>
+								</tr>
+								<tr>
+									<td ng-bind="('lg_main.edate' | translate)+'('+('lg_news.news_date_msg' | translate)+')'"></td>
+									<td>                                                            
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" date-range-picker ng-model="ctrl.news_dtl.pubDate" options="{singleDatePicker: true}" clearable="true">
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<td ng-bind="'lg_main.mstate' | translate"></td>
+									<td>        
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.news_dtl.publish" ng-model="ctrl.news_dtl.publish" id="news_state" ng-true-value="'1'" ng-false-value="'0'">
+											<label class="onoffswitch-label" for="news_state">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								
+								<tr ng-if="ctrl.textList.length == 0">
+									<td width="150" ><span ng-bind="'lg_news.news_summary' | translate"></span><span class="text-red">*</span></td>
+									<td><input type="text" class="form-control" ng-model="ctrl.news_dtl.summary" placeholder="{{'lg_news.news_summary' | translate}}" /></td>
+								</tr>
+								<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+									<td width="150">{{('lg_lang.'+text.code) | translate}} <span ng-bind="'lg_news.news_summary' | translate"></span> <span class="text-red">*</span></td>
+									<td><input type="text" class="form-control" ng-model="ctrl.summaryList[text.code]" placeholder="{{'lg_news.news_summary' | translate}}" /></td>
+								</tr>
+								<!--<tr rowspan="2">
+									<td ng-bind="'lg_news.news_upload_image' | translate"></td>
+									<td>
+										<img ng-show="previewImage"  ng-src="{{previewImage}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+										<br>
+	                                    <file-field ng-model="newsimg" preview="previewImage" class="btn btn-primary" >瀏覽</file-field>
+	                                    <span class="text-red" ng-bind="'lg_news.news_upload_msg' | translate"></span>
+									</td>
+								</tr>-->
+
+								<tr>
+									<td ng-bind="'lg_main.page_type' | translate"></td>
+									<td>                                                            
+										<div class="btn-group">
+											<label class="btn btn-primary" ng-model="ctrl.news_dtl.linktype" uib-btn-radio="'page'">{{'lg_main.page_type_web' | translate}}</label>
+										    <label class="btn btn-primary" ng-model="ctrl.news_dtl.linktype" uib-btn-radio="'link'"> {{'lg_main.page_type_link' | translate}}</label>
+										    <!--label class="btn btn-primary" ng-model="ctrl.news_dtl.linktype" uib-btn-radio="'database'">{{'lg_main.page_type_dbpage' | translate}}</label-->
+										</div>
+									</td>
+								</tr>
+								<tr ng-show="ctrl.news_dtl.linktype=='page'" ng-if="ctrl.textList.length == 0">
+									<td ng-bind="'lg_main.upload_page_edit' | translate"></td>
+									<td>
+									<div class="clearfix"><div class="form-group"><textarea class="form-control " el2-editor id="news_content" ng-model="ctrl.news_dtl.content" rows="3"></textarea></div></div>
+									</td>
+								</tr>
+								
+								<tr ng-show="ctrl.news_dtl.linktype=='page'" ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList" >
+									<td>{{('lg_lang.'+text.code) | translate}} {{'lg_main.upload_page_edit' | translate}}</td>
+									<td>
+									<div class="clearfix"><div class="form-group"><textarea class="form-control " el2-editor id="news_content{{text.code}}" ng-model="ctrl.contentList[text.code]" rows="3"></textarea></div></div>
+									</td>
+								</tr>
+								
+								<tr ng-show="ctrl.news_dtl.linktype=='link'">
+									<td ng-bind="'lg_main.linkurl' | translate"></td>
+									<td><input type="text" class="form-control" ng-model="ctrl.news_dtl.linkurl" placeholder="{{'lg_main.linkurl' | translate}}" /></td>
+								</tr>
+								
+								<tr id="news_pagetype_tr_2" ng-show="ctrl.news_dtl.linktype=='database'">
+									<td ng-bind="'lg_main.select_page' | translate"></td>
+									<td>
+										<span ng-bind="ctrl.news_dtl.path"></span>
+										<dbpage-sel data="ctrl.news_dtl"></dbpage-sel>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div class="filter-block pull-right">									
+						<button ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</button>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+						
+				</div>
+			</form>
+			
+		</div>
+	</div>
+</div>

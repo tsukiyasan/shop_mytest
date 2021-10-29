@@ -1,0 +1,17 @@
+"lg_treemenu": {
+	"treemenu": "Custom Page",
+	"manager": "Customized page management",
+	"name": "Name",
+	"status": "Status",
+	"odring": "Sorting",
+	"url": "Link URL",
+	"page": "Custom Page",
+	"imgtext": "Graphics Module",
+	"img":"Add image",
+	"text":"Add text",
+	"imgupd":"Page Image",
+	"content":"Edit page",
+	"var1":"Introduction",
+	"var1msg":"The foreground is displayed on the banner of this page",
+	"end": ""
+}

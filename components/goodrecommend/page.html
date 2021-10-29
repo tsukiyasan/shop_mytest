@@ -1,0 +1,36 @@
+
+	
+	<section style="background:#BAE2F8 url(images/bg_product1.png) top center no-repeat;"><!--TITLE-->
+		<div class="container title_padding">        
+            <div class="top_title">
+                <span class="cht" ng-bind="'lg_goodrecommend.goodrecommend' | translate"></span><br />
+                <span class="small" ng-bind="ctrl.title"></span>
+            </div>          
+	    </div>
+    </section>  
+	
+	
+	<section class="path"><!--PATH-->
+    	<div class="container">
+        	<div id="pathway"><span><a ng-href="index_page">首頁</a><i class="fa fa-caret-right"></i>工坊介紹</span><i class="fa fa-caret-right"></i>好評推薦</span></div>            
+        </div>
+    </section>
+    
+    
+    <section style="background:#bae3f9 url(images/bg_like.jpg) center top no-repeat;">
+        <div class="container page_padding">  
+	        <div class="row">    
+	              
+	            <div class="col-xs-12">
+	            	<img src="images/img_like.png" class="img-responsive center-block" />
+	            	
+	            	<a ng-repeat="grlist in ctrl.data_list" href="{{grlist.linkurl}}" target="_blank" >
+	            		<img src="{{grlist.img}}" class="img-responsive center-block" />
+	            	</a>
+
+	            </div>                    
+	            
+	        </div>
+        </div>
+    </section>
+    

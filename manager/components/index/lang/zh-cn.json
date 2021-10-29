@@ -1,0 +1,23 @@
+"lg_index":{
+	"index":"商店总览",	
+	"str_num":"件",
+	"str_week":"周",
+	"str_month":"月",
+	"order_today":"今日订单",
+	"order_process":"待出货订单",
+	"product_instock":"库存警示",
+	"product_cnt":"商品上线数",
+	"order_cnt":"订单量分析",
+	"order_amt":"收益",
+	"order":"订单",
+	"newmember":"新客户",
+	"custom":"访客",
+	"report":"浏览报表",
+	"amt":"营业额分析",
+	"view":"浏览人次分析",
+	"product_view":"商品浏览次数前6名",
+	"product_name":"商品名称",
+	"product_viewcnt":"浏览次数",
+	"product_viewrank":"排名变化",
+	"product_sale":"商品销售前6名"
+}

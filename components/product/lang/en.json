@@ -1,0 +1,21 @@
+"lg_products":{
+	"search_result":"Search Result",
+	"product_price":"Special price",
+	"product_login_first":"Log in to view price",
+	"product_select":"Please select",
+	"product_count":"Quantity",
+	"product_mag1":"This item is currently out of stock! It is still available for purchase, but shipment once restock.",
+	"product_mag2":"Will notify delivery date upon restock, or please select other item. Thank you!",
+	"product_mag3":"",
+	"product_mag4":"Note: Current stock available     , ",
+	"product_mag5":"the quantity you've purchased has reached the current stock availability, thank you!",
+	"product_active":"Promotion",
+	"product_pay":"Checkout now",
+	"product_add_cart":"Add to cart",
+	"product_data":"Item info",
+	"product_video":"Related Video",
+	"product_return":"Back",
+	"product_select_count":"Select Quantity",
+	"product_added_cart":"Added to cart",
+	"product_end":""
+}

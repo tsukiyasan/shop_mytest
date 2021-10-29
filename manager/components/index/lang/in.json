@@ -1,0 +1,23 @@
+"lg_index":{
+	"index":"Sekilas toko",
+	"str_num":"Bagian",
+	"str_week":"minggu",
+	"str_month":"Bulan",
+	"order_today":"Pesanan hari ini",
+	"order_process":"Pesanan Pengiriman Tertunda",
+	"product_instock":"Peringatan Inventaris",
+	"product_cnt":"Nomor produk online",
+	"order_cnt":"Analisis Volume Pesanan",
+	"order_amt":"Pendapatan",
+	"order":"Memesan",
+	"newmember":"Pelanggan baru",
+	"custom":"Pengunjung",
+	"report":"Jelajahi laporan",
+	"amt":"Analisis Omset",
+	"view":"Analisis pemirsa",
+	"product_view":"6 tampilan produk teratas",
+	"product_name":"Nama Produk",
+	"product_viewcnt":"Tampilan",
+	"product_viewrank":"Perubahan peringkat",
+	"product_sale": "6 produk teratas untuk dijual"
+}

@@ -1,0 +1,9 @@
+"lg_news": {
+	"news": "最新消息",
+	"news_manager": "最新消息管理",
+	"news_title": "讯息",
+	"news_name": "讯息标题",
+	"news_summary": "简述",
+	"news_content": "讯息内容",
+	"news_date_msg": "空白为无期限"
+}

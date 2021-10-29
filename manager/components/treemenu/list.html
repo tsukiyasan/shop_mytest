@@ -1,0 +1,136 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_treemenu.treemenu' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-file-code-o"></i>&nbsp;<span ng-bind="'lg_treemenu.manager' | translate"></span></h2>
+				<div class="filter-block pull-right">
+					<div ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
+						<button class="form-control" data-toggle="dropdown" >
+							{{'lg_main.operate'|translate}}
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.operateChg(1)"><i class="fa fa-eye"></i>{{'lg_main.openitem'|translate}}</a></li>
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.operateChg(2)"><i class="fa fa-eye-slash"></i>{{'lg_main.closeitem'|translate}}</a></li>
+							<li ng-if="ctrl.funcPerm.D == 'true'" ><a ng-click="ctrl.operateChg(3)"><i class="fa fa-trash-o"></i>{{'lg_main.delitem'|translate}}</a></li>
+						</ul>
+					</div>
+					<!--
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					-->
+					<!--a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a-->
+					<a ng-if="ctrl.funcPerm.C == 'true'" ng-href="#treemenu_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<!--a ng-if="ctrl.level<2 || !ctrl.level" href="#treemenu_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a-->
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#treemenu_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back_page' | translate">回上一頁</span>
+					</a>
+				</div>
+			</header>
+			<!--
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_treemenu.manager' | translate">&nbsp;</span></h2>
+				
+				<div class="filter-block pull-right">
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" id="treemenu_search" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					<a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					<a ng-href="#treemenu_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#treemenu_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#treemenu_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>回上一頁</span>
+					</a>
+				</div>
+			</header>
+			-->
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">
+									<md-checkbox md-no-ink
+												 ng-checked="ctrl.isChecked()"
+						                         md-indeterminate="ctrl.isIndeterminate()"
+						                         ng-click="ctrl.toggleAll()"
+						                         aria-label=" "
+						                         class="md-primary"
+						                         style="margin-bottom:0px;">
+						            </md-checkbox>
+								</th>
+								<th></th>
+								<th><span ng-bind="'lg_main.title' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_main.onoff' | translate"></span></th>
+								<!--<th class="text-center" ><span>{{'lg_treemenu.url' | translate}}</span></th>-->
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="treemenus in ctrl.data_list track by $index" ng-show="treemenus.id">
+								<td class="text-center" width="5%">
+									<md-checkbox md-no-ink ng-checked="ctrl.exists(treemenus, ctrl.selected)" ng-click="ctrl.toggle(treemenus, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+								</td>
+								<td style="width:5%;" class="text-center" >
+									<span ng-if="treemenus.pagetype=='dir'"><i class="fa fa-folder"></i></span>
+									<span ng-if="treemenus.pagetype=='page'"><i class="fa fa-file"></i></span>
+								</td>
+								<td  style="width:70%;" >
+									<span ng-if="treemenus.pagetype=='page'">{{treemenus.name}}</span>
+									<a ng-if="treemenus.pagetype=='dir'" ng-href="#treemenu_list#{{treemenus.param}}" >{{treemenus.name}}</a>
+								</td>
+								<td class="text-center" width="10%"><span ng-click="ctrl.publishChange(treemenus.id,treemenus.publish)" ng-class="{1: 'label label-success', 0: 'label label-gray'}[treemenus.publish]" ng-bind="{1: 'ON', 0: 'OFF'}[treemenus.publish]"></span></td>
+								<!--
+								<td width="55%" ng-bind="treemenus.url">
+									
+								</td>
+								-->
+								<td  style="width: 15%;">
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="#treemenu_{{treemenus.pagetype}}#{{treemenus.edit}}" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" ng-click="ctrl.del(treemenus.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		</div>
+			<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

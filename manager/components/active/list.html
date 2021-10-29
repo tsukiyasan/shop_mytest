@@ -1,0 +1,69 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/">{{'lg_main.index' | translate}}</a></li>
+			<li class="active"><span >{{'lg_active.active' | translate}}</span></li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">                       
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name">&nbsp;{{'lg_active.active' | translate}}</span></h2>
+				
+				<div class="filter-block pull-right">
+					
+					<a ng-if="ctrl.funcPerm.U == 'true'" ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					
+					<a ng-if="ctrl.funcPerm.C == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage()" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;{{'lg_main.add' | translate}}
+					</a>
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><span>{{'lg_main.title' | translate}}</span></th>
+								<th class="text-center"><span>{{'lg_main.onoff' | translate}}</span></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="active in ctrl.data_list">
+								<td  style="width:30%;">
+									{{active.name}}
+								</td>
+								<td class="text-center"><span ng-class="{1: 'label label-success', 0: 'label label-gray'}[active.publish]" id="list_{{active.id}}"  ng-bind="{'1': 'ON', '0': 'OFF'}[active.publish]"></span></td>
+							
+								<td  style="width: 15%;">
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage(active.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" ng-click="ctrl.delete(active.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+</div>
+	

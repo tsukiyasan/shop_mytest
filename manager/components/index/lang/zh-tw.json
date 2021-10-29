@@ -1,0 +1,23 @@
+"lg_index":{
+	"index":"商店總覽",	
+	"str_num":"件",
+	"str_week":"週",
+	"str_month":"月",
+	"order_today":"今日訂單",
+	"order_process":"待出貨訂單",
+	"product_instock":"庫存警示",
+	"product_cnt":"商品上線數",
+	"order_cnt":"訂單量分析",
+	"order_amt":"收益",
+	"order":"訂單",
+	"newmember":"新客戶",
+	"custom":"訪客",
+	"report":"瀏覽報表",
+	"amt":"營業額分析",
+	"view":"瀏覽人次分析",
+	"product_view":"商品瀏覽次數前6名",
+	"product_name":"商品名稱",
+	"product_viewcnt":"瀏覽次數",
+	"product_viewrank":"排名變化",
+	"product_sale":"商品銷售前6名"
+}

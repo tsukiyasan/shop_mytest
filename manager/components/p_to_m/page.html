@@ -1,0 +1,559 @@
+
+<div class="row" >
+    <div class="col-lg-12">
+        
+			
+			<div class="row">
+            <div class="col-lg-12">
+					<ol class="breadcrumb">
+						<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+						<li class=""><a href="#/order"><span ng-bind="'lg_order.order_manager' | translate"></span></a></li>
+						<li class="active"><span ng-bind="'lg_order.order_manager_dtl' | translate"></span></li>
+					</ol>
+			</div>
+			</div>
+		<div class="row" print-section>
+                            
+		    <div class="col-md-12">
+		    <div class="main-box clearfix">
+		                                        
+				<header class="main-box-header clearfix" >
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_manager_info' | translate"></span></h2>
+					<div class="filter-block pull-right" print-remove>										
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-arrow-circle-left fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back' | translate"></span>
+						</a>			
+					</div>
+				</header>
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;" ng-bind="'lg_order.order_orderNum' | translate"></td>
+									<td style="border:0;" colspan="2" ng-bind="ctrl.order.orderNum"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_finalPayDate' | translate"></td>
+									<!--<td colspan="2" ng-bind="ctrl.order.ctime"></td>-->
+									<td>
+										<div class="input-append date input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" date-range-picker ng-model="ctrl.order.finalPayDate" options="ctrl.datePickerOption" clearable="true">
+										</div>
+									</td>
+									<td width="150">
+										<a href="javascript:void(0)" ng-click="ctrl.order_finalPayDate_update()" class="btn btn-success pull-right ng-scope">
+											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_finalPayDate_update' | translate">更新完款日期</txt>
+										</a>
+									</td>
+								</tr>
+								<!--
+								<tr>
+									<td ng-bind="'lg_order.order_finalPayDate' | translate"></td>
+									<td>
+										<div class="input-append date input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" date-range-picker ng-model="ctrl.order.finalPayDate" options="ctrl.datePickerOption" clearable="true">
+										</div>
+									</td>
+									<td width="150">
+										<a href="javascript:void(0)" ng-click="ctrl.order_finalPayDate_update()" class="btn btn-success pull-right ng-scope">
+											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_finalPayDate_update' | translate">更新完款日期</txt>
+										</a>
+									</td>
+								</tr>
+								-->
+								<tr>
+									<td ng-bind="'lg_order.order_memName' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.membername"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_memMail' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.email"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_amt' | translate"></td>
+									<td colspan="2" ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(ctrl.order.totalAmt | formatnumber)"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_payType' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.payType"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_getType' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.dlvrType"></td>
+								</tr>
+								<!--tr>
+									<td ng-bind="'lg_order.order_coin' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.freecoin +'&emsp;'+('lg_order.order_coin_msg' | translate)"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_delay' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.delayCnt"></td>
+								</tr-->
+								<!--
+								<tr>
+									<td ng-bind="'lg_order.order_billType' | translate"></td>
+									<td colspan="2" >
+                                    <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                    	<input type="radio" name="options" id="option1"> 尚未付款
+                                    </label>
+                                    <label class="btn btn-primary">
+                                    	<input type="radio" name="options" id="option2"> 已付款
+                                    </label>
+                                    </div>
+                                    </td>
+								</tr>
+								-->
+								<tr >
+									<td ng-bind="'lg_order.order_type' | translate"></td>
+									<td colspan="2" >
+                                    <div class="btn-group" data-toggle="buttons">
+                                    	<label ng-repeat="data in ctrl.pcode.bill" ng-if="ctrl.order.status!=6 || data.codeValue==6" class="btn btn-primary" ng-model="ctrl.order.status" uib-btn-radio="'{{data.codeValue}}'">
+                                    		<span ng-if="!(data.codeValue==2 && ctrl.order.payTypeCode==1) && !(data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName}}</span>
+                                    		<span ng-if="(data.codeValue==2 && ctrl.order.payTypeCode==1) || (data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName_chs}}</span>
+                                    	</label>
+                                    </div>	
+                                    <a ng-if="ctrl.order.status!=6 && ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.cancel_order()" class="btn btn-danger pull-right">
+                                        <i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_cancel_order' | translate">取消此訂單</txt>
+                                    </a>
+									<!--
+                                    <a ng-if="ctrl.order.status!=8 && ctrl.order.status!=6" href="javascript:void(0)" ng-click="ctrl.return_order()" class="btn btn-danger pull-right" style="margin-right:5px;">
+                                        <i class="fa fa-undo fa-lg"></i>&nbsp;&nbsp;退貨此訂單
+                                    </a>
+									-->
+                                    </td>
+								</tr>
+                                														
+							</tbody>
+						</table> 
+                    </div>
+                
+				</div>                                        
+                
+	</div><!--main-box end-->
+	</div>
+    
+    
+    
+    
+    
+    <div class="col-md-6">
+    <div class="main-box clearfix">
+    
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_recipient' | translate"></span></h2>
+						<a ng-if="(ctrl.order.status<5 || ctrl.order.status==7) && ctrl.funcPerm.U == 'true'" href="javascript:void(0)" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
+							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<span ng-bind="'lg_order.order_recipient_msg' | translate"></span>
+						</a>
+						<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.receive_update()" class="btn btn-success pull-right" style="margin-right:10px;">
+							<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<span ng-bind="'lg_order.order_receive_update' | translate"></span>
+						</a>
+				</header>
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;" ng-bind="'lg_order.order_recipient_name' | translate"></td>
+									<td style="border:0;" colspan="2">
+										
+										<input type="text" class="form-control" ng-model="ctrl.order.dlvrName">
+									</td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_recipient_mobile' | translate"></td>
+									<td colspan="2">
+										<input type="text" class="form-control" ng-model="ctrl.order.dlvrMobile">
+									</td>
+								</tr>	
+								<tr>
+									<td ng-bind="'lg_order.order_recipient_addr' | translate"></td>
+									<td colspan="2">
+										<select class="form-control" ng-model="ctrl.order.dlvrState" ng-options="item as item.state for item in ctrl.city track by item.id">
+				                            <option value="" selected="" ng-bind="('lg_order.order_state' | translate) + ' *'">居住州*</option>
+				                        </select>
+										<input type="text" class="form-control" ng-model="ctrl.order.dlvrCity.id" ng-value="ctrl.order.dlvrCity.id">
+				                        
+				                        <br>
+										<input type="text" class="form-control" ng-model="ctrl.order.dlvrAddr" ng-value="ctrl.order.dlvrAddr">
+									</td>
+								</tr>
+								
+								<tr>
+									<td ng-bind="'lg_order.order_recipient_notes' | translate"></td>
+									<td colspan="2">
+										<textarea id="message" class="form-control" rows="4" ng-model="ctrl.order.dlvrNote"></textarea>
+									</td>
+								</tr>
+								<tr ng-if="ctrl.order.has_label =='0' && ctrl.order.status != '0'">
+									<td ng-bind="'lg_order.order_shipDate' | translate"></td>
+									<td colspan="1">
+										<input type="text" date-range-picker options="ctrl.datePickerOption2" class="form-control" ng-model="ctrl.order.shipDate" ng-value="ctrl.order.shipDate">
+									</td>
+									<td colspan="1">
+										<a href="javascript:void(0)" ng-click="ctrl.order_label_update()" class="btn btn-success pull-right ng-scope">
+											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_upsp_generate' | translate">產生標籤</txt>
+										</a>
+									</td>
+								</tr>
+								<tr ng-if="ctrl.order.has_label =='1' && ctrl.order.status != '0'">
+									<td ng-bind="'lg_order.order_shipDate' | translate"></td>
+									<td colspan="1">
+										<div ng-bind="ctrl.order.label_shipDate"></div>
+									</td>
+									<td colspan="1">
+										<a href="/upload/stamps/{{ctrl.order.orderNum}}.pdf" target="_blank" class="btn btn-success pull-right ng-scope">
+											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_upsp_download' | translate">下載標籤</txt>
+										</a>
+									</td>
+								</tr>													
+							</tbody>
+						</table> 
+                    </div>
+				</div>
+    
+    
+    
+	</div><!--main-box end-->
+    </div>
+    
+    <div class="col-md-6">
+    <div ng-if="ctrl.order.payTypeCode == '2'" class="main-box clearfix">
+                                        
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_atmInfo' | translate"></span></h2>
+				</header>
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;" ng-bind="'lg_order.order_pay_date' | translate"></td>
+									<td style="border:0;" ng-bind="ctrl.order.atmDate"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_atmName' | translate"></td>
+									<td ng-bind="ctrl.order.atmName"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_atmBank' | translate"></td>
+									<td ng-bind="ctrl.order.atmBank"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_atmNum' | translate"></td>
+									<td ng-bind="ctrl.order.atmlastNum"></td>
+								</tr>
+								<!--
+								<tr>
+									<td ng-bind="'lg_order.order_atmMoney' | translate"></td>
+									<td ng-bind="(ctrl.order.atmMoney | formatnumber)+' 元'"></td>
+								</tr>
+								-->
+							</tbody>
+						</table> 
+                    </div>
+                
+				</div>                                        
+                
+	</div><!--main-box end-->
+	
+	<div ng-if="ctrl.order.payTypeCode == '7'" class="main-box clearfix">
+                                        
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_atmInfo' | translate"></span></h2>
+				</header>
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;" ng-bind="'lg_order.order_account' | translate">匯款帳號</td>
+									<td style="border:0;" ng-bind="ctrl.order.virtualAccount"></td>
+								</tr>
+							</tbody>
+						</table> 
+                    </div>
+                
+				</div>                                        
+                
+	</div><!--main-box end-->
+	
+	<div ng-if="ctrl.order.payTypeCode == '3' || ctrl.order.payTypeCode == '6'" class="main-box clearfix">
+                                        
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_creditCard_info' | translate">線上刷卡資訊</span></h2>
+				</header>
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td ng-bind="'lg_order.order_last4digitpan' | translate">卡號末四碼</td>
+									<td ng-bind="ctrl.order.last4digitpan"></td>
+								</tr>
+							</tbody>
+						</table> 
+                    </div>
+                
+				</div>                                        
+                
+	</div><!--main-box end-->
+	
+    <div class="main-box clearfix" ng-if="1==2">
+    
+    
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_invoiceType' | translate"></span></h2>
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.invoice_update()" class="btn btn-success pull-right" style="margin-right:10px;">
+						&nbsp;&nbsp;<span ng-bind="'lg_order.order_invoice_update' | translate"></span>
+					</a>
+				</header>		
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<!--
+								<tr>
+									<td width="150" style="border:0;" ng-bind="'lg_order.order_invoiceInfo' | translate"></td>
+									<td style="border:0;" ng-bind="ctrl.order.invoiceInfo"></td>
+								</tr>
+								-->
+								<tr>
+									<td ng-bind="'lg_order.order_invoiceType' | translate"></td>
+									<td >
+										<select class="form-control" id="select" ng-model="ctrl.order.invoiceType">
+		                                    <option value="" ng-bind="'lg_order.order_invoiceType' | translate">收據處理方式*</option>
+		                                    <option value="0" ng-bind="'lg_order.order_invoiceType0' | translate">索取紙本收據</option>
+		                                    <!--<option value="1" ng-bind="'lg_order.order_invoiceType1' | translate">捐獻發票至其他單位</option>-->
+		                                    <option value="2" ng-bind="'lg_order.order_invoiceType2' | translate">不索取紙本收據</option>
+		                                </select>
+										
+									</td>
+								</tr>	
+								<tr ng-if="ctrl.order.invoiceType=='0'">
+									<td ng-bind="'lg_order.order_invoiceTitle' | translate"></td>
+									<td >
+										<input id="name" type="text" class="form-control" placeholder="{{'lg_order.order_invoiceTitle' | translate}}" ng-model="ctrl.order.invoiceTitle">
+									</td>
+								</tr>	
+								<tr ng-if="ctrl.order.invoiceType=='0'">
+									<td ng-bind="'lg_order.order_invoiceSN' | translate"></td>
+									<td >
+										<input id="name" type="text" class="form-control" placeholder="{{'lg_order.order_invoiceSN' | translate}}" ng-model="ctrl.order.invoiceSN">
+									</td>
+								</tr>												
+								<tr ng-if="ctrl.order.invoiceType=='1'">
+									<td ng-bind="'lg_order.order_invoice' | translate"></td>
+									<td >
+										<input id="name" type="text" class="form-control" placeholder="{{'lg_order.order_invoice' | translate}}" ng-model="ctrl.order.invoice">
+									</td>
+								</tr>												
+							</tbody>
+						</table> 
+                    </div>
+				</div>
+    
+    
+	</div><!--main-box end-->
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-12">
+    <div class="main-box clearfix">
+            
+            
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_detail' | translate"></span></h2>
+					
+					<!--
+					<div class="filter-block pull-right" print-remove>
+						<a href="javascript:void(0)" print-btn class="btn btn-primary pull-right">
+							<i class="fa fa-print"></i>&nbsp;&nbsp;<span ng-bind="'lg_order.order_print' | translate"></span>
+						</a>
+					</div>
+					-->
+					<!--div class="filter-block pull-right" print-remove>
+						<a href="components/order/print.php?v=4&idStr=||{{ctrl.order.id}}||" target="_blank" class="btn btn-primary pull-right">
+							<i class="fa fa-print"></i>&nbsp;&nbsp;<span ng-bind="'lg_order.order_print' | translate"></span>
+						</a>
+					</div>
+					<div class="filter-block pull-right" print-remove>
+						<a href="components/order/print.php?v=5&idStr=||{{ctrl.order.id}}||" target="_blank" class="btn btn-primary pull-right">
+							<i class="fa fa-print"></i>&nbsp;&nbsp;<span ng-bind="'lg_order.order_outprint' | translate"></span>
+						</a>
+					</div-->
+				</header>
+				
+                
+				<div class="main-box-body clearfix">
+					<div class="table-responsive"> 
+                    
+						<table class="table">
+                        <thead>                                                
+                            <tr>
+                                <th style="text-align: center;" ng-bind="'lg_order.order_index' | translate"></th>
+                                <th width="60%" ng-bind="'lg_order.order_proName' | translate"></th>
+                                <th style="text-align: right;" ng-bind="'lg_order.order_unitAmt' | translate"></th>
+                                <th style="text-align: right;" ng-bind="'lg_order.order_realAmt' | translate"></th>
+                                <th style="text-align: right;" ng-bind="'lg_order.order_cnt' | translate"></th>
+                                <th style="text-align: right;" ng-bind="'lg_order.order_amt' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody><!-- ngRepeat: data in orders.order_list -->
+                            
+                            
+                            <tr ng-if="ctrl.combinorder == '1' && ctrl.orderDtl.length>0" class="ng-scope" ng-init="$root.firstIndex=$lastIndex+1" ng-repeat-start="(key,data) in ctrl.orderDtl track by $index">
+                            	<td align="center" ng-bind="($index+1)"></td>
+                                <td>
+                                	<span ng-bind="data[0].name"></span>
+                                	<span class="red" ng-if="ctrl.order.activeRecord[key][data[0].pid]" ng-bind="ctrl.order.activeRecord[key][data[0].pid]"></span>
+                                </td>
+                                <td align="right" class="linethrough" ng-bind="data[0].highAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data[0].realAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data[0].quantity"></td>
+                                <td align="right" ng-bind="data[0].totalAmt | formatnumber"></td>
+                            </tr>
+                            
+                            <tr ng-if="ctrl.combinorder == '1' && $index>0" class="ng-scope" ng-repeat="(key2,data2) in data track by $index">
+                            	<td align="center" ></td>
+                                <td>
+                                	<span ng-bind="data2.name"></span>
+                                	<span class="red" ng-if="ctrl.order.activeRecord[key][data2.pid]" ng-bind="ctrl.order.activeRecord[key][data2.pid]"></span>
+                                </td>
+                                <td align="right" class="linethrough" ng-bind="data2.highAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data2.realAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data2.quantity"></td>
+                                <td align="right" ng-bind="data2.totalAmt | formatnumber"></td>
+                            </tr>
+                            
+                            
+                            <tr ng-if="ctrl.combinorder == '1'" style="border-top:2px #DFE6EA double;">
+                                <td colspan="4" align="right" class="red" ng-bind="ctrl.order.activeRecord[key].notes"></td>
+                                <td align="right" ng-bind="'lg_order.order_discount' | translate"></td>
+                                <td align="right" ng-bind="(ctrl.order.activeRecord[key].discount | formatnumber)"></td>
+                            </tr>
+                            
+                            <tr ng-if="ctrl.combinorder == '1'" style="border-top:2px #DFE6EA double;"  ng-repeat-end>
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_order_sumamt' | translate"></td>
+                                <td align="right" ng-bind="(ctrl.order.activeRecord[key].subAmt | formatnumber)"></td>
+                            </tr>
+                            
+                            <tr ng-if="ctrl.combinorder != '1' && ctrl.orderDtl.length>0" class="ng-scope" ng-init="$root.firstIndex=$lastIndex+1" ng-repeat="data in ctrl.orderDtl track by $index">
+                                <td align="center" ng-bind="($index+1)"></td>
+                                <td>
+                                	<span ng-if="data.protype == 'amtpro'" ng-bind="'lg_order.order_addPro' | translate">【加購品】</span>
+                          			<span ng-if="data.protype == 'freepro'" ng-bind="'lg_order.order_freePro' | translate">【贈品】</span>
+                                	<span ng-bind="data.name"></span>
+                                	<br ng-if="data.actionNotes">
+                                	<span class="red" ng-if="data.actionNotes" ng-bind="data.actionNotes"></span>
+                                </td>
+                                <td align="right" class="linethrough" ng-bind="data.highAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data.realAmt | formatnumber"></td>
+                                <td align="right" ng-bind="data.quantity"></td>
+                                <td align="right" ng-bind="data.totalAmt | formatnumber"></td>
+                            </tr>
+                            
+                            <tr ng-repeat-start="data in ctrl.orderBundleArray track by data.id">
+                                <td align="center" ng-bind="($index+$root.firstIndex+1)"></td>
+                                <td>
+                                    <span ng-bind="data.activeBundleName"></span>
+                                </td>
+                                <td align="right" class="linethrough" ng-bind="data.price | formatnumber"></td>
+                                <td align="right" ng-bind="data.price | formatnumber"></td>
+                                <td align="right" >1</td>
+                                <td align="right" ng-bind="data.price | formatnumber"></td>
+                            </tr>
+                            <tr ng-repeat-end ng-repeat="child in data.orderBundleDetail">
+                                <td></td>
+                                <td colspan="5" style="text-align:left;">
+                                    └<span ng-bind="' '+child.productName"></span><span ng-bind="'【'+child.productSpecName+'】'"></span>
+                                </td>
+                            </tr>
+                            <tr ng-if="ctrl.combinorder != '1'" style="border-top:2px #DFE6EA double;">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_sumamt' | translate"></td>
+                                <td align="right" ng-bind="(ctrl.order.sumAmt | formatnumber)"></td>
+                            </tr>										
+                            <tr ng-if="ctrl.combinorder != '1'" style="border-top:2px #DFE6EA double;">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_discount' | translate"></td>
+                                <td align="right" ng-bind="(ctrl.order.discount | formatnumber)"></td>
+                            </tr>	
+							<tr ng-if="ctrl.combinorder != '1'" style="border-top:2px #DFE6EA double;">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_m_discount' | translate"></td>
+                                <td align="right" ng-bind="(ctrl.order.m_discount | formatnumber)"></td>
+                            </tr>																		
+                            <!--tr ng-if="ctrl.combinorder != '1'" ng-if="ctrl.order.actionNotes">
+                                <td colspan="5" align="right" ng-bind="ctrl.order.actionNotes"></td>
+                                <td align="right"><span class="red" ng-bind="ctrl.order.actionDiscount"></span></td>
+                            </tr-->
+                            <!--tr>
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_coupon' | translate"></td>
+                                <td align="right"><span class="red" ng-bind="ctrl.order.couponDiscount"></span></td>
+                            </tr-->
+                            <tr>
+                                <td colspan="5" align="right" >
+                                	<span class="red" ng-if="ctrl.order.actionNotes" ng-bind="'【'+ctrl.order.actionNotes+'】'"></span>
+                                	<span ng-bind="'lg_order.order_dlvrFee' | translate"></span>
+                                </td>
+                                <td align="right" ng-bind="ctrl.order.dlvrFee"></td>
+                            </tr>
+							
+                            <tr style="border-top:2px #DFE6EA solid; border-bottom:6px #DFE6EA double;">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_total' | translate"></td>
+                                <td align="right"><span style="font-size:1.5em;" ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(((ctrl.order.totalAmt*1000)-(ctrl.order.m_discount*1000))/1000 | formatnumber)"></span></td>
+                            </tr>
+                            <tr ng-if="ctrl.order.pv != '0'">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_pv' | translate"></td>
+                                <td align="right"><span ng-bind="ctrl.order.pv"></span></td>
+                            </tr>
+                            <!-- <tr ng-if="ctrl.order.pv != '0'">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_bv' | translate"></td>
+                                <td align="right"><span ng-bind="ctrl.order.bv"></span></td>
+                            </tr>
+                            <tr ng-if="ctrl.order.bonus != '0'">
+                                <td colspan="5" align="right" ng-bind="'lg_order.order_bonus' | translate"></td>
+                                <td align="right"><span ng-bind="ctrl.order.bonus"></span></td>
+                            </tr> -->
+						</tbody>
+						</table>
+                    </div>
+				</div>
+            </div>
+		</div>  
+	</div><!--main-box end-->
+	</div>
+</div>
+<!-- Modal_mail -->
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" ng-bind="'lg_order.order_recipient_msg' | translate"></h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1"><span ng-bind="'lg_order.order_trace_number' | translate"></span> <span class="red">*</span></label>
+            <input type="text" class="form-control" ng-model="ctrl.trace.traceNumber" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1" ng-bind="'lg_order.order_trace_name' | translate"></label>
+            <input type="text" class="form-control" ng-model="ctrl.trace.traceName" placeholder="新竹物流">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1" ng-bind="'lg_order.order_trace_url' | translate"></label>
+            <input type="text" class="form-control" ng-model="ctrl.trace.traceUrl" placeholder="https://www.hct.com.tw/searchgoods_index.aspx">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span></button>
+        <button type="button" class="btn btn-success" ng-click="ctrl.trace_submit()" data-dismiss="modal"><i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

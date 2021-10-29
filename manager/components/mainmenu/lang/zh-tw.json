@@ -1,0 +1,13 @@
+"lg_mainmenu": {
+	"mainmenu": "主選單",
+	"mainmenu_banner": "banner",
+	"mainmenu_banner_name": "Slogan：",
+	"mainmenu_banner_limit": "文字限制12個字",
+	"mainmenu_banner_msg": "上傳圖檔大小限制 1M，尺寸1920*232",
+	"mainmenu_class": "商品分類",
+	"manager": "主選單管理",
+	"name": "名稱",
+	"mainmenu_ename": "英文名稱",
+	"mainmenuC_back": "返回上一層",
+	"mainmenu_content": "內容(使用網頁編輯才需填入)"
+}

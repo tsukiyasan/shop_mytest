@@ -1,0 +1,153 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#index_page" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_products.{{ctrl.title}}' | translate"></span></li>
+			<li class="active" ng-if="ctrl.belongname"><span ng-bind="ctrl.belongname"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left">
+					<i class="fa fa-cube"></i>&nbsp;
+					<span ng-if="ctrl.belongname" ng-bind="ctrl.belongname+'：'"></span>
+					<span ng-bind="'lg_products.{{ctrl.title}}' | translate"></span>
+				</h2>
+				<div class="filter-block pull-right">
+					<div ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
+						<a class="form-control" data-toggle="dropdown" >
+							<span ng-bind="'lg_main.batch_opt' | translate"></span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.operateChg(1)"><i class="fa fa-cart-plus"></i><span ng-bind="'lg_main.batch_opt1_product' | translate"></span></a></li>
+							<li ng-if="ctrl.funcPerm.U == 'true'" ><a ng-click="ctrl.operateChg(2)"><i class="fa fa-cart-arrow-down"></i><span ng-bind="'lg_main.batch_opt2_product' | translate"></span></a></li>
+							<li ng-if="ctrl.funcPerm.D == 'true'" ><a ng-click="ctrl.operateChg(3)"><i class="fa fa-trash"></i><span ng-bind="'lg_main.batch_opt3_product' | translate"></span></a></li>
+							
+						</ul>
+					</div>
+					
+					<div class="form-group pull-left">
+						<a class="form-control" data-toggle="dropdown" >
+							<span ng-bind="ctrl.nowtype.name?ctrl.nowtype.name:'lg_products.productType_chg' | translate"></span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a ng-click="ctrl.typeChg(0)"><i class="fa fa-cube"></i><span ng-bind="'lg_products.productType_all' | translate"></span></a>
+							</li>
+							<li ng-repeat="data in ctrl.type_list track by data.id">
+								<a ng-click="ctrl.typeChg(data.id)"><i class="fa fa-cube"></i><span ng-bind="data.name"></span></a>
+							</li>
+							<li>
+								<a ng-click="ctrl.typeChg('addpro')"><i class="fa fa-cube"></i><span ng-bind="'lg_products.addpro' | translate"></span></a>
+							</li>
+							<li>
+								<a ng-click="ctrl.typeChg('bonuspro')"><i class="fa fa-cube"></i><span ng-bind="'lg_products.bonuspro' | translate"></span></a>
+							</li>
+							<li>
+								<a ng-click="ctrl.typeChg('freepro')"><i class="fa fa-cube"></i><span ng-bind="'lg_products.freepro' | translate"></span></a>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					<a ng-if="ctrl.funcPerm.C == 'true'" href="javascript:void(0)" ng-click="ctrl.import_products()" class="btn btn-success pull-right">
+						<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;<span ng-bind="'lg_products.import_products' | translate"></span>
+					</a>
+					<a ng-if="ctrl.funcPerm.U == 'true'" ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-exchange"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					
+					<a ng-if="ctrl.funcPerm.C == 'true'" ng-href="#products_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<!--
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#products_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#products_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back_page' | translate"></span>
+					</a>
+					-->
+				</div>
+			</header>
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center" width="60">
+									<md-checkbox md-no-ink
+												 ng-checked="ctrl.isChecked()"
+						                         md-indeterminate="ctrl.isIndeterminate()"
+						                         ng-click="ctrl.toggleAll()"
+						                         aria-label=" "
+						                         class="md-primary"
+						                         style="margin-bottom:0px;">
+						            </md-checkbox>
+								</th>
+								<th><span ng-bind="'lg_products.image' | translate"></span></th>
+								<th><span ng-bind="'lg_products.name' | translate"></span></th>
+								<th><span ng-bind="'lg_products.highAmt' | translate"></span></th>
+								<th><span ng-bind="'lg_products.bonus_amt' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_main.onoff' | translate"></span></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="products in ctrl.data_list track by $index" ng-show="products.id">
+								<td class="text-center">
+									<md-checkbox md-no-ink ng-checked="ctrl.exists(products, ctrl.selected)" ng-click="ctrl.toggle(products, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+								</td>
+								<td style="width:10%;"><img ng-src="{{products.img}}" alt="" style="max-width:50px" /></td>
+								<td><span ng-bind="products.name" ></span></td>
+								<td><span ng-bind="products.highAmt" ></span></td>
+								<td><span ng-bind="products.bonusAmt" ></span></td>
+								<td class="text-center" width="10%"><span ng-click="ctrl.publishChange(products.id,products.publish)" ng-class="{'1': 'label label-success', '0': 'label label-gray'}[products.publish]" ng-bind="{1: 'ON', 0: 'OFF'}[products.publish]"></span></td>								
+								<td  style="width: 15%;">
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="#products_page#{{products.edit}}" title="{{'lg_products.dtl' | translate}}" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<!--
+									<a href="javascript:void(0)" title="{{'lg_products.copy' | translate}}" ng-click="ctrl.copy(products.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-copy fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									-->
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" title="{{'lg_products.del' | translate}}" ng-click="ctrl.del(products.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.cnt == 0">
+								<td class="text-center" colspan="999">
+									<span ng-bind="'lg_main.no_row' | translate" ></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+	
+</div>
+	<import-product></import-product>

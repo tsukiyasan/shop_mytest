@@ -1,0 +1,4 @@
+"lg_selectTime": {
+	"title": "請選擇時間",
+	"selectError": "請選擇{{requireField}}"
+}

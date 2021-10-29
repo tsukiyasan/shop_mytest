@@ -1,0 +1,77 @@
+<div class="modal-header">
+		<button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+		<h4 class="modal-title" ng-bind="'lg_selectProduct.title' | translate"></h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group form-group-select2" ng-repeat="list in ctrl.selectList track by $index" ng-if="!ctrl.specMode">
+			<select class="form-control" ng-model="ctrl.selectedProductType[$index]" ng-change="ctrl.selectProductType($index)" ng-options="option.name for (key, option) in list">
+				<option value="" disabled selected hidden>{{ list.length > 0 ? 'lg_main.choose' : 'lg_main.noItemCanChoose' | translate}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center" width="60" ng-if="!ctrl.limitMode">
+							<md-checkbox md-no-ink
+										 ng-checked="ctrl.isChecked()"
+										 md-indeterminate="ctrl.isIndeterminate()"
+										 ng-click="ctrl.toggleAll()"
+										 aria-label=" "
+										 class="md-primary"
+										 style="margin-bottom:0px;">
+							</md-checkbox>
+						</th>
+						<th><span ng-bind="'lg_selectProduct.productImage' | translate"></span></th>
+						<th><span ng-bind="'lg_selectProduct.productName' | translate"></span></th>
+						<th class="text-center">
+							<a href="javascript:void(0)" ng-if="ctrl.selected.length > 0" ng-click="ctrl.batchAddProductRelation()" class="table-link">
+								<span class="fa-stack" style="color: #559CE4;">
+									<i class="fa fa-square fa-stack-2x"></i>
+									<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="product in ctrl.productList track by $index" ng-show="ctrl.checkShow('productList', $index)">
+						<td class="text-center" width="5%" ng-if="!ctrl.limitMode">
+							<md-checkbox md-no-ink ng-checked="ctrl.exists(product, ctrl.selected)" ng-click="ctrl.toggle(product, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+						</td>
+						<td style="width:20%;"><img ng-src="{{product.image}}" alt="" style="max-width:50px" /></td>
+						<td><span ng-bind="product.name" ></span></td>
+						<td class="text-center" style="width: 20%;">
+							<a href="javascript:void(0)" ng-click="ctrl.addProductRelation(product, $index)" class="table-link">
+								<span class="fa-stack">
+									<i class="fa fa-square fa-stack-2x"></i>
+									<i class="fa fa-stack-1x fa-inverse fa-plus"></i>
+								</span>
+							</a>
+						</td>
+					</tr>
+					
+					<tr ng-if="ctrl.productList.length == 0 && ctrl.selectedData">
+						<td class="text-center" colspan="4">
+							<span ng-bind="'lg_selectProduct.noFound' | translate" ></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<center>
+			<ul class="pagination pull-center">
+				<li><a href="javascript:void(0)" ng-click="ctrl.changePage('productList', 'prev')"><i class="fa fa-chevron-left"></i></a></li>
+				<li ng-show="ctrl.numberShow('productList', page)" ng-class="{'true': 'active', 'false': ''}[ctrl.pageCtrl.productList.currentPage == page]" ng-repeat="page in ctrl.pageCtrl.productList.pages"><a href="javascript:void(0)" ng-click="ctrl.changePage('productList', page)" ng-bind="page"></a></li>
+				<li><a href="javascript:void(0)" ng-click="ctrl.changePage('productList', 'next')"><i class="fa fa-chevron-right"></i></a></li>
+				<li>
+					<select class="pagesel" ng-model="ctrl.pageCtrl.productList.currentPage" ng-options="page for page in ctrl.pageCtrl.productList.pages"></select>
+				</li>
+			</ul>
+		</center>
+	</div>
+	<!--<div class="modal-footer">				
+		<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-primary">
+			<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+		</a>
+	</div>-->

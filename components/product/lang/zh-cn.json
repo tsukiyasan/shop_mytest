@@ -1,0 +1,22 @@
+"lg_products":{
+	"search_result":"搜寻结果",
+	"product_price":"特惠价",
+	"product_login_first":"登入后显示价格",
+	"product_select":"请选择",
+	"product_count":"数量：",
+	"product_mag1":"该商品目前缺货中! 仍可购买，但购买后无法立即出货，",
+	"product_mag2":"必须等到商品到货后另行通知出货时间，如不想等待，",
+	"product_mag3":"请挑选购买其他商品，谢谢!",
+	"product_mag4":"注意：该商品目前库存数量为",
+	"product_mag5":"，您所购买数的量已经达到目前库存，谢谢！",
+	"product_active":"优惠活动：",
+	"product_pay":"立即结账",
+	"product_add_cart":"加入购物车",
+	"product_data":"商品信息",
+	"product_video":"相关影片",
+	"product_return":"返回",
+	"product_select_count":"请选择数量",
+	"product_added_cart":"已加入购物车",
+	"product_end":""
+	
+}

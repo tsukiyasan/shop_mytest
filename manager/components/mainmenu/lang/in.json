@@ -1,0 +1,13 @@
+"lg_mainmenu": {
+	"mainmenu": "Main Menu",
+	"mainmenu_banner": "banner",
+	"mainmenu_banner_name": "Slogan：",
+	"mainmenu_banner_limit": "The text limit is 12 characters",
+	"mainmenu_banner_msg": "Upload image file size limit is 1M, size 1920*232",
+	"mainmenu_class": "Product Classification",
+	"manager": "Main Menu Management",
+	"name": "Name",
+	"mainmenu_ename": "English name",
+	"mainmenuC_back": "Back to the previous level",
+	"mainmenu_content": "Content (you only need to fill in when using web page editing)"
+}

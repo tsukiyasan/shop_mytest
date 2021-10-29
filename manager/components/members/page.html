@@ -1,0 +1,228 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_members.members' | translate"></span></li>
+			<li class="active">
+				<span ng-if="!ctrl.params.id" ng-bind="'lg_members.members_add'|translate"></span>
+				<span ng-if="ctrl.params.id" ng-bind="'lg_members.members_edit'|translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-user"></i>&nbsp;
+						<span ng-if="!ctrl.params.id" ng-bind="'lg_members.members_add'|translate"></span>
+						<span ng-if="ctrl.params.id" ng-bind="'lg_members.members_edit'|translate"></span>
+					</h2>
+				</header>
+				
+				<div class="main-box-body clearfix" >
+					<div class="table-responsive" >
+						<table class="table" >
+							<tbody>
+								<tr ng-if="ctrl.detailData.id">
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_id' | translate"></span></td>
+									<td style="border:0;">
+										<input type="text" class="form-control" ng-model="ctrl.detailData.id" readonly />
+                                    </td>
+								</tr>
+								<tr ng-if="ctrl.detailData.id">
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_regdate' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;">
+										<div class="input-group">
+	                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                                        <input type="text" class="form-control" ng-model="ctrl.detailData.regDate" required readonly>
+	                                    </div>
+                                    </td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_name' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.name" placeholder="{{'lg_members.members_name' | translate}}" /></td>
+								</tr>
+								<!--tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_sex' | translate"></span></td>
+									<td>                                                            
+										<div class="btn-group">
+											<label class="btn btn-primary" ng-model="ctrl.detailData.sex" uib-btn-radio="'0'">{{'lg_members.members_M' | translate}}</label>
+										    <label class="btn btn-primary" ng-model="ctrl.detailData.sex" uib-btn-radio="'1'">{{'lg_members.members_F' | translate}}</label>
+										</div>
+									</td>
+								</tr-->
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_sid' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.sid" placeholder="{{'lg_members.members_sid' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_phone' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.phone" placeholder="{{'lg_members.members_phone' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_email' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.email" placeholder="{{'lg_members.members_email' | translate}}" /></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_passwd' | translate"></span> </td>
+									<td style="border:0;">
+										<input type="password" class="form-control" ng-model="ctrl.detailData.passwd" placeholder="{{'lg_members.members_passwd' | translate}}" >
+										<span class="text-red" ng-bind="'lg_members.members_passwd_msg' | translate"></span>
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_city' | translate"></span></td>
+									<td>
+										<select ng-change="ctrl.listcanton(ctrl.detailData.city)" ng-options="item.id as item.state_u for item in ctrl.citylist" ng-model="ctrl.detailData.city" class="form-control" >
+											<option value="" disabled selected hidden> {{'lg_main.choose' | translate}} </option>
+										</select>
+									</tr>
+									</td>
+								
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_address' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.addr" placeholder="{{'lg_members.members_address' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_birthdate' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.Birthday" placeholder="{{'lg_members.members_birthdate' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_payDate' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.payDate" placeholder="{{'lg_members.members_payDate' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_cardnumber' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.cardnumber" placeholder="{{'lg_members.members_cardnumber' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_ERPID' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.ERPID" placeholder="{{'lg_members.members_ERPID' | translate}}"></td>
+								</tr>
+								
+								<tr>
+									<td ng-bind="'lg_members.members_lock' | translate"></td>
+									<td>        
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" class="onoffswitch-checkbox" ng-model="ctrl.detailData.locked" id="member_locked" ng-true-value="'0'" ng-false-value="'1'">
+											<label class="onoffswitch-label" for="member_locked">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_calss' | translate"></span></td>
+									<td style="border:0;">{{ctrl.detailData.salesChkStr}}&emsp;
+										<button  ng-if="(ctrl.detailData.salesChk==2 || ctrl.detailData.salesChk==3) && ctrl.funcPerm.U == 'true'" type="button" class="btn btn-success" ng-click="ctrl.salesChk()" ng-bind="'lg_members.members_audit_msg1' | translate">
+											點此通過經銷商審核
+										</button>
+										
+										<button ng-if="(ctrl.detailData.salesChk==0) && ctrl.funcPerm.U == 'true'" type="button" class="btn btn-success" ng-click="ctrl.salesChk2()" ng-bind="'lg_members.members_audit_msg2' | translate">
+											點此強制通過經銷商審核
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_pv' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.pv" placeholder="{{'lg_members.members_pv' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_bv' | translate"></span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.bv" placeholder="{{'lg_members.members_bv' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_bonus' | translate"></span></td>
+									<td style="border:0;">
+										<input type="text" class="form-control" ng-model="ctrl.detailData.bonus" placeholder="{{'lg_members.members_bonus' | translate}}">
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_allBonus' | translate"></span></td>
+									<td style="border:0;">
+										<input type="text" class="form-control" ng-model="ctrl.detailData.allBonus" placeholder="{{'lg_members.members_allBonus' | translate}}" readonly >
+										<span class="text-red" ng-bind="'lg_members.members_bonus_msg' | translate"></span>
+									</td>
+								</tr>
+								<!--tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_coupon' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.coin" placeholder="{{'lg_members.members_coupon' | translate}}"></td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_members.members_delay' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" readonly ng-model="::ctrl.detailData.delayCnt" ></td>
+								</tr-->
+								
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div class="filter-block pull-right">									
+						<button ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+						</button>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+						
+				</div>
+			</form>
+			
+		</div>
+	</div>
+</div>
+<div class="row" ng-if="ctrl.params.id">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_manager' | translate"></span></h2>
+
+			</header>
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">      
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="150"><span ng-bind="'lg_members.members_order_no' | translate">訂單編號</span></th>
+								<th class="text-center"><span ng-bind="'lg_members.members_order_date' | translate">訂單日期</span></th>
+								<th class="text-center"><span ng-bind="'lg_members.members_order_amt' | translate">金額</span></th>
+								<th class="text-center"><span ng-bind="'lg_members.members_order_status' | translate">訂單狀態</span></th>
+								<th class="text-center"><span ng-bind="'lg_members.members_order_payType' | translate">付款方式</span></th>
+								<th class="text-center"><span ng-bind="'lg_members.members_order_takeType' | translate">配送方式</span></th>
+								<th width="15%"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="data in ctrl.data_list">
+								<td ng-bind="data.orderNum"></td>
+								<td class="text-center" ng-bind="data.buyDate"></td>
+								<td class="text-center" ng-bind="data.totalAmt"></td>
+								<td class="text-center" >
+									<span class="label" ng-class="{'0':'label-default','1':'label-warning','2':'label-danger','3':'label-primary','4':'label-success','6':'gray','7':'label-warning','8':'label-danger'}[data.statusPcode]" ng-bind="data.status"></span>
+								</td>
+								<td class="text-center" ng-bind="data.payType"></td>
+								<td class="text-center" ng-bind="data.dlvrType"></td>
+								<td>
+									<a href="javascript:void(0)" ng-click="ctrl.gopage(data.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+</div>

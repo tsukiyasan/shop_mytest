@@ -1,0 +1,110 @@
+<script type="text/ng-template" id="SelectPageModal.html">
+    <div class="modal-header">
+		<button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+		<h4 class="modal-title" ng-bind="'lg_main.dbpage_select_page'|translate"></h4>
+    </div>
+    <div class="modal-body">
+		<div class="form-group form-group-select2" ng-repeat="list in ctrl.selectlist track by $index">
+			<select class="form-control" ng-model="ctrl.selected[$index]" ng-change="ctrl.select($index)" ng-if="$index == 0"
+				ng-options="('lg_'+key+'.'+key|translate) for (key, option)  in list">
+                <option value="" disabled selected hidden>-- {{'lg_main.please_select'|translate}} --</option>
+            </select>
+            
+			<select class="form-control" ng-model="ctrl.selected[$index]" ng-change="ctrl.select($index)" ng-if="$index > 0"
+				ng-options="option.name for (key, option)  in list">
+                <option value="" disabled selected hidden>-- {{'lg_main.please_select'|translate}} --</option>
+            </select>
+		</div>
+    </div>
+    <div class="modal-footer">				
+		<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-danger">
+			<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+		</a>													
+		<a href="javascript:void(0)" ng-click="ctrl.confirm()" class="btn btn-primary">
+			<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.save_and_change'|translate"></span>
+		</a>
+    </div>
+</script>
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_midmenu.manager' | translate"></span></li>
+			<li class="active"><span ng-bind="'lg_main.edit' | translate"></span></li>
+		</ol>
+		
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="md-overlay"></div><!-- the overlay element -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_midmenu.manager' | translate"></span></h2>
+				
+				<div class="filter-block pull-right">											
+					<a  href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#midmenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>	
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;" >{{'lg_midmenu.name' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.midmenu_dtl.name" id="midmenu_name" placeholder="{{'lg_midmenu.name' | translate}}"></td>
+							</tr>
+							
+							<tr rowspan="2">
+								<td ng-bind="'lg_midmenu.upload_image' | translate"></td>
+								<td>
+									<img ng-show="ctrl.midmenu_dtl.img" ng-src="{{ctrl.midmenu_dtl.img}}" style="width:auto;height:160px;margin-bottom:10px;" ng-click="mainctrl.showBigPitcture(ctrl.midmenu_dtl.img)"/>
+                                    <input type="file" accept="image/*" class="filestyle" id="midmenu_picture">   
+								</td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_main.page_type' | translate"></td>
+								<td>                                                            
+									<div class="btn-group">
+									    <label class="btn btn-primary" ng-init="ctrl.midmenu_dtl.linktype='link'" ng-model="ctrl.midmenu_dtl.linktype" uib-btn-radio="'link'"> {{'lg_main.page_type_link' | translate}}</label>
+									    <label class="btn btn-primary" ng-model="ctrl.midmenu_dtl.linktype" uib-btn-radio="'database'">{{'lg_main.page_type_dbpage' | translate}}</label>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.midmenu_dtl.linktype=='link'">
+								<td ng-bind="'lg_main.linkurl' | translate"></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.midmenu_dtl.linkurl" placeholder="{{'lg_main.linkurl' | translate}}" /></td>
+							</tr>
+							
+							<tr id="midmenu_pagetype_tr_2" ng-show="ctrl.midmenu_dtl.linktype=='database'">
+								<td ng-bind="'lg_main.select_page' | translate"></td>
+								<td>
+									<span ng-bind="ctrl.midmenu_dtl.path"></span>
+									<a href="javascript:void(0)" class="md-trigger btn btn-primary" ng-click="ctrl.select_page()" ng-bind="'lg_main.select_page' | translate"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="filter-block pull-right">									
+					<a href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="#midmenu_list#{{ctrl.backhash}}" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

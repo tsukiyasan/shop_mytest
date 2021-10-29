@@ -1,0 +1,159 @@
+<div>
+	<div class="row">
+		<div class="col-lg-12">
+			<ol class="breadcrumb">
+				<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+				<li class="active"><span ng-bind="'lg_uploadfiles.uploadfiles' | translate"></span></li>
+				<li class="active">
+					<span ng-if="ctrl.actionType == '0'" ng-bind="'lg_main.add' | translate"></span>
+					<span ng-if="ctrl.actionType == '1'" ng-bind="'lg_main.edit' | translate"></span>
+				</li>
+			</ol>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="main-box clearfix">
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span
+							ng-bind="'lg_uploadfiles.uploadfiles' | translate"></span></h2>
+
+					<div class="filter-block pull-right">
+						<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)"
+							ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span
+								ng-bind="'lg_main.cfm' | translate"></span>
+						</a>
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span
+								ng-bind="'lg_main.cancel' | translate"></span>
+						</a>
+					</div>
+				</header>
+
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td width="150" style="border:0;">
+										{{'lg_uploadfiles.uploadfiles_title' | translate}}<span
+											class="text-red">*</span></td>
+									<td style="border:0;">
+										<input type="text" class="form-control" ng-model="ctrl.uploadfiles.name">
+									</td>
+								</tr>
+								<tr>
+									<td width="150" style="border:0;">{{'lg_uploadfiles.uploadfiles_desc' | translate}}
+									</td>
+									<td style="border:0;">
+										<input type="text" class="form-control" ng-model="ctrl.uploadfiles.note">
+									</td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_main.onoff' | translate"></td>
+									<td>
+										<div class="onoffswitch onoffswitch-success">
+											<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox"
+												ng-checked="ctrl.uploadfiles.publish"
+												ng-model="ctrl.uploadfiles.publish" id="uploadfiles_state"
+												ng-true-value="'1'" ng-false-value="'0'" checked>
+											<label class="onoffswitch-label" for="uploadfiles_state">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+										</div>
+									</td>
+								</tr>
+								<tr rowspan="2" ng-repeat="seq in ctrl.filelist">
+									<td>
+										<span ng-bind="'lg_uploadfiles.uploadfiles_upload_files' | translate"></span>
+										<span class="text-red">*</span>
+									</td>
+									<td>
+										<span ng-bind="ctrl.uploadfiles.files.origin_name"
+											ng-show="!ctrl.uploadfile"></span>
+										<br>
+										<file-fields all-file="true" ng-model="ctrl.uploadfile" preview="previewFile"
+											seq="0" class="btn btn-primary">{{'lg_main.browser' | translate}}
+										</file-fields>
+										&emsp;<span>{{ctrl.uploadfile.name}}</span>
+
+									</td>
+								</tr>
+
+								<tr>
+									<td ng-bind="'lg_uploadfiles.uploadfiles_file_type' | translate"><span
+											class="text-red">*</span></td>
+									</td>
+									<td>
+										<div class="btn-group">
+											<label class="btn btn-primary"
+												ng-class="{'active ng-valid-parse' : ctrl.uploadfiles.filetype==1}"
+												ng-model="ctrl.filetype" uib-btn-radio="1">
+												{{'lg_uploadfiles.uploadfiles_file_type_1' | translate}}
+											</label>
+											<label class="btn btn-primary"
+												ng-class="{'active ng-valid-parse' : ctrl.uploadfiles.filetype==2}"
+												ng-model="ctrl.filetype"
+												uib-btn-radio="2">{{'lg_uploadfiles.uploadfiles_file_type_2' | translate}}
+											</label>
+											<label class="btn btn-primary"
+												ng-class="{'active ng-valid-parse' : ctrl.uploadfiles.filetype==3}"
+												ng-model="ctrl.filetype"
+												uib-btn-radio="3">{{'lg_uploadfiles.uploadfiles_file_type_3' | translate}}
+											</label>
+											<label class="btn btn-primary"
+												ng-class="{'active ng-valid-parse' : ctrl.uploadfiles.filetype==4}"
+												ng-model="ctrl.filetype"
+												uib-btn-radio="4">{{'lg_uploadfiles.uploadfiles_file_type_4' | translate}}
+											</label>
+										</div>
+									</td>
+								</tr>
+
+								<!-- <tr>
+									<td ng-bind="'lg_main.page_type' | translate"></td>
+									<td>
+										<div class="btn-group">
+											<label class="btn btn-primary" ng-model="ctrl.uploadfiles.linktype"
+												uib-btn-radio="'link'"> {{'lg_main.page_type_link' | translate}}</label>
+											<label class="btn btn-primary" ng-model="ctrl.uploadfiles.linktype"
+												uib-btn-radio="'database'">{{'lg_main.page_type_dbpage' | translate}}</label>
+										</div>
+									</td>
+								</tr>
+								<tr ng-show="ctrl.uploadfiles.linktype=='link'">
+									<td ng-bind="'lg_main.linkurl' | translate"></td>
+									<td><input type="text" class="form-control" ng-model="ctrl.uploadfiles.linkurl"
+											placeholder="{{'lg_main.linkurl' | translate}}" /></td>
+								</tr> -->
+
+								<!-- <tr id="news_pagetype_tr_2" ng-show="ctrl.uploadfiles.linktype=='database'">
+									<td ng-bind="'lg_main.select_page' | translate"></td>
+									<td>
+										<span ng-bind="ctrl.uploadfiles.path"></span>
+										<dbpage-sel data="ctrl.uploadfiles"></dbpage-sel>
+									</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+
+
+					<div class="filter-block pull-right">
+						<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)"
+							ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span
+								ng-bind="'lg_main.cfm' | translate"></span>
+						</a>
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span
+								ng-bind="'lg_main.cancel' | translate"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

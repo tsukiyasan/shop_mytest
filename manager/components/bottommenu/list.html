@@ -1,0 +1,114 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#index_page" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_bottommenu.bottommenu' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-file-code-o"></i>&nbsp;<span ng-bind="'lg_bottommenu.manager' | translate"></span></h2>
+				<div class="filter-block pull-right">
+					
+					<!--
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					-->
+					<a ng-if="ctrl.funcPerm.U == 'true'" ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-exchange"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					<a ng-if="ctrl.level>=1 && ctrl.funcPerm.C == 'true'" ng-href="#bottommenu_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<!--
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#bottommenu_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					-->
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#bottommenu_list#{{ctrl.backhash}}"  class="btn btn-default pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.back_page' | translate"></span>
+					</a>
+				</div>
+			</header>
+			<!--
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_bottommenu.manager' | translate">&nbsp;</span></h2>
+				
+				<div class="filter-block pull-right">
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" id="bottommenu_search" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					<a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					<a ng-href="#bottommenu_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#bottommenu_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#bottommenu_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>回上一頁</span>
+					</a>
+				</div>
+			</header>
+			-->
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th><span ng-bind="'lg_main.title' | translate"></span><!--span class="text-red" ng-show="ctrl.level<=1">&emsp;{{'lg_bottommenu.msg' | translate}}</span--></th>
+								<th class="text-center"><span ng-bind="'lg_main.onoff' | translate"></span></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="bottommenus in ctrl.data_list track by $index" ng-show="bottommenus.id">
+								<td style="width:5%;" class="text-center" >
+									<span ng-if="bottommenus.pagetype=='dir'"><i class="fa fa-folder"></i></span>
+									<span ng-if="bottommenus.pagetype=='page'"><i class="fa fa-file"></i></span>
+								</td>
+								<td  style="width:30%;" class="text-left">
+									<span ng-if="bottommenus.pagetype=='page'">{{bottommenus.name}}</span>
+									<a ng-if="bottommenus.pagetype=='dir'" ng-href="#bottommenu_list#{{bottommenus.param}}" >{{bottommenus.name}}</a>
+								</td>
+								<td class="text-center" width="10%"><span ng-click="ctrl.publishChange(bottommenus.id,bottommenus.publish)" ng-class="{1: 'label label-success', 0: 'label label-gray'}[bottommenus.publish]" ng-bind="{1: 'ON', 0: 'OFF'}[bottommenus.publish]"></span></td>
+								
+								
+								<td  style="width: 15%;">
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="#bottommenu_{{bottommenus.pagetype}}#{{bottommenus.edit}}" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									
+									
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" ng-click="ctrl.del(bottommenus.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		</div>
+			<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

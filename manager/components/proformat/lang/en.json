@@ -1,0 +1,19 @@
+"lg_proformat": {
+	"proformat": "Product Specification",
+	"manager": "Commodity Specification Management",
+	"name": "Category Name",
+	"status": "Status",
+	"odring": "Sorting",
+	"url": "Link URL",
+	"page": "Custom Page",
+	"imgtext": "Graphics Module",
+	"img":"Add image",
+	"text":"Add text",
+	"imgupd":"Select Picture",
+	"content":"Edit page",
+	"var1":"Introduction",
+	"formchk":"Use a form to make a product page",
+	"formchkMsg": "If you check this option, the system will automatically bring in the form module at the bottom of the page",
+	"formatselect":"Specification Selection",
+	"end": ""
+}

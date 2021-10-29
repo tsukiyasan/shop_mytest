@@ -1,0 +1,17 @@
+"lg_indexset":{
+	"indexset":"首頁區塊管理",	
+	"adv_title":"廣告區",
+	"adv1_title":"第一列廣告區",
+	"adv2_title":"第二列廣告區",
+	"adv3_title":"第三列廣告區",
+	"rownum":"請選擇每排顯示數量",
+	"imgupd":"圖片上傳",
+	"url":"網址連結",
+	"media":"媒體報導",
+	"media_url":"影片連結",
+	"media_name":"影片名稱",
+	"media_date":"影片日期",
+	"upload_msg1": "上傳圖檔大小限制 1M，尺寸1110*345",
+	"upload_msg2": "上傳圖檔大小限制 1M，尺寸565*345",
+	"upload_msg3": "上傳圖檔大小限制 1M，尺寸350*345"
+}

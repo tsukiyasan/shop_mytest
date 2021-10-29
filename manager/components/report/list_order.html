@@ -1,0 +1,42 @@
+<div >
+	<div class="main-box-body clearfix">
+		<div id="hero-graph">
+	  	<canvas height="60%" chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.data_list.view.data" chart-labels="ctrl.data_list.view.labels" chart-legend="true" chart-series="ctrl.data_list.view.series" ></canvas>
+	    
+	    </div>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center" ng-repeat="data in ctrl.list_orderby">
+					<a  ng-click="ctrl.sort(data.name)" class="{{ctrl.params.orderby_str[data.name]}}">
+						<span ng-bind="'lg_report.{{data.name}}' | translate"></span>
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody >
+			
+			<tr ng-repeat="data in ctrl.data_list.data | orderBy:ctrl.params.orderby" >
+				
+				<td class="text-center" style="width:20%;" >
+					<span>{{data.buyDate}}</span>
+				</td>
+				
+				<td class="text-center" style="width:20%;" >
+					<span>{{data.totalAmt | formatnumber}}</span>
+				</td>
+				<td class="text-center" style="width:20%;" >
+					<span>{{data.discount | formatnumber}}</span>
+				</td>
+				<td class="text-center" style="width:20%;" >
+					<span>{{data.custom}}</span>
+				</td>
+				<td class="text-center" style="width:20%;" >
+					<span>{{data.unit}}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>		
+	

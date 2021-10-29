@@ -1,0 +1,15 @@
+"lg_uploadfiles": {
+	"uploadfiles": "Upload file management",
+	"uploadfiles_name": "Name",
+	"uploadfiles_link": "URL Link",
+	"uploadfiles_browser": "Browse",
+	"uploadfiles_upload_files": "File Upload",
+	"uploadfiles_upload_msg": "Upload file size limit is 1M, size 1920*742",
+	"uploadfiles_file_type": "File Type",
+	"uploadfiles_file_type_1": "Product Order Form",
+	"uploadfiles_file_type_2": "Application Form",
+	"uploadfiles_file_type_3": "Course Registration Form",
+	"uploadfiles_file_type_4": "General Files",
+	"uploadfiles_desc": "File Description",
+	"uploadfiles_title": "File Title"
+	}

@@ -1,0 +1,8 @@
+"lg_pwchg":{
+	"pwchg":"密码修改",
+	"pwchg_msg1":"请输入旧密码",
+	"pwchg_msg2":"请输入新密码",
+	"pwchg_msg3":"新密码与确认密码不同",
+	"pwchg_msg4":"新密码长度太短",
+	"end":""
+}

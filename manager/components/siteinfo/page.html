@@ -1,0 +1,326 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#index_page">{{'lg_main.index' | translate }}</a></li>
+			<li class="active"><span>{{'lg_main.siteinfo' | translate}}</span></li>
+		</ol>
+
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_main.siteinfo' | translate"></span></h2>
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.U == 'true'"  href="javascript:void(0)" ng-click="ctrl.submit()"  class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>	
+				</div>
+			</header>
+
+			<div class="main-box-body clearfix" >
+				<div class="table-responsive" >
+					<table class="table" >
+						<tbody>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;">{{'lg_siteinfo.siteinfo_name' | translate}} <span class="text-red">*</span>
+								</td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.name" id="siteinfo_name"  placeholder="{{'lg_siteinfo.siteinfo_name' | translate}}"/>
+								<span class="text-red">{{'lg_siteinfo.siteinfo_name2' | translate}}</span>
+								</td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;">{{('lg_lang.'+text.code) | translate}} {{'lg_siteinfo.siteinfo_name' | translate}} <span class="text-red">*</span>
+								</td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl['name_'+text.code]" id="siteinfo_name_{{text.code}}"  placeholder="{{'lg_siteinfo.siteinfo_name' | translate}}"/>
+								<span class="text-red">{{'lg_siteinfo.siteinfo_name2' | translate}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_tel' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.tel" id="siteinfo_tel" placeholder="{{'lg_siteinfo.siteinfo_tel' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_fax' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.fax" id="siteinfo_fax" placeholder="{{'lg_siteinfo.siteinfo_fax' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;">{{'lg_siteinfo.siteinfo_email' | translate}} <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.email" id="siteinfo_email" placeholder="{{'lg_siteinfo.siteinfo_email' | translate}}" /></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_addr' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.addr" id="siteinfo_addr" placeholder="{{'lg_siteinfo.siteinfo_addr' | translate}}" /></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;">{{('lg_lang.'+text.code) | translate}} {{'lg_siteinfo.siteinfo_addr' | translate}}</td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl['addr_'+text.code]" id="siteinfo_addr_{{text.code}}" placeholder="{{'lg_siteinfo.siteinfo_addr' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_siteinfo.siteinfo_web_title' | translate}}</h2>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" >
+								{{'lg_siteinfo.siteinfo_webkeys' | translate}}	
+								</td>
+								<td style="border:0;">
+								
+								<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.webkeys" id="siteinfo_webkeys" placeholder="{{'lg_siteinfo.siteinfo_webkeys' | translate}}" />
+								<span class="text-red" ng-bind="'lg_siteinfo.siteinfo_msg2_1' | translate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_webintro' | translate"></td>
+								<td style="border:0;">
+									<textarea type="text" class="form-control" rows="5" ng-model="ctrl.siteinfo_dtl.webintro" id="siteinfo_webintro"  placeholder="{{'lg_siteinfo.siteinfo_webintro' | translate}}"></textarea>
+								<span class="text-red" ng-bind="'lg_siteinfo.siteinfo_msg2_2' | translate"></span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_siteinfo.siteinfo_config_title' | translate}}</h2>
+								<td>
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_pvbvratio' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.pvbvratio" id="siteinfo_pvbvratio" placeholder="{{'lg_siteinfo.siteinfo_pvbvratio' | translate}}" />
+									<span class="text-red" ng-bind="'lg_siteinfo.siteinfo_msg4' | translate"></span>
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_bonusValue' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bonusValue" id="siteinfo_bonusValue" placeholder="{{'lg_siteinfo.siteinfo_bonusValue' | translate}}" />
+								</td>
+							</tr>
+							
+							<tr>
+								<td rowspan="3" width="150" style="border:0;" ><span ng-bind="'lg_siteinfo.siteinfo_get_bouns' | translate"></span> <span class="text-red">*</span></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_bouns_v1' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bouns1"   placeholder="500">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_bouns_v11' | translate}}</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_bouns_v2' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bouns2"   placeholder="50">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_bouns_v22' | translate}}</span>
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_safetystock' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.safetystock" id="siteinfo_safetystock" placeholder="{{'lg_siteinfo.siteinfo_safetystock' | translate}}" />
+								</td>
+							</tr>
+
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_taxrate' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.taxrate" id="siteinfo_safetystock" placeholder="{{'lg_siteinfo.siteinfo_taxrate' | translate}}" />
+								</td>
+							</tr>
+							
+							<!--tr>
+								<td rowspan="3" width="150" style="border:0;" ><span ng-bind="'lg_siteinfo.siteinfo_get_coin' | translate"></span> <span class="text-red">*</span></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_coin_v1' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.coin_to"   placeholder="500">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_siteinfo.siteinfo_get_coin_v2' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.coin_take"   placeholder="50">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_invoice' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.invoice" id="siteinfo_invoice" placeholder="{{'lg_siteinfo.siteinfo_invoice' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.invoice2" id="siteinfo_invoice2" placeholder="{{'lg_siteinfo.siteinfo_invoice' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.invoice3" id="siteinfo_invoice3" placeholder="{{'lg_siteinfo.siteinfo_invoice' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_shipdate' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.shipdate" id="siteinfo_shipdate" placeholder="{{'lg_siteinfo.siteinfo_shipdate' | translate}}" /></td>
+							</tr-->
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_siteinfo.siteinfo_website' | translate}}</h2>
+								<td>
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_ytUrl' | translate"></span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.ytUrl" id="siteinfo_ytUrl" placeholder="{{'lg_siteinfo.siteinfo_ytUrl' | translate}}" />
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_fbUrl' | translate"></span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.fbUrl" id="siteinfo_fbUrl" placeholder="{{'lg_siteinfo.siteinfo_fbUrl' | translate}}" />
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_gpUrl' | translate"></span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.gpUrl" id="siteinfo_gpUrl" placeholder="{{'lg_siteinfo.siteinfo_gpUrl' | translate}}" />
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_siteinfo.siteinfo_lineUrl' | translate"></span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.lineUrl" id="siteinfo_lineUrl" placeholder="{{'lg_siteinfo.siteinfo_lineUrl' | translate}}" />
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_siteinfo.siteinfo_msg3' | translate"></span></h2>
+								<td>
+							</tr>
+							<tr>
+								<td rowspan="3" width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_config_amt' | translate"></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_week' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.WtargetAmt"   placeholder="{{'lg_siteinfo.siteinfo_config_amt' | translate}}">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_month' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.MtargetAmt"   placeholder="{{'lg_siteinfo.siteinfo_config_amt' | translate}}">
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td rowspan="3" width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_config_order' | translate"></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_week' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.WtargetOrder"   placeholder="{{'lg_siteinfo.siteinfo_config_order' | translate}}">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_month' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.MtargetOrder"   placeholder="{{'lg_siteinfo.siteinfo_config_order' | translate}}">
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td rowspan="3" width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_config_member' | translate"></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_week' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.WtargetMember"   placeholder="{{'lg_siteinfo.siteinfo_config_member' | translate}}">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_month' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.MtargetMember"   placeholder="{{'lg_siteinfo.siteinfo_config_member' | translate}}">
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td rowspan="3" width="150" style="border:0;" ng-bind="'lg_siteinfo.siteinfo_config_custom' | translate"></td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_week' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.WtargetCustom"   placeholder="{{'lg_siteinfo.siteinfo_config_custom' | translate}}">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">{{'lg_index.str_month' | translate}}</span>
+										<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.MtargetCustom"   placeholder="{{'lg_siteinfo.siteinfo_config_custom' | translate}}">
+									</div>
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_siteinfo.siteinfo_text_setting' | translate"></span></h2>
+								<td>
+							</tr>
+							<tr ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}</td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="text.textChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="text.textChk" id="setText_{{text.code}}" >
+										<label class="onoffswitch-label" for="setText_{{text.code}}">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

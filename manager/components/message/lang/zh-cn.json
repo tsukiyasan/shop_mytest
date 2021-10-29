@@ -1,0 +1,17 @@
+"lg_message": {
+	"message": "留言管理",
+	"message_name": "留言者",
+	"message_tel": "连络电话",
+	"message_email": "电子信箱",
+	"message_title": "标题",
+	"message_rectime": "收到时间",
+	"message_ip": "IP",
+	"message_state": "状态",
+	"message_recContent": "内容",
+	"message_sendTitle": "回复讯息",
+	"message_sendContent": "回复内容",
+	"message_submit": "设为已回复",
+	"message_qtype": "问题类型",
+	"message_city": "居住县市",
+	"message_end": ""
+}

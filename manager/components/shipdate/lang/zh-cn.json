@@ -1,0 +1,13 @@
+"lg_shipdate": {
+	"shipdate": "出货行事历设定",
+	"shipdate_add": "新增项目",
+	"shipdate_lock": "启用状态",
+	"shipdate_regdate": "加入日期",
+	"shipdate_edit": "编辑指定送达日期",
+	"shipdate_name": "名称",
+	"shipdate_type": "类别",
+	"shipdate_date": "日期",
+	"shipdate_content": "备注",
+	"shipdate_msg": "（※ 周日与周一为固定不可送货日。）",
+	"shipdate_end": ""
+}

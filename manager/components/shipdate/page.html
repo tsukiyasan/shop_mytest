@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_shipdate.shipdate' | translate"></span></li>
+			<li class="active">
+				<span ng-if="!ctrl.params.id" ng-bind="'lg_shipdate.shipdate_add'|translate"></span>
+				<span ng-if="ctrl.params.id" ng-bind="'lg_shipdate.shipdate_edit'|translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-user"></i>&nbsp;
+						<span ng-if="!ctrl.params.id" ng-bind="'lg_shipdate.shipdate_add'|translate"></span>
+						<span ng-if="ctrl.params.id" ng-bind="'lg_shipdate.shipdate_edit'|translate"></span>
+					</h2>
+				</header>
+				
+				<div class="main-box-body clearfix" >
+					<div class="table-responsive" >
+						<table class="table" >
+							<tbody>
+								
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_shipdate.shipdate_name' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.detailData.name" placeholder="{{'lg_shipdate.shipdate_name' | translate}}" /></td>
+								</tr>
+								<tr>
+								<td ng-bind="'lg_shipdate.shipdate_type' | translate"></td>
+								<td>        
+									<div class="btn-group" data-toggle="buttons">
+                                    	<label ng-repeat="data in ctrl.pcode.shipdaytype"  class="btn btn-primary" ng-model="ctrl.detailData.type" uib-btn-radio="'{{data.codeValue}}'">{{data.codeName}}</label>
+                                    </div>
+								</td>
+							</tr>
+								
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_shipdate.shipdate_date' | translate"></span><span class="text-red">*</span></td>
+									<td style="border:0;">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" ng-model="ctrl.detailData.date" id="shipdate_date" readonly>
+          								</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<td width="150" style="border:0;"><span ng-bind="'lg_shipdate.shipdate_content' | translate"></span></td>
+									<td style="border:0;">
+										<div class="clearfix"><div class="form-group"><textarea class="form-control " ng-model="ctrl.detailData.content" rows="3"></textarea></div></div>
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div class="filter-block pull-right">									
+						<button type="submit" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+						</button>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+						
+				</div>
+			</form>
+			
+		</div>
+	</div>
+</div>

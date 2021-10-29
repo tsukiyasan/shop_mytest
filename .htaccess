@@ -1,0 +1,20 @@
+RewriteEngine On  
+  # If an existing asset or directory is requested go to it as it is
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+  RewriteRule ^ - [L]
+
+  
+  # If the requested resource doesn't exist, use index.php
+  RewriteRule ^ /index.php
+  
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin http://webcache.googleusercontent.com
+	Header set Access-Control-Allow-Credentials true
+		<If "%{HTTP_USER_AGENT} !~ /(iPhone; CPU iPhone OS 1[0-2]|iPad; CPU OS 1[0-2]|iPod touch; CPU iPhone OS 1[0-2]|Macintosh; Intel Mac OS X.*Version\x2F1[0-2].*Safari|Macintosh;.*Mac OS X 10_14.* AppleWebKit.*Version\x2F1[0-3].*Safari)/i">
+   			 Header always edit Set-Cookie (.*) "$1; cross-site-cookie=PHPSESSID;SameSite=None; Secure"
+		</If>
+</IfModule>
+
+

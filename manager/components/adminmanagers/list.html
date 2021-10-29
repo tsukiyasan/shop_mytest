@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_adminmanagers.adminmanagers' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_adminmanagers.adminmanagers' | translate">&nbsp;</span></h2>
+
+				<div class="filter-block pull-right">
+					
+					<!--div ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
+						<button class="form-control" data-toggle="dropdown" >
+							<span ng-bind="'lg_main.operate'|translate" ></span>
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-if="ctrl.funcPerm.U == 'true'"><a ng-click="ctrl.operateChg(1)"><i class="fa fa-power-off"></i><span ng-bind="'lg_main.openitem'|translate"></span></a></li>
+							<li ng-if="ctrl.funcPerm.U == 'true'"><a ng-click="ctrl.operateChg(2)"><i class="fa fa-power-off"></i><span ng-bind="'lg_main.closeitem'|translate"></span></a></li>
+							<li ng-if="ctrl.funcPerm.D == 'true'"><a ng-click="ctrl.operateChg(3)"><i class="fa fa-power-off"></i><span ng-bind="'lg_main.delitem'|translate"></span></a></li>
+						</ul>
+					</div-->
+					
+					<div ng-if="ctrl.funcPerm.R == 'true'" class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.params.search" my-enter="ctrl.refresh()" placeholder="{{'lg_main.search' | translate}}">
+						<a ng-click="ctrl.refresh()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					
+					<a ng-if="ctrl.funcPerm.C == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage()" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<!--th ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" width="60"><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl" ng-model="allCB" /><label for="checkbox-inl"></label></div></th-->
+								<th class="text-center"><span ng-bind="'lg_adminmanagers.name' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_adminmanagers.loginid' | translate"></span></th>
+								<!--
+								<th class="text-center"><span ng-bind="'lg_adminmanagers.mobile' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_adminmanagers.email' | translate"></span></th>
+								-->
+								<th class="text-center"><span ng-bind="'lg_adminmanagers.locked' | translate"></span></th>
+								<th width="18%">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody >
+							<tr ng-repeat="adminmanagers in ctrl.data_list">
+								<!--td ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'"><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl-{{adminmanagers.id}}" ng-init="ctrl.listCB[adminmanagers.id]=false" ng-model="ctrl.listCB[adminmanagers.id]"/><label for="checkbox-inl-{{adminmanagers.id}}"></label></div></td-->
+								<td class="text-center" ng-bind="adminmanagers.name"></td>
+								<td class="text-center" ng-bind="adminmanagers.loginid"></td>
+								<!--
+								<td class="text-center" ng-bind="adminmanagers.mobile"></td>
+								<td class="text-center" ng-bind="adminmanagers.email"></td>
+								-->
+								<td class="text-center"><span ng-click="ctrl.lockedChange(adminmanagers.id,adminmanagers.locked)"  ng-class="{'0': 'label label-success', '1': 'label label-gray'}[adminmanagers.locked]" ng-bind="{'0': 'ON', '1': 'OFF'}[adminmanagers.locked]"></span></td>
+								<td  style="width: 18%;">
+									
+									<a ng-if="ctrl.funcPerm.U == 'false' && ( ctrl.funcPerm.C == 'true' || ctrl.funcPerm.R == 'true' )" href="javascript:void(0)" ng-click="ctrl.goview(adminmanagers.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									
+									<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage(adminmanagers.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a ng-if="ctrl.funcPerm.D == 'true'" href="javascript:void(0)" ng-click="ctrl.delete(adminmanagers.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el></page-ctrl-el>	
+			</div>
+		</div>
+	</div>
+	
+</div>

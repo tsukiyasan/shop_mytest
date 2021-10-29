@@ -1,0 +1,16 @@
+"lg_actives":{
+	"active":"专区活动页面",
+	"active_reselect":"重新选择",
+	"active_selected":"已选择",
+	"active_notSelected":"尚未选择",
+	"active_selectFormat":"选择规格",
+	"active_loginFirst":"登入后参与活动",
+	"active_addCart":"挑选完毕，加入购物车",
+	"active_chooseProduct":"选购商品",
+	"active_selectProduct":"选择此商品",
+	"active_productDesciption":"商品介绍",
+	"active_pleaseSelectFormat":"请选择规格",
+	"active_notSelectedProduct":"尚有分区未选择商品",
+	"active_addCart2":"已加入至购物车",
+	"active_end":""
+}

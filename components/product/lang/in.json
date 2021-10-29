@@ -1,0 +1,21 @@
+"lg_products":{
+	"search_result":"hasil pencarian",
+	"product_price":"harga spesial",
+	"product_login_first":"login untuk melihat harga",
+	"product_select":"mohon pilih",
+	"product_count":"kuantitas",
+	"product_mag1":"stok barang ini sudah habis! Anda masih bisa memilih untuk membeli barang ini, barang akan segera dikirim saat stok sudah datang. Kami akan mengabari saat barang sudah datang. Atau silahkan pilih barang lainnya. Terima kasih",
+	"product_mag2":"",
+	"product_mag3":"",
+	"product_mag4":"catatan : stok yang masih tersedia",
+	"product_mag5":"kuantitas yang anda pilih melebihi jumlah stok yang tersedia. Terima kasih",
+	"product_active":"promosi",
+	"product_pay":"checkout sekarang",
+	"product_add_cart":"masukkan ke keranjang",
+	"product_data":"info barang",
+	"product_video":"video terkait",
+	"product_return":"kembali",
+	"product_select_count":"pilih kuantitas",
+	"product_added_cart":"masukkan ke keranjang",
+	"product_end":""
+}

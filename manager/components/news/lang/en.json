@@ -1,0 +1,9 @@
+"lg_news": {
+	"news": "Latest news",
+	"news_manager": "Manage lastest news",
+	"news_title": "Messages",
+	"news_name": "Message title",
+	"news_summary": "Summary",
+	"news_content": "Message content",
+	"news_date_msg": "Blank is no time limit"
+}

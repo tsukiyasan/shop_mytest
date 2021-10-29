@@ -1,0 +1,17 @@
+"lg_message": {
+	"message": "留言管理",
+	"message_name": "留言者",
+	"message_tel": "連絡電話",
+	"message_email": "電子信箱",
+	"message_title": "標題",
+	"message_rectime": "收到時間",
+	"message_ip": "IP",
+	"message_state": "狀態",
+	"message_recContent": "內容",
+	"message_sendTitle": "回覆訊息",
+	"message_sendContent": "回覆內容",
+	"message_submit": "設為已回覆",
+	"message_qtype": "問題類型",
+	"message_city": "居住縣市",
+	"message_end": ""
+}

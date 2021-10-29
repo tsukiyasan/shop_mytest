@@ -1,0 +1,23 @@
+"lg_index":{
+	"index":"Shop overview",
+	"str_num":"Piece",
+	"str_week":"Week",
+	"str_month":"Month",
+	"order_today":"Today order",
+	"order_process":"Pending Shipment Order",
+	"product_instock":"Inventory Alert",
+	"product_cnt":"Product online number",
+	"order_cnt":"Order Volume Analysis",
+	"order_amt":"Earnings",
+	"order":"Order",
+	"newmember":"New Customer",
+	"custom":"Visitor",
+	"report":"Browse reports",
+	"amt":"Analysis of Turnover",
+	"view":"Viewer analysis",
+	"product_view":"Top 6 product views",
+	"product_name":"Product name",
+	"product_viewcnt":"Views",
+	"product_viewrank":"Rank change",
+	"product_sale": "Top 6 products for sale"
+}

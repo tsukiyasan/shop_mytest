@@ -1,0 +1,301 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#">{{'lg_main.index' | translate }}</a></li>
+			<li class="active"><span>{{'lg_payconfig.payconfig' | translate}}</span></li>
+		</ol>
+
+		<!--<h1><i class="fa fa-gear"></i>&nbsp;最新消息管理</h1>-->
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_cashflow' | translate"></span></h2>
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()"  class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>	
+				</div>
+			</header>
+
+			<div class="main-box-body clearfix" >
+				<div class="table-responsive" >
+					<table class="table" >
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_dlvrPay' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.dlvrPay" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.dlvrPay" id="payconfig_dlvrPay" >
+										<label class="onoffswitch-label" for="payconfig_dlvrPay">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_bankPay' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.bankPay" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.bankPay" id="payconfig_bankPay" >
+										<label class="onoffswitch-label" for="payconfig_bankPay">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_creditallPay' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.creditallPay" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.creditallPay" id="payconfig_creditallPay" >
+										<label class="onoffswitch-label" for="payconfig_creditallPay">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<!--tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_vanallPay' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.vanallPay" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.vanallPay" id="payconfig_vanallPay" >
+										<label class="onoffswitch-label" for="payconfig_vanallPay">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr-->
+							
+							<!--台新線上刷卡 START-->
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_tspgPayCredit' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.tspgPayCredit" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.tspgPayCredit" id="payconfig_tspgPayCredit" >
+										<label class="onoffswitch-label" for="payconfig_tspgPayCredit">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<!--台新線上刷卡 END-->
+							
+							<!--中國信託虛擬帳戶 START-->
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_ccbPayVATM' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.ccbPayVATM" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.ccbPayVATM" id="payconfig_ccbPayVATM" >
+										<label class="onoffswitch-label" for="payconfig_ccbPayVATM">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<!--中國信託虛擬帳戶 END-->
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_ccbPay_setting' | translate">中國信託相關設定 </span></h2>
+									<span class="text-red" style="display:inline-block; padding-top:15px;" ng-bind="'lg_payconfig.payconfig_ccbPay_msg' | translate">(請自行登入中國信託後台查看)</span>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.merID' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.merID" id="merID" placeholder="{{'lg_payconfig.merID' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.MerchantID' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.MerchantID" id="MerchantID" placeholder="{{'lg_payconfig.MerchantID' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.TerminalID' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.TerminalID" id="TerminalID" placeholder="{{'lg_payconfig.TerminalID' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.Key' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.Key" id="Key" placeholder="{{'lg_payconfig.Key' | translate}}" />
+									<br /><span class="text-red"  ng-bind="'lg_payconfig.Key_msg' | translate"></spna>
+								</td>
+							</tr>
+							<!--tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span>歐付寶相關設定 </span></h2>
+									<span class="text-red" style="display:inline-block; padding-top:15px;">(請自行登入歐付寶帳戶查看)</span>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_allpayMerchantID' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.allpayMerchantID" id="payconfig_allpayMerchantID" placeholder="{{'lg_payconfig.payconfig_allpayMerchantID' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_allpayHashKey' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.allpayHashKey" id="payconfig_allpayHashKey" placeholder="{{'lg_payconfig.payconfig_allpayHashKey' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_allpayHashIV' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.allpayHashIV" id="payconfig_allpayHashIV" placeholder="{{'lg_payconfig.payconfig_allpayHashIV' | translate}}" /></td>
+							</tr-->
+							
+							<!--台新線上刷卡參數 START-->
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_tspg_setting' | translate">台新線上刷卡相關設定 </span></h2>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_tspgPayMid' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.tspgPayMid" id="tspgPayMid" placeholder="{{'lg_payconfig.payconfig_tspgPayMid' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_tspgPayTid' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.tspgPayTid" id="tspgPayTid" placeholder="{{'lg_payconfig.payconfig_tspgPayTid' | translate}}" /></td>
+							</tr>
+							<!--台新線上刷卡參數 END-->
+							
+							<!--中國信託虛擬帳戶參數 START-->
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_ccbPayVATM_setting' | translate">中國信託虛擬帳戶參數相關設定 </span></h2>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ><span ng-bind="'lg_payconfig.payconfig_bankName' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.ccbPayBankName" placeholder="{{'lg_payconfig.payconfig_bankName' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankBranch' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.ccbPayBankBranch" placeholder="{{'lg_payconfig.payconfig_bankBranch' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankId' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.ccbPayBankId" placeholder="{{'lg_payconfig.payconfig_bankId' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_ccbPayCode' | translate"></span> <span class="text-red"> *</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.ccbPayCode" id="ccbPayCode" placeholder="{{'lg_payconfig.payconfig_ccbPayCode' | translate}}" /></td>
+							</tr>
+							<!--中國信託虛擬帳戶參數 END-->
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_bank_title' | translate"></span></h2>
+								<td>
+							</tr>
+							
+							<tr>
+								<td width="150" style="border:0;" ><span ng-bind="'lg_payconfig.payconfig_bankName' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bankName" placeholder="{{'lg_payconfig.payconfig_bankName' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankBranch' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bankBranch" placeholder="{{'lg_payconfig.payconfig_bankBranch' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankId' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bankId" placeholder="{{'lg_payconfig.payconfig_bankId' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankNum' | translate"></span> <span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bankNum" placeholder="{{'lg_payconfig.payconfig_bankNum' | translate}}" /></td>
+							</tr>
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_logistics' | translate"></span></h2>
+								<td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_selfDlvr' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.selfDlvr" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.selfDlvr" id="payconfig_selfDlvr" >
+										<label class="onoffswitch-label" for="payconfig_selfDlvr">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_homeDlvr' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.homeDlvr" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.homeDlvr" id="payconfig_homeDlvr" >
+										<label class="onoffswitch-label" for="payconfig_homeDlvr">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_homeDlvrAmt' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.homeDlvrAmt" id="payconfig_homeDlvrAmt" placeholder="{{'lg_payconfig.payconfig_homeDlvrAmt' | translate}}" /></td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_dlvrAmt' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.dlvrAmt" id="payconfig_dlvrAmt" placeholder="{{'lg_payconfig.payconfig_dlvrAmt' | translate}}" /></td>
+							</tr>
+							<!--
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_tcatDlvr' | translate"></td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.siteinfo_dtl.tcatDlvr" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.siteinfo_dtl.tcatDlvr" id="payconfig_tcatDlvr" >
+										<label class="onoffswitch-label" for="payconfig_tcatDlvr">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_tcatDlvrAmt' | translate"></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.tcatDlvrAmt" id="payconfig_tcatDlvrAmt" placeholder="{{'lg_payconfig.payconfig_tcatDlvrAmt' | translate}}" /></td>
+							</tr>
+							-->	
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_money_setting' | translate"></span></h2>
+								<td>
+							</tr>
+							<tr ng-repeat="money in ctrl.moneyList">
+								<td width="150" style="border:0;" >{{('lg_money.'+money.code) | translate}}</td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="money.moneyChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="money.moneyChk" id="setMoney_{{money.code}}" ng-click="ctrl.moneyChange(money)"  >
+										<label class="onoffswitch-label" for="setMoney_{{money.code}}">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

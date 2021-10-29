@@ -1,0 +1,62 @@
+<div >
+	<div class="main-box-body clearfix">
+		<div id="hero-graph">
+	  	<canvas height="60%" chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.data_list.view.data" chart-labels="ctrl.data_list.view.labels" chart-legend="true" chart-series="ctrl.data_list.view.series" ></canvas>
+	    
+	    </div>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center" ng-repeat="data in ctrl.list_orderby">
+					<span ng-bind="'lg_report.{{data.name}}' | translate"></span>
+				</th>
+			</tr>
+		</thead>
+		<tbody >
+			
+			<tr ng-repeat="data in ctrl.data_list.data track by $index" >
+				
+				<td class="text-center" style="width:10%;" ng-if="data.index==0"  rowspan="{{data.rowspan}}" >
+					<span>{{data.buyDate}}</span>
+				</td>
+				
+				<td class="text-center" style="width:10%;" ng-if="data.index==0"  rowspan="{{data.rowspan}}" >
+					<span >{{data.totalAmt | formatnumber}}</span>
+				</td>
+				<td class="text-left" style="width:35%;" >
+					<txt ng-bind="data.pName"></txt>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.totalItem"></txt>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.shipment"></txt>
+				</td>
+				<td class="text-center" style="width:15%;" >
+					<txt ng-bind="data.unShipment"></txt>
+				</td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			
+			<tr>
+				<td ng-bind="'lg_report.total' | translate">合計</td>
+				<td>{{ctrl.totalAmtSum | formatnumber}}</td>
+				<td></td>
+				<td>{{ctrl.totalItemSum}}</td>
+				<td>{{ctrl.shipmentSum}}</td>
+				<td>{{ctrl.unShipmentSum}}</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>		
+	

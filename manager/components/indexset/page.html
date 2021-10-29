@@ -1,0 +1,163 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#index_page">{{'lg_main.index' | translate }}</a></li>
+			<li class="active"><span>{{'lg_indexset.indexset' | translate}}</span></li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_indexset.indexset' | translate"></span></h2>
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()"  class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>	
+				</div>
+			</header>
+
+			<div class="main-box-body clearfix" >
+				<div class="table-responsive" >
+					<table class="table" >
+						<tbody>
+							<!--tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_indexset.adv_title' | translate}}</h2>
+								</td>
+							</tr-->
+							
+							<tr ng-repeat="(key,value) in ctrl.advs">
+								<td style="width:15%;vertical-align:top;border-top:0px;">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{('lg_indexset.adv'+(key+1)+'_title') | translate}}</h2>
+								</td>
+								<td style="border:0;">
+									<table class="table" style="width:100%;">
+										<tr>
+											<td style="border:0;width:30%;">
+												<select class="form-control" ng-model="ctrl.indexset_dtl.advcnt[key+1]" ng-change="ctrl.set_adv_cnt(key+1)">
+													<option value="">{{'lg_indexset.rownum' | translate}}</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+												</select>
+											</td>	
+											<td style="border:0;"></td>
+										</tr>
+										<tr ng-repeat="data in ctrl.dataarr[key+1]">
+											<td style="border:0;" colspan="2">
+												<table style="width:100%;">
+													<tr ng-if="ctrl.textList.length == 0">
+														<td>
+															<img ng-show="!previewImage[(key+1)][($index+1)] && ctrl.indexset_dtl.adv[key+1][$index+1].img"  ng-src="{{ctrl.indexset_dtl.adv[key+1][$index+1].img}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+						                                    <img ng-show="previewImage[(key+1)][($index+1)]" ng-src="{{previewImage[(key+1)][($index+1)]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+															<br />
+						                                    <file-field ng-model="advrollimg[key+1][$index+1]" preview="previewImage" seq="{{key+1}}" seq2="{{$index+1}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+						                                    <span class="text-red" ng-bind="('lg_indexset.upload_msg'+ctrl.indexset_dtl.advcnt[key+1]) | translate"></span>
+														</td>	
+													</tr>
+													<tr ng-if="ctrl.textList.length > 0 && ctrl.textList1">
+														<td>
+															{{('lg_lang.zh-tw') | translate}}
+															<br />
+															<img ng-show="!previewImage1[(key+1)][($index+1)] && ctrl.indexset_dtl.adv[key+1][$index+1].img1"  ng-src="{{ctrl.indexset_dtl.adv[key+1][$index+1].img1}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+						                                    <img ng-show="previewImage1[(key+1)][($index+1)]" ng-src="{{previewImage1[(key+1)][($index+1)]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+															<br />
+						                                    <file-field ng-model="advrollimg1[key+1][$index+1]" preview="previewImage1" seq="{{key+1}}" seq2="{{$index+1}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+						                                    <span class="text-red" ng-bind="('lg_indexset.upload_msg'+ctrl.indexset_dtl.advcnt[key+1]) | translate"></span>
+														</td>
+													</tr>
+													<tr ng-if="ctrl.textList.length > 0 && ctrl.textList2">
+														<td>
+															{{('lg_lang.zh-cn') | translate}}
+															<br />
+															<img ng-show="!previewImage2[(key+1)][($index+1)] && ctrl.indexset_dtl.adv[key+1][$index+1].img2"  ng-src="{{ctrl.indexset_dtl.adv[key+1][$index+1].img2}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+						                                    <img ng-show="previewImage2[(key+1)][($index+1)]" ng-src="{{previewImage2[(key+1)][($index+1)]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+															<br />
+						                                    <file-field ng-model="advrollimg2[key+1][$index+1]" preview="previewImage2" seq="{{key+1}}" seq2="{{$index+1}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+						                                    <span class="text-red" ng-bind="('lg_indexset.upload_msg'+ctrl.indexset_dtl.advcnt[key+1]) | translate"></span>
+														</td>
+													</tr>
+													<tr ng-if="ctrl.textList.length > 0 && ctrl.textList3">
+														<td>
+															{{('lg_lang.en') | translate}}
+															<br />
+															<img ng-show="!previewImage3[(key+1)][($index+1)] && ctrl.indexset_dtl.adv[key+1][$index+1].img3"  ng-src="{{ctrl.indexset_dtl.adv[key+1][$index+1].img3}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+						                                    <img ng-show="previewImage3[(key+1)][($index+1)]" ng-src="{{previewImage3[(key+1)][($index+1)]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+															<br />
+						                                    <file-field ng-model="advrollimg3[key+1][$index+1]" preview="previewImage3" seq="{{key+1}}" seq2="{{$index+1}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+						                                    <span class="text-red" ng-bind="('lg_indexset.upload_msg'+ctrl.indexset_dtl.advcnt[key+1]) | translate"></span>
+														</td>
+													</tr>
+													<tr ng-if="ctrl.textList.length > 0 && ctrl.textList4">
+														<td>
+															{{('lg_lang.in') | translate}}
+															<br />
+															<img ng-show="!previewImage4[(key+1)][($index+1)] && ctrl.indexset_dtl.adv[key+1][$index+1].img4"  ng-src="{{ctrl.indexset_dtl.adv[key+1][$index+1].img4}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+						                                    <img ng-show="previewImage4[(key+1)][($index+1)]" ng-src="{{previewImage4[(key+1)][($index+1)]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+															<br />
+						                                    <file-field ng-model="advrollimg4[key+1][$index+1]" preview="previewImage4" seq="{{key+1}}" seq2="{{$index+1}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+						                                    <span class="text-red" ng-bind="('lg_indexset.upload_msg'+ctrl.indexset_dtl.advcnt[key+1]) | translate"></span>
+														</td>
+													</tr>
+													<tr>
+														<td>
+						                                    <span>{{'lg_indexset.url' | translate}}</span>
+						                                    <input type="text" class="form-control" ng-model="ctrl.indexset_dtl.adv[key+1][$index+1].url">
+														</td>	
+													</tr>
+												</table>
+											</td>
+										</tr>	
+									</table>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;{{'lg_indexset.media' | translate}}</h2>
+								</td>
+							</tr>
+							
+							
+							
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" >{{'lg_indexset.media_name' | translate}} </td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.indexset_dtl.media_name">
+								</td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}{{'lg_indexset.media_name' | translate}} </td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.nameList[text.code]">
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" >{{'lg_indexset.media_date' | translate}} </td>
+								<td style="border:0;">
+									<input type="text" class="form-control" id="media_date" ng-model="ctrl.indexset_dtl.media_date">
+								</td>
+							</tr>
+							<tr>
+								<td width="150" style="border:0;" >{{'lg_indexset.media_url' | translate}} </td>
+								<td style="border:0;">
+									https://www.youtube.com/embed/<input type="text" style="display:inline;width:auto;" class="form-control" ng-model="ctrl.indexset_dtl.media_url" placeholder="lJIrF4YjHfQ" >
+								</td>
+							</tr>	
+							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{{'lg_main.cfm' | translate}}
+					</a>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

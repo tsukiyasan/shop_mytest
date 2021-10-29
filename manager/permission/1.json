@@ -1,0 +1,262 @@
+{
+    "index": {
+        "index":true,
+        "name":"商店總覽",
+        "icon": "fa fa-home",
+        "page": "page",
+        "dbpage": "false",
+        "component":"index",
+        "param": {
+        }
+    },
+    "config": {
+        "icon": "fa fa-gear",
+        "page": "tree",
+        "child": {
+            "siteinfo": {
+                "name":"商店基本資料",
+                "icon": "fa fa-dashboard",
+                "page": "page",
+                "dbpage": "false",
+                "component":"siteinfo",
+                "param": {
+                }
+            },
+            "indexset": {
+                "name":"首頁區塊管理",
+                "icon": "fa fa-dashboard",
+                "page": "page",
+                "dbpage": "false",
+                "component":"indexset",
+                "param": {
+                }
+            },
+            "payconfig": {
+                "name":"金流設定",
+                "icon": "fa fa-dashboard",
+                "page": "page",
+                "dbpage": "false",
+                "component":"payconfig",
+                "param": {
+                }
+            },
+            "pwchg": {
+                "name":"密碼修改",
+                "icon": "fa fa-dashboard",
+                "page": "page",
+                "dbpage": "false",
+                "component":"pwchg",
+                "param": {
+                }
+            }
+        }
+    },
+    "advrolls": {
+        "name":"輪播圖管理",
+        "icon": "fa fa-picture-o",
+        "page": "list",
+        "dbpage": "false",
+        "component":"advrolls",
+        "param": {
+        }
+    },
+    "uploadfiles": {
+        "name":"檔案上傳管理",
+        "icon": "fa fa-file-o",
+        "page": "list",
+        "dbpage": "false",
+        "component":"uploadfiles",
+        "param": {
+        }
+    },
+    "menu": {
+        "icon": "fa fa-file-code-o",
+        "page": "tree",
+        "child": {
+            "mainmenu": {
+                "name":"主選單",
+                "icon": "fa fa-bars",
+                "page": "list",
+                "dbpage": "false",
+                "tablename": "mainmenus",
+                "component":"mainmenu",
+                "param": {
+                }
+            },
+            "news": {
+                "name":"最新消息",
+                "icon": "fa fa-pencil-square-o",
+                "page": "list",
+                "dbpage": "true",
+                "tablename": "news",
+                "component":"news",
+                "param": {
+                }
+            },
+            "bottommenu": {
+                "name":"快速連結",
+                "icon": "fa fa-bars",
+                "page": "list",
+                "dbpage": "false",
+                "tablename": "bottommenus",
+                "component":"bottommenu",
+                "param": {
+                    "belongid": "root",
+                    "level":1
+                }
+            },
+            "treemenu": {
+                "name":"自訂頁面",
+                "icon": "fa fa-bars",
+                "page": "list",
+                "dbpage": "true",
+                "tablename": "treemenus",
+                "component":"treemenu",
+                "param": {
+                    "belongid": "root"
+                }
+            }
+        }
+    },
+    "product": {
+        "icon": "fa fa-cube",
+        "page": "tree",
+        "child":{
+            "productType": {
+                "name":"商品類別",
+                "icon": "fa fa-cube",
+                "page": "list",
+                "dbpage": "true",
+                "tablename": "producttype",
+                "component":"productType",
+                "param": {
+                    "belongid": "root"
+                }
+            }, 
+            "proformat": {
+                "name":"商品規格",
+                "icon": "fa fa-cube",
+                "page": "list",
+                "dbpage": "false",
+                "tablename": "products",
+                "component":"proformat",
+                "param": {
+                    "belongid": "root"
+                }
+            },
+            "products":{
+                "name":"商品項目",
+                "icon": "fa fa-cube",
+                "page": "list",
+                "dbpage": "false",
+                "tablename": "products",
+                "component":"products",
+                "param": {
+                    "belongid": "root",
+                    "proType":"pro"
+                }    
+            },
+            "proinstock":{
+                "name":"庫存管理",
+                "icon": "fa fa-cube",
+                "page": "list",
+                "dbpage": "false",
+                "tablename": "proinstock",
+                "component":"proinstock",
+                "param": {
+                    
+                }    
+            }
+        }
+    },
+    "active": {
+        "name":"活動管理",
+        "icon": "fa fa-gift",
+        "page": "list",
+        "dbpage": "false",
+        "component":"active",
+        "param": {
+        }
+    },
+	"activeBundle": {
+        "name":"分組購買活動管理",
+        "icon": "fa fa-gift",
+        "page": "list",
+        "dbpage": "false",
+        "component":"activeBundle",
+        "param": {
+        }
+    },
+    "order": {
+        "name":"訂單管理",
+        "icon": "fa fa-pencil-square-o",
+        "page": "list",
+        "dbpage": "false",
+        "tablename": "order",
+        "component":"order",
+        "param": {
+        }
+    },
+    "p_to_m": {
+        "name":"點數轉獎金",
+        "icon": "fa fa-money",
+        "page": "list",
+        "dbpage": "false",
+        "tablename": "p_to_m",
+        "component":"p_to_m",
+        "param": {
+        }
+    },
+    "members": {
+        "name":"會員管理",
+        "icon": "fa fa-user",
+        "page": "list",
+        "dbpage": "false",
+        "tablename": "members",
+        "component":"members",
+        "param": {
+        }
+    },
+     "message": {
+        "name":"留言管理",
+        "hide": false,
+        "icon": "fa fa-commenting-o",
+        "page": "list",
+        "dbpage": "false",
+        "component":"message",
+        "param": {
+            
+        }
+    },
+    "report": {
+        "name":"報表分析",
+        "hide": false,
+        "icon": "fa fa-file-text-o",
+        "page": "list",
+        "dbpage": "false",
+        "component":"report",
+        "param": {
+            "task":"order"
+        }
+    },
+    "adminmanagers": {
+        "name":"員工管理",
+		"icon": "fa fa-user",
+        "page": "list",
+        "dbpage": "false",
+        "tablename": "adminmanagers",
+        "component": "adminmanagers",
+        "param": {
+        }
+    },
+    "odring": {
+        "hide": true,
+        "icon": "",
+        "page": "list",
+        "dbpage": "false",
+        "component":"odring",
+        "param": {
+        }
+    }
+   
+}

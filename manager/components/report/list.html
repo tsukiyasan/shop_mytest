@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li ><a href="javascript:void(0)" ng-bind="'lg_report.report' | translate"></a></li>
+			<li ><a href="javascript:void(0)" ng-bind="ctrl.report_title"></a></li>
+			
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" >{{'lg_report.report' | translate}} - {{ctrl.report_title}}</span></h2>
+				<div class="filter-block pull-right">
+					<div class="form-group pull-left">
+						<button class="form-control" data-toggle="dropdown" >
+							{{'lg_report.reportSel'|translate}}
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="data in ctrl.report_able track by data.value">
+								<a ng-click="ctrl.reportChg(data.value)">{{'lg_report.report_'+data.value | translate}}</a>
+							</li>
+						</ul>
+					</div>
+					<div ng-show="ctrl.search_container.indexOf('sdate')!=-1" class="form-group pull-left">
+						<input datetime="yyyy-MM-dd"  datetime-model="yyyy-MM-dd" class="form-control" type="text" ng-model="ctrl.sdate" placeholder="{{'lg_report.sdate' | translate}}">
+					</div>
+					<div ng-show="ctrl.search_container.indexOf('edate')!=-1" class="form-group pull-left">
+						<input datetime="yyyy-MM-dd"  datetime-model="yyyy-MM-dd" class="form-control" type="text" ng-model="ctrl.edate" placeholder="{{'lg_report.edate' | translate}}">
+					</div>
+					<div ng-show="ctrl.search_container.indexOf('member_name')!=-1" class="form-group pull-left">
+						<input class="form-control" type="text" ng-model="ctrl.member_name" placeholder="{{'lg_report.member_name' | translate}}">
+					</div>
+					<a href="javascript:void(0)" ng-click="ctrl.export()" class="btn btn-success pull-right">
+						<i class="fa fa-download"></i>&nbsp;&nbsp;{{'lg_report.export_excel' | translate}}
+					</a>
+					<a href="javascript:void(0)" ng-click="ctrl.search()" class="btn btn-success pull-right">
+						<i class="fa fa-search"></i>&nbsp;&nbsp;{{'lg_report.search' | translate}}
+					</a>
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div id="export_area" class="table-responsive" ng-include="ctrl.reportUrl">
+					
+				</div>	
+				<div id="export_area2" class="table-responsive" style="display:none;" ng-include="ctrl.reportUrl2">
+					
+				</div>	
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

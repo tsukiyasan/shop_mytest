@@ -1,0 +1,8 @@
+"lg_selectProduct": {
+	"title": "Select product",
+	"productImage": "Product Image",
+	"productName": "Product Name",
+	"noFound": "Not find eligible products",
+	"search": "Search",
+	"noSelectProductType": "Select product category"
+}

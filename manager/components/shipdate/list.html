@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_shipdate.shipdate' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" >
+					<i class="fa fa-gear"></i><span id="views_title_name" ng-bind="('lg_shipdate.shipdate' | translate)"></span>&emsp;
+					</h2>
+		
+				<div class="filter-block pull-right">
+					
+					<div class="form-group pull-left">
+						<button class="form-control" data-toggle="dropdown" >
+							{{'lg_main.operate'|translate}}
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<!--
+							<li><a ng-click="ctrl.operateChg(1)"><i class="fa fa-power-off"></i>{{'lg_main.openitem'|translate}}</a></li>
+							<li><a ng-click="ctrl.operateChg(2)"><i class="fa fa-power-off"></i>{{'lg_main.closeitem'|translate}}</a></li>
+							-->
+							<li><a ng-click="ctrl.operateChg(3)"><i class="fa fa-power-off"></i>{{'lg_main.delitem'|translate}}</a></li>
+						</ul>
+					</div>
+					
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.params.search" my-enter="ctrl.refresh()" placeholder="{{'lg_main.search' | translate}}">
+						<a ng-click="ctrl.refresh()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					
+					<a href="javascript:void(0)" ng-click="ctrl.gopage()" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+				</div>
+				<!-- div class="filter-block pull-left">
+					<div class="form-group pull-left">
+						<span class="text-red ng-binding" ng-bind="('lg_shipdate.shipdate_msg' | translate)" style="display: block; margin-top:8px;"></span>
+					</div>
+				</div -->
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="60"><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl" ng-model="allCB" /><label for="checkbox-inl"></label></div></th>
+								<th class="text-center"><span ng-bind="'lg_shipdate.shipdate_name' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_shipdate.shipdate_type' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_shipdate.shipdate_date' | translate"></span></th>
+								<th class="text-center"><span ng-bind="'lg_shipdate.shipdate_content' | translate"></span></th>
+								<th width="15%">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody >
+							<tr ng-repeat="shipdate in ctrl.data_list">
+								<td><div class="checkbox-nice checkbox-inline"><input type="checkbox" id="checkbox-inl-{{shipdate.id}}" ng-init="ctrl.listCB[shipdate.id]=false" ng-model="ctrl.listCB[shipdate.id]"/><label for="checkbox-inl-{{shipdate.id}}"></label></div></td>
+								<td class="text-center" ng-bind="shipdate.name"></td>
+								<td class="text-center" ng-bind="{1: '可指定', 0: '不可指定'}[shipdate.type]"></td>
+								<td class="text-center" ng-bind="shipdate.date"></td>
+								<td class="text-center" ng-bind="shipdate.content"></td>
+								<td  style="width: 15%;">
+									<a href="javascript:void(0)" ng-click="ctrl.gopage(shipdate.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a href="javascript:void(0)" ng-click="ctrl.delete(shipdate.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,21 @@
+"lg_contact":{
+	"contact":"Contact us",
+	"contact_msg1":"Should you have any further questions, please do not hesitate to contact Customer Service support",
+	"contact_msg2":", we are happy to serve you.",
+	"contact_tel":"Customer Service support",
+	"contact_fax":"Fax No",
+	"contact_email":"Email",
+	"contact_addr":"Address",
+	"contact_map":"View map",
+	"contact_name":"Name",
+	"contact_phone":"Contact No.",
+	"contact_mail":"Email",
+	"contact_question_type":"Enquiry",
+	"contact_question_type1":"General shopping",
+	"contact_question_type2":"Sign up",
+	"contact_question_type3":"e-member",
+	"contact_city":"City of residence",
+	"contact_notes":"Message",
+	"contact_submit":"Confirm send",
+	"end":""
+}

@@ -1,0 +1,16 @@
+"lg_actives":{
+	"active":"halaman zona aktivitas",
+	"active_reselect":"pilih ulang",
+	"active_selected":"terpilih",
+	"active_notSelected":"belum pilih",
+	"active_selectFormat":"pilih spesifikasi",
+	"active_loginFirst":"setelah login berpartisipasi aktivitas",
+	"active_addCart":"setelah seleksi , tambahkan ke troli belanja",
+	"active_chooseProduct":"belanja produk",
+	"active_selectProduct":"pilih produk ini",
+	"active_productDesciption":"deskripsi produk",
+	"active_pleaseSelectFormat":"silakan pilih spesifikasi",
+	"active_notSelectedProduct":"masih belum ada produk yang dipilih di zona tersebut",
+	"active_addCart2":"sudah tambahkan ke troli belanja",
+	"active_end":""
+}

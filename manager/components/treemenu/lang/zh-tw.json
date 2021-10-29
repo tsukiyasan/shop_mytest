@@ -1,0 +1,17 @@
+"lg_treemenu": {
+	"treemenu": "自訂頁面",
+	"manager": "自訂頁面管理",
+	"name": "名稱",
+	"status": "狀態",
+	"odring": "排序",
+	"url": "連結網址",
+	"page": "自訂頁面",
+	"imgtext": "圖文模組",
+	"img":"加入圖片",
+	"text":"加入文字",
+	"imgupd":"頁面圖片",
+	"content":"編輯頁面",
+	"var1":"簡述",
+	"var1msg":"前台顯示於該頁banner",
+	"end": ""
+}

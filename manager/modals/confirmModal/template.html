@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+    <h4 class="modal-title" ng-bind="ctrl.title"></h4>
+</div>
+<div class="modal-body">
+    <txt ng-bind="ctrl.message"></txt>
+</div>
+<div class="modal-footer">
+    <a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-danger">
+        <i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+    </a>								
+    <a href="javascript:void(0)" ng-click="ctrl.confirm()" class="btn btn-primary">
+        <i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.ok' | translate"></span>
+    </a>
+</div>

@@ -1,0 +1,112 @@
+{
+    "index": {
+        "index":true,
+        "icon": "fa fa-home",
+        "page": "page",
+        "param": {
+        }
+    },
+    "member": {
+        "icon": "fa fa-home",
+        "page": "page",
+        "route":[
+            [
+                "type"
+            ],
+            [
+                "type",
+                "uid"
+            ]
+        ]
+    },
+    "news": {
+        "icon": "fa fa-home",
+        "page": "list",
+        "param": {
+        },
+        "route":[
+            [
+                "id"
+            ]
+        ]
+    },
+    "cart": {
+        "icon": "fa fa-home",
+        "page": "list",
+        "param": {
+        }
+    },
+    "cartcvs": {
+        "icon": "fa fa-home",
+        "page": "list",
+        "param": {
+        }
+    },
+    "product": {
+        "page": "list",
+        "route":[
+            [
+                "productlistid"
+            ],
+            [
+                "id",
+                "belongid",
+                "cur"
+            ]
+        ]
+    },
+	"event": {
+        "page": "list",
+        "route":[
+            [
+                "eventid"
+            ],
+            [
+                "id",
+                "belongid",
+                "cur"
+            ]
+        ]
+    },
+    "bonus": {
+        "page": "list",
+        "route":[
+            [
+                "productlistid"
+            ],
+            [
+                "id",
+                "belongid",
+                "cur"
+            ]
+        ]
+    },
+    "contact": {
+        "page": "page"
+    },
+	"dbpage": {
+        "page": "page",
+        "route":[
+            [
+                "dirid"
+            ]
+        ]
+    },
+	"goodrecommend": {
+        "page": "page"
+	    
+    },
+    "active": {
+        "page": "list",
+        "route":[
+            [
+                "activeId"
+            ],
+            [
+                "id",
+                "belongid",
+                "cur"
+            ]
+        ]
+    }
+}

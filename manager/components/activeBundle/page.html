@@ -1,0 +1,293 @@
+<div>
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_activeBundle.activeBundle' | translate" ></span></li>
+			<li class="active">
+				<span ng-if="ctrl.actionType == '0'" ng-bind="'lg_main.add' | translate"></span>
+				<span ng-if="ctrl.actionType == '1'" ng-bind="'lg_main.edit' | translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<form role="form" data-toggle="validator" ng-submit="ctrl.submit()">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_activeBundle.activeBundle' | translate"></span></h2>
+				<div class="filter-block pull-right">											
+					<a ng-if="ctrl.permission.C == 'true' || ctrl.permission.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>										
+					<a href="javascript:void(0)" ng-click="ctrl.goList()" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>	
+				</div>
+			</header>
+										
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">                    
+					<table class="table">
+						<tbody>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" ><txt ng-bind="'lg_activeBundle.name' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.activeBundle.name" /></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}<txt ng-bind="'lg_activeBundle.name' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.nameList[text.code]" /></td>
+							</tr>
+							<tr ng-if="ctrl.textList.length == 0">
+								<td width="150" style="border:0;" ><txt ng-bind="'lg_activeBundle.notes' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<textarea type="text" class="form-control" rows="5" ng-model="ctrl.activeBundle.notes" />
+								</td>
+							</tr>
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td width="150" style="border:0;" >{{('lg_lang.'+text.code) | translate}}<txt ng-bind="'lg_activeBundle.notes' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<textarea type="text" class="form-control" rows="5" ng-model="ctrl.notesList[text.code]" />
+								</td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_activeBundle.enable' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-model="ctrl.activeBundle.enable" id="active_state" ng-true-value="'1'" ng-false-value="'0'">
+										<label class="onoffswitch-label" for="active_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><txt ng-bind="'lg_activeBundle.startTime' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td>                         
+									<div class="input-append date input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.activeBundle.startTime" options="ctrl.datePickerOption" clearable="true">
+      								</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.endTime' | translate"></txt></td>
+								</td>
+								<td style="border:0;">                                                            
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.activeBundle.endTime" options="ctrl.datePickerOption" clearable="true">
+									</div>
+									<span class="text-red" ng-bind="'lg_activeBundle.endTimeTips' | translate"></span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td><txt ng-bind="'lg_activeBundle.price' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td>
+									<input type="text" class="form-control" ng-model="ctrl.activeBundle.price" valid-number>
+								</td>
+							</tr>
+							
+							<tr>
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.pv' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.activeBundle.pv" valid-number>
+								</td>
+							</tr>
+							
+							<tr>
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.bv' | translate"></txt></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-value="ctrl.activeBundle.pv * ctrl.pvbvRatio" readonly>
+								</td>
+							</tr>
+							
+							<tr>
+								<td><txt ng-bind="'lg_activeBundle.passwordCheck' | translate"></txt></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" class="onoffswitch-checkbox" ng-model="ctrl.activeBundle.passwordCheck" id="passwordCheck" ng-true-value="'1'" ng-false-value="'0'">
+										<label class="onoffswitch-label" for="passwordCheck">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.activeBundle.passwordCheck == '1'">
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.passwordText' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.activeBundle.passwordText" >
+								</td>
+							</tr>
+							<tr>
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.limitCount' | translate"></txt></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.activeBundle.limitCount" valid-number>
+									<span class="text-red" ng-bind="'lg_activeBundle.limitCountTips' | translate"></span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td><txt ng-bind="'lg_activeBundle.giftCheck' | translate"></txt></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" class="onoffswitch-checkbox" ng-model="ctrl.activeBundle.giftCheck" id="giftCheck" ng-true-value="'1'" ng-false-value="'0'">
+										<label class="onoffswitch-label" for="giftCheck">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.activeBundle.giftCheck == '1'">
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.giftTargetAmount' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="ctrl.activeBundle.giftTargetAmount" valid-number>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.activeBundle.giftCheck == '1'">
+								<td style="border:0;"><txt ng-bind="'lg_activeBundle.selectGift' | translate"></txt></td>
+								<td style="border:0;">        
+									<div class="main-box-body clearfix" >
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th><span ng-bind="'lg_activeBundle.productImage' | translate"></span></th>
+														<th><span ng-bind="'lg_activeBundle.productName' | translate"></span></th>
+														<td>
+															<a class="btn btn-primary" href="javascript:void(0)" ng-click="ctrl.addGiftProduct()">
+																<span ng-bind="'lg_activeBundle.addGiftProduct' | translate"></span>
+															</a>
+														</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="gift in ctrl.giftList track by $index" >
+														<td style="width:20%;"><img ng-src="{{gift.image}}" alt="" style="max-width:50px" /></td>
+														<td><span ng-bind="gift.name" ></span></td>
+														<td  style="width: 20%;">
+															<a href="javascript:void(0)" ng-click="ctrl.deleteGiftProduct($gift)" class="table-link danger">
+																<span class="fa-stack">
+																	<i class="fa fa-square fa-stack-2x"></i>
+																	<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+																</span>
+															</a>
+														</td>
+													</tr>
+													<tr ng-if="ctrl.giftList.length == 0">
+														<td class="text-center" colspan="999">
+															<span ng-bind="'lg_activeBundle.noSelectProduct' | translate" ></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr ng-repeat-start="area in ctrl.areaList track by $index">
+								<td></td>
+								<td>
+									<b style=" font-size: 20px;" ng-bind="'lg_activeBundle.area' | translate : {number: $index + 1}"></b>
+									
+									<a href="javascript:void(0)" ng-click="ctrl.deleteArea($index)" class="table-link danger">
+											<span class="fa-stack">
+												<i class="fa fa-square fa-stack-2x"></i>
+												<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</a>
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.textList.length == 0">
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.areaName' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="area.name">
+								</td>
+							</tr>
+							
+							<tr ng-if="ctrl.textList.length > 0" ng-repeat="text in ctrl.textList">
+								<td style="border:0;" >{{('lg_lang.'+text.code) | translate}}<txt ng-bind="'lg_activeBundle.areaName' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="area['name_'+text.code]">
+								</td>
+							</tr>
+							<tr ng-if="false">
+								<td style="border:0;" ><txt ng-bind="'lg_activeBundle.areaQuantity' | translate"></txt><span class="text-red">&nbsp;*</span></td>
+								<td style="border:0;">
+									<input type="text" class="form-control" ng-model="area.quantity" />
+								</td>
+							</tr>
+							<tr ng-repeat-end>
+								<td style="border:0;"><txt ng-bind="'lg_activeBundle.selectAreaProduct' | translate"></txt></td>
+								<td style="border:0;">        
+									<div class="main-box-body clearfix" >
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th><span ng-bind="'lg_activeBundle.productImage' | translate"></span></th>
+														<th><span ng-bind="'lg_activeBundle.productName' | translate"></span></th>
+														<td>
+															<a class="btn btn-primary" href="javascript:void(0)" ng-click="ctrl.addAreaProduct($index)">
+																<span ng-bind="'lg_activeBundle.addAreaProduct' | translate"></span>
+															</a>
+														</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="product in area.productList track by $index" >
+														<td style="width:20%;"><img ng-src="{{product.image}}" alt="" style="max-width:50px" /></td>
+														<td><span ng-bind="product.name" ></span></td>
+														<td  style="width: 20%;">
+															<a href="javascript:void(0)" ng-click="ctrl.deleteAreaProduct($parent.$index, $index)" class="table-link danger">
+																<span class="fa-stack">
+																	<i class="fa fa-square fa-stack-2x"></i>
+																	<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+																</span>
+															</a>
+														</td>
+													</tr>
+													<tr ng-if="area.productList.length == 0">
+														<td class="text-center" colspan="999">
+															<span ng-bind="'lg_activeBundle.noSelectProduct' | translate" ></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr align="center">
+								<td style="border:0;"></td>
+								<td style="border:0;" colspan="999">
+									<a class="btn btn-primary" href="javascript:void(0)" ng-click="ctrl.addArea()">
+										<span ng-bind="'lg_activeBundle.addArea' | translate"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+				</div>
+                                        
+                                        
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.permission.C == 'true' || ctrl.permission.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="javascript:void(0)" ng-click="ctrl.goList()" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>                            
+</div>

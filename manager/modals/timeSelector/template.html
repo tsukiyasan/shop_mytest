@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <button class="md-close close" ng-click="ctrl.cancel()">&times;</button>
+    <h4 class="modal-title" >時段選擇</h4>
+</div>
+<div class="modal-body">
+    
+	<div class="table-responsive" >
+		<table class="table" >
+		    <tr ng-repeat="date in ctrl.datepickerList track by $index">
+				<td style="border:0;"><span ng-bind="date.label"></span><span class="text-red" ng-if="date.required">&nbsp;*</span></td>
+				<td style="border:0;">                                                            
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input readonly type="text" class="form-control" date-range-picker ng-model="date.date" options="{singleDatePicker: true, timePicker:true, locale: {format: date.format}}" clearable="true" >
+					</div>
+				</td>
+			</tr>
+	    </table>
+	</div>
+</div>
+<div class="modal-footer">
+    <a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-danger">
+        <i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+    </a>								
+    <a href="javascript:void(0)" ng-click="ctrl.confirm()" class="btn btn-primary">
+        <i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span>確認</span>
+    </a>
+</div>

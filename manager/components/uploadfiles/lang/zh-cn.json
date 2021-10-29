@@ -1,0 +1,15 @@
+"lg_uploadfiles": {
+	"uploadfiles": "上传档案管理",
+	"uploadfiles_name": "名称",
+	"uploadfiles_link": "连结网址",
+	"uploadfiles_browser": "浏览",
+	"uploadfiles_upload_files": "档案上传",
+	"uploadfiles_upload_msg": "上传图档大小限制 1M，尺寸1920*742",
+	"uploadfiles_file_type": "档案类型",
+	"uploadfiles_file_type_1": "产品订购单",
+	"uploadfiles_file_type_2": "申请书",
+	"uploadfiles_file_type_3": "课程报名表",
+	"uploadfiles_file_type_4": "一般文件",
+	"uploadfiles_desc": "文件说明",
+	"uploadfiles_title": "文件标题"
+}

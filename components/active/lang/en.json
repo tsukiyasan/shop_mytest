@@ -1,0 +1,16 @@
+"lg_actives":{
+	"active":"Special event page",
+	"active_reselect":"Re-select",
+	"active_selected":"Selected",
+	"active_notSelected":"Not Selected",
+	"active_selectFormat":"Select specifications",
+	"active_loginFirst":"Join event once log in",
+	"active_addCart":"Done, add to cart",
+	"active_chooseProduct":"Select item",
+	"active_selectProduct":"Select this item",
+	"active_productDesciption":"Item description",
+	"active_pleaseSelectFormat":"Please select specifications",
+	"active_notSelectedProduct":"Pending item selection for sub-session",
+	"active_addCart2":"Added to cart",
+	"active_end":""
+}

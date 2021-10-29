@@ -1,0 +1,144 @@
+<div class="row">
+    <div class="col-lg-12">
+			<div class="row">
+            <div class="col-lg-12">
+					<ol class="breadcrumb">
+						<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+						<li class="active"><span ng-bind="'lg_p_to_m.p_to_m' | translate"></span></li>
+					</ol>
+			</div>
+			</div>
+			<div class="row">
+            <div class="col-lg-12">
+            <div class="main-box clearfix">
+                    
+                    
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_p_to_m.p_to_m_manager' | translate"></span></h2>
+					
+					<div class="filter-block pull-right">
+						
+						
+						<div class="form-group pull-left">
+							<div class="input-group" style="max-width:220px;">
+							<span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+							<input type="text" class="form-control" date-range-picker ng-model="ctrl.params.date" options="ctrl.options2" clearable="true"  placeholder="{{'lg_p_to_m.pm_set_date' | translate}}" >
+							</div>
+						</div>
+
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.invalidChk?('lg_p_to_m.pm_cexportChk' | translate):ctrl.invalidChk}}	
+							
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.invalidChkChg(-1)" ng-bind="'lg_p_to_m.pm_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.invalidChkChg(2)" ng-bind="'lg_p_to_m.pm_iexportYes' | translate">有效</a></li>
+								<li><a ng-click="ctrl.invalidChkChg(1)" ng-bind="'lg_p_to_m.pm_iexportNo' | translate">無效</a></li>
+							</ul>
+						</div>
+						
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.carriedChk?('lg_p_to_m.pm_cexportChk' | translate):ctrl.carriedChk}}	
+							
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.carriedChkChg(-1)" ng-bind="'lg_p_to_m.pm_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.carriedChkChg(1)" ng-bind="'lg_p_to_m.pm_cexportYes' | translate">結轉</a></li>
+								<li><a ng-click="ctrl.carriedChkChg(2)" ng-bind="'lg_p_to_m.pm_cexportNo' | translate">未結轉</a></li>
+							</ul>
+						</div>
+
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.exportChk?('lg_order.order_exportChk' | translate):ctrl.exportChk}}	
+							
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.exportChkChg(-1)" ng-bind="'lg_p_to_m.pm_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.exportChkChg(1)" ng-bind="'lg_p_to_m.pm_exportYes' | translate">結轉</a></li>
+								<li><a ng-click="ctrl.exportChkChg(2)" ng-bind="'lg_p_to_m.pm_exportNo' | translate">未結轉</a></li>
+							</ul>
+						</div>
+                        
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" ng-model="ctrl.params.search" my-enter="ctrl.list()" placeholder="Search...">
+							<a ng-click="ctrl.list()"><i class="fa fa-search search-icon"></i></a>
+						</div>
+						<!--
+						<a href="#" class="btn btn-primary pull-right">
+							<i class="fa fa-download"></i>&nbsp;&nbsp;訂單詳細報表
+						</a>
+						-->
+						<div class="form-group pull-left" style="width:100px;display:inline-flex;justify-content: space-around;white-space: nowrap;">
+							<span style="height:34px;line-height:34px">All data</span>
+							<input type="checkbox" class="form-control" ng-model="ctrl.params.alldataChk" value="1" style="width:34px">
+						</div>
+
+						<a href="javascript:void(0)" ng-click="ctrl.set_carried()" class="btn btn-primary pull-right">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;{{'lg_p_to_m.pm_set_carried' | translate}}
+						</a>
+
+						<a href="javascript:void(0)" ng-if="ctrl.orderExport" ng-click="ctrl.export()" class="btn btn-success pull-right">
+							<i class="fa fa-download"></i>&nbsp;&nbsp;{{'lg_report.export_excel' | translate}}
+						</a>
+					</div>
+				</header>
+				
+                
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">      
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center">
+										<md-checkbox md-no-ink
+													 ng-checked="ctrl.isChecked()"
+							                         md-indeterminate="ctrl.isIndeterminate()"
+							                         ng-click="ctrl.toggleAll()"
+							                         aria-label=" "
+							                         class="md-primary"
+							                         style="margin-bottom:0px;">
+							            </md-checkbox>
+									</th>
+									<th width="150"><span ng-bind="'lg_p_to_m.mb_no' | translate">會員編號</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.mb_name' | translate">會員姓名</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.set_date' | translate">申請日期</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.points' | translate">申請金額</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.kind_name' | translate">申請類型</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.is_invalid_str' | translate">是否有效</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.carried_forward_str' | translate">是否結轉</span></th>
+									<th class="text-center"><span ng-bind="'lg_p_to_m.pm_exportChk' | translate">是否結轉</span></th>
+									
+									<th width="10%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="data in ctrl.data_list" ng-class="{'1':'gray'}[data.is_invalid]">
+									<td class="text-center" width="5%">
+										<md-checkbox md-no-ink ng-if="data.is_invalid!=1" ng-checked="ctrl.exists(data, ctrl.selected)" ng-click="ctrl.toggle(data, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+									</td>
+									<td ng-bind="data.mb_no"></td>
+                                    <td class="text-center" ng-bind="data.mb_name"></td>
+                                    <td class="text-center" ng-bind="data.set_date"></td>
+                                    <td class="text-center" ng-bind="data.points"></td>
+									<td class="text-center" ng-bind="data.kind_name"></td>
+                                    <td class="text-center" ng-bind="data.is_invalid_str"></td>
+									<td class="text-center" ng-bind="data.carried_forward_str"></td>
+									<td class="text-center" ng-bind="data.exportChk_str"></td>
+                                    
+								
+							</tbody>
+						</table>
+                    </div>
+					<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+				</div>
+			</div><!--main-box end-->
+			</div>
+		</div>
+	</div>
+</div>

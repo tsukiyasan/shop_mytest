@@ -1,0 +1,203 @@
+<div class="row">
+    <div class="col-lg-12">
+			<div class="row">
+            <div class="col-lg-12">
+					<ol class="breadcrumb">
+						<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+						<li class="active"><span ng-bind="'lg_order.order_manager' | translate"></span></li>
+					</ol>
+			</div>
+			</div>
+			<div class="row">
+            <div class="col-lg-12">
+            <div class="main-box clearfix">
+                    
+                    
+				<header class="main-box-header clearfix">
+					<h2 class="pull-left"><i class="fa fa-edit"></i>&nbsp;<span ng-bind="'lg_order.order_manager' | translate"></span></h2>
+					
+					<div class="filter-block pull-right">
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.orderModeStr?  ('lg_order.order_orderModeStr' | translate):ctrl.orderModeStr}}	
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.orderModeChg(-1)" ng-bind="'lg_order.order_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.orderModeChg(1)" ng-bind="'lg_order.order_orderModeStr1' | translate">線上購物的一般付費</a></li>
+								<li><a ng-click="ctrl.orderModeChg(2)" ng-bind="'lg_order.order_orderModeStr2' | translate">線上加入的會費</a></li>
+							</ul>
+						</div>
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.payTypeStr? ('lg_order.order_payType' | translate) :ctrl.payTypeStr}}	
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.payTypeChg(-1)" ng-bind="'lg_order.order_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.payTypeChg(2)" ng-bind="'lg_order.order_payType2' | translate">ATM匯款</a></li>
+								<li><a ng-click="ctrl.payTypeChg(3)" ng-bind="'lg_order.order_payType3' | translate">線上刷卡</a></li>
+								<li><a ng-click="ctrl.payTypeChg(5)" ng-bind="'lg_order.order_payType5' | translate">店取付現</a></li>
+							</ul>
+						</div>
+						
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							<txt ng-bind="'lg_order.order_operate' | translate">批次操作</txt>
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<!--<li><a ng-click="ctrl.operateChg(1)">訂單合併</a></li>
+								<li><a ng-click="ctrl.operateChg(3)">刪除所選訂單</a></li>-->
+								<!--li><a ng-click="ctrl.operateChg(4)">列印揀貨單</a></li>
+								<li><a ng-click="ctrl.operateChg(5)">列印出貨單</a></li-->
+								<li><a ng-click="ctrl.operateChg(6)" ng-bind="'lg_order.order_operate6' | translate">訂購商品統計</a></li>
+							</ul>
+						</div>
+						<div class="form-group pull-left">
+							<div class="input-group" style="max-width:220px;">
+							<span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+							<input type="text" class="form-control" date-range-picker ng-model="ctrl.params.date" options="ctrl.options2" clearable="true"  placeholder="{{'lg_order.order_buyDate' | translate}}" >
+							<!--<input type="text" class="form-control" ng-model="ctrl.dateStr" ng-click="ctrl.exportProductReport()"  placeholder="訂單日期" >-->
+							</div>
+						</div>
+						
+						<div class="form-group pull-left">
+                            <div class="input-group" style="max-width:220px;">
+                            <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                            <!--input type="text" class="form-control" id="datepickerDateRange" ng-model="ctrl.params.sbuyDate +' - '+ ctrl.params.ebuyDate"-->
+                            <input type="text" class="form-control" date-range-picker ng-model="ctrl.params.cdate" options="ctrl.options" clearable="true" placeholder="{{'lg_order.order_cancel_date' | translate}}" >
+                            </div>
+						</div>
+						
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.orderTypeStr? ('lg_order.order_type' | translate):ctrl.orderTypeStr}}	
+							
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.orderTypeChg(-1)" ng-bind="'lg_order.order_all' | translate">全部</a></li>
+								<li ng-repeat="data in ctrl.code_list"><a ng-click="ctrl.orderTypeChg(data.value)">{{data.name}}</a></li>
+								
+							</ul>
+						</div>
+						<div class="form-group pull-left">
+							<a class="form-control" data-toggle="dropdown" >
+							{{!ctrl.exportChk?('lg_order.order_exportChk' | translate):ctrl.exportChk}}	
+							
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="ctrl.exportChkChg(-1)" ng-bind="'lg_order.order_all' | translate">全部</a></li>
+								<li><a ng-click="ctrl.exportChkChg(1)" ng-bind="'lg_order.order_exportYes' | translate">轉出</a></li>
+								<li><a ng-click="ctrl.exportChkChg(2)" ng-bind="'lg_order.order_exportNo' | translate">未轉出</a></li>
+							</ul>
+						</div>
+                        
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" ng-model="ctrl.params.search" my-enter="ctrl.list()" placeholder="Search...">
+							<a ng-click="ctrl.list()"><i class="fa fa-search search-icon"></i></a>
+						</div>
+						<!--
+						<a href="#" class="btn btn-primary pull-right">
+							<i class="fa fa-download"></i>&nbsp;&nbsp;訂單詳細報表
+						</a>
+						-->
+						<a href="javascript:void(0)" ng-if="ctrl.orderExport" ng-click="ctrl.export()" class="btn btn-success pull-right">
+							<i class="fa fa-download"></i>&nbsp;&nbsp;{{'lg_report.export_excel' | translate}}
+						</a>
+					</div>
+				</header>
+				
+                
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">      
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center">
+										<md-checkbox md-no-ink
+													 ng-checked="ctrl.isChecked()"
+							                         md-indeterminate="ctrl.isIndeterminate()"
+							                         ng-click="ctrl.toggleAll()"
+							                         aria-label=" "
+							                         class="md-primary"
+							                         style="margin-bottom:0px;">
+							            </md-checkbox>
+									</th>
+									<th width="150"><span ng-bind="'lg_order.order_orderNum' | translate">訂單編號</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_buyDate' | translate">訂單日期</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_memName' | translate">會員姓名</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_amt' | translate">金額</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_type' | translate">訂單狀態</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_cancel_date' | translate">取消日期</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_payType' | translate">付款方式</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_creditDate' | translate">刷卡時間</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_getType' | translate">配送方式</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_store' | translate">自取門市</span></th>
+									<th class="text-center"><span ng-bind="'lg_order.order_exportChk' | translate">是否轉出</span></th>
+									<th width="10%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="data in ctrl.data_list" ng-class="{'6':'gray'}[data.statusPcode]">
+									<td class="text-center" width="5%">
+										<md-checkbox md-no-ink ng-if="data.statusPcode!=6" ng-checked="ctrl.exists(data, ctrl.selected)" ng-click="ctrl.toggle(data, ctrl.selected)" class="md-primary" style="margin-bottom:0px;" aria-label=" "></md-checkbox>
+									</td>
+									<td ng-bind="data.orderNum"></td>
+                                    <td class="text-center" ng-bind="data.ctime"></td>
+                                    <td class="text-center" ng-bind="data.dlvrName"></td>
+                                    <td class="text-center" ng-bind="((data.totalAmt*1000)-(data.m_discount*1000))/1000"></td>
+                                    <td class="text-center" ng-if="data.statusPcode!=6" >
+                                    	<span class="label" ng-class="{'0':'label-default','1':'label-warning','2':'label-danger','3':'label-primary','4':'label-success','7':'label-warning','8':'label-danger','9':'label-warning'}[data.statusPcode]" ng-bind="data.status"></span>
+                                    </td>
+                                    <td class="text-center" ng-if="data.statusPcode==6" >
+                                    	{{data.status}}
+                                    </td>
+									<td class="text-center" ng-bind="data.cancelDate"></td>
+                                    <td class="text-center" ng-bind="data.payType"></td>
+									<td class="text-center" ng-bind="data.payDate"></td>
+                                    <td class="text-center" ng-bind="data.dlvrType"></td>
+									<td class="text-center" ng-bind="data.dlvrLocation"></td>
+									<td class="text-center" ng-bind="data.exportChk"></td>
+									<td>
+										<a  ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.gopage(data.id)" class="table-link">
+											<span class="fa-stack">
+												<i class="fa fa-square fa-stack-2x"></i>
+												<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+											</span>
+										</a>
+										<!--a ng-if="data.statusPcode!=6" href="components/order/print.php?v=4&idStr=||{{data.id}}||" target="_blank" class="table-link" title="列印揀貨單">
+											<span class="fa-stack">
+												<i class="fa fa-square fa-stack-2x"></i>
+												<i class="fa fa-print fa-stack-1x fa-inverse"></i>
+											</span>
+										</a>
+										<a ng-if="data.statusPcode!=6" href="components/order/print.php?v=5&idStr=||{{data.id}}||" target="_blank" class="table-link" title="列印出貨單" >
+											<span class="fa-stack">
+												<i class="fa fa-square fa-stack-2x"></i>
+												<i class="fa fa-print fa-stack-1x fa-inverse"></i>
+											</span>
+										</a-->
+										<!--
+										<a ng-if="data.statusPcode!=6" href="javascript:void(0)" ng-click="ctrl.delete(data.id)" class="table-link danger">
+											<span class="fa-stack">
+												<i class="fa fa-square fa-stack-2x"></i>
+												<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</a>
+										-->
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+                    </div>
+					<page-ctrl-el params="ctrl.params" cnt="ctrl.cnt" page="ctrl.params.page"></page-ctrl-el>
+				</div>
+			</div><!--main-box end-->
+			</div>
+		</div>
+	</div>
+</div>

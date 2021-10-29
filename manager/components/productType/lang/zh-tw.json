@@ -1,0 +1,18 @@
+"lg_productType": {
+	"productType": "商品類別",
+	"manager": "商品類別管理",
+	"name": "類別名稱",
+	"status": "狀態",
+	"odring": "排序",
+	"url": "連結網址",
+	"page": "自訂頁面",
+	"imgtext": "圖文模組",
+	"img":"加入圖片",
+	"text":"加入文字",
+	"imgupd":"選擇圖片",
+	"content":"編輯頁面",
+	"var1":"簡述",
+	"formchk":"使用表單做商品頁",
+	"formchkMsg":"若勾選此選項，系統將自動於頁面下方帶入表單模組",
+	"end": ""
+}

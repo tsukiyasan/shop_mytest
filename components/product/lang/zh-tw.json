@@ -1,0 +1,22 @@
+"lg_products":{
+	"search_result":"搜尋結果",
+	"product_price":"特惠價",
+	"product_login_first":"登入後顯示價格",
+	"product_select":"請選擇",
+	"product_count":"數量：",
+	"product_mag1":"該商品目前缺貨中! 仍可購買，但購買後無法立即出貨，",
+	"product_mag2":"必須等到商品到貨後另行通知出貨時間，如不想等待，",
+	"product_mag3":"請挑選購買其他商品，謝謝!",
+	"product_mag4":"注意：該商品目前庫存數量為",
+	"product_mag5":"，您所購買數的量已經達到目前庫存，謝謝！",
+	"product_active":"優惠活動：",
+	"product_pay":"立即結帳",
+	"product_add_cart":"加入購物車",
+	"product_data":"商品資訊",
+	"product_video":"相關影片",
+	"product_return":"返回",
+	"product_select_count":"請選擇數量",
+	"product_added_cart":"已加入購物車",
+	"product_end":""
+	
+}

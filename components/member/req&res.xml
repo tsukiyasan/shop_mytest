@@ -1,0 +1,43 @@
+REQUEST:
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://stamps.com/xml/namespace/2019/12/swsim/SwsimV90">
+	<Body>
+		<AuthenticateUser>
+			<Credentials>
+				<IntegrationID>
+					5b500af5-0dcc-4d7d-b2c8-8da96fec6ffd
+				</IntegrationID>
+				<Username>
+					HBC-001
+				</Username>
+				<Password>
+					January2021!
+				</Password>
+			</Credentials>
+		</AuthenticateUser>
+	</Body>
+</Envelope>
+RESPONSE:
+<?xml version="1.0" encoding="utf-8"?>
+<Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Body>
+		<AuthenticateUserResponse xmlns="http://stamps.com/xml/namespace/2019/12/swsim/SwsimV90">
+			<Authenticator>
+				exp=1611652584&amp;uid=3191297&amp;cty=swsim&amp;ctk=Q+/cmbED0PgmJBTbAsfPlA5zXt0=&amp;iid=9QpQW8wNfU2yyI2pb+xv/Q==&amp;rsid=0&amp;irsid=1&amp;eac=1534985658&amp;eacx=297990143&amp;eac3=0&amp;rrsid=0&amp;raid=0&amp;resellerid=0&amp;pexp=0&amp;pl=&amp;ast=1&amp;ipaddr=125.227.104.50&amp;ace=1611051384&amp;appcapsx=W34FuhHC9/8AAAAAAAAAAAAAAAA=&amp;mac=X2iq62JrphpO0EVtKC8ZmWT+LJs=
+			</Authenticator>
+			<LastLoginTime>
+				2021-01-19T08:24:20.32
+			</LastLoginTime>
+			<ClearCredential>
+				false
+			</ClearCredential>
+			<LoginBannerText />
+			<PasswordExpired>
+				false
+			</PasswordExpired>
+			<CodewordsSet>
+				true
+			</CodewordsSet>
+		</AuthenticateUserResponse>
+	</Body>
+</Envelope>

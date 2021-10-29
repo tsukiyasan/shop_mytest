@@ -1,0 +1,15 @@
+"lg_uploadfiles": {
+	"uploadfiles": "上傳檔案管理",
+	"uploadfiles_name": "名稱",
+	"uploadfiles_link": "連結網址",
+	"uploadfiles_browser": "瀏覽",
+	"uploadfiles_upload_files": "檔案上傳",
+	"uploadfiles_upload_msg": "上傳圖檔大小限制 1M，尺寸1920*742",
+	"uploadfiles_file_type": "檔案類型",
+	"uploadfiles_file_type_1": "產品訂購單",
+	"uploadfiles_file_type_2": "申請書",
+	"uploadfiles_file_type_3": "課程報名表",
+	"uploadfiles_file_type_4": "一般文件",
+	"uploadfiles_desc": "文件說明",
+	"uploadfiles_title": "文件標題"
+}

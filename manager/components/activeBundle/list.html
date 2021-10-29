@@ -1,0 +1,71 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_activeBundle.activeBundle' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">                       
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i>&nbsp;<span id="views_title_name" ng-bind="'lg_activeBundle.activeBundle' | translate"></span></h2>
+				
+				<div class="filter-block pull-right">
+					
+					<a ng-if="ctrl.permission.U == 'true'" ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					
+					<a ng-if="ctrl.permission.C == 'true'" href="javascript:void(0)" ng-click="ctrl.goPage()" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<txt ng-bind="'lg_main.add' | translate"></txt>
+					</a>
+				</div>
+			</header>
+			
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th ng-bind="'lg_activeBundle.name' | translate"></th>
+								<th ng-bind="'lg_activeBundle.startTime' | translate"></th>
+								<th ng-bind="'lg_activeBundle.url' | translate"></th>
+								<th class="text-center" ng-bind="'lg_activeBundle.enable' | translate"></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="activeBundle in ctrl.activeBundleList track by activeBundle.id">
+								<td  style="width:15%;" ng-bind="activeBundle.name"></td>
+								<td  style="width:15%;" ng-bind="activeBundle.startTime"></td>
+								<td style="width:30%;" ng-bind="activeBundle.url"></td>
+								<td class="text-center"><span ng-class="{1: 'label label-success', 0: 'label label-gray'}[activeBundle.enable]" ng-bind="{'1': 'ON', '0': 'OFF'}[activeBundle.enable]"></span></td>
+							
+								<td  style="width: 15%;">
+									<a ng-if="ctrl.permission.U == 'true'" href="javascript:void(0)" ng-click="ctrl.goPage(activeBundle.id)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									<a ng-if="ctrl.permission.D == 'true'" href="javascript:void(0)" ng-click="ctrl.delete(activeBundle.id)" class="table-link danger">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<page-ctrl-el params="ctrl.params" cnt="ctrl.pageCount" page="ctrl.params.page"></page-ctrl-el>
+			</div>
+		</div>
+	</div>
+</div>
+	

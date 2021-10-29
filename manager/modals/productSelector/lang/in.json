@@ -1,0 +1,8 @@
+"lg_selectProduct": {
+	"title": "pilih produk",
+	"productImage": "gambar produk",
+	"productName": "nama produk",
+	"noFound": "Tidak dapat menemukan produk yang memenuhi syarat",
+	"search": "cari",
+	"noSelectProductType": "cari kategori produk"
+}

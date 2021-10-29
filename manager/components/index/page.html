@@ -1,0 +1,305 @@
+<div class="row">
+<div class="col-lg-12">
+		<div class="row">
+        <div class="col-lg-12">
+				<ol class="breadcrumb">
+					<li><a href="#index_page">Home</a></li>
+					<li class="active"><span ng-bind="'lg_index.index' | translate"></span></li>
+				</ol>
+		</div>
+		</div>
+		
+        
+		<div class="row">
+			<div class="col-lg-4 col-sm-12 col-xs-12">
+				<div class="main-box infographic-box colored emerald-bg">
+					<i class="fa fa-envelope"></i>
+					<span class="headline">{{'lg_index.order_today' | translate}}</span>
+					<span class="value">{{ctrl.index_dtl.order.today}} <span style="font-size:0.5em;">/ {{'lg_index.str_num' | translate}}</span></span>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-sm-12 col-xs-12">
+				<div class="main-box infographic-box colored green-bg">
+					<i class="fa fa-truck"></i>
+					<span class="headline">{{'lg_index.order_process' | translate}}</span>
+					<span class="value">{{ctrl.index_dtl.order.process}} <span style="font-size:0.5em;">/ {{'lg_index.str_num' | translate}}</span></span>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-sm-6 col-xs-12">
+				<div class="main-box infographic-box colored red-bg">
+					<i class="fa fa-warning"></i>
+					<span class="headline">{{'lg_index.product_instock' | translate}}</span>
+					<span class="value">{{ctrl.index_dtl.product.instock}} <span style="font-size:0.5em;">/ {{'lg_index.str_num' | translate}}</span></span>
+				</div>
+			</div>
+
+			<!--div class="col-lg-4 col-sm-12 col-xs-12">
+				<div class="main-box infographic-box colored purple-bg">
+					<i class="fa fa-cube"></i>
+					<span class="headline">{{'lg_index.product_cnt' | translate}}</span>
+					<span class="value">{{ctrl.index_dtl.product.cnt}} <span style="font-size:0.5em;">/ {{'lg_index.str_num' | translate}}</span></span>
+				</div>
+			</div-->
+		</div>
+            
+            
+            
+        
+		<div class="row">
+        <div class="col-lg-12">
+        <div class="main-box clearfix">
+                
+                
+					<header class="main-box-header clearfix">
+						<h2 class="pull-left" style="padding-bottom:10px;"><i class="fa fa-bar-chart"></i> {{'lg_index.order_cnt' | translate}}</h2>
+                        <div class="btn-group pull-right" data-toggle="buttons" style="padding-top:10px;">
+                            <label class="btn btn-primary" ng-click="ctrl.orderTypeChg()" ng-model="ctrl.index_dtl.order.type" uib-btn-radio="'w'">{{'lg_index.str_week' | translate}}</label>
+							<label class="btn btn-primary" ng-click="ctrl.orderTypeChg()" ng-model="ctrl.index_dtl.order.type" uib-btn-radio="'m'"> {{'lg_index.str_month' | translate}}</label>
+                            
+                        </div>
+					</header>
+                    
+					
+					<div class="main-box-body clearfix">
+                    
+                    	<!--start-->
+						<div class="row">
+							<div class="col-md-9" >
+								<div class="main-box-body clearfix">
+									<div id="hero-bar">	
+			                        <canvas height="70%" chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.index_dtl.order.data.data" chart-labels="ctrl.index_dtl.order.data.labels" chart-legend="true" chart-series="ctrl.index_dtl.order.data.series" ></canvas>
+			                        
+			                        </div>
+								</div>
+								
+                            </div>
+							<div class="col-md-3">
+								<ul class="graph-stats" style="padding-top:10px;">
+									<li>
+										<div class="clearfix">
+											<div class="title pull-left">
+												{{'lg_index.order_amt' | translate}}
+											</div>
+											<div class="value pull-right" title="{{ctrl.index_dtl.order.data.discountStr}}" data-toggle="tooltip">
+												NT {{ctrl.index_dtl.order.data.totalAmt}} <i class="fa" ng-class="ctrl.index_dtl.order.data.discount <0 ? 'fa-level-down red' : 'fa-level-up green'"></i> 
+											</div>
+										</div>
+										<div class="progress">
+											<div style="width: {{ctrl.index_dtl.order.data.targetAmt}}%;" class="progress-bar">
+												
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="clearfix">
+											<div class="title pull-left">
+												{{'lg_index.order' | translate}}
+											</div>
+											<div class="value pull-right" title="{{ctrl.index_dtl.order.data.discountStr2}}" data-toggle="tooltip">
+												{{ctrl.index_dtl.order.data.cnt}} <i class="fa" ng-class="ctrl.index_dtl.order.data.discount2 <0 ? 'fa-level-down red' : 'fa-level-up green'"></i> 
+											</div>
+										</div>
+										<div class="progress">
+											<div style="width: {{ctrl.index_dtl.order.data.targetOrder}}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="42" role="progressbar" class="progress-bar progress-bar-danger">
+												
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="clearfix">
+											<div class="title pull-left">
+												{{'lg_index.newmember' | translate}}
+											</div>
+											<div class="value pull-right" title="{{ctrl.index_dtl.order.data.discountStr3}}" data-toggle="tooltip">
+												{{ctrl.index_dtl.order.data.newmember}} <i class="fa" ng-class="ctrl.index_dtl.order.data.discount3 <0 ? 'fa-level-down red' : 'fa-level-up green'"></i> 
+											</div>
+										</div>
+										<div class="progress">
+											<div style="width: {{ctrl.index_dtl.order.data.targetMember}}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="78" role="progressbar" class="progress-bar progress-bar-success">
+												
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="clearfix">
+											<div class="title pull-left">
+												{{'lg_index.custom' | translate}}
+											</div>
+											<div class="value pull-right" title="{{ctrl.index_dtl.order.data.discountStr4}}" data-toggle="tooltip">
+												{{ctrl.index_dtl.order.data.viewcnt}} <i class="fa" ng-class="ctrl.index_dtl.order.data.discount4 <0 ? 'fa-level-down red' : 'fa-level-up green'"></i> 
+											</div>
+										</div>
+										<div class="progress">
+											<div style="width: {{ctrl.index_dtl.order.data.targetCustom}}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="94" role="progressbar" class="progress-bar progress-bar-warning">
+												
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+                            
+                            
+						</div> 
+                    	<!--end-->
+                    
+                                                            
+                    
+                    
+                    
+                    
+					</div>
+                    
+                    
+                    
+                    
+                    
+                    
+		</div><!--main-box end-->
+		</div>
+		</div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
+        
+		<div class="row">
+        <div class="col-lg-12">
+                
+        
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="main-box">
+					<header class="main-box-header clearfix">
+						<h2 class="pull-left" style="padding-bottom:10px;"><i class="fa fa-bar-chart"></i> {{'lg_index.amt' | translate}}</h2>
+                        <div class="btn-group pull-right" data-toggle="buttons" style="padding-top:10px;">
+                        	<label class="btn btn-primary" ng-click="ctrl.amtTypeChg()" ng-model="ctrl.index_dtl.amt.type" uib-btn-radio="'w'">{{'lg_index.str_week' | translate}}</label>
+							<label class="btn btn-primary" ng-click="ctrl.amtTypeChg()" ng-model="ctrl.index_dtl.amt.type" uib-btn-radio="'m'"> {{'lg_index.str_month' | translate}}</label>
+                            
+                        </div>
+					</header>
+					
+					<div class="main-box-body clearfix">
+						<div id="hero-bar">	
+                        <canvas chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.index_dtl.amt.data" chart-labels="ctrl.index_dtl.amt.labels" chart-legend="true" chart-series="ctrl.index_dtl.amt.series" ></canvas>
+                        
+                        </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="main-box">
+					<header class="main-box-header clearfix">
+						<h2 class="pull-left" style="padding-bottom:10px;"><i class="fa fa-line-chart"></i> {{'lg_index.view' | translate}}</h2>
+                        <div class="btn-group pull-right" data-toggle="buttons" style="padding-top:10px;">
+                            <label class="btn btn-primary" ng-click="ctrl.viewTypeChg()" ng-model="ctrl.index_dtl.view.type" uib-btn-radio="'w'">{{'lg_index.str_week' | translate}}</label>
+							<label class="btn btn-primary" ng-click="ctrl.viewTypeChg()" ng-model="ctrl.index_dtl.view.type" uib-btn-radio="'m'"> {{'lg_index.str_month' | translate}}</label>
+                            
+                        </div>
+					</header>
+					
+					<div class="main-box-body clearfix">
+						<div id="hero-graph">
+                      <canvas chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.index_dtl.view.data" chart-labels="ctrl.index_dtl.view.labels" chart-legend="true" chart-series="ctrl.index_dtl.view.series" ></canvas>
+                        
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+                                                
+                    
+		</div>
+		</div>
+        
+        
+		<div class="row">
+        <div class="col-lg-12">
+                
+        
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="main-box">
+					<header class="main-box-header clearfix">
+						<h2 class="pull-left" style="padding-bottom:10px;"><i class="fa fa-trophy"></i> {{'lg_index.product_view' | translate}}</h2>
+                        <div class="btn-group pull-right" data-toggle="buttons" style="padding-top:10px;">
+                            <label class="btn btn-primary" ng-click="ctrl.proviewTypeChg()" ng-model="ctrl.index_dtl.proview.type" uib-btn-radio="'w'">{{'lg_index.str_week' | translate}}</label>
+							<label class="btn btn-primary" ng-click="ctrl.proviewTypeChg()" ng-model="ctrl.index_dtl.proview.type" uib-btn-radio="'m'"> {{'lg_index.str_month' | translate}}</label>
+                        </div>
+					</header>
+					
+					<div class="main-box-body clearfix">
+						<div class="row">
+                        <div class="col-lg-12">
+									<div class="map-stats">
+									<div class="table-responsive">
+										<table class="table table-condensed table-hover" style="font-size:1.1em;">
+											<thead>
+												<tr>
+													<th><span></span></th>
+													<th><span>{{'lg_index.product_name' | translate}}</span></th>
+													<th class="text-center"><span>{{'lg_index.product_viewcnt' | translate}}</span></th>
+													<th class="text-center"><span>{{'lg_index.product_viewrank' | translate}}</span></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="data in ctrl.index_dtl.proview.data track by $index">
+													<td>
+														{{$index+1}}
+													</td>
+													<td>
+														{{data.name}}
+													</td>
+													<td class="text-center">
+														{{data.cnt}}
+													</td>
+													<td class="text-center status" ng-class="data.discount <0 ? 'red' : 'green'">
+														<i class="fa " ng-class="data.discount <0 ? 'fa-level-down' : 'fa-level-up'"></i> {{data.discount<0?data.discount*-1:data.discount}}%
+													</td>
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
+									</div>
+							</div>
+							</div>                                                
+						</div>
+                        
+				</div>
+			</div>
+            
+            
+			<div class="col-lg-6">
+				<div class="main-box">
+					<header class="main-box-header clearfix">
+						<h2 class="pull-left" style="padding-bottom:10px;"><i class="fa fa-trophy"></i> {{'lg_index.product_sale' | translate}}</h2>
+                        <div class="btn-group pull-right" data-toggle="buttons" style="padding-top:10px;">
+                            <label class="btn btn-primary" ng-click="ctrl.procntTypeChg()" ng-model="ctrl.index_dtl.procnt.type" uib-btn-radio="'w'">{{'lg_index.str_week' | translate}}</label>
+							<label class="btn btn-primary" ng-click="ctrl.procntTypeChg()" ng-model="ctrl.index_dtl.procnt.type" uib-btn-radio="'m'"> {{'lg_index.str_month' | translate}}</label>
+                        
+                        </div>
+					</header>
+					
+					<div class="main-box-body clearfix">
+						<div id="hero-graph">
+                        <canvas chart-options="ctrl.options" class="chart chart-bar" chart-data="ctrl.index_dtl.procnt.data" chart-labels="ctrl.index_dtl.procnt.labels" chart-legend="true" chart-series="ctrl.index_dtl.procnt.series" ></canvas>
+                        
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+                                                
+                    
+		</div>
+		</div>
+</div>
+</div>

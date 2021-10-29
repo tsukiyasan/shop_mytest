@@ -1,0 +1,17 @@
+"lg_treemenu": {
+	"treemenu": "自定义页面",
+	"manager": "自定义页面管理",
+	"name": "名称",
+	"status": "状态",
+	"odring": "排序",
+	"url": "连结网址",
+	"page": "自定义页面",
+	"imgtext": "图文模块",
+	"img":"加入图片",
+	"text":"加入文字",
+	"imgupd":"页面图片",
+	"content":"编辑页面",
+	"var1":"简述",
+	"var1msg":"前台显示于该页banner",
+	"end": ""
+}

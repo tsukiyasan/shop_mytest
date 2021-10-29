@@ -1,0 +1,17 @@
+"lg_message": {
+	"message": "Message Management",
+	"message_name": "Message person",
+	"message_tel": "Contact Phone",
+	"message_email": "Email",
+	"message_title": "Title",
+	"message_rectime": "Received time",
+	"message_ip": "IP",
+	"message_state": "State",
+	"message_recContent": "Content",
+	"message_sendTitle": "Reply to Message",
+	"message_sendContent": "Reply Content",
+	"message_submit": "Set as Reply",
+	"message_qtype": "question type",
+	"message_city": "city",
+	"message_end": ""
+}

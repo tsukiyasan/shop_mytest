@@ -1,0 +1,84 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb" >
+			<li ><a href="#index_page" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_midmenu.midmenu' | translate"></span></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+                            
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-file-code-o"></i>&nbsp;<span ng-bind="'lg_midmenu.manager' | translate"></span></h2>
+				<div class="filter-block pull-right">
+					<a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+				</div>
+			</header>
+			<!--
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_midmenu.manager' | translate">&nbsp;</span></h2>
+				
+				<div class="filter-block pull-right">
+					<div class="form-group pull-left">
+						<input type="text" class="form-control" ng-model="ctrl.search_str" my-enter="ctrl.search()" id="midmenu_search" placeholder="Search...">
+						<a ng-click="ctrl.search()"><i class="fa fa-search search-icon"></i></a>
+					</div>
+					<a ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-lg"></i><span ng-bind="'lg_main.odring' | translate"></span>
+					</a>
+					<a ng-href="#midmenu_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+					</a>
+					<a ng-if="ctrl.level<2 || !ctrl.level" href="#midmenu_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>
+					</a>
+					<a id="backBtn" ng-show="ctrl.level>1" ng-href="#midmenu_list#{{ctrl.backhash}}"  class="btn btn-danger pull-right">
+						<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>回上一頁</span>
+					</a>
+				</div>
+			</header>
+			-->
+			<div class="main-box-body clearfix"  >
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th><span ng-bind="'lg_main.title' | translate"></span></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="midmenus in ctrl.data_list track by $index" ng-show="midmenus.id">
+								<td style="width:5%;" class="text-center" >
+									<span ng-if="midmenus.pagetype=='dir'"><i class="fa fa-folder"></i></span>
+									<span ng-if="midmenus.pagetype=='page'"><i class="fa fa-file"></i></span>
+								</td>
+								<td  style="width:20%;" >
+									<span ng-if="midmenus.pagetype=='page'">{{midmenus.name}}</span>
+									<a ng-if="midmenus.pagetype=='dir'" ng-href="#midmenu_list#{{midmenus.param}}" >{{midmenus.name}}</a>
+								</td>
+								
+								<td  style="width: 15%;">
+									<a href="#midmenu_{{midmenus.pagetype}}#{{midmenus.edit}}" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		</div>
+		
+			</div>
+		</div>
+	</div>
+	
+</div>
+	

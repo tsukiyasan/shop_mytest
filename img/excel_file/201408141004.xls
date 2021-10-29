@@ -1,0 +1,194 @@
+<html>
+
+	<head>
+	<meta http-equiv='Content-Language' content='zh-tw'>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+	<title></title>
+	<style type='text/css'>
+	<!--
+	table td{
+		text-align:left;
+		font-family: Verdana,Arial;
+		font-size: 12px;
+	}
+	-->
+	</style>
+	</head>
+
+
+
+	<table border='1' width='100%'>
+		<tr>	
+			<td>期別</td>
+			<td>會員編號</td>
+			<td>會員姓名</td>
+			<td>加入日期</td>
+			<td>當月業績</td>
+			<td>累積推薦</td>
+			<td>品階</td>
+			
+			<td>溢撥點數</td>
+			
+			<td>消費點數</td>
+			<td>退回點數</td>
+			
+			<td>付款金額</td>
+			<td>退款金額</td>
+			<td>獎金總額</td>
+			<td>給付獎金</td>
+			<td>收回獎金</td>
+			<td>推薦編號</td>
+			<td>推薦姓名</td>
+			<td>安置編號</td>
+			<td>安置姓名</td>
+			</tr><tr>
+			<td>201207</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安＊力國際股份有限公司</td>
+			<td>2012/07/28</td>		
+			<td>0</td>
+			
+			<td>0</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>0</td>
+			<td>0</td>
+			
+			<td>-</td>
+			<td>-</td>
+			<td>0</td>
+			<td>0</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			
+			
+			</tr><tr>
+			<td>201208</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安＊力國際股份有限公司</td>
+			<td>2012/07/28</td>		
+			<td>0</td>
+			
+			<td>4</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>0</td>
+			<td>0</td>
+			
+			<td>-</td>
+			<td>-</td>
+			<td>132</td>
+			<td>132</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			
+			
+			</tr><tr>
+			<td>201209</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td>2012/07/28</td>		
+			<td>0</td>
+			
+			<td>4</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>0</td>
+			<td>0</td>
+			
+			<td>-</td>
+			<td>-</td>
+			<td>0</td>
+			<td>112</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>安捷力國際股份有限公司</td>
+			
+			
+			</tr><tr>
+			<td>201210</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td>2012/07/28</td>		
+			<td>50</td>
+			
+			<td>4</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>50</td>
+			<td>0</td>
+			
+			<td>2388</td>
+			<td>-</td>
+			<td>112</td>
+			<td>112</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			
+			
+			</tr><tr>
+			<td>201211</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td>2012/07/28</td>		
+			<td>0</td>
+			
+			<td>4</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>0</td>
+			<td>0</td>
+			
+			<td>1500</td>
+			<td>-</td>
+			<td>0</td>
+			<td>224</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			
+			
+			</tr><tr>
+			<td>201212</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td>2012/07/28</td>		
+			<td>500</td>
+			
+			<td>4</td>
+			
+			<td>消費者</td>
+			<td>-</td>
+			<td>500</td>
+			<td>0</td>
+			
+			<td>1500</td>
+			<td>-</td>
+			<td>0</td>
+			<td>224</td>
+			<td>-</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			<td style=mso-number-format:'\@';>TW0000001</td>
+			<td>王＊玲</td>
+			
+			
+			</tr></table></body></html>
