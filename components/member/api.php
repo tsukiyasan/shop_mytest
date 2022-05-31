@@ -183,6 +183,9 @@ switch ($task) {
 	case "annual_dividend":
 		annual_dividend();
 		break;
+	case "orgseq_member":
+		orgseq_member();
+		break;
 	case "sign20_signupChk":
 		sign20_signupChk();
 		break;
@@ -280,6 +283,12 @@ switch ($task) {
 	case "del_pm":
 		del_pm();
 		break;
+	case "test_mlm":
+		$res = array();
+		$response = toMLM('113','1404');
+		$res['resp'] = $response;
+		JsonEnd($res);
+		break;
 }
 
 
@@ -302,7 +311,7 @@ function signNew_getMemberData()
 
 		JsonEnd(array("status" => 1, "loginId" => $loginId, "passwd" => $passwd, "email" => $email, "rec" => $ERPID));
 	} else {
-		JsonEnd(array("status" => 1, "msg" => "查無資料"));
+		JsonEnd(array("status" => 1, "msg" => _MEMBER_NO_DATA));
 	}
 }
 
@@ -329,12 +338,12 @@ function signNew_checkWID()
 			$rec2 = $login_result['mb_no'];
 
 			if (empty($rec2)) {
-				JsonEnd(array("status" => 0, "msg" => "查無資料"));
+				JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DATA));
 			} else {
 				JsonEnd(array("status" => 1, "rec2" => $rec2));
 			}
 		} else {
-			JsonEnd(array("status" => 0, "msg" => "查無資料"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DATA));
 		}
 	} else {
 		JsonEnd(array("status" => 0, "msg" => "無效卡片"));
@@ -414,7 +423,7 @@ function signNew_getRecData()
 
 
 				if (empty($recNo)) {
-					JsonEnd(array("status" => 0, "msg" => "查無資料"));
+					JsonEnd(array("status" => 0, "sql" => $lsql, "msg" => _MEMBER_NO_DATA));
 				}
 			} else { //查詢網購
 				$msql = "SELECT * FROM members where ERPID='$rec' and locked='0' and (emailChk='0' or mobileChk = '1') and salesChk='1'";
@@ -467,7 +476,7 @@ function signNew_getRecData()
 
 
 			// 	if (empty($recNo)) {
-			// 		JsonEnd(array("status" => 0, "msg" => "查無資料"));
+			// 		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DATA));
 			// 	}
 			// }
 
@@ -559,11 +568,11 @@ function signNew_getRecData()
 
 				JsonEnd(array("status" => 1, "info" => $info));
 			} else {
-				JsonEnd(array("status" => 0, "msg" => "查無資料"));
+				JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DATA));
 			}
 		}
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "查無資料"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DATA));
 	}
 }
 
@@ -628,7 +637,7 @@ function signNew_memberSIDChk()
 
 
 			if (!empty($result)) {
-				JsonEnd(array("status" => 0, "msg" => "身分證字號已使用過"));
+				JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_REPEAT));
 			} else {
 
 				$csql = "SELECT * from mbst where boss_id = '$sid' and mb_status != '1'";
@@ -656,7 +665,7 @@ function signNew_memberSIDChk()
 					$snow = date('Y-m-d', strtotime("$last_ress_date +6 month"));
 
 					if ($now < $snow) {
-						JsonEnd(array("status" => 0, "msg" => "您的身分證已使用無法重覆加入，如有問題請洽公司服務人員，謝謝。"));
+						JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_USED ));
 					} else {
 						JsonEnd(array("status" => 1));
 					}
@@ -674,7 +683,7 @@ function signNew_memberSIDChk()
 					} else {
 						$res['status'] = 0;
 						$msg .= '電子信箱已使用過';
-						// JsonEnd(array("status" => 0, "msg" => "電子信箱已使用過"));
+						// JsonEnd(array("status" => 0, "msg" => _MEMBER_EMAIL_REPEAT));
 					}
 
 					if ($memberPhone == 'null' || $memberPhone == null) {
@@ -690,7 +699,7 @@ function signNew_memberSIDChk()
 						$res['status'] = 1;
 					} else {
 						$res['status'] = 0;
-						$msg .= '手機已使用過';
+						$msg .= _MEMBER_SID_USED;
 					}
 					$res['msg'] = $msg;
 
@@ -698,10 +707,10 @@ function signNew_memberSIDChk()
 				}
 			}
 		} else {
-			JsonEnd(array("status" => 0, "msg" => "身分證字號已使用過"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_REPEAT));
 		}
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "無效身分證字號"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_ERROR));
 	}
 }
 
@@ -735,13 +744,13 @@ function signNew_memberEmailChk()
 			if ($login_result["status"] == 1) {
 				JsonEnd(array("status" => 1));
 			} else {
-				JsonEnd(array("status" => 0, "msg" => "電子信箱已使用過"));
+				JsonEnd(array("status" => 0, "msg" => _MEMBER_EMAIL_REPEAT));
 			}
 		} else {
-			JsonEnd(array("status" => 0, "msg" => "電子信箱已使用過"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_EMAIL_REPEAT));
 		}
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "無效電子信箱"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_EMAIL_ERROR));
 	}
 }
 
@@ -781,18 +790,24 @@ function signNew_signup()
 	$dlvrAddr = global_get_param($_POST, 'dlvrAddr', null, 0, 1);
 	$dlvrLocation = global_get_param($_POST, 'dlvrLocation', null, 0, 1);
 
+	$billCity = global_get_param($_POST, 'billCity', null, 0, 1);
+	if (!empty($billCity)) {
+		$billCityStr = $billCity['state_u'];
+	}
+	$billAddr = global_get_param($_POST, 'billAddr', null, 0, 1);
+
 	$usedChk = global_get_param($_POST, 'usedChk', null, 0, 1);
 	$memberWNo = global_get_param($_POST, 'memberWNo', null, 0, 1);
 
 	$rec_code = global_get_param($_POST, 'rec_code', null, 0, 1);
 
 
-	$sql3 = "SELECT * from register_tb where random = '$rec_code' and mb_no = '$referrerNo' and is_used = '0'";
-	$db2->setQuery($sql3);
-	$code_list = $db2->loadRow();
+	// $sql3 = "SELECT * from register_tb where random = '$rec_code' and mb_no = '$referrerNo' and is_used = '0'";
+	// $db2->setQuery($sql3);
+	// $code_list = $db2->loadRow();
 
 
-	if (!empty($referrerNo) && !empty($recommendName) && !empty($code_list)) {
+	if (!empty($referrerNo) && !empty($recommendName)) { // && !empty($code_list)
 
 		if ($globalConf_signup_ver2020) {
 			$signupMode = global_get_param($_POST, 'signupMode', null, 0, 1);
@@ -836,7 +851,7 @@ function signNew_signup()
 
 		if (empty($memberNo)) {
 
-			$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "USN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
+			$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "MYN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
 
 			$chk_code = "";
 			if (!empty($memberNo_max)) {
@@ -848,7 +863,7 @@ function signNew_signup()
 			else
 				$code  = "00001";
 
-			$memberNo = "USN" . date("Ym") . $code;
+			$memberNo = "MYN" . date("Ym") . $code;
 		}
 
 		$emailChk = 1;
@@ -876,10 +891,10 @@ function signNew_signup()
 		$memberid = getFieldValue(" SELECT id FROM members ORDER BY id DESC ", "id");
 		$today = date("Y-m-d");
 		$status = 0;
-		$sumAmt = 880;
+		$sumAmt = 88;
 		$discount = 0;
-		$dcntAmt = 880;
-		$dlvrFee = ($dlvrType == '1') ? 100 : 0;
+		$dcntAmt = 88;
+		$dlvrFee = ($dlvrType == '1') ? 10 : 0;
 		$usecoin = 0;
 		$totalAmt = $sumAmt + $dlvrFee;
 		$now = date("Y-m-d H:i:s");
@@ -898,136 +913,164 @@ function signNew_signup()
 				$dlvrAddr = "高雄市鼓山區明華路 315 號 11 樓之 2";
 			} else if ($dlvrLocation == '台南總部服務中心') {
 				$dlvrAddr = "台南市安南區工業一路 23 號";
+			} else if ($dlvrLocation == 'GOLDARCH ENTERPRISE') {
+				$dlvrAddr = "Prangin Mall, 33-4-75, Jalan Dr. Lim Chwee Leong, 10100 Georgetown, Pulau Pinang.";
+			} else if ($dlvrLocation == 'SIMPANG AMPAT') {
+				$dlvrAddr = "26, Lorong Kendi 6, Kawasan Perniagaan Taman Merak, 14100 Simpang Ampat, Pulau Pinang.";
+			} else if ($dlvrLocation == 'GREATARCH ENTERPRISE') {
+				$dlvrAddr = "96, Jalan Radin Anum 1, Sri Petaling, 57000 Kuala Lumpur.";
+			} else if ($dlvrLocation == 'BATU PAHAT') {
+				$dlvrAddr = "2A, Jalan Sri Pantai 1, Taman Sri Pantai, 83000 Batu Pahat, Johor.";
+			} else if ($dlvrLocation == 'ARCHCARE ENTERPRISE') {
+				$dlvrAddr = "2, Jalan Zapin 11, Taman Skudai, 81300 Johor Bahru, Johor.";
+			} else if ($dlvrLocation == 'MIRI') {
+				$dlvrAddr = "Lot.403, Jalan Cosmos 2A, Pelita Garden, 98000 Miri, Sarawak.";
+			} else if ($dlvrLocation == 'KOTA KINABALU') {
+				$dlvrAddr = "No.101, Lorong Bunga Dahlia 5, Jalan Penampang, Taman Cantik, 88200 Kota Kinabalu, Sarawak.";
+			} else if ($dlvrLocation == '大城堡總部服務中心' || $dlvrLocation == 'Sri Petaling Service Center'){
+				$dlvrAddr = "No.22-2, Jalan Radin Bagus 6, Bandar Baru Sri Petaling, 57000 Kuala Lumpur, Malaysia.";
+			} else if ($dlvrLocation == '詩巫服務中心' || $dlvrLocation == 'SIBU Service Center'){
+				$dlvrAddr = "No. 2, G & 1st Floor, Lorong Teng Chin Hua 1, 96000 Sibu, Sarawak";
 			}
 		}
 
 
+		if(empty($bill_address)){
+			$bill_address = $dlvrAddr;
+		}
 
-		// 	$sql = "BEGIN;";
+		//START
 
-
-		// 	$sql .= "insert into orders 
-		// 	(orderMode,memberid,email,buyDate,payType,dlvrType,status,sumAmt,discount,dcntAmt,dlvrFee,usecoin,totalAmt,dlvrName,
-		// 	dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser)
-		// 	values 
-		// 	('addMember','$memberid','$memberEmail','$today','$payType','$dlvrType',$status,'$sumAmt',
-		// 	 '$discount','$dcntAmt','$dlvrFee','$usecoin','$totalAmt',N'$memberName','$memberPhone','','',N'$dlvrAddr',
-		// 	 '','','','','','','','$now','$now','$memberid');";
-
-		// 	$sql .= " SET @insertid=LAST_INSERT_ID();";
-
-		// 	$pid = 356;
-		// 	$quantity = 1;
-		// 	$format1 = 162;
-		// 	$format2 = 168;
+		$sql = "BEGIN;";
 
 
-		// 	$sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
-		// 		     values 
-		// 		     (@insertid,'$pid','880','1','880','0','0','0','','$format1','$format2','七彩','7mm','$now','$now','$memberid');";
+		$sql .= "insert into orders 
+			(orderMode,memberid,email,buyDate,payType,dlvrType,status,sumAmt,discount,dcntAmt,dlvrFee,usecoin,totalAmt,dlvrName,
+			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,bill_address,bill_city)
+			values 
+			('addMember','$memberid','$memberEmail','$today','$payType','$dlvrType',$status,'$sumAmt',
+			 '$discount','$dcntAmt','$dlvrFee','$usecoin','$totalAmt',N'$memberName','$memberPhone','','',N'$dlvrAddr',
+			 '','','','','','','','$now','$now','$memberid',N'$billAddr',N'$billCityStr');";
+
+		$sql .= " SET @insertid=LAST_INSERT_ID();";
 
 
+		/*
 
-		// 	$sql .= " SET @insertdtlid=LAST_INSERT_ID();";
-
-		// 	$sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
-		//  values 
-		//  (@insertid,@insertdtlid,'$pid','880','0','0','e化入會贈品','$now','$now','$memberid');";
-
-
-
-		// 	if (!empty($format1) && !empty($format2) && false) {
-		// 		$format_instock = intval(getFieldValue("select instock from proinstock where pid='$pid' AND format1 = '$format1' AND format2 = '$format2'", "instock"));
-		// 		$sql .= "update proinstock set instock=instock-'$quantity' where pid='$pid' AND format1 = '$format1' AND format2 = '$format2';";
-		// 	}
-
-		// 	global $ESignupActiveEndDate, $ESignupFreeProductId, $ESignupFreeProductQuantity, $ESignupFreeProductFormat1, $ESignupFreeProductFormat2;
-		// 	if (!empty($ESignupActiveEndDate) &&  strtotime(date("Y-m-d")) <= strtotime($ESignupActiveEndDate)) {
-		// 		$pid = $ESignupFreeProductId;
-		// 		$quantity = $ESignupFreeProductQuantity;
-		// 		$format1 = $ESignupFreeProductFormat1;
-		// 		$format2 = $ESignupFreeProductFormat2;
-
-		// 		$sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
-		// 				 values 
-		// 				 (@insertid,'$pid','0','1','0','0','0','0','','$format1','$format2','單一顏色','單一規格','$now','$now','$memberid');";
-
-		// 		$sql .= "
-		// 		SET @insertdtlid2=LAST_INSERT_ID();
-		// 	";
-
-		// 		$sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
-		// 	 values 
-		// 	 (@insertid,@insertdtlid2,'$pid','0','0','0','e化入會贈品','$now','$now','$memberid');";
-		// 	}
-
-		// 	$toMonth = date("Y-m");
-		// 	$orderCodeName = getFieldValue("select codeName_chs from pubcode where codeKinds='orderseq'", "codeName_chs");
-		// 	if ($orderCodeName == $toMonth) {
-		// 		$orderseq = intval(getFieldValue("select codeName_en from pubcode where codeKinds='orderseq'", "codeName_en")) + 1;
-		// 		$db->setQuery("update pubcode set codeName_en='$orderseq' where codeKinds='orderseq'");
-		// 		$r = $db->query();
-		// 	} else {
-		// 		$db->setQuery("update pubcode set codeName_en=1,codeName_chs='$toMonth' where codeKinds='orderseq'");
-		// 		$r = $db->query();
-		// 		$orderseq = 1;
-		// 	}
-
-		// 	$orderseqStr = "";
-		// 	if ($orderseq < 10) {
-		// 		$orderseqStr = "000" . $orderseq;
-		// 	} else if ($orderseq < 100) {
-		// 		$orderseqStr = "00" . $orderseq;
-		// 	} else if ($orderseq < 1000) {
-		// 		$orderseqStr = "0" . $orderseq;
-		// 	} else if ($orderseq < 10000) {
-		// 		$orderseqStr = "" . $orderseq;
-		// 	}
+			$pid = 356;
+			$quantity = 1;
+			$format1 = 162;
+			$format2 = 168;
 
 
-		// 	if(strtotime($today) >= strtotime('2021-07-15')){
-		// 		$orderNum = "3U010-".date("ym").$orderseqStr;
-		// 	}else if(strtotime($today) >= strtotime('2019-10-30')){
-		// 		$orderNum = "3S010-".date("ym").$orderseqStr;
-		// 	}else{
-		// 		$orderNum = "1S010-".date("ym").$orderseqStr;
-		// 	}
-
-		// 	$orderCodeName = getFieldValue("select codeName from pubcode where codeKinds='orderseq'", "codeName");
-		// 	if ($orderCodeName == $today) {
-		// 		$orderseq = intval(getFieldValue("select codeValue from pubcode where codeKinds='orderseq'", "codeValue")) + 1;
-		// 		$db->setQuery("update pubcode set codeValue='$orderseq' where codeKinds='orderseq'");
-		// 		$r = $db->query();
-		// 	} else {
-		// 		$db->setQuery("update pubcode set codeValue=1,codeName='$today' where codeKinds='orderseq'");
-		// 		$r = $db->query();
-		// 		$orderseq = 1;
-		// 	}
-		// 	$orderseqStr2 = "";
-		// 	if ($orderseq < 10) {
-		// 		$orderseqStr2 = "0000" . $orderseq;
-		// 	} else if ($orderseq < 100) {
-		// 		$orderseqStr2 = "000" . $orderseq;
-		// 	} else if ($orderseq < 1000) {
-		// 		$orderseqStr2 = "00" . $orderseq;
-		// 	} else if ($orderseq < 10000) {
-		// 		$orderseqStr2 = "0" . $orderseq;
-		// 	}
-
-
-		// 	$orderECNum = date("Ymd") . $orderseqStr2;
-
-		// 	$sql .= "update orders set orderNum='$orderNum',orderECNum='$orderECNum' where id=@insertid;";
-
-
-		// 	$sql .= "insert into orderlog (oid,cdate,status,ctime,mtime,muser) values (@insertid,'$today','$status','$now','$now','$memberid');";
-
-		// $sql .= "COMMIT;";
+			$sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
+				     values 
+				     (@insertid,'$pid','880','1','880','0','0','0','','$format1','$format2','七彩','7mm','$now','$now','$memberid');";
 
 
 
-		// $db->setQuery($sql);
-		// $r = $db->query_batch();
+			$sql .= " SET @insertdtlid=LAST_INSERT_ID();";
+
+			$sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
+		 values 
+		 (@insertid,@insertdtlid,'$pid','880','0','0','e化入會贈品','$now','$now','$memberid');";
+
+
+
+			if (!empty($format1) && !empty($format2) && false) {
+				$format_instock = intval(getFieldValue("select instock from proinstock where pid='$pid' AND format1 = '$format1' AND format2 = '$format2'", "instock"));
+				$sql .= "update proinstock set instock=instock-'$quantity' where pid='$pid' AND format1 = '$format1' AND format2 = '$format2';";
+			}
+		*/
+		global $ESignupActiveEndDate, $ESignupFreeProductId, $ESignupFreeProductQuantity, $ESignupFreeProductFormat1, $ESignupFreeProductFormat2;
+		if (!empty($ESignupActiveEndDate) &&  strtotime(date("Y-m-d")) <= strtotime($ESignupActiveEndDate)) {
+			$pid = $ESignupFreeProductId;
+			$quantity = $ESignupFreeProductQuantity;
+			$format1 = $ESignupFreeProductFormat1;
+			$format2 = $ESignupFreeProductFormat2;
+
+			$sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
+						 values 
+						 (@insertid,'$pid','88','1','0','0','0','0','','$format1','$format2','單一顏色','單一規格','$now','$now','$memberid');";
+
+			$sql .= "
+				SET @insertdtlid2=LAST_INSERT_ID();
+			";
+
+			$sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
+			 values 
+			 (@insertid,@insertdtlid2,'$pid','0','0','0','e化入會贈品','$now','$now','$memberid');";
+		}
+
+		$toMonth = date("Y-m");
+		$orderCodeName = getFieldValue("select codeName_chs from pubcode where codeKinds='orderseq'", "codeName_chs");
+		if ($orderCodeName == $toMonth) {
+			$orderseq = intval(getFieldValue("select codeName_en from pubcode where codeKinds='orderseq'", "codeName_en")) + 1;
+			$db->setQuery("update pubcode set codeName_en='$orderseq' where codeKinds='orderseq'");
+			$r = $db->query();
+		} else {
+			$db->setQuery("update pubcode set codeName_en=1,codeName_chs='$toMonth' where codeKinds='orderseq'");
+			$r = $db->query();
+			$orderseq = 1;
+		}
+
+		$orderseqStr = "";
+		if ($orderseq < 10) {
+			$orderseqStr = "000" . $orderseq;
+		} else if ($orderseq < 100) {
+			$orderseqStr = "00" . $orderseq;
+		} else if ($orderseq < 1000) {
+			$orderseqStr = "0" . $orderseq;
+		} else if ($orderseq < 10000) {
+			$orderseqStr = "" . $orderseq;
+		}
+
+
+		if (strtotime($today) >= strtotime('2021-07-15')) {
+			$orderNum = "3S010-" . date("ym") . $orderseqStr;
+		} else if (strtotime($today) >= strtotime('2019-10-30')) {
+			$orderNum = "3S010-" . date("ym") . $orderseqStr;
+		} else {
+			$orderNum = "1S010-" . date("ym") . $orderseqStr;
+		}
+
+		$orderCodeName = getFieldValue("select codeName from pubcode where codeKinds='orderseq'", "codeName");
+		if ($orderCodeName == $today) {
+			$orderseq = intval(getFieldValue("select codeValue from pubcode where codeKinds='orderseq'", "codeValue")) + 1;
+			$db->setQuery("update pubcode set codeValue='$orderseq' where codeKinds='orderseq'");
+			$r = $db->query();
+		} else {
+			$db->setQuery("update pubcode set codeValue=1,codeName='$today' where codeKinds='orderseq'");
+			$r = $db->query();
+			$orderseq = 1;
+		}
+		$orderseqStr2 = "";
+		if ($orderseq < 10) {
+			$orderseqStr2 = "0000" . $orderseq;
+		} else if ($orderseq < 100) {
+			$orderseqStr2 = "000" . $orderseq;
+		} else if ($orderseq < 1000) {
+			$orderseqStr2 = "00" . $orderseq;
+		} else if ($orderseq < 10000) {
+			$orderseqStr2 = "0" . $orderseq;
+		}
+
+
+		$orderECNum = date("Ymd") . $orderseqStr2;
+
+		$sql .= "update orders set orderNum='$orderNum',orderECNum='$orderECNum' where id=@insertid;";
+
+
+		$sql .= "insert into orderlog (oid,cdate,status,ctime,mtime,muser) values (@insertid,'$today','$status','$now','$now','$memberid');";
+
+		$sql .= "COMMIT;";
+
+
+
+		$db->setQuery($sql);
+		$r = $db->query_batch();
+
+		//END
 
 		$img1 = global_get_param($_POST, 'img1', null);
 		$img2 = global_get_param($_POST, 'img2', null);
@@ -1065,7 +1108,7 @@ function signNew_signup()
 			if ($signupMode == "SMS") {
 				sendMailToMemberBySignupSuccess($memberid, true);
 
-				$body = "親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!";
+				$body = _MEMBER_SUCCESS_SMS;
 				send_sms($memberPhone, $body);
 			} else if ($signupMode == "MAIL") {
 				sendMailToMemberBySignupSuccess($memberid, false);
@@ -1097,21 +1140,22 @@ function signNew_signup()
 		// // $sendto = array(array("email" => 'H2008@goodarch2u.com', "name" => ''),array("email" => 'H1707@goodarch2u.com',"name"=>''),array("email" => 'juell@goodarch2u.com',"name"=>''));
 
 		// $rs = global_send_mail($adminmail,$webname, $sendto , $subject, $body, null, null, null );
-		$lv = $code_list['grade'];
-		if ($lv == '0') {
-			$lv = '10';
-		}
+		// $lv = $code_list['grade'];
+		// if ($lv == '0') {
+		// 	$lv = '10';
+		// }
+		$lv = '1';
 		export_tomlm($memberid, $lv);
 
-		$now = date('Y-m-d H:i:s');
-		$sql2 = "update register_tb set is_used = '1',update_date = '$now' where random = '$rec_code' and mb_no = '$referrerNo'";
-		$db2->setQuery($sql2);
-		$db2->query();
+		// $now = date('Y-m-d H:i:s');
+		// $sql2 = "update register_tb set is_used = '1',update_date = '$now' where random = '$rec_code' and mb_no = '$referrerNo'";
+		// $db2->setQuery($sql2);
+		// $db2->query();
 
 		$mb = array();
 		$mb['mb_no'] = $memberNo;
 		$mb['mb_name'] = $memberName;
-		$mb['lv'] = $code_list['grade'];
+		$mb['lv'] = $lv;
 		// $mb['force_lv'] = $code_list['grade'];
 		$mb['total'] = '0';
 		$mb['t_total'] = '0';
@@ -1126,10 +1170,17 @@ function signNew_signup()
 		$msg = '註冊成功';
 	} else {
 		$status = 0;
-		$msg = '推薦人員或註冊碼錯誤，請重新輸入。';
+		$msg = _MEMBER_ERROR_4;
 	}
 
-	JsonEnd(array("status" => $status, "msg" => $msg, "oid" => $oid, "res" => $res));
+	$url = '';
+	$url = "/app/controllers/publicBank.php?task=orderSale&session=0&orderNum=".$orderNum;
+	
+	$orderid = getFieldValue("SELECT id FROM orders WHERE orderNum = '$orderNum'","id");
+	//未付款先進傳銷訂單
+	toMLM($orderid,'0');
+
+	JsonEnd(array("status" => $status, "msg" => $msg, "oid" => $oid, "res" => $res, 'orderNum' => $orderNum, 'url'=>$url));
 }
 
 
@@ -1147,7 +1198,7 @@ function signNew_emailChk()
 	}
 
 	if (intval($uid) <= 0) {
-		JsonEnd(array("status" => 0, "msg" => '您已登入'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_HAS_LOGIN));
 	}
 
 	$sql = "select * from $tablename where id='$uid'";
@@ -1182,7 +1233,7 @@ function signNew_emailChk()
 	if ($logarr['state'] == 'sus') {
 		$db->setQuery("insert into requestLog (ctime,memberid,code,type) values ('" . date("Y-m-d H:i:s") . "','$uid','$encry','signupChk')");
 		$db->query();
-		JsonEnd(array("status" => 1, "msg" => "發送認證信件"));
+		JsonEnd(array("status" => 1, "msg" => _MEMBER_EMAILCHK_MSG9));
 	} else {
 		JsonEnd(array("status" => 1, "msg" => _NWLTR_ERR . ':' . $logarr['msg']));
 	}
@@ -1195,13 +1246,13 @@ function signNew_signupChk()
 	$encry = global_get_param($_POST, 'a', null, 0, 1);
 
 	if (!$encry) {
-		JsonEnd(array("status" => 0, "msg" => '非法請求'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_ERROR));
 	}
 
 	$memberid = getFieldValue("select memberid from requestLog where code='$encry' AND type='signupChk'", "memberid");
 
 	if ($memberid == 0) {
-		JsonEnd(array("status" => 0, "msg" => '非法請求'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_ERROR));
 	}
 
 	$sql = "update members set emailChk='0' where id='$memberid'";
@@ -1210,7 +1261,7 @@ function signNew_signupChk()
 	$sql = "delete from requestLog where memberid='$memberid' AND type='signupChk'";
 	$db->setQuery($sql);
 	$db->query();
-	JsonEnd(array("status" => 1, "msg" => '完成信箱認證，您可以進行購物。'));
+	JsonEnd(array("status" => 1, "msg" => _MEMBER_EMAILCHK_MSG10));
 }
 
 function signNew_chkPay()
@@ -1238,7 +1289,7 @@ function signNew_chkPay()
 			logout("logout");
 		}
 
-		JsonEnd(array("status" => 0, "msg" => '查無員工資料，請詢問相關門市人員。'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_MEMBER));
 	} else {
 		$today = date("Y-m-d");
 		$now = date("Y-m-d H:i:s");
@@ -1286,7 +1337,7 @@ function signNew_chkPay()
 			logout('logout');
 		}
 
-		JsonEnd(array("status" => 1, "msg" => '付款成功。', "m1" => $loginId, "m2" => $passwd, "m3" => $ERPID, "m4" => $email, "m5" => $emailChk));
+		JsonEnd(array("status" => 1, "msg" => _MEMBER_PAY_SUCCESS, "m1" => $loginId, "m2" => $passwd, "m3" => $ERPID, "m4" => $email, "m5" => $emailChk));
 	}
 }
 
@@ -1368,7 +1419,11 @@ function get_share_url2()
 			$share_url = 'https://' . $_SERVER['HTTP_HOST'] . "/member_page/signup?rec=" . $recommendCode . "%26openExternalBrowser=1%26mem=1%26l=1";
 			$res['share_url'] = $share_url;
 		} else {
+			$recommendCode = $r['ERPID'];
 			$res['status'] = 0;
+			$res['usql'] = $usql;
+			$share_url = 'https://' . $_SERVER['HTTP_HOST'] . "/member_page/signup?rec=" . $recommendCode . "%26openExternalBrowser=1%26mem=1%26l=1";
+			$res['share_urls'] = $share_url;
 		}
 	} else {
 		$res['status'] = 0;
@@ -1393,7 +1448,7 @@ function updateToSales()
 		$db->query();
 		JsonEnd(array("status" => 1));
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "紅利不足"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_BONUS));
 	}
 }
 
@@ -1403,11 +1458,11 @@ function go_end()
 	$uid = LoginChk();
 	$orderid = intval($_SESSION[$conf_user]['order_id']);
 	if (intval($orderid) == 0) {
-		JsonEnd(array("status" => 0, "msg" => '請重新選擇訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_SELECT_ORDER));
 	}
 	$id = intval(getFieldValue("select id from orders where memberid='$uid' AND id='$orderid'", "id"));
 	if ($id == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 
 	$db->setQuery("update orders set status=4 where id='$orderid'");
@@ -1419,7 +1474,7 @@ function go_end()
 	$db->setQuery("insert into bonusRecord (memberid,rDate,amt,status,orderid,ctime,mtime,muser) 
 				values ('$uid','" . date("Y-m-d") . "',(select bonus from orders where id='$orderid'),0,'$orderid','" . date("Y-m-d H:i:s") . "','" . date("Y-m-d H:i:s") . "','$uid')");
 	$db->query();
-	JsonEnd(array("status" => 1, "msg" => "已確認收貨"));
+	JsonEnd(array("status" => 1, "msg" => _MEMBER_CFM_RECEIPT));
 }
 
 function likeProduct()
@@ -1459,12 +1514,12 @@ function order_upd()
 
 	$orderid = intval($_SESSION[$conf_user]['order_id']);
 	if (intval($orderid) == 0) {
-		JsonEnd(array("status" => 0, "msg" => '請重新選擇訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_SELECT_ORDER));
 	}
 
 	$id = intval(getFieldValue("select id from orders where memberid='$uid' AND id='$orderid'", "id"));
 	if ($id == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 
 	$atmDate = global_get_param($_POST, 'atmDate', null, 0, 1);
@@ -1503,25 +1558,28 @@ function order_cancel()
 	$id = intval(global_get_param($_POST, 'id', null, 0, 1));
 	$uid = LoginChk();
 	if ($id == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 
 
 
 	$id = intval(getFieldValue("select id from orders where memberid='$uid' AND id='$id'", "id"));
 	if ($id == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 	$status = intval(getFieldValue("select status from orders where id='$id'", "status"));
 	if ($status != 0 && $status != 2) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 
 	$usecoin = intval(getFieldValue("select usecoin from orders where id='$id'", "usecoin"));
-
+	$today = date("Y-m-d");
+	$now = date("Y-m-d H:i:s");
 	$db->setQuery("update orders set status=6 where id='$id'");
 	$db->query();
 	$db->setQuery("update members set coin=coin+'$usecoin' where id='$uid'");
+	$db->query();
+	$db->setQuery("insert into orderlog (oid,cdate,status,ctime,mtime,muser) values ('$id','$today','6','$now','$now','$uid')");
 	$db->query();
 
 	$osql = "SELECT A.orderNum,A.memberid,A.regpoint,A.return_regpoint,B.ERPID as mb_no FROM orders as A,members as B where A.id = '$id' and A.memberid = B.id";
@@ -1536,7 +1594,7 @@ function order_cancel()
 		$rp_arr['ERPID'] = $orders['mb_no'];
 		$rp_arr['rDate'] = date('Y-m-d H:i:s');
 		$rp_arr['amt'] = $orders['regpoint'];
-		$rp_arr['notes'] = $orders['orderNum'] . '歸還';
+		$rp_arr['notes'] = $orders['orderNum'] . _MEMBER_RETURNED;
 		$rp_arr['status'] = '0';
 		$rp_arr['orderid'] = $orders['id'];
 		$rp_arr['mtime'] = date('Y-m-d H:i:s');
@@ -1569,7 +1627,7 @@ function order_cancel()
 					$e3arr['kind'] = '1';
 					$e3arr['point'] =  $v['point'];
 					$e3arr['date'] = $v['date'];
-					$e3arr['ps'] = trim($v['ord_no'], '(網購退還)') . '(網購退還)';
+					$e3arr['ps'] = trim($v['ord_no'], _MEMBER_RETURNED_WEB) . _MEMBER_RETURNED_WEB;
 					$e3arr['timestamp'] = $v['timestamp'];
 					$e3arr['update_user'] = 'H2008'; //暫設
 					$e3arr['eff_date'] = $v['eff_date'];
@@ -1607,7 +1665,7 @@ function order_cancel()
 								$e3arr['kind'] = '1';
 								$e3arr['point'] =  $v['point'];
 								$e3arr['date'] = $v['date'];
-								$e3arr['ps'] = trim($v['ord_no'], '(網購退還)') . '(網購退還)';
+								$e3arr['ps'] = trim($v['ord_no'], _MEMBER_RETURNED_WEB) . _MEMBER_RETURNED_WEB;
 								$e3arr['timestamp'] = $v['timestamp'];
 								$e3arr['update_user'] = 'H2008'; //暫設
 								$e3arr['eff_date'] = $v['eff_date'];
@@ -1709,7 +1767,7 @@ function order_dtl()
 
 	$data['orderNum'] = $orderNum = $r['orderNum'];
 	$data['buyDate'] = date("Y-m-d", strtotime($r['buyDate']));
-
+	$data['orderMode'] = $r['orderMode'];
 	$sql2 = "SELECT * FROM order_d where ord_no='$orderNum'";
 	$db2->setQuery($sql2);
 	$mlm_od_list = $db2->loadRowList();
@@ -1918,7 +1976,7 @@ function order_list()
 
 	$uid = $_SESSION[$conf_user]['uid'];
 	if (intval($uid) == 0) {
-		JsonEnd(array("status" => 0, "msg" => '請先登入'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_LOGIN_FIRST));
 	}
 
 
@@ -1989,13 +2047,13 @@ function chkresetPW()
 	$passwd = global_get_param($_POST, 'passwd', null, 0, 1);
 
 	if (!$uid || !$passwd) {
-		JsonEnd(array("status" => 0, "msg" => '請輸入密碼'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_ENTER_PWD));
 	}
 
 	$uid = getFieldValue("select memberid from requestLog where code='$uid' AND type='resetpw'", "memberid");
 
 	if ($uid == 0) {
-		JsonEnd(array("status" => 0, "msg" => '非法請求'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_ERROR));
 	}
 
 	$uloginid = getFieldValue("select loginid from $tablename where id='$uid'", "loginid");
@@ -2021,62 +2079,9 @@ function chkresetPW()
 
 
 	//修改Line@
-	$curl = curl_init();
+	
 
-	curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://goodarch.azurewebsites.net/api/syncpw',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'POST',
-		CURLOPT_POSTFIELDS => array('username' => "$sid", 'old_pw' => "$opwd", 'new_pw' => "$passwd"),
-		// CURLOPT_POSTFIELDS => array('username' => '0919123456','old_pw' => '3345678','new_pw' => '3345678'),
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic ODA3Mzc0Njg6ODA3Mzc0Njg=',
-			'Cookie: ARRAffinity=dc3d872d4d31bd8931fdf6545588bc42194cca23ba77e8a7e22f4f8cd1e26395; ARRAffinitySameSite=dc3d872d4d31bd8931fdf6545588bc42194cca23ba77e8a7e22f4f8cd1e26395'
-		),
-	));
-
-	$response = curl_exec($curl);
-
-	curl_close($curl);
-
-
-	$log = array();
-	$log['username'] = $sid;
-	$log['passwd'] = $passwd;
-	$log['passwd_u'] = $passwd_u;
-	$log['target'] = json_encode(array('username' => "$sid", 'old_pw' => "$opwd", 'new_pw' => "$passwd"));
-	$log['type'] = 'forgotpw';
-	$log['response'] = $response;
-	$logdb = dbInsert('line_log', $log);
-	$db->setQuery($logdb);
-	$db->query();
-
-	$rr = json_decode($response, true);
-	if ($rr['status'] == 'N') {
-		$sql = "select * from siteinfo";
-		$db->setQuery($sql);
-		$siteinfo_arr = $db->loadRow();
-		$from = $siteinfo_arr['email'];
-
-		$adminmail = getFieldValue("select email from siteinfo  ;", 'email');
-		$webname = getFieldValue("select name from siteinfo  ;", 'name');
-		$now = date('Y-m-d H:i:s');
-		$fromname = $siteinfo_arr['name'];
-		$subject = "修改密碼同步錯誤";
-
-		$body = "會員身分證字號/統編 '$sid' 修改密碼同步錯誤,請確認。";
-		// $sendto = array(array("email" => 'vicky950217@goodarch2u.com', "name" => ''),array("email" => 'J1905@goodarch2u.com',"name"=>''));
-		$sendto = array(array("email" => 'H2008@goodarch2u.com', "name" => ''), array("email" => 'H1707@goodarch2u.com', "name" => ''), array("email" => 'juell@goodarch2u.com', "name" => ''), array("email" => 'tudojohn@goodarch2u.com', "name" => ''));
-
-		$rs = global_send_mail($adminmail, $webname, $sendto, $subject, $body, null, null, null);
-	}
-
-	JsonEnd(array("status" => 1, "msg" => '密碼已更改，請使用新密碼登入', 'res' => json_decode($response)));
+	JsonEnd(array("status" => 1, "msg" => _MEMBER_ERROR_MSG));
 }
 
 function resetPW()
@@ -2085,14 +2090,14 @@ function resetPW()
 
 	$uid = $_SESSION[$conf_user]['uid'];
 	if (intval($uid) > 0) {
-		JsonEnd(array("status" => 0, "msg" => '您已登入'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_HAS_LOGIN));
 	}
 	$email = global_get_param($_POST, 'email', null, 0, 1);
 	$captcha = global_get_param($_POST, 'captcha', null, 0, 1);
 
 	if ($captcha == "captcha") {
 		if ($_SESSION["tmpData"]["captcha"] != "captcha") {
-			JsonEnd(array("status" => 0, "msg" => "驗證錯誤"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_INVALID_CODE));
 		} else {
 			unset($_SESSION["tmpData"]["captcha"]);
 		}
@@ -2100,7 +2105,7 @@ function resetPW()
 
 	$uid = intval(getFieldValue("select id from $tablename where email='$email'", "id"));
 	if ($uid == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此經銷商'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NONEXIST));
 	}
 
 	$url = "";
@@ -2429,14 +2434,14 @@ function pwchg()
 	$sid = getFieldValue("SELECT sid from members where id = '$uid'", "sid");
 	$opwd = getFieldValue("select passwd from $tablename where id='$uid'", "passwd");
 	if (!$opasswd || !$passwd) {
-		JsonEnd(array("status" => 0, "msg" => "新舊密碼不可為空"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_PWD_ERROR_MSG1));
 	}
 
 	$opasswd_u = $opasswd;
 	$opasswd = enpw($opasswd);
 	$chk = getFieldValue("select count(1) as cnt from $tablename where id='$uid' AND passwd='$opasswd'", "cnt");
 	if ($chk == 0) {
-		JsonEnd(array("status" => 0, "msg" => "舊密碼錯誤"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_PWD_ERROR_MSG2));
 	}
 	$passwd_u = $passwd;
 	$passwd = enpw($passwd);
@@ -2446,62 +2451,6 @@ function pwchg()
 	$db->setQuery($sql);
 	$db->query();
 
-	//修改Line@
-	$curl = curl_init();
-
-	curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://goodarch.azurewebsites.net/api/syncpw',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'POST',
-		CURLOPT_POSTFIELDS => array('username' => "$sid", 'old_pw' => "$opasswd", 'new_pw' => "$passwd"),
-		// CURLOPT_POSTFIELDS => array('username' => '0919123456','old_pw' => '3345678','new_pw' => '3345678'),
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic ODA3Mzc0Njg6ODA3Mzc0Njg=',
-			'Cookie: ARRAffinity=dc3d872d4d31bd8931fdf6545588bc42194cca23ba77e8a7e22f4f8cd1e26395; ARRAffinitySameSite=dc3d872d4d31bd8931fdf6545588bc42194cca23ba77e8a7e22f4f8cd1e26395'
-		),
-	));
-
-	$response = curl_exec($curl);
-
-	curl_close($curl);
-
-	$log = array();
-	$log['username'] = $sid;
-	$log['passwd'] = $passwd;
-	$log['opasswd'] = $opasswd;
-	$log['passwd_u'] = $passwd_u;
-	$log['opasswd_u'] = $opasswd_u;
-	$log['target'] = json_encode(array('username' => "$sid", 'old_pw' => "$opwd", 'new_pw' => "$passwd"));
-	$log['type'] = 'pwchg';
-	$log['response'] = $response;
-	$logdb = dbInsert('line_log', $log);
-	$db->setQuery($logdb);
-	$db->query();
-
-	$rr = json_decode($response, true);
-	if ($rr['status'] == 'N') {
-		$sql = "select * from siteinfo";
-		$db->setQuery($sql);
-		$siteinfo_arr = $db->loadRow();
-		$from = $siteinfo_arr['email'];
-
-		$adminmail = getFieldValue("select email from siteinfo  ;", 'email');
-		$webname = getFieldValue("select name from siteinfo  ;", 'name');
-		$now = date('Y-m-d H:i:s');
-		$fromname = $siteinfo_arr['name'];
-		$subject = "修改密碼同步錯誤";
-
-		$body = "會員身分證字號/統編 '$sid' 修改密碼同步錯誤,請確認。";
-		$sendto = array(array("email" => 'vicky950217@goodarch2u.com', "name" => ''), array("email" => 'J1905@goodarch2u.com', "name" => ''));
-		// $sendto = array(array("email" => 'H2008@goodarch2u.com', "name" => ''), array("email" => 'H1707@goodarch2u.com', "name" => ''), array("email" => 'juell@goodarch2u.com', "name" => ''), array("email" => 'tudojohn@goodarch2u.com', "name" => ''));
-
-		$rs = global_send_mail($adminmail, $webname, $sendto, $subject, $body, null, null, null);
-	}
 
 	JsonEnd(array("status" => 1, "msg" => "修改成功"));
 }
@@ -2554,12 +2503,12 @@ function signup($type = null)
 
 
 	if (!$sid) {
-		JsonEnd(array("status" => 0, "msg" => "身分證字號不可為空"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_EMPTY));
 	}
 
 	$chk = getFieldValue("select count(1) as cnt from $tablename where sid='$sid' and locked = '0'", "cnt");
 	if ($chk > 0) {
-		JsonEnd(array("status" => 0, "msg" => "此身分證字號已被註冊"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_SID_REPEAT));
 	}
 
 	if ($chk_pass == 0) {
@@ -2573,7 +2522,7 @@ function signup($type = null)
 		}
 	} else {
 		if (!$passwd) {
-			JsonEnd(array("status" => 0, "msg" => "密碼不可為空"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_LOGINID_ENPTY));
 		}
 	}
 
@@ -2589,7 +2538,7 @@ function signup($type = null)
 
 
 	// $login_result = file_get_contents("http://192.168.7.81/xjd/webservice/mmnt.xsql?sid=" . $sid . "&r=" . $randNo . "&vc=" . $vc);
-	$login_result = file_get_contents("http://192.168.7.44/ct/mbst/get_reg_member_api.php?sid=" . $sid . "&r=" . $randNo . "&vc=" . $vc);
+	$login_result = file_get_contents(MLMURL . "ct/mbst/get_reg_member_api.php?sid=" . $sid . "&r=" . $randNo . "&vc=" . $vc);
 	$tmp_login_result = $login_result;
 	$login_result = json_decode($login_result, true);
 	if (empty($login_result)) {
@@ -2609,13 +2558,13 @@ function signup($type = null)
 		$fulladdr = iconv("big5", "UTF-8", $login_result['addr']);
 
 		if (!$cardnumber) {
-			JsonEnd(array("status" => 0, "msg" => "經銷商卡號不可為空"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_CARD_EMPTY));
 		}
 
 
 		$chk2 = getFieldValue("select count(1) as cnt from $tablename where cardnumber='$cardnumber'", "cnt");
 		if ($chk2 > 0) {
-			JsonEnd(array("status" => 0, "msg" => "此經銷商卡號已被使用"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_CARD_USED));
 		}
 
 		if (empty($passwd)) {
@@ -2648,10 +2597,10 @@ function signup($type = null)
 		if ($type) {
 			login($email, 'web');
 		} else {
-			JsonEnd(array("status" => 1, "msg" => "註冊成功"));
+			JsonEnd(array("status" => 1, "msg" => _MEMBER_SIGNUP_SUCCESS));
 		}
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "系統中無您的經銷商資料"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DISTRIBUTOR));
 	}
 }
 
@@ -2739,7 +2688,7 @@ function login($extid = 0, $type = null, $loginid_tmp = null, $passwd_tmp = null
 					$checkmb = $db2->loadRow();
 					if ($checkmb['mb_status'] != '1' || $checkmb['grade_1_chk'] != '1' || $checkmb['pg_end_date'] < $now) {
 						$status['status'] = 0;
-						$status['msg'] = '此帳號非正式會員。(C01)';
+						$status['msg'] = _MEMBER_UNOFFICIAL . '。(C01)';
 					} else if ($checkmb['mb_status'] == '1') {
 						$status['status'] = 0;
 						$status['msg'] = _COMMON_QUERYMSG_LOGIN_ERROR . '(9)';
@@ -2767,7 +2716,7 @@ function login($extid = 0, $type = null, $loginid_tmp = null, $passwd_tmp = null
 				if (count($d_res) > 0) {
 					if ($d_res['mb_status'] != '1' || $d_res['grade_1_chk'] != '1' || $d_res['pg_end_date'] < $now) {
 						$status['status'] = 0;
-						$status['msg'] = '此帳號非正式會員。(C02)';
+						$status['msg'] = _MEMBER_UNOFFICIAL . '。(C02)';
 					} else if ($d_res['mb_status'] == '1') {
 						$status['status'] = 9;
 						$status['m_boss_id'] = $d_res['boss_id'];
@@ -2893,18 +2842,18 @@ function login($extid = 0, $type = null, $loginid_tmp = null, $passwd_tmp = null
 					$errmsg = '';
 					if ($cmb_status == '1') {
 						if ($cgrade_1_chk != '1') {
-							$errmsg .= '未繳交申請書。';
+							$errmsg .= _MEMBER_ERROR5;
 						}
 						if ($pg_end_date < $now) {
-							$errmsg .= '經銷商未續約。';
+							$errmsg .= _MEMBER_ERROR6;
 						}
 					} else {
-						$errmsg .= '此帳號非正式會員。(C03)';
+						$errmsg .= _MEMBER_UNOFFICIAL . '。(C03)';
 						if ($cgrade_1_chk != '1') {
-							$errmsg .= '未繳交申請書。';
+							$errmsg .= _MEMBER_ERROR5;
 						}
 						if ($pg_end_date < $now) {
-							$errmsg .= '經銷商未續約。';
+							$errmsg .= _MEMBER_ERROR6;
 						}
 					}
 					$status['errMsg'] = $errmsg;
@@ -2980,13 +2929,12 @@ function login($extid = 0, $type = null, $loginid_tmp = null, $passwd_tmp = null
 			$status['rs'] = $r['sid'];
 			$status['vc'] = $vc;
 			$status['rand'] = $randNo;
-			
 		}
 	}
 	if ($r['onlyMember'] == '1') {
 		chk_cb($r['id']);
 	}
-
+	$status['r'] = $r;
 	$status['onlyMember'] = $r['onlyMember'];
 	if (!empty($loginid_tmp)) {
 	} else {
@@ -3218,7 +3166,7 @@ function fb_login()
 		$db->setQuery($sql);
 		$db->query();
 		$status['status'] = 1;
-		$status['msg'] = "註冊成功";
+		$status['msg'] = _MEMBER_SIGNUP_SUCCESS;
 		login($fbid, "fb");
 	}
 	JsonEnd($status);
@@ -3258,7 +3206,7 @@ function gp_login()
 		$db->setQuery($sql);
 		$db->query();
 		$status['status'] = 1;
-		$status['msg'] = "註冊成功";
+		$status['msg'] = _MEMBER_SIGNUP_SUCCESS;
 		login($gpid, "gp");
 	}
 	JsonEnd($status);
@@ -3390,7 +3338,7 @@ function sign20_signupChk()
 	$chk = getFieldValue("select count(1) as cnt from $tablename where sid='$sid' and locked = '0'", "cnt");
 	if ($chk > 0) {
 
-		JsonEnd(array("status" => 0, "msg" => "已存在相同身分證字號會員資料"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_EXIST_IC));
 	}
 
 	if ($globalConf_signupDemo_ver2020) {
@@ -3423,9 +3371,9 @@ function sign20_signupChk()
 
 	if ($login_result["mb_status"] == 1) {
 
-		JsonEnd(array("status" => 1, "data" => $userInfo, "msg" => "註冊成功"));
+		JsonEnd(array("status" => 1, "data" => $userInfo, "msg" => _MEMBER_SIGNUP_SUCCESS));
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "系統中無您的經銷商資料", "RR" => $login_result));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DISTRIBUTOR, "RR" => $login_result));
 	}
 }
 
@@ -3475,7 +3423,7 @@ function sign20_sendCaptcha($type = null)
 		$var02 = $mobile;
 		$chk = getFieldValue("select count(1) as cnt from $tablename where mobile='$mobile' AND locked = '0' and mobileChk = '1' ORDER BY id DESC", "cnt");
 		if ($chk > 0) {
-			JsonEnd(array("status" => 0, "msg" => "已存在相同手機號碼會員資料"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_EXIST_MOBILE));
 		}
 	} else if ($signupMode == "MAIL") {
 		$var02 = $email;
@@ -3493,7 +3441,8 @@ function sign20_sendCaptcha($type = null)
 
 	//發送
 	if ($signupMode == "SMS") {
-		$body = "【GoodARCH】您的驗證碼為{$captcha}，請於15分鐘內輸入，感謝您";
+		// $body = "【GoodARCH】您的驗證碼為{$captcha}，請於15分鐘內輸入，感謝您";
+		$body = '【GoodARCH】'._EMAIL_code . $captcha . _EMAIL_msg4;
 		send_sms($mobile, $body);
 		JsonEnd(array("status" => 1, "msg" => ""));
 	} else if ($signupMode == "MAIL") {
@@ -3555,7 +3504,7 @@ function sign20_sendCaptcha($type = null)
 			'</div>' .
 			'<div style="width:350px;display:inline-block">' .
 			'<div style="height:32px">' . _EMAIL_msg8 . '</div><br />' .
-			'<div style="height:32px">Homeway Biotech Corporation. All Rights Reserved. </div>' .
+			'<div style="height:32px">GoodARCH Technology Sdn. Bhd. All Rights Reserved. </div>' .
 			'</div>' .
 			'</table>';
 
@@ -3564,9 +3513,9 @@ function sign20_sendCaptcha($type = null)
 		$logarr = global_send_mail($adminmail, $webname, $sendto, $subject, $body, null, null, null);
 
 		if ($logarr['state'] == 'sus') {
-			JsonEnd(array("status" => 1, "msg" => "發送認證信件"));
+			JsonEnd(array("status" => 1, "msg" => _MEMBER_EMAILCHK_MSG9));
 		} else {
-			JsonEnd(array("status" => 0, "msg" => "發送失敗" . ':' . $logarr['msg']));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_SEND_FAIL . ':' . $logarr['msg']));
 		}
 	}
 }
@@ -3667,7 +3616,7 @@ function sign20_signup()
 
 
 	if (empty($memberNo)) {
-		$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "USN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
+		$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "MYN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
 
 		$chk_code = "";
 		if (!empty($memberNo_max)) {
@@ -3679,7 +3628,7 @@ function sign20_signup()
 		else
 			$code  = "00001";
 
-		$memberNo = "USN" . date("Ym") . $code;
+		$memberNo = "MYN" . date("Ym") . $code;
 	}
 
 	$emailChk = ($signupMode == "MAIL") ? 0 : 1;
@@ -3715,7 +3664,7 @@ function sign20_signup()
 		if ($signupMode == "SMS") {
 			sendMailToMemberBySignupSuccess($memberid, true);
 
-			$body = "親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!";
+			$body = _MEMBER_SUCCESS_SMS;
 			// send_sms($memberPhone, $body);
 		} else if ($signupMode == "MAIL") {
 			sendMailToMemberBySignupSuccess($memberid, false);
@@ -3724,7 +3673,7 @@ function sign20_signup()
 		if ($signupMode == "SMS") {
 			sendMailToMemberBySignupSuccess($memberid, true, "sign20_signup");
 
-			$body = "親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!";
+			$body = _MEMBER_SUCCESS_SMS;
 			// send_sms($memberPhone, $body);
 		} else if ($signupMode == "MAIL") {
 			sendMailToMemberBySignupSuccess($memberid, false, "sign20_signup");
@@ -3733,13 +3682,13 @@ function sign20_signup()
 
 	//login(0,"",$memberSID,$memberPasswd);
 
-	JsonEnd(array("status" => 1, "msg" => "註冊成功"));
+	JsonEnd(array("status" => 1, "msg" => _MEMBER_SIGNUP_SUCCESS));
 }
 
 function sign20_signupSuccess()
 {
 	$tmpStr = $_SESSION["tmpData"]["bodyStr"];
-	if(empty($tmpStr)){
+	if (empty($tmpStr)) {
 		JsonEnd(array("status" => 0));
 	}
 	unset($_SESSION["tmpData"]["bodyStr"]);
@@ -3758,7 +3707,7 @@ function resetPW20_sendCaptcha()
 
 	if ($captcha == "captcha") {
 		if ($_SESSION["tmpData"]["captcha"] != "captcha") {
-			JsonEnd(array("status" => 0, "msg" => "驗證錯誤"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_INVALID_CODE));
 		} else {
 			unset($_SESSION["tmpData"]["captcha"]);
 		}
@@ -3771,13 +3720,13 @@ function resetPW20_sendCaptcha()
 		$var02 = $mobile;
 		$chk = getFieldValue("select count(1) as cnt from $tablename where mobile='$mobile' AND locked = '0' and mobileChk = '1' ORDER BY id DESC", "cnt");
 		if ($chk == 0) {
-			JsonEnd(array("status" => 0, "msg" => "此手機號碼未驗證"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_MOBILE_INVALID));
 		}
 	} else if ($forgotMode == "MAIL") {
 		$var02 = $email;
 		$chk = getFieldValue("select count(1) as cnt from $tablename where email='$email' AND locked = '0' and emailChk = '0' ORDER BY id DESC", "cnt");
 		if ($chk == 0) {
-			JsonEnd(array("status" => 0, "msg" => "此EMAIL未驗證"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_EMAIL_INVALID));
 		}
 	}
 
@@ -3786,11 +3735,11 @@ function resetPW20_sendCaptcha()
 
 	//發送
 	if ($forgotMode == "SMS") {
-		$body = "【GoodARCH】您的驗證碼為{$captcha}，請於15分鐘內輸入，感謝您";
+		$body = '【GoodARCH】'._EMAIL_code . $captcha . _EMAIL_msg4;
 		send_sms($mobile, $body);
 		JsonEnd(array("status" => 1, "msg" => ""));
 	} else if ($forgotMode == "MAIL") {
-		JsonEnd(array("status" => 1, "msg" => "發送認證信件"));
+		JsonEnd(array("status" => 1, "msg" => _MEMBER_EMAILCHK_MSG9));
 	}
 }
 
@@ -3886,13 +3835,13 @@ function info20_sendCaptcha()
 		$var02 = $mobile;
 		$chk = getFieldValue("select count(1) as cnt from $tablename where mobile='$mobile' AND locked = '0' and mobileChk = '1' ORDER BY id DESC", "cnt");
 		if ($chk > 0) {
-			JsonEnd(array("status" => 0, "msg" => "已存在重複的會員手機資料"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_EXIST_MOBILE));
 		}
 	} else if ($infoMode == "MAIL") {
 		$var02 = $email;
 		$chk = getFieldValue("select count(1) as cnt from $tablename where email='$email' AND locked = '0' and emailChk = '0' ORDER BY id DESC", "cnt");
 		if ($chk > 0) {
-			JsonEnd(array("status" => 0, "msg" => "已存在重複的會員MAIL資料"));
+			JsonEnd(array("status" => 0, "msg" => _MEMBERS_SAME_EMAIL));
 		}
 	}
 
@@ -3901,13 +3850,13 @@ function info20_sendCaptcha()
 
 	//發送
 	if ($infoMode == "SMS") {
-		$body = "【GoodARCH】您的驗證碼為{$captcha}，請於15分鐘內輸入，感謝您";
+		$body = '【GoodARCH】'._EMAIL_code . $captcha . _EMAIL_msg4;
 		$re = send_sms($mobile, $body);
 		JsonEnd(array("status" => 1, "msg" => "", "re" => $re, "ca" => $captcha));
 	} else if ($infoMode == "MAIL") {
 		$sql_str = " name ";
 		$webname = getFieldValue("select $sql_str from siteinfo  ;", 'name');
-		$subject = " " . $captcha . " 是你的 GoodARCH 驗證碼" . " (" . date("Y-m-d H:i:s") . ")";
+		$subject = " " . $captcha . _MEMBER_REC_CODE . " (" . date("Y-m-d H:i:s") . ")";
 
 		$sendto[] = array('name' => $email, 'email' => $email);
 
@@ -3950,7 +3899,7 @@ function info20_sendCaptcha()
 			'</div>' .
 			'<div style="width:350px;display:inline-block">' .
 			'<div style="height:32px">' . _EMAIL_msg8 . '</div><br />' .
-			'<div style="height:32px">Homeway Biotech Corporation. All Rights Reserved. </div>' .
+			'<div style="height:32px">GoodARCH Technology Sdn. Bhd. All Rights Reserved. </div>' .
 			'</div>' .
 			'</table>';
 
@@ -3959,9 +3908,9 @@ function info20_sendCaptcha()
 		$logarr = global_send_mail($adminmail, $webname, $sendto, $subject, $body, null, null, null);
 
 		if ($logarr['state'] == 'sus') {
-			JsonEnd(array("status" => 1, "msg" => "發送認證信件"));
+			JsonEnd(array("status" => 1, "msg" => _MEMBER_EMAILCHK_MSG9));
 		} else {
-			JsonEnd(array("status" => 0, "msg" => "發送失敗" . ':' . $logarr['msg']));
+			JsonEnd(array("status" => 0, "msg" => _MEMBER_SEND_FAIL . ':' . $logarr['msg']));
 		}
 	}
 }
@@ -3980,15 +3929,15 @@ function ecash21_dtl()
 	$u_data = get_user_info();
 	$mb_no = $u_data['mb_no'];
 	if (!empty($ord_no)) {
-		$e21_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_new2_1_detail_api.php?ord_no=$ord_no&mb_no=$mb_no");
+		$e21_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_new2_1_detail_api.php?ord_no=$ord_no&mb_no=$mb_no");
 		if (!empty($e21_result)) {
 			$e21_result = json_decode($e21_result, true);
 			JsonEnd(array("status" => 1, "data" => $e21_result));
 		} else {
-			JsonEnd(array("status" => 0, "error_code" => 'e21是空'));
+			JsonEnd(array("status" => 0, "error_code" => _MEMBER_E21_EMPTY));
 		}
 	} else {
-		JsonEnd(array("status" => 0, "error_code" => '參數有缺'));
+		JsonEnd(array("status" => 0, "error_code" => _MEMBER_ERROR_7));
 	}
 }
 
@@ -4000,7 +3949,7 @@ function money_dtl()
 	$mbno = global_get_param($_POST, 'mbno', null, 0, 1);
 	$mbname = global_get_param($_POST, 'mbname', null, 0, 1);
 	if (!empty($mbno) && !empty($yymm)) {
-		// $mtd_result = file_get_contents("http://192.168.7.44/ct/mbst/get_money_total_detail_api.php?mb_no=$mbno&yymm=$yymm");
+		// $mtd_result = file_get_contents(MLMURL . "ct/mbst/get_money_total_detail_api.php?mb_no=$mbno&yymm=$yymm");
 
 		$set_his_report = "his_report";
 		$set_his_moneypv = "his_moneypv2";
@@ -4122,7 +4071,7 @@ function money_dtl()
 			$detail_kind = $rssdata["detail_kind"];
 			$group_title = $rssdata["group_title"];
 
-			$level_str = "代數";
+			$level_str = _MEMBER_GENERATION;
 
 			$rs1 = "select detail_kind ,mb_no ,under_mb_no,under_mb_name,ps,level_no,details ,subtotal,group_title,orgseq_no from " . $set_his_report . " where mb_no = '" . $mbno . "' and " . $set_week_no . "='" . $yymm . "' and detail_kind='" . $detail_kind . "' order by mb_no,detail_kind,level_no,under_mb_no,ps";
 
@@ -4218,10 +4167,10 @@ function money_dtl()
 
 			JsonEnd(array("status" => 1, "data" => $mtd_result, 'ec' => $e_cash, 'ec2' => $e_cash2, 'ec3' => $ec3, 'ec4' => $ec4, 'r2' => $r2));
 		} else {
-			JsonEnd(array("status" => 0, "error_code" => 'mtd是空'));
+			JsonEnd(array("status" => 0, "error_code" => _MEMBER_MTD_EMPTY));
 		}
 	} else {
-		JsonEnd(array("status" => 0, "error_code" => '參數有缺'));
+		JsonEnd(array("status" => 0, "error_code" => _MEMBER_ERROR_7));
 	}
 }
 
@@ -4234,9 +4183,9 @@ function money_list()
 	$boss_id = $u_data['boss_id'];
 	$yy = $search_yy;
 	// if (!empty($search_yy) && $search_yy != 'all') {
-	// 	$mt_result = file_get_contents("http://192.168.7.44/ct/mbst/get_money_total_api.php?mb_no=$mb_no&boss_id=$boss_id&yy=$search_yy");
+	// 	$mt_result = file_get_contents(MLMURL . "ct/mbst/get_money_total_api.php?mb_no=$mb_no&boss_id=$boss_id&yy=$search_yy");
 	// } else {
-	// 	$mt_result = file_get_contents("http://192.168.7.44/ct/mbst/get_money_total_api.php?mb_no=$mb_no&boss_id=$boss_id");
+	// 	$mt_result = file_get_contents(MLMURL . "ct/mbst/get_money_total_api.php?mb_no=$mb_no&boss_id=$boss_id");
 	// }
 
 	$his_query = "select a.* from his_moneypv2 as a , date_tb as b  where a.mb_no = '" . $mb_no . "'  and (a.yymm=b.yymm)  and b.do_show ='Y' and (b.opendate2='' or b.opendate2 is null or b.opendate2<='" . date('Y-m-d') . "')";
@@ -4316,21 +4265,21 @@ function minfo_list()
 		$result['has_bank'] = '0';
 	}
 
-	$path = 'http://192.168.7.46/upload/members/' . $uid . '_p1.jpg?v=' . time();
+	$path = 'http://192.168.7.46/upload_my/members/' . $uid . '_p1.jpg?v=' . time();
 	$type = pathinfo($path, PATHINFO_EXTENSION);
 	$data = file_get_contents($path);
 	$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
 	$result['ex1'] = getimagesize($path);
 
-	$path = 'http://192.168.7.46/upload/members/' . $uid . '_n1.jpg?v=' . time();
+	$path = 'http://192.168.7.46/upload_my/members/' . $uid . '_n1.jpg?v=' . time();
 	$type = pathinfo($path, PATHINFO_EXTENSION);
 	$data = file_get_contents($path);
 	$base641 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
 	$result['ex2'] = getimagesize($path);
 
-	$path = 'http://192.168.7.46/upload/members/' . $uid . '_b1.jpg?v=' . time();
+	$path = 'http://192.168.7.46/upload_my/members/' . $uid . '_b1.jpg?v=' . time();
 	$type = pathinfo($path, PATHINFO_EXTENSION);
 	$data = file_get_contents($path);
 	$base642 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -4488,7 +4437,121 @@ function annual_dividend()
 
 	JsonEnd($res);
 }
+function orgseq_member()
+{
+	//呼叫變數
+	global $db, $db2, $db3, $conf_user;
+	$lang = $_SESSION[$conf_user]['syslang'];
+	$res = array();
+	$u_data = get_user_info();
+	$mb_no = $u_data['mb_no'];
+	// 網購會員資料
+	$dsql = "SELECT * from members where recommendCode = '$mb_no' and onlyMember = '1'";
+	$db->setQuery($dsql);
+	$list = $db->loadRowList();
+	// mbst
+	$arData = array();
 
+	foreach ($list as $i => $value) {
+		$grade = "SELECT mb_status,have_order_1 FROM mbst WHERE mb_no='" . $list[$i]['ERPID'] . "'  order by mb_no,member_date";
+		$db2->setQuery($grade);
+		$graderes = $db2->loadRowList();
+		array_push($arData, $graderes);
+
+		// 會員狀態
+		$list[$i]['mb_status'] = $graderes[0]['mb_status'];
+
+		// 是否穿鞋組
+		if ($graderes[0]['have_order_1'] != '') {
+
+			$list[$i]['have_order_1'] = $graderes[0]['have_order_1'];
+		} else {
+			$list[$i]['have_order_1'] = '2';
+		}
+		$mb_no = $list[$i]['ERPID'];
+		
+		$c_sql2 = "SELECT _m.*, ll.`".$lang."` as lv_name from member_lv as _m LEFT JOIN lv_list as ll on _m.lv = ll.level where _m.mb_no = '$mb_no'";
+		// $c_sql2 = "SELECT * from member_lv where mb_no = '" . $list[$i]['ERPID'] . "'";
+		$db3->setQuery($c_sql2);
+		$c_res2 = $db3->loadRow();
+		if(!empty($c_res2)){
+			$c_lv = $c_res2['lv']; //會員等級
+			$c_lv_1 = $c_res2['force_lv'];
+			$lv_name = $c_res2['lv_name'];
+		}else{
+			$c_sql3 = "SELECT `".$lang."` as lv_name from lv_list where level = '1'";
+			$db3->setQuery($c_sql3);
+			$c_res3 = $db3->loadRow();
+			$lv_name = $c_res3['lv_name'];
+			$c_lv = '1';
+			$c_lv_1 = '1';
+		}
+		
+		switch ($c_lv) {
+			case '1':
+				// $lv_name = '銀卡會員';
+				// $list[$i]['lv'] = $lv_name;
+				$list[$i]['lv_nu'] = '1';
+				break;
+			case '2':
+				// $lv_name = '金卡會員';
+				// $list[$i]['lv'] = $lv_name;
+				$list[$i]['lv_nu'] = '2';
+				break;
+			case '3':
+				// $lv_name = '白金會員';
+				// $list[$i]['lv'] = $lv_name;
+				$list[$i]['lv_nu'] = '3';
+				break;
+			default:
+				// $lv_name = '銀卡會員';
+				// $list[$i]['lv'] = $lv_name;
+				$list[$i]['lv_nu'] = '1';
+				break;
+		}
+		switch ($c_lv_1) {
+			case '1':
+				// $lv_name = '銀卡會員';
+				// $list[$i]['lv_1'] = $lv_name;
+				$list[$i]['lv_nu_1'] = '1';
+				break;
+			case '2':
+				// $lv_name = '金卡會員';
+				// $list[$i]['lv_1'] = $lv_name;
+				$list[$i]['lv_nu_1'] = '2';
+				break;
+			case '3':
+				// $lv_name = '白金會員';
+				// $list[$i]['lv_1'] = $lv_name;
+				$list[$i]['lv_nu_1'] = '3';
+				break;
+			default:
+				// $lv_name = '銀卡會員';
+				// $list[$i]['lv_1'] = $lv_name;
+				$list[$i]['lv_nu_1'] = '1';
+				break;
+		}
+		$list[$i]['lv'] = $lv_name;
+		$list[$i]['lv_1'] = $lv_name;
+		//會員消費額度
+		if (!empty($c_res2)) {
+			$c_total = $c_res2['total'];
+			$list[$i]['total'] = $c_total;
+		} else {
+			$c_total = '0.00';
+			$list[$i]['total'] = $c_total;
+		}
+
+		$list[$i]['csql2'] = $c_sql2;
+		$list[$i]['csql3'] = $c_sql3;
+	}
+
+	$res['status'] = '1';
+	$res['list'] = $list;
+	$res['mbst'] = $arData;
+
+	JsonEnd(array('status' => '1', 'data' => $res));
+}
 function ecash_list()
 {
 	$search_yy = global_get_param($_GET, 'search_yy', null, 0, 1);
@@ -4496,9 +4559,9 @@ function ecash_list()
 	$mb_no = $u_data['mb_no'];
 	$boss_id = $u_data['boss_id'];
 	if (!empty($search_yy) && $search_yy != 'all') {
-		$ec_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_list_api.php?mb_no=$mb_no&boss_id=$boss_id&yy=$search_yy");
+		$ec_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_list_api.php?mb_no=$mb_no&boss_id=$boss_id&yy=$search_yy");
 	} else {
-		$ec_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_list_api.php?mb_no=$mb_no&boss_id=$boss_id");
+		$ec_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_list_api.php?mb_no=$mb_no&boss_id=$boss_id");
 	}
 
 
@@ -4784,7 +4847,15 @@ function getlastMonthDays($date)
 	$timestamp = strtotime($date);
 	$arr = getdate($timestamp);
 	if ($arr['mon'] == 12) {
-		$firstday = date('Ym', strtotime(date('Y', strtotime("-1 Year")) . '-' . (date('m', $timestamp)) . '-01'));
+		$now = date('Y-m-d');
+		$now_time = strtotime($now);
+		$now_arr = getdate($now_time);
+		if ($now_arr['mon'] == 1) {
+			$firstday = date('Ym', strtotime(date('Y', strtotime("-1 Year")) . '-' . (date('m', $timestamp)) . '-01'));
+		} else {
+			$firstday = date('Ym', strtotime(date('Y') . '-' . (date('m', $timestamp)) . '-01'));
+		}
+		// $firstday = date('Ym', strtotime(date('Y', strtotime("-1 Year")) . '-' . (date('m', $timestamp)) . '-01'));
 	} else {
 		$firstday = date('Ym', strtotime(date('Y') . '-' . (date('m', $timestamp)) . '-01'));
 		$lastday = date('Ym', strtotime("$firstday +1 month -1 day"));
@@ -5357,26 +5428,35 @@ function search_mbno()
 
 	$db2->setQuery($query1);
 	$result = $db2->loadRow();
-
+	$lang = $_SESSION[$conf_user]['syslang'];
 	if ($result['grade_class'] == '0' && !empty($result['member_date'])) {
-		$c_sql2 = "SELECT * from member_lv where mb_no = '$mb_no'";
+		$c_sql2 = "SELECT _m.*, ll.`".$lang."` as lv_name from member_lv as _m LEFT JOIN lv_list as ll on _m.lv = ll.level where _m.mb_no = '$mb_no'";
 		$db3->setQuery($c_sql2);
 		$c_res2 = $db3->loadRow();
-		$c_lv = $c_res2['lv']; //會員等級
-		switch ($c_lv) {
-			case '1':
-				$lv_name = '銀卡會員';
-				break;
-			case '2':
-				$lv_name = '金卡會員';
-				break;
-			case '3':
-				$lv_name = '白金會員';
-				break;
-			default:
-				$lv_name = '銀卡會員';
-				break;
+		if(!empty($c_res2)){
+			$c_lv = $c_res2['lv']; //會員等級
+			$lv_name = $c_res2['lv_name'];
+		}else{
+			$c_sql3 = "SELECT `".$lang."` as lv_name from lv_list where level = '1'";
+			$db3->setQuery($c_sql3);
+			$c_res3 = $db3->loadRow();
+			$lv_name = $c_res3['lv_name'];
 		}
+		
+		// switch ($c_lv) {
+		// 	case '1':
+		// 		$lv_name = '銀卡會員';
+		// 		break;
+		// 	case '2':
+		// 		$lv_name = '金卡會員';
+		// 		break;
+		// 	case '3':
+		// 		$lv_name = '白金會員';
+		// 		break;
+		// 	default:
+		// 		$lv_name = '銀卡會員';
+		// 		break;
+		// }
 		if (!empty($c_res2)) {
 			$c_total = $c_res2['total']; //會員消費額度
 		} else {
@@ -5434,9 +5514,9 @@ function ecash_new2_1_list()
 	$mb_no = $u_data['mb_no'];
 	$boss_id = $u_data['boss_id'];
 	if (!empty($search_yy) && $search_yy != 'all') {
-		$ec_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_new2_1_list_api.php?mb_no=$mb_no&boss_id$boss_id&yy=$search_yy");
+		$ec_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_new2_1_list_api.php?mb_no=$mb_no&boss_id$boss_id&yy=$search_yy");
 	} else {
-		$ec_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_new2_1_list_api.php?mb_no=$mb_no&boss_id$boss_id");
+		$ec_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_new2_1_list_api.php?mb_no=$mb_no&boss_id$boss_id");
 	}
 
 
@@ -5467,7 +5547,7 @@ function ecash_new2_2_list()
 	$mb_no = $u_data['mb_no'];
 	$boss_id = $u_data['boss_id'];
 
-	$ec_result = file_get_contents("http://192.168.7.44/ct/mbst/get_e_cash_new2_2_list_api.php?mb_no=$mb_no&boss_id$boss_id");
+	$ec_result = file_get_contents(MLMURL . "ct/mbst/get_e_cash_new2_2_list_api.php?mb_no=$mb_no&boss_id$boss_id");
 
 	$ec_result = json_decode($ec_result, true);
 	// $bonus_query="SELECT point,a.ord_no,date,eff_date,end_date,ps,IFNULL(datediff(a.end_date,now()),0) remain,b.name FROM e_cash2 as a,e_cash2_kind as b WHERE mb_no = '".$mb_no;
@@ -5582,7 +5662,7 @@ function member_news_page()
 
 function download_page()
 {
-	global $db2, $db;
+	global $db2, $db, $conf_user;
 	$u_data = get_user_info();
 	$mb_grade = $u_data['mb_grade'];
 
@@ -5593,13 +5673,22 @@ function download_page()
 	$om = $md['onlyMember'];
 
 	$kind = global_get_param($_GET, 'kind', null, 0, 1);
-	$lang = 'tw';
+	// $lang = 'tw';
+	$lang = $_SESSION[$conf_user]['syslang'];
 	$sql = "select * from down_kind where 1 and lang='$lang' order by ording asc";
 	$db->setQuery($sql);
 	$kind_list = $db->loadRowList();
-
-	if ($lang != 'tw') {
+	
+	if ($lang == 'en') {
 		$kind = $kind - 4;
+	}
+
+	if ($lang == 'zh-cn') {
+		$kind = $kind - 8;
+	}
+
+	if($kind < 0){
+		$kind = 0;
 	}
 
 	$where_str = '';
@@ -5647,6 +5736,7 @@ function download_page()
 	$data['status'] = 1;
 	$data['data'] = $result;
 	$data['kind_list'] = $kind_list;
+	$data['kind'] = $kind;
 	JsonEnd($data);
 }
 
@@ -5777,14 +5867,14 @@ function exchange_coupon_all()
 					$res['success'] = true;
 				} else {
 					$res['error'] = true;
-					$res['error_msg'] = '找不到該兌換券:' . $coupon_no;
+					$res['error_msg'] = _MEMBER_NO_VOUCHER . $coupon_no;
 				}
 			}
 		} else {
-			$res['error_msg'] = '可兌換數量不足';
+			$res['error_msg'] = _MEMBER_ERROR_8;
 		}
 	} else {
-		$res['error_msg'] = '輸入數量有誤';
+		$res['error_msg'] = _MEMBER_ERROR_9;
 	}
 
 
@@ -6047,7 +6137,7 @@ function sign30_signupChk()
 	$chk = getFieldValue("select count(1) as cnt from $tablename where sid='$sid' and locked = '0'", "cnt");
 	if ($chk > 0) {
 
-		JsonEnd(array("status" => 0, "msg" => "已存在相同身分證字號會員資料"));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_EXIST_IC));
 	}
 
 	if ($globalConf_signupDemo_ver2020) {
@@ -6080,9 +6170,9 @@ function sign30_signupChk()
 
 	if ($login_result["mb_status"] == 1) {
 
-		JsonEnd(array("status" => 1, "data" => $userInfo, "msg" => "註冊成功"));
+		JsonEnd(array("status" => 1, "data" => $userInfo, "msg" => _MEMBER_SIGNUP_SUCCESS));
 	} else {
-		JsonEnd(array("status" => 0, "msg" => "系統中無您的經銷商資料", "RR" => $login_result));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_DISTRIBUTOR, "RR" => $login_result));
 	}
 }
 
@@ -6185,7 +6275,7 @@ function sign30_signup()
 
 	$memberNo = $memberCardno;
 	if (empty($memberNo)) {
-		$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "USN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
+		$memberNo_max = getFieldValue(" SELECT ERPID FROM members WHERE ERPID LIKE '" . "MYN" . date("Ym") . "%' ORDER BY ERPID DESC ", "ERPID");
 
 		$chk_code = "";
 		if (!empty($memberNo_max)) {
@@ -6197,7 +6287,7 @@ function sign30_signup()
 		else
 			$code  = "00001";
 
-		$memberNo = "USN" . date("Ym") . $code;
+		$memberNo = "MYN" . date("Ym") . $code;
 	}
 
 	$emailChk = ($signupMode == "MAIL") ? 0 : 1;
@@ -6212,13 +6302,13 @@ function sign30_signup()
 		$memberAC = $memberSID;
 	}
 
-	$sql = "insert into members ( belongid,name,email,emailChk,mobileChk,
+	$sql = "insert into members ( belongid,name,sid,email,emailChk,mobileChk,
 				regDate,loginid,passwd,cardnumber,recommendCode,
 				salesChk,mobile,ERPID,phone,fulladdr,
 				ERPChk,resaddr,city,canton,addr,
 				rescity,rescanton,dlvrLocation,Birthday,memType,
 				recommendName,recommendPhone,recommendMobile, usedChk, memberWNo, pvgeLevel,onlyMember,no_re ) values 
-				('0',N'$memberName','$memberEmail','$emailChk','$mobileChk',
+				('0',N'$memberName','$memberSID','$memberEmail','$emailChk','$mobileChk',
 				'" . date("Y-m-d H:i:s") . "','$memberAC','$passwd','$memberNo','$eid',
 				'$salesChk','$memberPhone','$memberNo','$memberTel',N'$memberAddress',
 				$ERPChk,N'$memberResAddress','$memberCity','$memberCanton',N'$memberAddress',
@@ -6282,7 +6372,7 @@ function sign30_signup()
 	if ($signupMode == "SMS") {
 		sendMailToMemberBySignupSuccess($memberid, true, "sign20_signup");
 
-		$body = "親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴網路福利會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!";
+		$body = _MEMBER_SUCCESS_SMS;
 		send_sms($memberPhone, $body);
 	} else if ($signupMode == "MAIL") {
 		sendMailToMemberBySignupSuccess($memberid, false, "sign20_signup");
@@ -6290,7 +6380,7 @@ function sign30_signup()
 
 	//login(0,"",$memberSID,$memberPasswd);
 
-	JsonEnd(array("status" => 1, "msg" => "註冊成功"));
+	JsonEnd(array("status" => 1, "msg" => _MEMBER_SIGNUP_SUCCESS));
 }
 
 function sign30_signupSuccess()
@@ -6304,7 +6394,8 @@ function sign30_signupSuccess()
 function m_points()
 {
 	ini_set('display_errors', '1');
-	global $db3,$conf_user;
+	$res = array();
+	global $db3, $conf_user;
 	$u_data = get_user_info_m();
 	$mb_no = $u_data['mb_no'];
 	$now = date('Y-m-d');
@@ -6316,12 +6407,12 @@ function m_points()
 	$sql_str_pk = "";
 	if ($_SESSION[$conf_user]['syslang']) {
 		$lang = $_SESSION[$conf_user]['syslang'];
-		$sql_str .= " l.`". $_SESSION[$conf_user]['syslang'] ."` ";
-		$sql_str2 .= " ll.`". $_SESSION[$conf_user]['syslang'] ."` ";
-		$sql_str_pk .= " pk.`". $_SESSION[$conf_user]['syslang'] ."` ";
+		$sql_str .= " l.`" . $_SESSION[$conf_user]['syslang'] . "` ";
+		$sql_str2 .= " ll.`" . $_SESSION[$conf_user]['syslang'] . "` ";
+		$sql_str_pk .= " pk.`" . $_SESSION[$conf_user]['syslang'] . "` ";
 	}
-
-
+	$uid = LoginChk();
+	chk_cb($uid);
 	$sql = "SELECT p.* FROM points p, point_kind pk where p.mb_no = '$mb_no' and p.is_invalid = '0' and p.expiry_date > '$now' and '$now' >= p.active_date and p.kind = pk.kind and pk.type = '1'"; //總可用點數
 	$db3->setQuery($sql);
 	$list = $db3->loadRowList();
@@ -6412,7 +6503,7 @@ function m_points()
 	$db3->setQuery($sql5);
 	$uselist = $db3->loadRowList();
 
-	
+
 	$sql6 = "SELECT _m.*,t_total as t_total,{$sql_str} as m_rank,l.level as m_level,ll.level as m_llevel,{$sql_str2} as m_lrank from member_lv as _m,lv_list as l,lv_list as ll where mb_no = '$mb_no' and _m.lv = l.level and _m.force_lv = ll.level";
 	$db3->setQuery($sql6);
 	$member_detail = $db3->loadRow();
@@ -6421,7 +6512,8 @@ function m_points()
 		$member_detail['m_rank'] = $member_detail['m_lrank'];
 	}
 
-	$res = array();
+	
+	
 	$res['now_points'] = $total;
 	$res['get_list'] = $getlist;
 	$res['use_list'] = $uselist;
@@ -6438,33 +6530,34 @@ function m_points()
 
 	$res['member_detail'] = $member_detail;
 	$res['status'] = '1';
-	// $res['msql'] = $sql4;
+	
+	$res['msql'] = $sql4;
 
 
-	$pmsql = "SELECT sum(point) as p_points FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='1' and p.expiry_date > '$now' and p.active_date <= '$now' and p.point > 0 and p.mb_no = '$mb_no'";
-	$db3->setQuery($pmsql);
-	$pm_data = $db3->loadRow();
-	$pm_p_points = $pm_data['p_points'];
+	// $pmsql = "SELECT sum(point) as p_points FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='1' and p.expiry_date > '$now' and p.active_date <= '$now' and p.point > 0 and p.mb_no = '$mb_no'";
+	// $db3->setQuery($pmsql);
+	// $pm_data = $db3->loadRow();
+	// $pm_p_points = $pm_data['p_points'];
 
 
-	$pmsql2 = "SELECT sum(point) as n_points FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='2' and p.kind = '5' and p.point > 0 and p.mb_no = '$mb_no' and p.active_date <= '$now' and p.expiry_date >= '$now'";
-	$db3->setQuery($pmsql2);
-	$pm_data2 = $db3->loadRow();
-	$pm_n_points = $pm_data2['n_points'];
+	// $pmsql2 = "SELECT sum(point) as n_points FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='2' and p.kind = '5' and p.point > 0 and p.mb_no = '$mb_no' and p.active_date <= '$now' and p.expiry_date >= '$now'";
+	// $db3->setQuery($pmsql2);
+	// $pm_data2 = $db3->loadRow();
+	// $pm_n_points = $pm_data2['n_points'];
 
-	$withdraw_points = bcsub($pm_p_points, $pm_n_points, 2);
-	if ($withdraw_points < 0) {
-		$withdraw_points = 0;
-	}
-	$res['withdraw_points'] = $withdraw_points;
+	// $withdraw_points = bcsub($pm_p_points, $pm_n_points, 2);
+	// if ($withdraw_points < 0) {
+	// 	$withdraw_points = 0;
+	// }
+	// $res['withdraw_points'] = $withdraw_points;
 
-	$now = date('Y-m-d H:i:s');
-	// $pmsql3 = "SELECT * FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='2' and p.kind = '5' and p.point > 0 and p.mb_no = '$mb_no' and p.active_date <= '$now' and p.expiry_date >= '$now'";
-	$pmsql3 = "SELECT *,TIMESTAMPDIFF(SECOND,create_time,NOW()) as diffdate from p_to_m where mb_no = '$mb_no' and is_invalid = '0' order by set_date desc,create_time desc";
-	$db3->setQuery($pmsql3);
-	$pm_data3 = $db3->loadRowList();
+	// $now = date('Y-m-d H:i:s');
+	// // $pmsql3 = "SELECT * FROM points as p left join point_kind as pk on pk.kind = p.kind where p.withdraw='1' and p.is_invalid = '0' and pk.type='2' and p.kind = '5' and p.point > 0 and p.mb_no = '$mb_no' and p.active_date <= '$now' and p.expiry_date >= '$now'";
+	// $pmsql3 = "SELECT *,TIMESTAMPDIFF(SECOND,create_time,NOW()) as diffdate from p_to_m where mb_no = '$mb_no' and is_invalid = '0' order by set_date desc,create_time desc";
+	// $db3->setQuery($pmsql3);
+	// $pm_data3 = $db3->loadRowList();
 
-	$res['withdraw_list'] = $pm_data3;
+	// $res['withdraw_list'] = $pm_data3;
 	// $res['n1'] = $n_total;
 	// $res['n2'] = $nu_point;
 	JsonEnd($res);
@@ -6566,16 +6659,20 @@ function get_udlvrAddr()
 	$mb_no = $md['ERPID'];
 
 	//尋找有沒有註冊碼
-	$sql2 = "SELECT * from register_tb where register_mb_no = '$mb_no' and is_upgrade = '1' and is_invalid = '0'";
-	$db2->setQuery($sql2);
-	$reg_data = $db2->loadRow();
-	if (!empty($reg_data)) {
-		$res['can_update'] = '1';
-		$res['reg_data'] = $reg_data;
-		$_SESSION[$conf_user]['reg_code'] = $reg_data['random'];
-	} else {
-		$res['can_update'] = '0';
-	}
+	// $sql2 = "SELECT * from register_tb where register_mb_no = '$mb_no' and is_upgrade = '1' and is_invalid = '0'";
+	// $db2->setQuery($sql2);
+	// $reg_data = $db2->loadRow();
+	// if (!empty($reg_data)) {
+	// 	$res['can_update'] = '1';
+	// 	$res['reg_data'] = $reg_data;
+	// 	$_SESSION[$conf_user]['reg_code'] = $reg_data['random'];
+	// } else {
+	// 	$res['can_update'] = '0';
+	// }
+
+	$res['can_update'] = '1';
+	// $res['reg_data'] = $reg_data;
+	// $_SESSION[$conf_user]['reg_code'] = $reg_data['random'];
 
 	//是否升級中
 	if ($md['updating'] == '1') {
@@ -6595,10 +6692,12 @@ function get_udlvrAddr()
 		$res['dataShowMode'] = true; //是否要顯示升級
 	}
 
-	$msql = "SELECT A.addr as addr, B.state_u as city,C.name as canton FROM members A, region B, addrcode C where A.city=B.id and A.canton=C.id and A.id = '$uid'";
+	$msql = "SELECT A.addr as addr, B.state_u as city,B.id as city_code FROM members A, region B where A.city=B.id and A.id = '$uid'";
 	$db->setQuery($msql);
 	$ma = $db->loadRow();
-	$res['address'] = $ma['city'] . $ma['canton'] . $ma['addr'];
+	$res['city_code'] = $ma['city_code'];
+	$res['address'] = $ma['addr'];
+	// $res['msql'] = $msql;
 	$res['status'] = '1';
 
 	$mobileChk = getFieldValue(" SELECT mobileChk FROM members WHERE id = '$uid'", "mobileChk");
@@ -6630,7 +6729,7 @@ function get_udlvrAddr()
 
 	JsonEnd($res);
 }
-
+/*
 function update_member_now()
 {
 
@@ -6646,18 +6745,15 @@ function update_member_now()
 	$memberEmail = $md['email'];
 	$today = date('Y-m-d');
 	$status = 0;
-	$sumAmt = 880;
+	$sumAmt = 88;
 	$mb_no = $md['ERPID'];
 	$memberName = $md['name'];
 	$memberPhone = $md['phone'];
 	$signupMode = $md['pbgeLevel'];
 
 	$now = date("Y-m-d H:i:s");
-	$code = $_SESSION[$conf_user]['reg_code'];
-	$chk_sql = "SELECT * from register_tb where register_mb_no = '$mb_no' and random = '$code' and is_used = '0'";
-	$db2->setQuery($db2);
-	$data = $db2->loadRow();
-	if (!empty($sid) && !empty($code) && !empty($data)) {
+	
+	if (!empty($sid)) {
 		$sql = "UPDATE members SET sid='$sid',updating='1',rechg='$rechg' where id = '$uid'";
 		$db->setQuery($sql);
 		$db->query();
@@ -6689,6 +6785,258 @@ function update_member_now()
 	$status = 1;
 	$msg = '註冊成功';
 	JsonEnd(array("status" => $status, "msg" => $msg, "oid" => $oid));
+}
+*/
+
+function update_member_now()
+{
+	global $db, $conf_user, $tablename, $conf_user, $conf_members, $globalConf_signup_ver2020;
+	$uid = LoginChk();
+	$City = global_get_param($_POST, 'city', null, 0, 1);
+	$dlvrCity = $City['id'];
+	$Canton = global_get_param($_POST, 'canton', null, 0, 1);
+	$dlvrCanton = $Canton['id'];
+	$dlvrAddr = global_get_param($_POST, 'addr', null, 0, 1);
+	$payType = global_get_param($_POST, 'payType', null, 0, 1);
+	$dlvrType = global_get_param($_POST, 'dlvrType', null, 0, 1);
+	$mo = global_get_param($_POST, 'mo', null, 0, 1);
+	$memberid = $uid;
+	$msql = "SELECT * FROM members where id = '$uid'";
+	$db->setQuery($msql);
+	$md = $db->loadRow();
+	$memberEmail = $md['email'];
+	$today = date("Y-m-d");
+	$status = 0;
+	$sumAmt = 88;
+	$discount = 0;
+	$dcntAmt = 88;
+	$dlvrFee = ($dlvrType == '1') ? 10 : 0;
+	$usecoin = 0;
+	$totalAmt = $sumAmt + $dlvrFee;
+	$memberName = $md['name'];
+	$memberPhone = $md['phone'];
+	$signupMode = $md['pbgeLevel'];
+	$memberSID = $md['sid'];
+	$now = date("Y-m-d H:i:s");
+	// JsonEnd($_POST);
+	$billCity = global_get_param($_POST, 'billCity', null, 0, 1);
+	if (!empty($City)) {
+		$billCityStr = $City['state_u'];
+	}
+	$billAddr = $dlvrAddr;
+
+	if ($dlvrType == '2' && !empty($dlvrLocation)) {
+		if ($dlvrLocation == '北區服務中心') {
+			$dlvrAddr = "新北市林口區文化二路一段 266 號 11 樓之 1";
+		} else if ($dlvrLocation == '新竹服務中心') {
+			$dlvrAddr = "新竹市北區東大路二段 76 號 12 樓";
+		} else if ($dlvrLocation == '台中服務中心') {
+			$dlvrAddr = "台中市南屯區五權西路二段 666 號 8 樓之 3";
+		} else if ($dlvrLocation == '雲林服務中心') {
+			$dlvrAddr = "雲林縣虎尾鎮興中里 15 鄰清雲六街 123 號";
+		} else if ($dlvrLocation == '高雄服務中心') {
+			$dlvrAddr = "高雄市鼓山區明華路 315 號 11 樓之 2";
+		} else if ($dlvrLocation == '台南總部服務中心') {
+			$dlvrAddr = "台南市安南區工業一路 23 號";
+		} else if ($dlvrLocation == 'GOLDARCH ENTERPRISE') {
+			$dlvrAddr = "Prangin Mall, 33-4-75, Jalan Dr. Lim Chwee Leong, 10100 Georgetown, Pulau Pinang.";
+		} else if ($dlvrLocation == 'SIMPANG AMPAT') {
+			$dlvrAddr = "26, Lorong Kendi 6, Kawasan Perniagaan Taman Merak, 14100 Simpang Ampat, Pulau Pinang.";
+		} else if ($dlvrLocation == 'GREATARCH ENTERPRISE') {
+			$dlvrAddr = "96, Jalan Radin Anum 1, Sri Petaling, 57000 Kuala Lumpur.";
+		} else if ($dlvrLocation == 'BATU PAHAT') {
+			$dlvrAddr = "2A, Jalan Sri Pantai 1, Taman Sri Pantai, 83000 Batu Pahat, Johor.";
+		} else if ($dlvrLocation == 'ARCHCARE ENTERPRISE') {
+			$dlvrAddr = "2, Jalan Zapin 11, Taman Skudai, 81300 Johor Bahru, Johor.";
+		} else if ($dlvrLocation == 'MIRI') {
+			$dlvrAddr = "Lot.403, Jalan Cosmos 2A, Pelita Garden, 98000 Miri, Sarawak.";
+		} else if ($dlvrLocation == 'KOTA KINABALU') {
+			$dlvrAddr = "No.101, Lorong Bunga Dahlia 5, Jalan Penampang, Taman Cantik, 88200 Kota Kinabalu, Sarawak.";
+		} else if ($dlvrLocation == '大城堡總部服務中心' || $dlvrLocation == 'Sri Petaling Service Center'){
+			$dlvrAddr = "No.22-2, Jalan Radin Bagus 6, Bandar Baru Sri Petaling, 57000 Kuala Lumpur, Malaysia.";
+		} else if ($dlvrLocation == '詩巫服務中心' || $dlvrLocation == 'SIBU Service Center'){
+			$dlvrAddr = "No. 2, G & 1st Floor, Lorong Teng Chin Hua 1, 96000 Sibu, Sarawak";
+		}
+	}
+
+	$sql = "BEGIN;";
+
+
+		$sql .= "insert into orders 
+			(orderMode,memberid,email,buyDate,payType,dlvrType,status,sumAmt,discount,dcntAmt,dlvrFee,usecoin,totalAmt,dlvrName,
+			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,bill_address,bill_city)
+			values 
+			('updateMember','$memberid','$memberEmail','$today','$payType','$dlvrType',$status,'$sumAmt',
+			 '$discount','$dcntAmt','$dlvrFee','$usecoin','$totalAmt',N'$memberName','$memberPhone','','',N'$dlvrAddr',
+			 '','','','','','','','$now','$now','$memberid',N'$billAddr',N'$billCityStr');";
+
+		$sql .= " SET @insertid=LAST_INSERT_ID();";
+	// $pid = 356;
+	// $quantity = 1;
+	// $format1 = 162;
+	// $format2 = 168;
+
+
+	// $sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
+	// 		     values 
+	// 		     (@insertid,'$pid','880','1','880','0','0','0','','$format1','$format2','七彩','7mm','$now','$now','$memberid');";
+
+
+
+	// $sql .= "
+	// 	SET @insertdtlid=LAST_INSERT_ID();
+	// ";
+
+	// $sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
+	//  values 
+	//  (@insertid,@insertdtlid,'$pid','880','0','0','e化入會贈品','$now','$now','$memberid');";
+
+
+
+	// if (!empty($format1) && !empty($format2) && false) {
+	// 	$format_instock = intval(getFieldValue("select instock from proinstock where pid='$pid' AND format1 = '$format1' AND format2 = '$format2'", "instock"));
+	// 	$sql .= "update proinstock set instock=instock-'$quantity' where pid='$pid' AND format1 = '$format1' AND format2 = '$format2';";
+	// }
+
+	global $ESignupActiveEndDate, $ESignupFreeProductId, $ESignupFreeProductQuantity, $ESignupFreeProductFormat1, $ESignupFreeProductFormat2;
+	if (!empty($ESignupActiveEndDate) &&  strtotime(date("Y-m-d")) <= strtotime($ESignupActiveEndDate)) {
+		$pid = $ESignupFreeProductId;
+		$quantity = $ESignupFreeProductQuantity;
+		$format1 = $ESignupFreeProductFormat1;
+		$format2 = $ESignupFreeProductFormat2;
+
+		$sql .= "insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser)
+						 values 
+						 (@insertid,'$pid','88','1','0','0','0','0','','$format1','$format2','單一顏色','單一規格','$now','$now','$memberid');";
+
+		$sql .= "
+			SET @insertdtlid2=LAST_INSERT_ID();
+		";
+
+		$sql .= "insert into orderprodtl (oid,odid,pid,amt,pv,bv,note,ctime,mtime,muser)
+		 values 
+		 (@insertid,@insertdtlid2,'$pid','0','0','0','e化入會贈品','$now','$now','$memberid');";
+	}
+
+	$toMonth = date("Y-m");
+	$orderCodeName = getFieldValue("select codeName_chs from pubcode where codeKinds='orderseq'", "codeName_chs");
+	if ($orderCodeName == $toMonth) {
+		$orderseq = intval(getFieldValue("select codeName_en from pubcode where codeKinds='orderseq'", "codeName_en")) + 1;
+		$db->setQuery("update pubcode set codeName_en='$orderseq' where codeKinds='orderseq'");
+		$r = $db->query();
+	} else {
+		$db->setQuery("update pubcode set codeName_en=1,codeName_chs='$toMonth' where codeKinds='orderseq'");
+		$r = $db->query();
+		$orderseq = 1;
+	}
+
+	$orderseqStr = "";
+	if ($orderseq < 10) {
+		$orderseqStr = "000" . $orderseq;
+	} else if ($orderseq < 100) {
+		$orderseqStr = "00" . $orderseq;
+	} else if ($orderseq < 1000) {
+		$orderseqStr = "0" . $orderseq;
+	} else if ($orderseq < 10000) {
+		$orderseqStr = "" . $orderseq;
+	}
+
+
+	if (strtotime($today) >= strtotime('2019-10-30')) {
+		$orderNum = "3S010-" . date("ym") . $orderseqStr;
+	} else {
+		$orderNum = "1S010-" . date("ym") . $orderseqStr;
+	}
+
+	$orderCodeName = getFieldValue("select codeName from pubcode where codeKinds='orderseq'", "codeName");
+	if ($orderCodeName == $today) {
+		$orderseq = intval(getFieldValue("select codeValue from pubcode where codeKinds='orderseq'", "codeValue")) + 1;
+		$db->setQuery("update pubcode set codeValue='$orderseq' where codeKinds='orderseq'");
+		$r = $db->query();
+	} else {
+		$db->setQuery("update pubcode set codeValue=1,codeName='$today' where codeKinds='orderseq'");
+		$r = $db->query();
+		$orderseq = 1;
+	}
+	$orderseqStr2 = "";
+	if ($orderseq < 10) {
+		$orderseqStr2 = "0000" . $orderseq;
+	} else if ($orderseq < 100) {
+		$orderseqStr2 = "000" . $orderseq;
+	} else if ($orderseq < 1000) {
+		$orderseqStr2 = "00" . $orderseq;
+	} else if ($orderseq < 10000) {
+		$orderseqStr2 = "0" . $orderseq;
+	}
+
+
+	$orderECNum = date("Ymd") . $orderseqStr2;
+
+	$sql .= "update orders set orderNum='$orderNum',orderECNum='$orderECNum' where id=@insertid;";
+
+
+	$sql .= "insert into orderlog (oid,cdate,status,ctime,mtime,muser) values (@insertid,'$today','$status','$now','$now','$memberid');";
+
+	$sql .= "COMMIT;";
+
+
+	$db->setQuery($sql);
+	$r = $db->query_batch();
+
+	$img1 = global_get_param($_POST, 'img1', null);
+	$img2 = global_get_param($_POST, 'img2', null);
+	$img3 = global_get_param($_POST, 'img3', null);
+	if (count($img1) > 0) {
+		foreach ($img1 as $key => $value) {
+			if ($value) {
+				$path = $memberid . "_p" . $key . ".jpg";
+				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
+			}
+		}
+	}
+	if (count($img2) > 0) {
+		foreach ($img2 as $key => $value) {
+			if ($value) {
+				$path = $memberid . "_n" . $key . ".jpg";
+				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
+			}
+		}
+	}
+	if (count($img3) > 0) {
+		foreach ($img3 as $key => $value) {
+			if ($value) {
+				$path = $memberid . "_b" . $key . ".jpg";
+				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
+			}
+		}
+	}
+
+	if ($globalConf_signup_ver2020) {
+		//發送註冊成功
+		if ($signupMode == "SMS") {
+			sendMailToMemberBySignupSuccess($memberid, true);
+
+			$body = _MEMBER_SUCCESS_SMS;
+			send_sms($memberPhone, $body);
+		} else if ($signupMode == "MAIL") {
+			sendMailToMemberBySignupSuccess($memberid, false);
+		}
+	} else {
+		login(0, "", $memberEmail, $memberSID);
+	}
+
+
+	$oid = getFieldValue(" SELECT id FROM orders ORDER BY id DESC ", "id");
+
+	$status = 1;
+	$msg = '註冊成功';
+
+	$url = '';
+	$url = "/app/controllers/publicBank.php?task=orderSale&session=0&orderNum=".$orderNum;
+	$orderid = getFieldValue("SELECT id FROM orders WHERE orderNum = '$orderNum'","id");
+	//未付款先進傳銷訂單
+	toMLM($orderid,'0');
+	JsonEnd(array("status" => $status, "msg" => $msg, "oid" => $oid, "orderNum" => $orderNum,'url'=>$url));
 }
 
 function get_erate()
@@ -6844,7 +7192,7 @@ function upload_cert()
 				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
 			}
 		}
-		$path = 'http://192.168.7.46/upload/members/' . $memberid . '_p1.jpg';
+		$path = 'http://192.168.7.46/upload_my/members/' . $memberid . '_p1.jpg';
 		$type = pathinfo($path, PATHINFO_EXTENSION);
 		$data = file_get_contents($path . '?v=' . time());
 		$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -6859,7 +7207,7 @@ function upload_cert()
 				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
 			}
 		}
-		$path = 'http://192.168.7.46/upload/members/' . $memberid . '_n1.jpg';
+		$path = 'http://192.168.7.46/upload_my/members/' . $memberid . '_n1.jpg';
 		$type = pathinfo($path, PATHINFO_EXTENSION);
 		$data = file_get_contents($path . '?v=' . time());
 		$base641 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -6876,7 +7224,7 @@ function upload_cert()
 				imgupd($value, $conf_members . $path, $tablename, $memberid, $key);
 			}
 		}
-		$path = 'http://192.168.7.46/upload/members/' . $memberid . '_b1.jpg';
+		$path = 'http://192.168.7.46/upload_my/members/' . $memberid . '_b1.jpg';
 		$type = pathinfo($path, PATHINFO_EXTENSION);
 		$data = file_get_contents($path . '?v=' . time());
 		$base642 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -7026,13 +7374,13 @@ function cash_back_list()
 	$now_date = date('Y-m-d');
 	if (!empty($mb_no)) {
 		$cb_gpoints = 0;
-		$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date'";
+		$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and is_invalid = '0' and expiry_date > '$now_date'";
 		$db3->setQuery($csql);
 		$cgetlist = $db3->loadRow();
 		if (!empty($cgetlist)) {
 			$cb_gpoints = $cgetlist['cb_points']; //目前可用的得到點數
 		}
-		$usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date > '$now_date'";
+		$usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and is_invalid = '0' and expiry_date > '$now_date'";
 		$db3->setQuery($usql);
 		$cuselist = $db3->loadRow();
 		if (!empty($cuselist)) {
@@ -7045,10 +7393,10 @@ function cash_back_list()
 		$res['user_cb'] = $now_points;
 	}
 	if (!empty($mb_no)) {
-		$sql = "SELECT * FROM cash_back where mb_no = '$mb_no' and kind = '0' and point != '0' order by create_time desc";
+		$sql = "SELECT * FROM cash_back where mb_no = '$mb_no' and kind = '0'and is_invalid = '0' and point != '0' order by create_time desc";
 		$db3->setQuery($sql);
 		$get_list = $db3->loadRowList();
-		$sql = "SELECT * FROM cash_back where mb_no = '$mb_no' and kind = '1' and point != '0' order by create_time desc, expiry_date desc";
+		$sql = "SELECT * FROM cash_back where mb_no = '$mb_no' and kind = '1'and is_invalid = '0' and point != '0' order by create_time desc, expiry_date desc";
 		$db3->setQuery($sql);
 		$use_list = $db3->loadRowList();
 		$res['get_list'] = $get_list;
@@ -7071,12 +7419,9 @@ function get_recommend()
 	$msql = "SELECT * from members where id = '$uid'";
 	$db->setQuery($msql);
 	$mb_data = $db->loadRow();
-	if (!empty($data)) {
-		$res['status'] = '1';
-		$res['re_data'] = $data;
-		$res['mb_data'] = $mb_data;
-	} else {
-	}
+	$res['status'] = '1';
+	$res['re_data'] = $data;
+	$res['mb_data'] = $mb_data;
 	JsonEnd($res);
 }
 
@@ -7086,7 +7431,7 @@ function mlm_order_list()
 
 	$uid = $_SESSION[$conf_user]['uid'];
 	if (intval($uid) == 0) {
-		JsonEnd(array("status" => 0, "msg" => '請先登入'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_LOGIN_FIRST));
 	}
 
 	$msql = "SELECT ERPID from members where id = '$uid'";
@@ -7186,7 +7531,7 @@ function mlm_order_dtl()
 	// if (!$id || !is_numeric($id)) {
 
 	// 	if (!$id)
-	// 		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+	// 		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 
 	// 	$_SESSION[$conf_user]['redirect_url'] = getFieldValue("select var01 from requestLog where code='$id'", "var01");
 	// 	$id = getFieldValue("select var02 from requestLog where code='$id'", "var02");
@@ -7211,7 +7556,7 @@ function mlm_order_dtl()
 	// JsonEnd($od_detail);
 
 	if (count($od_detail) == 0) {
-		JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+		JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	}
 	$data['data'] = $od_detail;
 	$data['orderNum'] = $r['ord_no'];
@@ -7224,7 +7569,7 @@ function mlm_order_dtl()
 
 	// $id = intval(getFieldValue("select id from orders where memberid='$uid' AND id='$id'", "id"));
 	// if ($id == 0) {
-	// 	JsonEnd(array("status" => 0, "msg" => '無此訂單'));
+	// 	JsonEnd(array("status" => 0, "msg" => _MEMBER_NO_OEDER));
 	// }
 
 
@@ -7747,7 +8092,7 @@ function set_pm()
 
 function del_pm()
 {
-	global $conf_user,$db3;
+	global $conf_user, $db3;
 	// ini_Set('display_errors','1');
 	$u_data = get_user_info_m();
 	$mb_no = $u_data['mb_no'];

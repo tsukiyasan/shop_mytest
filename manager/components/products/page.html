@@ -207,7 +207,7 @@
                                 <td><input type="text" class="form-control" ng-model="ctrl.products_dtl.ccv" id="products_ccv" placeholder="{{'lg_products.ccv' | translate}}"></td>
                             </tr>
 							
-							<tr>
+							<tr ng-if='false'>
 								<td ng-bind="'lg_products.need_tax' | translate"></td>
 								<td>        
 									<div class="onoffswitch onoffswitch-success">
@@ -362,6 +362,30 @@
                                     <div class="onoffswitch onoffswitch-success">
                                         <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.nccbChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.nccbChk" id="products_nccb">
                                         <label class="onoffswitch-label" for="products_nccb">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+                                    </div>
+                                </td>
+                            </tr>
+							<tr>
+                                <td ng-bind="'lg_products.not_for_om' | translate"></td>
+                                <td>
+                                    <div class="onoffswitch onoffswitch-success">
+                                        <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.notomChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.notomChk" id="products_notomChk">
+                                        <label class="onoffswitch-label" for="products_notomChk">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+                                    </div>
+                                </td>
+                            </tr>
+							<tr>
+                                <td ng-bind="'lg_products.forTW' | translate"></td>
+                                <td>
+                                    <div class="onoffswitch onoffswitch-success">
+                                        <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.products_dtl.forTW" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.products_dtl.forTW" id="products_forTW">
+                                        <label class="onoffswitch-label" for="products_forTW">
 											<div class="onoffswitch-inner"></div>
 											<div class="onoffswitch-switch"></div>
 										</label>

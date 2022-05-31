@@ -2,6 +2,8 @@
 	"payconfig": "金物流設定",
 	"payconfig_cashflow": "金流設定",
 	"payconfig_logistics": "物流設定",
+	"payconfig_logistics_detail": "物流詳細設定",
+	"payconfig_add_logistics_detail": "新增物流詳細設定",
 	"payconfig_dlvrPay": "貨到付款",
 	"payconfig_bankPay": "ATM匯款",
 	"payconfig_creditPay": "信用卡付款",
@@ -52,5 +54,6 @@
 	"payconfig_money_setting": "網站貨幣設定",
 	"payconfig_money_setting_msg": "請至少設定一個貨幣",
 	"payconfig_money_change_msg": "請先確認商品、優惠活動、金流方式皆為更換後的幣別資，送出設定後會直接採用新幣別運作",
-	"payconfig_end": ""
+	"payconfig_end": "",
+	"payconfig_addlg": "新增物流"
 }

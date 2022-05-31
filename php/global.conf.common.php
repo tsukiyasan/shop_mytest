@@ -4,7 +4,26 @@
 
 defined( '_VALID_WAY' ) or die( 'Do not Access the Location Directly!' );
 
-
+//模式(測試為"test",其他為"")
+define("MODE", "test");
+//購物網站IP
+define("SHOPIP", "192.168.7.39:82");
+//購物網站網址
+define("SHOPURL", "https://myshoptest.goodarch2u.com/");
+//傳銷IP
+define("MLMIP", "192.168.7.30");
+//傳銷網址
+define("MLMURL", "http://" . MLMIP . "/");
+//點數銀行網址
+define("POINTBANKURL", "http://192.168.7.46/money_bank_my_test/");
+//點數銀行UPLOAD
+define("POINTBANKUPLOAD", "http://192.168.7.46/upload_my/");
+//OROCLE
+define("OROCLE", "oci:dbname=192.168.7.11:1521/toptest;charset=UTF8");
+//MAILIP
+define("MAILIP", "192.168.7.3");
+//海旅年月
+define("ECASHDATE", "2022-01");
 
 $encryt1 = "";
 $encryt2 = "";
@@ -37,21 +56,21 @@ $globalConf_dbtype = 'mysql';
 $globalConf_host = '127.0.0.1';
 $globalConf_user = 'root';
 $globalConf_password = '';
-$globalConf_db = 'shop_goodarch2u_us';
+$globalConf_db = 'shop_goodarch2u_mytest';
 
 
 $globalConf_dbtype2 = 'mysql';
-$globalConf_host2 = '192.168.7.44';
+$globalConf_host2 = '192.168.7.30';
 $globalConf_user2 = 'root';
-$globalConf_password2 = 'goodarch20181011';
-$globalConf_db2 = 'goodarch2';
+$globalConf_password2 = 's88104';
+$globalConf_db2 = 'goodarch';
 
 
 $globalConf_dbtype3 = 'mysql';
 $globalConf_host3 = '192.168.7.46';
-$globalConf_user3 = 'root';
-$globalConf_password3 = '';
-$globalConf_db3 = 'money_bank';
+$globalConf_user3 = 'hwadmin';
+$globalConf_password3 = 'h80737468w';
+$globalConf_db3 = 'money_bank_my_test';
 
 // $globalConf_dbtype2 = 'mysql';
 // $globalConf_host2 = '192.168.7.37';
@@ -161,7 +180,7 @@ $globalConf_default_contactPage_limit = '5';
 $tmpActiveId0221 = 99;
 
 $ESignupActiveEndDate = '2029-12-31';
-$ESignupFreeProductId = '504';
+$ESignupFreeProductId = '529';
 $ESignupFreeProductQuantity = '1';
 $ESignupFreeProductFormat1 = '155';
 $ESignupFreeProductFormat2 = '153';
@@ -170,6 +189,10 @@ $ESignupFreeProductFormat2 = '153';
 $globalConf_signup_ver2020 = true;		
 $globalConf_signupDemo_ver2020 = false;		
 $globalConf_sms_open=true;//是否開啟簡訊功能		
-$Conf_sms_username="97252712";		
-$Conf_sms_password="a123123";
+$Conf_sms_username="API8MYP4FC57K";		
+$Conf_sms_password="API8MYP4FC57K8MYP4";
+
+
+
+
 ?>

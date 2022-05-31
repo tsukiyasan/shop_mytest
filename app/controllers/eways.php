@@ -40,6 +40,9 @@ switch ($task) {
 	case "set_pay_type":
 	    set_pay_type();
 	    break;
+	case "set_logistics_type":
+		set_logistics_type();
+		break;
 	case "set_take_type":
 	    set_take_type();
 	    break;
@@ -174,7 +177,7 @@ function getMediaContent(){
 
 function getAdvContent(){
 	global $db,$conf_user;
-	
+	ini_set('display_errors','1');
 	$str = "indexconf";
 	if($_SESSION[$conf_user]['syslang'])
 	{
@@ -261,10 +264,20 @@ function getIndexProduct(){
 		$sql_str .= " A.`name_".$_SESSION[$conf_user]['syslang']."` , ";
 	}
 	
+	$uid = intval($_SESSION[$conf_user]['uid']);
+	if(!empty($uid)){
+		$om = getFieldValue("SELECT onlyMember from members WHERE id = '$uid'","onlyMember");
+		
+		if($om == '1'){
+			$where_str = " AND notomChk = '0'";
+		}
+	}else{
+		$where_str = " AND notomChk = '0'";
+	}
 	
 	if($type=="new_product"){
 		$sql="select * from (  
-			    select A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03 as content,A.var04 as promedia,A.newDate,A.ctime,C.ptid
+			    select A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03 as content,A.var04 as promedia,A.newDate,A.ctime,C.ptid,A.notomChk
 				from products A,proinstock B ,protype C
 				where A.publish=1 AND A.type='page' AND A.id=B.pid AND A.id = C.pid $where_str
 				group by A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03,A.var04
@@ -273,7 +286,7 @@ function getIndexProduct(){
 		
 	}else if($type=="special_product"){
 		$sql="select * from (  
-			    select A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03 as content,A.var04 as promedia,A.ctime,C.ptid
+			    select A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03 as content,A.var04 as promedia,A.ctime,C.ptid,A.notomChk
 				from products A,proinstock B ,protype C
 				where A.publish=1 AND A.type='page' AND A.id=B.pid AND A.hotChk=1 AND A.id = C.pid $where_str
 				group by A.id,A.name,{$sql_str} A.highAmt,A.siteAmt,A.var03,A.var04
@@ -383,6 +396,13 @@ function get_addrCode(){
 	$sql="select * from region order by id asc";
 	$db->setQuery( $sql );
 	$r=$db->loadRowList();
+	$city_list = array();
+	foreach ($r as $each) {
+		if($each['state_u'] == 'OTHERS' || $each['state_u'] == 'OTHER'){
+			$each['state_u'] = $each['country'];
+		}
+		$city_list[] = $each;
+	}
 	$data=array();
 	$province=array();
 	$city=array();
@@ -390,7 +410,7 @@ function get_addrCode(){
 	
 	
 	
-	JsonEnd(array("status" => 1,"city"=>$r));
+	JsonEnd(array("status" => 1,"city"=>$city_list));
 }
 
 function get_year(){
@@ -473,14 +493,66 @@ function set_take_type(){
 		JsonEnd(array("status" => 0, "msg" =>_EWAYS_SELECT_TAKETYPE));
 	}
 	$mode=getCartMode();
+	$is_twcart = $_SESSION[$conf_user]['is_twcart_cart'];
+	$origin_mode = $mode;
+	if ($is_twcart == '1') {
+		$getdlvr = 'outlying_dlvr';
+		$mode = 'twcart';
+	} else if ($is_twcart == '0') {
+		$getdlvr = 'main_dlvr';
+		$mode = $origin_mode;
+	}
 	$_SESSION[$conf_user]['take_type']=$take_type;
-	$_SESSION[$conf_user]['dlvrAmt']=take_type(true);
+	// $_SESSION[$conf_user]['dlvrAmt']=take_type(true);
 	
 	$cart=$_SESSION[$conf_user]["{$mode}_list"];
 	$proArr=CartProductInfo2($cart);
 	JsonEnd(array("status" => 1,"dlvrAmt"=>intval($_SESSION[$conf_user]['dlvrAmt'])-intval($proArr['disDlvrAmt']),"disDlvrAmt"=>intval($proArr['disDlvrAmt'])));
 }
 
+function set_logistics_type()
+{
+	global $db, $conf_user;
+	$logistics_type = intval(global_get_param($_REQUEST, 'logistics_type', null, 0, 1));
+	$mo = intval(global_get_param($_REQUEST, 'mo', null, 0, 1));
+	if ($logistics_type == 0) {
+		JsonEnd(array("status" => 0, "msg" => "請選擇物流方式"));
+	}
+	$is_twcart = $_SESSION[$conf_user]['is_twcart_cart'];
+	$mode = getCartMode();
+	$origin_mode = $mode;
+	// if ($mo == '1') { //本島
+	// 	if ($is_twcart == '1') {
+	// 		$getdlvr = 'f_main_dlvr';
+	// 	} else if ($is_twcart == '0') {
+	// 		$getdlvr = 'main_dlvr';
+	// 	}
+	// } else if ($mo == '2') {
+	// 	if ($is_twcart == '1') {
+	// 		$getdlvr = 'f_outlying_dlvr';
+	// 	} else if ($is_twcart == '0') {
+	// 		$getdlvr = 'outlying_dlvr';
+	// 	}
+	// }
+
+	if ($is_twcart == '1') {
+		$getdlvr = 'outlying_dlvr';
+		$mode = 'twcart';
+	} else if ($is_twcart == '0') {
+		$getdlvr = 'main_dlvr';
+		$mode = $origin_mode;
+	}
+
+	$logres = logisitics_type($logistics_type, null, $getdlvr);
+	$_SESSION[$conf_user]['logistics_type'] = $logistics_type;
+	$_SESSION[$conf_user]['mo'] = $mo;
+	$_SESSION[$conf_user]['dlvrAmt'] = $logres['dlvr'];
+
+
+	$cart = $_SESSION[$conf_user]["{$mode}_list"];
+	$proArr = CartProductInfo2($cart);
+	JsonEnd(array("status" => 1, "dlvrAmt" => intval($_SESSION[$conf_user]['dlvrAmt']) - intval($proArr['disDlvrAmt']), "disDlvrAmt" => intval($proArr['disDlvrAmt']), "dd" => $logres, "dlvrfeeStr" => $logres['dlvrfeeStr']));
+}
 
 
 function set_pay_type(){
@@ -498,24 +570,55 @@ function set_pay_type(){
 
 
 
-function get_cart_num(){
+function get_cart_num()
+{
 	global $conf_user;
 	chkCartPro();
-	$mode=getCartMode();
-	$cnt=count($_SESSION[$conf_user]["{$mode}_list"]);
-	if($cnt==0){
-		$_SESSION[$conf_user]["{$mode}_list"]=array();
+	$mode = getCartMode();
+	$cnt = count($_SESSION[$conf_user]["cart_list"]);
+	$backto = '0';
+	// $cnt = count($_SESSION[$conf_user]["{$mode}_list"]);
+	if ($cnt == 0) {
+		$_SESSION[$conf_user]["cart_list"] = array();
+		// $_SESSION[$conf_user]["{$mode}_list"] = array();
 	}
-	if($_SESSION[$conf_user]['activeBundleCart'] && count($_SESSION[$conf_user]['activeBundleCart'])>0){
-        $cnt+=count($_SESSION[$conf_user]['activeBundleCart']);
-    }
-	JsonEnd(array("status" => 1, "cnt" =>$cnt));
+	//舊的活動分組
+	if ($_SESSION[$conf_user]['activeBundleCart'] && count($_SESSION[$conf_user]['activeBundleCart']) > 0) {
+		$cnt += count($_SESSION[$conf_user]['activeBundleCart']);
+	}
+	//新加的session
+	$cnt += getShopCartItemCount();
+
+	if ($_SESSION[$conf_user]['twcart_list'] && count($_SESSION[$conf_user]['twcart_list']) > 0) {
+		$cnt += count($_SESSION[$conf_user]['twcart_list']);
+	}
+	$res = array("status" => 1, "cnt" => $cnt);
+	$u_data = get_user_info_m();
+	if (!empty($u_data)) {
+		$res['mb_no'] = $u_data['mb_no'];
+	} else {
+		$res['mb_no'] = '';
+	}
+	$res['cart'] = $_SESSION[$conf_user]["{$mode}_list"];
+	$res['fro'] = $_SESSION[$conf_user]['twcart_list'];
+	$is_twcart = $_SESSION[$conf_user]['is_twcart_cart'];
+	if ($is_twcart == '1') {
+		if (count($_SESSION[$conf_user]['twcart_list']) == '0') {
+			$backto = '1';
+		}
+	} else if ($is_twcart == '0') {
+		if (count($_SESSION[$conf_user]["cart_list"]) == '0') {
+			$backto = '1';
+		}
+	}
+	$res['backto'] = $backto;
+	JsonEnd($res);
 }
 
 
 function update_cart_list($mode="cart"){
 	global $conf_user,$db;
-	
+	ini_set('display_errors','1');
 	$id = intval(global_get_param( $_REQUEST, 'id', null ,0,1  ));
 	$num = intval(global_get_param( $_REQUEST, 'num', null ,0,1  ));
 	$format1 = intval(global_get_param( $_REQUEST, 'format1', null ,0,1  ));
@@ -677,314 +780,422 @@ function update_cart_list($mode="cart"){
 }
 
 
-function update_cart_list2($mode="cart"){
-	global $conf_user,$db;
-	
-	if($mode=="bonus"){
-		
+function update_cart_list2($mode = "cart")
+{
+	global $conf_user, $db;
+
+	$origin_mode = $mode;
+
+	if ($mode == "bonus") {
 	}
+
+
+
+	$id = intval(global_get_param($_REQUEST, 'id', null, 0, 1));
+	$num = intval(global_get_param($_REQUEST, 'num', null, 0, 1));
+	$format1 = intval(global_get_param($_REQUEST, 'format1', null, 0, 1));
+	$format2 = intval(global_get_param($_REQUEST, 'format2', null, 0, 1));
+
+	$addid = intval(global_get_param($_REQUEST, 'addid', null, 0, 1));
+	$addpro_format = $_SESSION[$conf_user]['cart_addpro_list'][$addid];
+
 	
-	$id = intval(global_get_param( $_REQUEST, 'id', null ,0,1  ));
-	$num = intval(global_get_param( $_REQUEST, 'num', null ,0,1  ));
-	$format1 = intval(global_get_param( $_REQUEST, 'format1', null ,0,1  ));
-	$format2 = intval(global_get_param( $_REQUEST, 'format2', null ,0,1  ));
-	
-	$addid = intval(global_get_param( $_REQUEST, 'addid', null ,0,1  ));
-	$addpro_format=$_SESSION[$conf_user]['cart_addpro_list'][$addid];
-	
+
 	//檢查是否有開放購買 20210922
-	$csql = "SELECT * FROM products where id = '$id' and publish = '1'";
-	$db->setQuery($csql);
-	$pd = $db->loadRow();
-	if(empty($pd)){
-		JsonEnd(array("status" => 0, "msg" => "此項目目前無法購買"));
+	$now = date('Y-m-d H:i:s');
+	
+	// if($mode != 'freepro'){ //免費品不檢查
+	// 	$csql = "SELECT * FROM products where id = '$id' and publish = '1' and (has_end='0' or (has_end ='1' and end_time >= '$now')) and newDate <= '$now'";
+	// 	$db->setQuery($csql);
+	// 	$pd = $db->loadRow();
+	// 	if (empty($pd)) {
+	// 		JsonEnd(array("status" => 0, "msg" => "此項目目前無法購買"));
+	// 	}
+	// }
+
+	// JsonEnd(array("status"=>'1','csal'=>$csql));
+	
+
+
+	//檢查身份能不能買
+	$uid = LoginChk();
+	$om = getFieldValue("select onlyMember from members where id='$uid'", "onlyMember");
+	if ($om == '1') { //檢查是否可以買該商品
+		$notomChk = getFieldValue("select notomChk from products where id='$id'", "notomChk");
+		if ($notomChk == '1') {
+			JsonEnd(array("status" => 0, "msg" => "會員無法購買"));
+		}
+	}
+
+	$editmode = false;
+	if ($mode == "edit") {
+		$editmode = true;
+		$mode = getCartMode();
+	} else if ($num == 0) {
+		$editmode = true;
+		$mode = getCartMode();
+	}
+
+	// $cm = $_SESSION[$conf_user]['is_twcart_cart'];
+	// if($cm == '1'){
+	// 	$mode = 'twcart';
+	// }
+
+	$is_twcart = getFieldValue("select forTW from products where id='$id'", "forTW");
+	if ($is_twcart == '1' && $origin_mode != 'freepro') {
+		$mode = 'twcart';
+	} else {
+		$mode = $origin_mode;
 	}
 
 
-	$editmode=false;
-	if($mode=="edit"){
-		$editmode=true;
-		$mode=getCartMode();
-	}else if($num==0){
-		$editmode=true;
-		$mode=getCartMode();
-	}
-	
-	
-	$protype = global_get_param( $_REQUEST, 'protype', null ,0,1  );
-	if(!empty($protype))
-	{
-		$_SESSION[$conf_user]["cart_list_mode"]=$protype;
+	$protype = global_get_param($_REQUEST, 'protype', null, 0, 1);
+	if (!empty($protype)) {
+		$_SESSION[$conf_user]["cart_list_mode"] = $protype;
 		$mode = $protype;
 	}
-	
-	$fid = global_get_param( $_REQUEST, 'fid', null ,0,0  );
-	
-	$where_str="";
-	if($format1){
-		$where_str.=" AND format1='$format1'";
-		if($format2){
-			$where_str.=" AND format2='$format2'";
+
+	$fid = global_get_param($_REQUEST, 'fid', null, 0, 0);
+
+	$where_str = "";
+	if ($format1) {
+		$where_str .= " AND format1='$format1'";
+		if ($format2) {
+			$where_str .= " AND format2='$format2'";
 		}
 	}
-	
-	if($addid){
-		$formatid=getFieldValue("select id from proinstock where pid='$addid' $where_str","id");
-		$pid=$addid;
-		if($formatid){
-			$pid.="|||".$formatid;
+
+	if ($addid) {
+		$formatid = getFieldValue("select id from proinstock where pid='$addid' $where_str", "id");
+		$pid = $addid;
+		if ($formatid) {
+			$pid .= "|||" . $formatid;
 		}
-		if($addid && $num){
-			$_SESSION[$conf_user]["cart_addpro_list"][$pid]=$num;
-		}else if($addid && $num==0){
-			$_SESSION[$conf_user]["cart_addpro_list"][$pid]=null;
+		if ($addid && $num) {
+			$_SESSION[$conf_user]["cart_addpro_list"][$pid] = $num;
+			// $num = $_SESSION[$conf_user]["cart_addpro_list"][$pid] + $num;
+		} else if ($addid && $num == 0) {
+			$_SESSION[$conf_user]["cart_addpro_list"][$pid] = null;
 			unset($_SESSION[$conf_user]["cart_addpro_list"][$pid]);
 		}
-	}else{
-		$formatid=getFieldValue("select id from proinstock where pid='$id' $where_str","id");
-		
-		$pid=$id;
-		if($formatid){
-			$pid.="|||".$formatid;
+	} else {
+		$formatid = getFieldValue("select id from proinstock where pid='$id' $where_str", "id");
+
+		$pid = $id;
+		if ($formatid) {
+			$pid .= "|||" . $formatid;
 		}
-		
-		if($mode == 'freepro' && !empty($fid))
-		{
-			
-			$fid_arr = explode("|||",$fid);
-			$pid .= "|||".$fid_arr[2]."|||".$fid_arr[3];
+
+		if ($mode == 'freepro' && !empty($fid)) {
+			$freelist = $_SESSION[$conf_user]['freepro_list'];
+			$cartlist = $_SESSION[$conf_user]['cart_list'];
+			$fid_arr = explode("|||", $fid);
+			$pid .= "|||" . $fid_arr[2] . "|||" . $fid_arr[3];
 			$num = 1;
+			$cnt_sel = 0;
+
+			foreach ($freelist as $f => $v) {
+				$f_arr = explode("|||", $f);
+				if ($formatid == $f_arr[1]) {
+					$cnt_sel++;
+				}
+			}
+
+			foreach ($cartlist as $c => $v) {
+				$c_arr = explode("|||", $c);
+				if ($formatid == $c_arr[1]) {
+					$cnt_sel++;
+				}
+			}
+			//檢查庫存
+			$instock = intval(getFieldValue("select instock from proinstock where id='$formatid'", "instock")); //限有的量
+			if ($cnt_sel >= $instock) {
+				$resu = array();
+				$resu['status'] = '0';
+				// $resu['fid'] = $fid_arr;
+				// $resu['pid'] = $pid;
+				// $resu['formatid'] = $formatid;
+				// $resu['freelist'] = $freelist;
+				// $resu['good'] = true;
+				// $resu['cnt_sel'] = $cnt_sel;
+				// $resu['insto'] = $instock;
+				// $resu['cartlist'] = $cartlist;
+				$resu['msg'] = '庫存不足，請重新選擇。';
+
+				JsonEnd($resu);
+			}
 		}
-		
-		if($mode == 'amtpro' && $id && $num)
-		{
+
+		if ($mode == 'amtpro' && $id && $num) {
 			$num = intval($_SESSION[$conf_user]["amtpro_list"][$pid]) + $num;
 		}
-		
-		if($id && $num){
-			if($mode == 'freepro' && count($_SESSION[$conf_user]["freepro_list"]) > 0) 
-			{
-				
-				foreach($_SESSION[$conf_user]["freepro_list"] as $key=>$row)
-				{
-					$key_arr = explode("|||",$key);
-					if($key_arr[0] == $fid_arr[0] && $key_arr[2] == $fid_arr[2] && $key_arr[3] == $fid_arr[3])
-					{
-						$_SESSION[$conf_user]["freepro_list"][$key]=null;
+
+		if ($mode == 'e3pro' && $id && $num) {
+			// $num = intval($_SESSION[$conf_user]["e3pro_list"][$pid]) + $num;
+			$num = $num; //修改數量時不加上去
+		}
+
+		if ($id && $num) {
+			if ($mode == 'freepro' && count($_SESSION[$conf_user]["freepro_list"]) > 0) {
+				$fid_arr = explode("|||", $fid);
+				foreach ($_SESSION[$conf_user]["freepro_list"] as $key => $row) {
+					$key_arr = explode("|||", $key);
+					if ($key_arr[0] == $fid_arr[0] && $key_arr[2] == $fid_arr[2] && $key_arr[3] == $fid_arr[3]) {
+						$_SESSION[$conf_user]["freepro_list"][$key] = null;
 						unset($_SESSION[$conf_user]["freepro_list"][$key]);
 					}
 				}
 			}
-			
-			if($mode == "cart")
-			{
+
+			if ($mode == "cart") {
 				$ori_num = intval($_SESSION[$conf_user]["{$mode}_list"][$pid]);
-				if($ori_num > $num)
-				{
-					
+				if ($ori_num > $num) {
+
 					$pairProArr = $_SESSION[$conf_user]["pairpro_list"];
 					$pairProArr_tmp = array();
-					if(count($pairProArr) > 0)
-					{
-						foreach($pairProArr as $pair)
-						{
-							$pairArr = explode("@@",$pair);
-							
-							if($pairArr[0] != $id && $pairArr[1] != $id)
-							{
+					if (count($pairProArr) > 0) {
+						foreach ($pairProArr as $pair) {
+							$pairArr = explode("@@", $pair);
+
+							if ($pairArr[0] != $id && $pairArr[1] != $id) {
 								$pairProArr_tmp[] = $pair;
 							}
 						}
 						$_SESSION[$conf_user]["pairpro_list"] = $pairProArr_tmp;
 					}
-					
-					
-					
-
 				}
 			}
-			
-			
-			if($mode == "event")
-			{
-				
-				$_SESSION[$conf_user]["cart_list"][$pid."|||event|||".$activeextraId]=$num;
+
+			if ($mode == "twcart") {
+				$ori_num = intval($_SESSION[$conf_user]["{$mode}_list"][$pid]);
+				if ($ori_num > $num) {
+
+					$pairProArr = $_SESSION[$conf_user]["pairpro_list"];
+					$pairProArr_tmp = array();
+					if (count($pairProArr) > 0) {
+						foreach ($pairProArr as $pair) {
+							$pairArr = explode("@@", $pair);
+
+							if ($pairArr[0] != $id && $pairArr[1] != $id) {
+								$pairProArr_tmp[] = $pair;
+							}
+						}
+						$_SESSION[$conf_user]["pairpro_list"] = $pairProArr_tmp;
+					}
+				}
 			}
-			else
-			{
-				$_SESSION[$conf_user]["{$mode}_list"][$pid]=$num;
-			}
-			
-			
-		}else if($id && $num==0){
-			
-			if($mode == "cart")
-			{
+
+
+			if ($mode == "event") {
+
+				$_SESSION[$conf_user]["cart_list"][$pid . "|||event|||" . $activeextraId] = $num;
+			} else {
+				if(isset($_SESSION[$conf_user]['edit_cart']) && $_SESSION[$conf_user]['edit_cart'] == '1'){
+					$_SESSION[$conf_user]["{$mode}_list"][$pid] = $num;
+				}else{
+					// $num = $_SESSION[$conf_user]["{$mode}_list"][$pid] + $num;
+					$_SESSION[$conf_user]["{$mode}_list"][$pid] = $num;
+					
+				}
+				unset($_SESSION[$conf_user]['edit_cart']);
 				
+			}
+		} else if ($id && $num == 0) {
+
+			if ($mode == "cart") {
+
 				$pairProArr = $_SESSION[$conf_user]["pairpro_list"];
 				$pairProArr_tmp = array();
-				if(count($pairProArr) > 0)
-				{
-					foreach($pairProArr as $pair)
-					{
-						$pairArr = explode("@@",$pair);
-						
-						if($pairArr[0] != $id && $pairArr[1] != $id)
-						{
+				if (count($pairProArr) > 0) {
+					foreach ($pairProArr as $pair) {
+						$pairArr = explode("@@", $pair);
+
+						if ($pairArr[0] != $id && $pairArr[1] != $id) {
 							$pairProArr_tmp[] = $pair;
 						}
 					}
 					$_SESSION[$conf_user]["pairpro_list"] = $pairProArr_tmp;
 				}
-				
-				
-				foreach($_SESSION[$conf_user]["cart_list"] as $fff=>$rrr)
-				{
-					$fff_arr = explode("|||",$fff);
-					if(count($fff_arr) == 2 && $fff_arr[0] == $id)
-					{
-						$proChk=getFieldValue("select count(1) AS cnt from proinstock where pid='".$fff_arr[0]."' and id ='".$fff_arr[1]."' ","cnt");
-						
-						if($proChk == '0')
-						{
+
+
+				foreach ($_SESSION[$conf_user]["cart_list"] as $fff => $rrr) {
+					$fff_arr = explode("|||", $fff);
+					if (count($fff_arr) == 2 && $fff_arr[0] == $id) {
+						$proChk = getFieldValue("select count(1) AS cnt from proinstock where pid='" . $fff_arr[0] . "' and id ='" . $fff_arr[1] . "' ", "cnt");
+
+						if ($proChk == '0') {
 							unset($_SESSION[$conf_user]["cart_list"][$fff]);
 						}
 					}
 				}
-				
 			}
-			
-			if($mode == "event")
-			{
-				
-				$_SESSION[$conf_user]["cart_list"][$pid."|||event|||".$activeextraId]=null;
-				unset($_SESSION[$conf_user]["cart_list"][$pid."|||event|||".$activeextraId]);
+
+			if ($mode == "twcart") {
+
+				$pairProArr = $_SESSION[$conf_user]["pairpro_list"];
+				$pairProArr_tmp = array();
+				if (count($pairProArr) > 0) {
+					foreach ($pairProArr as $pair) {
+						$pairArr = explode("@@", $pair);
+
+						if ($pairArr[0] != $id && $pairArr[1] != $id) {
+							$pairProArr_tmp[] = $pair;
+						}
+					}
+					$_SESSION[$conf_user]["pairpro_list"] = $pairProArr_tmp;
+				}
+
+
+				foreach ($_SESSION[$conf_user]["twcart_list"] as $fff => $rrr) {
+					$fff_arr = explode("|||", $fff);
+					if (count($fff_arr) == 2 && $fff_arr[0] == $id) {
+						$proChk = getFieldValue("select count(1) AS cnt from proinstock where pid='" . $fff_arr[0] . "' and id ='" . $fff_arr[1] . "' ", "cnt");
+
+						if ($proChk == '0') {
+							unset($_SESSION[$conf_user]["twcart_list"][$fff]);
+						}
+					}
+				}
 			}
-			else
-			{
-				$_SESSION[$conf_user]["{$mode}_list"][$pid]=null;
+
+			if ($mode == "event") {
+
+				$_SESSION[$conf_user]["cart_list"][$pid . "|||event|||" . $activeextraId] = null;
+				unset($_SESSION[$conf_user]["cart_list"][$pid . "|||event|||" . $activeextraId]);
+			} else {
+				$_SESSION[$conf_user]["{$mode}_list"][$pid] = null;
 				unset($_SESSION[$conf_user]["{$mode}_list"][$pid]);
 			}
-			
-			
-			
-		}else{
-			
-			if($mode == "cart")
-			{
+		} else {
+
+			if ($mode == "cart") {
 				unset($_SESSION[$conf_user]['pairpro_list']);
 			}
-			
+
+			if ($mode == "twcart") {
+				unset($_SESSION[$conf_user]['pairpro_list']);
+			}
+
 			unset($_SESSION[$conf_user]["cart_list_mode"]);
-			
-			JsonEnd(array("status" => 0, "msg" =>_EWAYS_SELECT_PRODUCT));
+			JsonEnd(array("status" => 0, "msg" => "請選擇商品"));
 		}
 	}
-	
-	
-	if($mode == "event")
-	{
+
+
+	if ($mode == "event") {
 		$mode = "cart";
-		$_SESSION[$conf_user]["cart_list_mode"]=$mode;
+		$_SESSION[$conf_user]["cart_list_mode"] = $mode;
 	}
-	
-	
-	$view=array();
-	$ProFormatList=getProFormatList();
-	foreach($_SESSION[$conf_user]["{$mode}_list"] as $formatid=>$num){
-		$formatid=explode("|||",$formatid);
-		if($formatid[0]){
-			$view[$formatid[0]]+=$num;
+
+
+	$view = array();
+	$ProFormatList = getProFormatList();
+	foreach ($_SESSION[$conf_user]["{$mode}_list"] as $formatid => $num) {
+		$formatid = explode("|||", $formatid);
+		if ($formatid[0]) {
+			$view[$formatid[0]] += $num;
 		}
 	}
-	
-	
-	if(!$_SESSION[$conf_user]["cart_list_mode"]){
-		$_SESSION[$conf_user]["cart_list_mode"]=$mode;
-	}else if( ($mode == "cart" || $mode == 'bonus')  &&  $_SESSION[$conf_user]["cart_list_mode"] && $_SESSION[$conf_user]["cart_list_mode"]!=$mode && count($view)>0){
-		if($mode=="cart"){
-			
-			$msg=_EWAYS_CART_MSG1;
-		}else if($mode=="bonus"){
-			
-			$msg=_EWAYS_CART_MSG1;
+	$ss = $mode;
+
+	if ($mode == 'e3pro') {
+		foreach ($_SESSION[$conf_user]["cart_list"] as $formatid => $num) {
+			$formatid = explode("|||", $formatid);
+			if ($formatid[0]) {
+				$view[$formatid[0]] += $num;
+			}
 		}
-		
-		JsonEnd(array("status" => 0, "msg" =>$msg));
 	}
-	
-	
-	$today=date("Y-m-d");
-	$sql="select * from productviewcnt where viewDate='$today'";
-	$db->setQuery( $sql );
-	$r=$db->loadRowList();
-	$plist=array();
-	foreach($r as $row){
-		$plist[]=$row['proid'];
+
+
+	if (!$_SESSION[$conf_user]["cart_list_mode"]) {
+		$_SESSION[$conf_user]["cart_list_mode"] = $mode;
+	} else if (($mode == "cart" || $mode == 'bonus')  &&  $_SESSION[$conf_user]["cart_list_mode"] && $_SESSION[$conf_user]["cart_list_mode"] != $mode && count($view) > 0 && $_SESSION[$conf_user]["cart_list_mode"] != 'twcart') {
+		if ($mode == "cart") {
+			$msg = "購物車已有紅利商品，請先清空購物車";
+		} else if ($mode == "bonus") {
+			$msg = "購物車已有一般商品，請先清空購物車";
+		}
+
+		JsonEnd(array("status" => 0, "msg" => $msg));
 	}
-	$activeBundleCart=$_SESSION[$conf_user]['activeBundleCart'];
-	if(count($view)>0 || count($activeBundleCart)>0){
-        if(count($view)>0){
-            foreach($view as $pid=>$num){
-                if(in_array($pid,$plist)){
-                    $sql="update productviewcnt set cnt=cnt+1 where proid='$pid' AND viewDate='$today'";
-                }else{
-                    $sql="insert into productviewcnt (proid,viewDate,cnt) values ('$pid','$today','1')";
-                    $plist[]=$pid;
-                }
-                $db->setQuery( $sql );
-                $db->query();
-            }
-        }
-		
-		
-	}else{
+
+
+	$today = date("Y-m-d");
+	$sql = "select * from productviewcnt where viewDate='$today'";
+	$db->setQuery($sql);
+	$r = $db->loadRowList();
+	$plist = array();
+	foreach ($r as $row) {
+		$plist[] = $row['proid'];
+	}
+	$activeBundleCart = $_SESSION[$conf_user]['activeBundleCart'];
+	if (count($view) > 0 || count($activeBundleCart) > 0) {
+		if (count($view) > 0) {
+			foreach ($view as $pid => $num) {
+				if (in_array($pid, $plist)) {
+					$sql = "update productviewcnt set cnt=cnt+1 where proid='$pid' AND viewDate='$today'";
+				} else {
+					$sql = "insert into productviewcnt (proid,viewDate,cnt) values ('$pid','$today','1')";
+					$plist[] = $pid;
+				}
+				$db->setQuery($sql);
+				$db->query();
+			}
+		}
+	} else {
 		unset($_SESSION[$conf_user]["{$mode}_list"]);
 		unset($_SESSION[$conf_user]['disDlvrAmt']);
 		unset($_SESSION[$conf_user]['pay_type']);
 		unset($_SESSION[$conf_user]['take_type']);
+		unset($_SESSION[$conf_user]['use_rp']);
+		unset($_SESSION[$conf_user]['rp_discount']);
 		unset($_SESSION[$conf_user]['dlvrAmt']);
 		unset($_SESSION[$conf_user]['usecoin']);
 		unset($_SESSION[$conf_user]['proArr']);
 		unset($_SESSION[$conf_user]['realDlvrAmt']);
 		unset($_SESSION[$conf_user]['totalAmt']);
+		unset($_SESSION[$conf_user]['totalpv']);
 	}
-	
-	$proArr=CartProductInfo2($_SESSION[$conf_user]["{$mode}_list"]);
-	
-	$cart_addpro_list=array();
-	$addPro=$_SESSION[$conf_user]['cart_addpro_list'];
-	
-	$ap=array();
-	if(count($addPro)>0){
-		foreach($addPro as $k=>$row){
-			$k=explode("|||");
-			if($k[0] && $row){
-				$ap[$k[0]]=$row;
+	// JsonEnd(array('status' => '0', 'msg' => $_SESSION[$conf_user]["{$mode}_list"] , "cc" => $mode,'tw' => $is_twcart));
+	$proArr = CartProductInfo2($_SESSION[$conf_user]["{$mode}_list"]);
+
+	$cart_addpro_list = array();
+
+	$addPro = $_SESSION[$conf_user]['cart_addpro_list'];
+
+	$ap = array();
+	if (count($addPro) > 0) {
+		foreach ($addPro as $k => $row) {
+			$k = explode("|||");
+			if ($k[0] && $row) {
+				$ap[$k[0]] = $row;
 			}
 		}
 	}
-	$addPro=$ap;
-	if(count($addPro)>0){
-		$proArr=AddCartProductInfo($addPro,$proArr);
-		$proData=$proArr['data'];
-		$cnt+=count($addPro);
-	}else{
-		$proData=$proArr;
+	$addPro = $ap;
+	if (count($addPro) > 0) {
+		$proArr = AddCartProductInfo($addPro, $proArr);
+		$proData = $proArr['data'];
+		$cnt += count($addPro);
+	} else {
+		$proData = $proArr;
 	}
-	
+
 	JsonEnd(
 		array(
-			"status" => 1, 
-			"cnt"=>count($view),
-			"data"=>$proArr['data'],
-			"total"=>$proArr['total'],
-			"totalccv" => $proArr['totalccv'],
-			"amt"=>$proArr['amt'],
-			"active_list"=>$proArr['active_list'],
-			"discount"=>$proArr['discount'],
-			"free_coin"=>$proArr['free_coin'],
-			"dlvrAmt"=>intval($_SESSION[$conf_user]['dlvrAmt'])-intval($proArr['disDlvrAmt'])
+			"status" => 1,
+			"cnt" => count($view),
+			"data" => $proArr['data'],
+			"total" => $proArr['total'],
+			"amt" => $proArr['amt'],
+			"active_list" => $proArr['active_list'],
+			"discount" => $proArr['discount'],
+			"free_coin" => $proArr['free_coin'],
+			"dlvrAmt" => intval($_SESSION[$conf_user]['dlvrAmt']) - intval($proArr['disDlvrAmt']),
+			"all_num" => intval($proArr['all_num']),
+			"ssuu" => $ss,
+			"mode" => $num
 		)
 	);
 }

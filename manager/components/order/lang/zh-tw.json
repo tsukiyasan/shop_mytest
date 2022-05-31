@@ -119,5 +119,8 @@
 	"order_shipDate": "寄送日期",
 	"order_upsp_generate": "產生標籤",
 	"order_upsp_download": "下載標籤",
-	"order_taxfee": "稅金"
+	"order_taxfee": "稅金",
+	"order_orderMode": "訂單類別",
+	"order_cart":"一般",
+	"order_twcart":"台灣"
 }

@@ -1,12 +1,13 @@
 "lg_index": {
-	"index_login": "会员登入",
+	"index_login": "会员/经销商登入",
 	"index_info": "帐户信息",
 	"index_order": "订单信息",
-	"index_logout": "注销",
+	"index_logout": "登出",
 	"index_member": "会员中心",
+	"index_member2": "经销商中心",
 	"index_shopcart": "购物车",
-	"index_signup": "会员注册",
-	"index_esignup": "ｅ化入会",
+	"index_signup": "会员ｅ化注册",
+	"index_esignup": "经销商ｅ化入会",
 	"index_search": "商品搜寻",
 	"index_productType1": "足弓专用鞋",
 	"index_productType2": "生活赢家",
@@ -16,7 +17,7 @@
 },
 "lg_lang": {
 	"language": "语言",
-	"zh-tw": "繁體中文",
+	"zh-tw": "繁体中文",
 	"zh-cn": "简体中文",
 	"en": "English",
 	"in": "Indonesia",
@@ -47,7 +48,10 @@
 	"write": "请填写",
 	"submit": "送出",
 	"search": "搜寻",
-	"end": ""
+	"end": "",
+	"js_msg5":"透过此网址成功注册之经销商，您即可成为该经销商之推荐人",
+	"js_msg5_err":"您不是经销商。",
+	"js_msg6":"您尚未完成经销商入会申请手续，入会申请作业流程约需两个工作日审核，请先使用会员编号14码，进行推荐入会"
 },
 "lg_login": {
 	"login_remember_me": "记住我",

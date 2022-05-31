@@ -263,14 +263,13 @@ function pagedb(){
     $data = array();
     $id = intval(global_get_param( $_REQUEST, 'id', null ,0,1  ));
     $belongid = global_get_param( $_REQUEST, 'belongid', null ,0,1  );
-    $name = global_get_param( $_REQUEST, 'name', null ,0,1,1,'',_COMMON_PARAM_NAME  );
+    $name = global_get_param( $_REQUEST, 'name_zh-tw', null ,0,1,1,'',_COMMON_PARAM_NAME  );
     $publish = intval(global_get_param( $_REQUEST, 'publish', null ,0,1  ));
     $content = global_get_param( $_REQUEST, 'content', null ,0,0  );
     $level = intval(global_get_param( $_REQUEST, 'level', null ,0,1  ));
     $img = global_get_param( $_REQUEST, 'img', null ,0,1  );
     $link = global_get_param( $_REQUEST, 'link', null ,0,1  );
     $var1 = global_get_param( $_REQUEST, 'var1', null ,0,1  );
-	
 	
 	$updatesql_addStr = "";
 	$updatevalue_addStr = "";

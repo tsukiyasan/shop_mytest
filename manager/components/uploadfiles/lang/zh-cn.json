@@ -11,5 +11,9 @@
 	"uploadfiles_file_type_3": "课程报名表",
 	"uploadfiles_file_type_4": "一般文件",
 	"uploadfiles_desc": "文件说明",
-	"uploadfiles_title": "文件标题"
+	"uploadfiles_title": "文件标题",
+    "uploadfiles_file_target": "對象",
+    "uploadfiles_file_target_1": "全部",
+    "uploadfiles_file_target_2": "經銷商",
+    "uploadfiles_file_target_3": "會員"
 }

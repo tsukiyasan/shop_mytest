@@ -1026,7 +1026,7 @@ function pagedb(){
     $data = array();
     $id = intval(global_get_param( $_REQUEST, 'id', null ,0,1  ));
     $belongid = global_get_param( $_REQUEST, 'belongid', null ,0,1  );
-    $name = global_get_param( $_REQUEST, 'name', null ,0,1,1,'',_COMMON_PARAM_NAME  );
+    // $name = global_get_param( $_REQUEST, 'name', null ,0,1,1,'',_COMMON_PARAM_NAME  );
     $publish = intval(global_get_param( $_REQUEST, 'publish', null ,0,1  ));
     $need_tax = intval(global_get_param( $_REQUEST, 'need_tax', null ,0,1  ));
     $hotChk = global_get_param( $_REQUEST, 'hotChk', null ,0,1  );
@@ -1061,11 +1061,14 @@ function pagedb(){
     $bv = (global_get_param( $_REQUEST, 'bv', null ,0,1  ));
 	$ccv = intval(global_get_param( $_REQUEST, 'ccv', null ,0,1  ));
 	
+	$forTW = intval(global_get_param( $_REQUEST, 'forTW', null ,0,1  ));
 	$nccbChk = intval(global_get_param( $_REQUEST, 'nccbChk', null ,0,1  ));
+	$notomChk = intval(global_get_param( $_REQUEST, 'notomChk', null ,0,1  ));
 
 	$newDate = global_get_param( $_REQUEST, 'newDate', null ,0,1  );
 	$newDate = (!empty($newDate)) ? date("Y-m-d",strtotime($newDate)) : "0000-00-00";
 	
+	$need_tax = '0';
 	
 	$updatesql_addStr = "";
 	$updatevalue_addStr = "";
@@ -1096,9 +1099,9 @@ function pagedb(){
 	}
 	
 	$now=date("Y-m-d H:i:s");
-    $updatesql = "INSERT INTO $tablename (id,name,{$updatesql_addStr} bonusChk,bonusAmt,belongid,treelevel,type,publish,hotChk,newDate,usebonus,var03,var04,var05,proCode,safetystock,pv,bv,ccv,instock,highAmt,siteAmt,oriAmt,amtProChk,amtProAmt,freeProChk,bundleProChk,nccbChk,ctime,mtime,muser,need_tax) VALUES ";
-	$updatevalue = "('$id',N'$name',{$updatevalue_addStr} '$bonusChk','$bonusAmt','$belongid','$level','page','$publish','$hotChk','$newDate','$usebonus',N'$var03','$var04',N'$var05',N'$proCode','$safetystock','$pv','$bv','$ccv','$instock','$highAmt','$siteAmt','$oriAmt','$amtProChk','$amtProAmt','$freeProChk','$bundleProChk','$nccbChk','$now','$now','$uid','$need_tax')";
-	$updatesqlend = " ON DUPLICATE KEY UPDATE name=VALUES(name),{$updatesqlend_addStr} bonusChk=VALUES(bonusChk),bonusAmt=VALUES(bonusAmt),publish=VALUES(publish),var05=VALUES(var05),hotChk=VALUES(hotChk),newDate=VALUES(newDate),usebonus=VALUES(usebonus),var03=VALUES(var03),var04=VALUES(var04),proCode=VALUES(proCode),safetystock=VALUES(safetystock),pv=VALUES(pv),bv=VALUES(bv),ccv=VALUES(ccv),instock=VALUES(instock),highAmt=VALUES(highAmt),siteAmt=VALUES(siteAmt),oriAmt=VALUES(oriAmt),amtProChk=VALUES(amtProChk),amtProAmt=VALUES(amtProAmt),freeProChk=VALUES(freeProChk),bundleProChk=VALUES(bundleProChk),nccbChk=VALUES(nccbChk),mtime=VALUES(mtime),muser=VALUES(muser),need_tax=VALUES(need_tax)";
+    $updatesql = "INSERT INTO $tablename (id,name,{$updatesql_addStr} bonusChk,bonusAmt,belongid,treelevel,type,publish,hotChk,newDate,usebonus,var03,var04,var05,proCode,safetystock,pv,bv,ccv,instock,highAmt,siteAmt,oriAmt,amtProChk,amtProAmt,freeProChk,bundleProChk,nccbChk,ctime,mtime,muser,need_tax,forTW,notomChk) VALUES ";
+	$updatevalue = "('$id',N'$name',{$updatevalue_addStr} '$bonusChk','$bonusAmt','$belongid','$level','page','$publish','$hotChk','$newDate','$usebonus',N'$var03','$var04',N'$var05',N'$proCode','$safetystock','$pv','$bv','$ccv','$instock','$highAmt','$siteAmt','$oriAmt','$amtProChk','$amtProAmt','$freeProChk','$bundleProChk','$nccbChk','$now','$now','$uid','$need_tax','$forTW','$notomChk')";
+	$updatesqlend = " ON DUPLICATE KEY UPDATE name=VALUES(name),{$updatesqlend_addStr} bonusChk=VALUES(bonusChk),bonusAmt=VALUES(bonusAmt),publish=VALUES(publish),var05=VALUES(var05),hotChk=VALUES(hotChk),newDate=VALUES(newDate),usebonus=VALUES(usebonus),var03=VALUES(var03),var04=VALUES(var04),proCode=VALUES(proCode),safetystock=VALUES(safetystock),pv=VALUES(pv),bv=VALUES(bv),ccv=VALUES(ccv),instock=VALUES(instock),highAmt=VALUES(highAmt),siteAmt=VALUES(siteAmt),oriAmt=VALUES(oriAmt),amtProChk=VALUES(amtProChk),amtProAmt=VALUES(amtProAmt),freeProChk=VALUES(freeProChk),bundleProChk=VALUES(bundleProChk),nccbChk=VALUES(nccbChk),mtime=VALUES(mtime),muser=VALUES(muser),need_tax=VALUES(need_tax),forTW=VALUES(forTW),notomChk=VALUES(notomChk)";
 		
 	if($id==0){
 		$msg=_COMMON_QUERYMSG_ADD_SUS;
@@ -1137,6 +1140,7 @@ function pagedb(){
 		{
 			if($row[0] == 'dir')
 			{
+				// JsonEnd(array('status' => '0','m' => $proTypeArrays,'r' => $row));
 				if(is_array($row[3]) && !empty($row[3][0]))
 				{
 					if(!in_array($row[3][0] , $ptid_arr))

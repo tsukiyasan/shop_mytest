@@ -1,0 +1,322 @@
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="i+8N+1c2lIsTcVkN+IwtZHzJb/3MDH5ZHjIpSKDqqo8="
+Date:Fri, 29 Apr 2022 10:48:34 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "898885936"
+< Expires: Fri, 29 Apr 2022 02:48:35 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:48:35 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: a3ed2697-5fe2-4835-80c9-89e70590c65b
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="8+zey3ShiWzWIhgEpfzbcp8EiKd/GNXJKPybwOTh5MA="
+Date:Fri, 29 Apr 2022 10:48:58 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "1349296914"
+< Expires: Fri, 29 Apr 2022 02:48:59 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:48:59 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: 04fde762-5843-4b66-affd-76bbc474811f
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="tzIgoHSanA6+1/TdiaETiKaL5vzsTvQPjiO7ExFdaHM="
+Date:Fri, 29 Apr 2022 10:50:52 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "-1761913643"
+< Expires: Fri, 29 Apr 2022 02:50:53 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:50:53 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: 425c56ca-bdd1-4998-abea-0a256ede3f63
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="cgBmmSmyMhwF9fdCEsVyduj/DFBhm0U0WOa7/GWyk/s="
+Date:Fri, 29 Apr 2022 10:52:11 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "-417527626"
+< Expires: Fri, 29 Apr 2022 02:52:12 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:52:11 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: f4941cb1-bd46-4373-89a9-488d30b9cd75
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="8yKoclnY2eLP9Bymkhngu7imaq7zbIhnGN+MQtdOemI="
+Date:Fri, 29 Apr 2022 10:53:02 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "1125162999"
+< Expires: Fri, 29 Apr 2022 02:53:03 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:53:03 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: e04bfffb-995d-4f03-b36f-7ab020958026
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="xg8tbxc6HMtJYkB01DG/YBWxbU3qrAn9zr6lhrIQLuQ="
+Date:Fri, 29 Apr 2022 10:54:15 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "839577656"
+< Expires: Fri, 29 Apr 2022 02:54:16 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:54:16 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: daa1f12b-1a76-4842-ba7a-36659a1ed9ff
+< 
+* Connection #0 to host apitest.cybersource.com left intact
+*   Trying 66.185.182.49...
+* TCP_NODELAY set
+* Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+  CAfile: D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
+*  start date: Jan 21 22:56:56 2022 GMT
+*  expire date: Feb 15 22:56:56 2023 GMT
+*  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
+*  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
+*  SSL certificate verify ok.
+> POST /tss/v2/searches HTTP/1.1
+Host:apitest.cybersource.com
+User-Agent: Swagger-Codegen/1.0.0/php
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="78b1fedf-7871-4d78-9b9a-3b5ba5bdf602", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="y0veG2g/uK8SHdUC9UgaSzlyoZI8gdBE1p/hjR0mrLQ="
+Date:Fri, 29 Apr 2022 10:56:27 GMT
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+Content-Length: 171
+
+* upload completely sent off: 171 out of 171 bytes
+< HTTP/1.1 201 
+< Cache-Control: no-cache, no-transform
+< ETag: "83250199"
+< Expires: Fri, 29 Apr 2022 02:56:28 GMT
+< Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+< X-XSS-Protection: 1
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+< Vary: Accept-Encoding
+< Content-Type: application/json
+< Date: Fri, 29 Apr 2022 02:56:28 GMT
+< Connection: keep-alive
+< transfer-encoding: chunked
+< v-c-correlation-id: ba247562-7253-4cb1-bad9-6709f73175ae
+< 
+* Connection #0 to host apitest.cybersource.com left intact

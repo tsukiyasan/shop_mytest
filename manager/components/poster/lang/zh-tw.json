@@ -1,0 +1,10 @@
+"lg_poster": {
+	"poster": "優惠方案海報管理",
+	"poster_name": "名稱",
+	"poster_link": "連結網址",
+	"poster_browser": "瀏覽",
+	"poster_upload_image": "海報圖檔上傳",
+	"poster_upload_msg": "上傳海報大小限制 1M，尺寸750*1060",
+	"poster_startDate": "上架日期",
+	"poster_endDate": "下架日期"
+}

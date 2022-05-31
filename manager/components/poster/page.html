@@ -1,0 +1,116 @@
+<div>
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+			<li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+			<li class="active"><span ng-bind="'lg_poster.poster' | translate" ></span></li>
+			<li class="active">
+				<span ng-if="ctrl.actionType == '0'" ng-bind="'lg_main.add' | translate"></span>
+				<span ng-if="ctrl.actionType == '1'" ng-bind="'lg_main.edit' | translate"></span>
+			</li>
+		</ol>
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<header class="main-box-header clearfix">
+				<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_poster.poster' | translate"></span></h2>
+											
+					<div class="filter-block pull-right">											
+						<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+							<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+						</a>											
+						<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+							<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+						</a>	
+					</div>
+			</header>
+										
+			<div class="main-box-body clearfix">
+				<div class="table-responsive">                    
+					<table class="table">
+						<tbody>
+							<tr>
+								<td width="150" style="border:0;" >{{'lg_main.title' | translate}}<span class="text-red">*</span></td>
+								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.poster.name"></td>
+							</tr>
+							<tr>
+								<td ng-bind="'lg_main.onoff' | translate"></td>
+								<td>        
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.poster.publish" ng-model="ctrl.poster.publish" id="poster_state" ng-true-value="'1'" ng-false-value="'0'" checked>
+										<label class="onoffswitch-label" for="poster_state">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr rowspan="2" ng-repeat="seq in ctrl.imagelist">
+								<td><span ng-bind="'lg_poster.poster_upload_image' | translate"></span> <span class="text-red">*</span></td>
+								<td>
+                                    <img ng-show="!previewImage[seq] && ctrl.poster.img[seq]"  ng-src="{{ctrl.poster.img[seq]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+                                    <img ng-show="previewImage[seq]" ng-src="{{previewImage[seq]}}" style="width:auto;height:160px;margin-bottom:10px;"/>
+									<br>
+                                    <file-field ng-model="advrollimg[seq]" preview="previewImage" seq="{{seq}}" class="btn btn-primary" >{{'lg_main.browser' | translate}}</file-field>
+                                    <span class="text-red" ng-bind="'lg_poster.poster_upload_msg' | translate"></span>
+								</td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_poster.poster_startDate' | translate"></span></td>
+								<td>                         
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.poster.start_date" options="{singleDatePicker: true}" clearable="true" required>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><span ng-bind="'lg_poster.poster_endDate' | translate"></span></td>
+								<td>                         
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control" date-range-picker ng-model="ctrl.poster.end_date" options="{singleDatePicker: true}" clearable="true" required>
+									</div>
+								</td>
+							</tr>
+							<!-- <tr>
+								<td ng-bind="'lg_main.page_type' | translate"></td>
+								<td>                                                            
+									<div class="btn-group">
+									    <label class="btn btn-primary" ng-model="ctrl.poster.linktype" uib-btn-radio="'link'"> {{'lg_main.page_type_link' | translate}}</label>
+									    <label class="btn btn-primary" ng-model="ctrl.poster.linktype" uib-btn-radio="'database'">{{'lg_main.page_type_dbpage' | translate}}</label>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="ctrl.poster.linktype=='link'">
+								<td ng-bind="'lg_main.linkurl' | translate"></td>
+								<td><input type="text" class="form-control" ng-model="ctrl.poster.linkurl" placeholder="{{'lg_main.linkurl' | translate}}" /></td>
+							</tr>
+							
+							<tr id="news_pagetype_tr_2" ng-show="ctrl.poster.linktype=='database'">
+								<td ng-bind="'lg_main.select_page' | translate"></td>
+								<td>
+									<span ng-bind="ctrl.poster.path"></span>
+									<dbpage-sel data="ctrl.poster"></dbpage-sel>
+								</td>
+							</tr> -->
+						</tbody>
+					</table> 
+				</div>
+                                        
+                                        
+				<div class="filter-block pull-right">									
+					<a ng-if="ctrl.funcPerm.C == 'true' || ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.submit()" class="btn btn-success pull-right">
+						<i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cfm' | translate"></span>
+					</a>											
+					<a href="javascript:void(0)" ng-click="ctrl.cancel()" class="btn btn-default pull-right">
+						<i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.cancel' | translate"></span>
+					</a>			
+				</div>
+			</div>
+		</div>
+	</div>                            
+</div>

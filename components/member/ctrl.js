@@ -17,6 +17,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         my.idcardnlist.push(i);
     }
 
+    // var ICregex = /^(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})$/;
+
     var bankplimit = 1;
     my.bankplist = [];
     for (var i = 1; i <= bankplimit; i++) {
@@ -59,7 +61,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
     my.sign = {};
     my.login = {};
     my.sign20 = {};
-    my.sign20.signupMode = 'MAIL'
+    // my.sign20.signupMode = 'MAIL'
     my.sign30 = {};
     my.sign3011 = {};
 
@@ -282,7 +284,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             id: "m_points",
             name: $translate.instant('lg_member.distributor_points'),
             title: $translate.instant('lg_member.distributor_points'),
-            loginonly: true
+            loginonly: true,
+            hide:true
         },
         {
             id: "member_news",
@@ -294,10 +297,10 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             id: "member_poster",
             // name: "實行中優惠方案",
             // title: "實行中優惠方案",
-            name: $translate.instant('lg_member.member_poster'),
-            title: $translate.instant('lg_member.member_poster'),
-            loginonly: true,
-            hide: true
+            name: $translate.instant('lg_member.Ongoing_Promotions'),
+            title: $translate.instant('lg_member.Ongoing_Promotions'),
+            loginonly: true
+            // hide: true
         },
         {
             id: "member_news_page",
@@ -344,10 +347,48 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             loginonly: true
         },
         {
-            id: "register_tb_list",
-            name: $translate.instant('lg_member.register_tb_list'),
-            title: $translate.instant('lg_member.register_tb_list'),
-            loginonly: true
+            id: "e_cash_new2",
+            name: $translate.instant('lg_member.3S_reward_points'),
+            title: $translate.instant('lg_member.3S_reward_points'),
+            loginonly: true,
+            fin: 1,
+            child: [{
+                id: "e_cash_new2_1",
+                name: $translate.instant('lg_member.3S_reward_points'),
+                title: $translate.instant('lg_member.3S_reward_points'),
+                loginonly: true,
+            }, {
+                id: "e_cash_new2_2",
+                name: $translate.instant('lg_member.90_3S_reward_points_inquire'),
+                title: $translate.instant('lg_member.90_3S_reward_points_inquire'),
+                loginonly: true
+            }, {
+                id: "ecash21_dtl",
+                name: "獎勵3S點數查詢",
+                title: "獎勵3S點數查詢",
+                loginonly: true,
+                hide: true,
+                dtl: "明細"
+            }, {
+                id: "ecash22_dtl",
+                name: "90天到期獎勵3S點數",
+                title: "90天到期獎勵3S點數",
+                loginonly: true,
+                hide: true,
+                dtl: "明細"
+            }]
+        },
+        {
+          id: "carry_treasure",
+          name: $translate.instant('lg_member.health_guard_redemption'),
+          title: $translate.instant('lg_member.health_guard_redemption'),
+          loginonly: true,
+        },
+        {
+          id: "birthday_voucher",
+          name: $translate.instant('lg_member.birthday_voucher_redemption'),
+          title: $translate.instant('lg_member.birthday_voucher_redemption'),
+          loginonly: true,
         },
         {
             id: "pwchg",
@@ -377,22 +418,28 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             name: $translate.instant('lg_member.organization_inquiry'),
             title: $translate.instant('lg_member.organization_inquiry'),
             loginonly: true,
-        }
-        // ,
-        // {
-        //     id: "money_total",
-        //     name: $translate.instant('lg_member.bonus_inquiry'),
-        //     title: $translate.instant('lg_member.bonus_inquiry'),
-        //     loginonly: true
-        // },
-        // {
-        //     id: "moneydtl",
-        //     name: $translate.instant('lg_member.bonus_inquiry'),
-        //     title: $translate.instant('lg_member.bonus_inquiry'),
-        //     loginonly: true,
-        //     hide: true,
-        //     dtl: $translate.instant('lg_member.bonus_dtl'),
-        // }
+        },
+        {
+            id: "money_total",
+            name: $translate.instant('lg_member.bonus_inquiry'),
+            title: $translate.instant('lg_member.bonus_inquiry'),
+            loginonly: true
+        },
+        {
+            id: "moneydtl",
+            name: $translate.instant('lg_member.bonus_inquiry'),
+            title: $translate.instant('lg_member.bonus_inquiry'),
+            loginonly: true,
+            hide: true,
+            dtl: $translate.instant('lg_member.bonus_dtl'),
+        },
+        {
+          //JIE
+          id: "orgseq_member",
+          name: $translate.instant('lg_member.direct_sponsored_members'),
+          title: $translate.instant('lg_member.direct_sponsored_members'),
+          loginonly: true,
+        },
         ]
     }, {
         id: "4",
@@ -901,6 +948,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                         my.sign20.memberCity = res.data.city;
                         my.sign20.memberCanton = res.data.canton;
                         my.sign20.memberCardno = res.data.cardno;
+                        my.sign20.memberPhone = my.sign.phone;
                         my.member_page = "signup201";
                     } else {
                         my.member_page = 'login';
@@ -925,7 +973,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 // my.sign300 = 0;
                 console.log(my.no_re);
             } else if (!my.sign300) {
-                my.sign20.signupMode = 'MAIL';
+                my.sign20.signupMode = 'SMS';
                 my.member_page = "signup3012";
             }
 
@@ -1061,16 +1109,18 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
         if (my.signNew) {
             if (value) {
-
+                
                 var memberCity = my.signNew.memberCity ? my.signNew.memberCity.id : '';
-                memberCity = memberCity ? memberCity : '';
+                memberCity = memberCity ? memberCity-1 : '';
+                console.log(my.city);
+                console.log(memberCity);
+                console.log(my.signNew.memberCity);
                 memberCityStr = my.city[memberCity].state_u;
                 // memberCityStr = my.city[memberCity].name;
-                var memberCanton = my.signNew.memberCanton ? my.signNew.memberCanton.id : '';
-                memberCanton = memberCanton ? memberCanton : '';
-                memberCantonStr = my.canton[memberCity][memberCanton].name;
-
-                my.signNew.dlvrAddr = memberCityStr + memberCantonStr + my.signNew.memberAddress;
+                // var memberCanton = my.signNew.memberCanton ? my.signNew.memberCanton.id : '';
+                // memberCanton = memberCanton ? memberCanton : '';
+                // memberCantonStr = my.canton[memberCity][memberCanton].name;
+                my.signNew.dlvrAddr = memberCityStr + ' ' + my.signNew.memberAddress;
             } else {
                 my.signNew.dlvrAddr = '';
             }
@@ -1162,15 +1212,18 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var memberSID = my.signNew.memberSID;
         var err = 0;
         if (!memberSID) {
-            // error("請輸入身分證字號");
-            // err++;
+            error($translate.instant('lg_member.please_input_sid'));
+            err++;
         } else {
-            // memberSID = memberSID.toUpperCase();
+            memberSID = memberSID.toUpperCase();
             // var SIDregex = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
-            // if (SIDregex.test(memberSID) != true) {
-            //     error("SSN輸入格式錯誤");
-            //     err++;
-            // }
+            var ICregex = /^(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})$/;
+
+            if (ICregex.test(memberSID) != true) {
+                error($translate.instant('lg_member.js_sid_msg'));
+                // $translate.instant('lg_member.js_enter_mobile')
+                err++;
+            }
         }
 
 
@@ -1212,7 +1265,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             .setHeader("<i class='fa fa-info-circle'></i> " + $translate.instant('lg_member.js_tip') + "")
             .set({ labels: { ok: $translate.instant('lg_main.yes'), cancel: $translate.instant('lg_main.no') } })
             .set('onok', function (closeEvent) {
-                location.href = "https://usshop.goodarch2u.com";
+                location.href = "/";
             });
     }
 
@@ -1221,7 +1274,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             .setHeader("<i class='fa fa-info-circle'></i> " + $translate.instant('lg_member.js_tip') + "")
             .set({ labels: { ok: $translate.instant('lg_main.yes'), cancel: $translate.instant('lg_main.no') } })
             .set('onok', function (closeEvent) {
-                location.href = "https://usshop.goodarch2u.com";
+                location.href = "/";
             });
     }
 
@@ -1230,7 +1283,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             .setHeader("<i class='fa fa-info-circle'></i>" + $translate.instant('lg_member.js_tip') + "")
             .set({ labels: { ok: $translate.instant('lg_main.yes'), cancel: $translate.instant('lg_main.no') } })
             .set('onok', function (closeEvent) {
-                location.href = "https://usshop.goodarch2u.com";
+                location.href = "/";
             });
     }
 
@@ -1285,19 +1338,32 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var err = 0;
 
         if (!memberName) {
-            error("請輸入配銷商姓名");
+            error("請輸入經銷商姓名");
             err++;
         }
-        if (!memberSID) {
-            // error("請輸入身分證字號");
-            // err++;
-        } else {
+        // if (!memberSID) {
+        //     // error("請輸入身分證字號");
+        //     // err++;
+        // } else {
 
+        //     // var SIDregex = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
+        //     // if (SIDregex.test(memberSID) != true) {
+        //     //     error("SSN輸入格式錯誤");
+        //     //     err++;
+        //     // }
+        // }
+        if (!memberSID) {
+            error($translate.instant('lg_member.please_input_sid'));
+            err++;
+        } else {
+            memberSID = memberSID.toUpperCase();
             // var SIDregex = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
-            // if (SIDregex.test(memberSID) != true) {
-            //     error("SSN輸入格式錯誤");
-            //     err++;
-            // }
+            var ICregex = /^(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})$/;
+            if (ICregex.test(memberSID) != true) {
+                error($translate.instant('lg_member.js_sid_msg'));
+                // $translate.instant('lg_member.js_enter_mobile')
+                err++;
+            }
         }
         if ($scope.$parent.signupMode2020 && my.signNew.signupMode == 'SMS') {
             var signupMode = my.signNew.signupMode;
@@ -1562,6 +1628,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                         dlvrType: dlvrType,
                         dlvrAddr: dlvrAddr,
                         dlvrLocation: dlvrLocation,
+                        billCity:my.signNew.billCity,
+                        billAddr:my.signNew.billAddr,
                         usedChk: usedChk,
                         memberWNo: memberWNo,
                         signupMode: signupMode,
@@ -1574,33 +1642,35 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                         rec_code: my.signNew.code
                     }, "POST", true).then(function (res) {
                         if (res.status == 1) {
+                            if (payType == 6) {
+                                // var form = document.createElement("form");
+                                // form.method = "POST";
+                                // var element = document.createElement("input");
+                                // element.value = 'order_submit_tspg';
+                                // element.name = 'task';
+                                // form.appendChild(element);
 
-                            // if (payType == 6) {
-                            //     var form = document.createElement("form");
-                            //     form.method = "POST";
-                            //     var element = document.createElement("input");
-                            //     element.value = 'order_submit_tspg';
-                            //     element.name = 'task';
-                            //     form.appendChild(element);
+                                // var element = document.createElement("input");
+                                // element.value = res.oid;
+                                // element.name = 'id';
+                                // form.appendChild(element);
+                                // form.action = "components/cartcvs/api.php";
+                                // document.body.appendChild(form);
 
-                            //     var element = document.createElement("input");
-                            //     element.value = res.oid;
-                            //     element.name = 'id';
-                            //     form.appendChild(element);
-                            //     form.action = "components/cartcvs/api.php";
-                            //     document.body.appendChild(form);
+                                // form.submit();
+                                console.log(res);
+                                var url = res.url;
+                                window.location.replace(url);
+                                // window.location.replace("/app/controllers/publicBank.php?task=orderSale&handMode=1&session=0&orderNum="+res.orderNum);
+                            } else {
+                                my.chk_pay.code4 = '2';
+                                // $('#myModal_CHKPAY').modal('show');
+                                $location.path("member_page/signup202");
+                                success($translate.instant('lg_member.js_signup_success'));
+                            }
 
-                            //     form.submit();
-
-                            // } else {
-                            //     my.chk_pay.code4 = '2';
-                            //     // $('#myModal_CHKPAY').modal('show');
-                            //     $location.path("member_page/signup202");
-                            //     success($translate.instant('lg_member.js_signup_success'));
-                            // }
-
-                            $location.path("member_page/signup202");
-                            success($translate.instant('lg_member.re_send'));
+                            // $location.path("member_page/signup202");
+                            // success($translate.instant('lg_member.re_send'));
 
                         } else {
                             error(res.msg);
@@ -1660,7 +1730,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 .setHeader("<i class='fa fa-info-circle'></i> " + $translate.instant('lg_member.js_tip') + "")
                 .set({ labels: { ok: $translate.instant('lg_main.yes'), cancel: $translate.instant('lg_main.no') } })
                 .set('onok', function (closeEvent) {
-                    location.href = "https://usshop.goodarch2u.com";
+                    location.href = "/";
                 });
         }
     };
@@ -1770,7 +1840,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         if (index == 1) {
             $location.url("member_page/login");
         } else if (index == 2) {
-            location.href = "https://usshop.goodarch2u.com";
+            location.href = "/";
         } else if (index == 3) {
             $location.url("contact_page?qtype=3");
         }
@@ -1844,10 +1914,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
             if (!deviceStr) {
                 error($translate.instant('lg_member.js_enter_mobile'));
-            } else if (numberRegxp1.test(deviceStr) != true && numberRegxp2.test(deviceStr) != true) {
-                error("手機號碼輸入格式錯誤（請填寫數字即可）");
-                err++;
-            } else if (!my.verification.verifying && deviceStr) {
+            } 
+            // else if (numberRegxp1.test(deviceStr) != true && numberRegxp2.test(deviceStr) != true) {
+            //     error("手機號碼輸入格式錯誤（請填寫數字即可）");
+            //     err++;
+            // } 
+            else if (!my.verification.verifying && deviceStr) {
                 my.verification.verifying = true;
                 CRUD.update({ task: "sign20_sendCaptcha", signupMode: signupMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
@@ -1898,6 +1970,10 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             //     error($translate.instant('lg_member.in_Verification_Code'));
             //     err++;
             // }
+            if(!my.sign20.memberPhone){
+                error($translate.instant('lg_member.js_enter_mobile'));
+                err++;
+            }
             if (!my.sign20.memberPasswd) {
                 error($translate.instant('lg_member.please_input_pwd'));
                 err++;
@@ -2036,10 +2112,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var numberRegxp1 = /^09[0-9]{2}[0-9]{6}$/; //格式需為09XXXXXXXX
         var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
 
-        if (numberRegxp1.test(phone) != true && numberRegxp2.test(phone) != true) {
-            error("手機號碼輸入格式錯誤（請填寫數字即可，開頭的0不需要輸入）");
-            err++;
-        } else if (!my.verification.verifying && phone) {
+        // if (numberRegxp1.test(phone) != true && numberRegxp2.test(phone) != true) {
+        //     error("手機號碼輸入格式錯誤（請填寫數字即可，開頭的0不需要輸入）");
+        //     err++;
+        // } else 
+        if (!my.verification.verifying && phone) {
             my.verification.verifying = true;
             CRUD.update({ task: "resetPW20_sendCaptcha", forgotMode: forgotMode, phone: phone, captcha: captcha }, "POST").then(function (res) {
                 if (res.status == 1) {
@@ -2178,10 +2255,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
             if (!deviceStr) {
                 error($translate.instant('lg_member.js_enter_mobile'));
-            } else if (numberRegxp1.test(deviceStr) != true && numberRegxp2.test(deviceStr) != true) {
-                error("手機號碼輸入格式錯誤（請填寫數字即可）");
-                err++;
-            } else if (!my.verification.verifying && deviceStr) {
+            } 
+            // else if (numberRegxp1.test(deviceStr) != true && numberRegxp2.test(deviceStr) != true) {
+            //     error("手機號碼輸入格式錯誤（請填寫數字即可）");
+            //     err++;
+            // } 
+            else if (!my.verification.verifying && deviceStr) {
                 my.verification.verifying = true;
                 CRUD.update({ task: "info20_sendCaptcha", infoMode: infoMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
@@ -2248,10 +2327,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
             if (!deviceStr) {
                 error($translate.instant('lg_member.js_enter_mobile'));
-            } else if (numberRegxp2.test(deviceStr) != true) {
-                error("手機號碼輸入格式錯誤（請填寫數字即可）");
-                err++;
-            } else if (!my.verification.verifying && deviceStr) {
+            } 
+            // else if (numberRegxp2.test(deviceStr) != true) {
+            //     error("手機號碼輸入格式錯誤（請填寫數字即可）");
+            //     err++;
+            // } 
+            else if (!my.verification.verifying && deviceStr) {
                 my.verification.verifying = true;
                 CRUD.update({ task: "sign20_sendCaptcha", signupMode: signupMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
@@ -2328,7 +2409,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         my.sign30.memberPhone = localStorage.getItem('memberPhone');
         my.sign30.memberCaptcha = localStorage.getItem('memberCaptcha');
         my.sign30.memberEmail = localStorage.getItem('memberEmail');
-
+        console.log(my.sign20);
         if (my.sign30.memberCaptcha == null || my.sign30.memberCaptcha == 'null') {
             $location.url("member_page/signup");
             my.member_page = "signup300";
@@ -2345,7 +2426,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         try {
             var signupMode = my.sign20.signupMode;
             var err = 0;
-            if (signupMode == "SMS" && !my.sign30.memberPhone) {
+            // if (signupMode == "SMS" && !my.sign30.memberPhone) {
+            //     error($translate.instant('lg_member.js_enter_mobile'));
+            //     err++;
+            // }
+            if(!my.sign30.memberPhone){
                 error($translate.instant('lg_member.js_enter_mobile'));
                 err++;
             }
@@ -2471,7 +2556,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                     err++;
                 }
             } else {
-                eid = 'US010100001';
+                eid = 'MY20170100002';
                 // TW020210300078
                 no_re = 1;
             }
@@ -2518,7 +2603,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 err++;
             }
         } else {
-            eid = 'US010100001';
+            eid = 'MY20170100002';
             // TW020210300078
             no_re = 1;
         }
@@ -2529,12 +2614,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 err++;
             }
 
-            var numberRegxp3 = /^09[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
-            var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
-            if (numberRegxp2.test(memberPhone) != true && numberRegxp3.test(memberPhone) != true) {
-                error("手機號碼輸入格式錯誤（請填寫數字即可）");
-                err++;
-            }
+            // var numberRegxp3 = /^09[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
+            // var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
+            // if (numberRegxp2.test(memberPhone) != true && numberRegxp3.test(memberPhone) != true) {
+            //     error("手機號碼輸入格式錯誤（請填寫數字即可）");
+            //     err++;
+            // }
         }
 
         if ($scope.$parent.signupMode2020 && my.sign20.signupMode == 'MAIL') {
@@ -2594,7 +2679,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 err++;
             }
         } else {
-            eid = 'US010100001';
+            eid = 'MY20170100002';
             // TW020210300078
             no_re = 1;
         }
@@ -2607,10 +2692,10 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
             var numberRegxp3 = /^09[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
             var numberRegxp2 = /^9[0-9]{2}[0-9]{6}$/; //格式需為9XXXXXXXX
-            if (numberRegxp2.test(memberPhone) != true && numberRegxp3.test(memberPhone) != true) {
-                error("手機號碼輸入格式錯誤（請填寫數字即可）");
-                err++;
-            }
+            // if (numberRegxp2.test(memberPhone) != true && numberRegxp3.test(memberPhone) != true) {
+            //     error("手機號碼輸入格式錯誤（請填寫數字即可）");
+            //     err++;
+            // }
         }
 
         if ($scope.$parent.signupMode2020 && my.sign20.signupMode == 'MAIL') {
@@ -2662,7 +2747,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             .setHeader("<i class='fa fa-info-circle'></i> " + $translate.instant('lg_member.js_tip') + "")
             .set({ labels: { ok: $translate.instant('lg_main.yes'), cancel: $translate.instant('lg_main.no') } })
             .set('onok', function (closeEvent) {
-                location.href = "https://usshop.goodarch2u.com";
+                location.href = "/";
             });
     }
 
@@ -2736,6 +2821,20 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         //         err++;
         //     }
         // }
+        if (!memberSID) {
+            error($translate.instant('lg_member.please_input_sid'));
+            err++;
+        } else {
+            memberSID = memberSID.toUpperCase();
+            // var SIDregex = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
+            var ICregex = /^(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})$/;
+
+            if (ICregex.test(memberSID) != true) {
+                error($translate.instant('lg_member.js_sid_msg'));
+                // $translate.instant('lg_member.js_enter_mobile')
+                err++;
+            }
+        }
         if ($scope.$parent.signupMode2020 && my.sign20.signupMode == 'SMS') {
             var signupMode = my.sign20.signupMode;
             if (!memberPhone) {
@@ -2989,6 +3088,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                         referrerTel: referrerTel,
                         referrerPhone: referrerPhone,
                         eid: my.sign30.eid,
+                        memberSID:memberSID,
                         memberNo: memberNo,
                         memberName: memberName,
                         memberCity: memberCity,
@@ -3311,7 +3411,32 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             $('.cg-busy').addClass('ng-hide');
         })
     }
-
+    my.orgseq_member_fn = function () {
+        CRUD.list({ task: "orgseq_member" }, "GET").then(function (res) {
+          if (res.status == 1) {
+            // data
+            //console.log(res);
+            my.mbst = [];
+            my.list = [];
+            my.c_lv_name = [];
+            my.total = [];
+            my.date = [];
+            var i = 0;
+            while (i < res.data.list.length) {
+              my.mbst = res.data.mbst;
+              my.list = res.data.list;
+              my.c_lv_name = res.data.c_lv_name;
+              my.c_total = res.data.c_total;
+              my.total = res.data.total;
+              var time_str = res.data.list[i].regDate;
+              var t = time_str.substr(0, 10);
+              my.date = t;
+              i++;
+            }
+          }
+          $(".cg-busy").addClass("ng-hide");
+        });
+      };
     my.ecash_list_fn = function (search_yy) {
         CRUD.list({ task: "ecash_list", search_yy: search_yy ? search_yy : '' }, "GET").then(function (res) {
             if (res.status == 1) {
@@ -3367,6 +3492,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 if (res.data.basic_data.length == 0) {
                     $('.cg-busy').addClass('ng-hide');
                 }
+                $('.cg-busy').addClass('ng-hide');
             }
         })
     }
@@ -4163,8 +4289,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         $location.path("member_page/orderdtl/" + id);
     };
 
-    my.go_pay = function () {
-
+    my.go_pay = function (type,orderNum) {
+        // console.log(arguments);
+        if(type == 'pb'){
+            window.location.replace("/app/controllers/publicBank.php?task=orderSale&orderNum="+orderNum);
+        }
         // var form = document.createElement("form");
         // form.method = "POST";
         // var element = document.createElement("input");
@@ -4186,27 +4315,27 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         // document.body.appendChild(form);
 
         // form.submit();
-        CRUD.setUrl("components/cartcvs/api.php");
-        CRUD.detail({task: "order_submit_auth",id:my.od_oid}, "POST").then(function(res){
-            if(res.status == 1) {
-                console.log(res);
-                alert(res.c_status.err);
-                setInterval(function(){
-                    location.href='/member_page/orderdtl/'+my.od_oid;
-                },3000);
+        // CRUD.setUrl("components/cartcvs/api.php");
+        // CRUD.detail({task: "order_submit_auth",id:my.od_oid}, "POST").then(function(res){
+        //     if(res.status == 1) {
+        //         console.log(res);
+        //         alert(res.c_status.err);
+        //         setInterval(function(){
+        //             location.href='/member_page/orderdtl/'+my.od_oid;
+        //         },3000);
                 
-                // console.log('/member_page/orderdtl/'+oid);
-            }else{
-                alert('Error.');
-                setInterval(function(){
-                    location.href='/member_page/orderdtl/'+my.od_oid;
-                },3000);
+        //         // console.log('/member_page/orderdtl/'+oid);
+        //     }else{
+        //         alert('Error.');
+        //         setInterval(function(){
+        //             location.href='/member_page/orderdtl/'+my.od_oid;
+        //         },3000);
                 
-            }
+        //     }
             
             
-        });
-        CRUD.setUrl("components/members/api.php");
+        // });
+        // CRUD.setUrl("components/members/api.php");
 
     };
 
@@ -4439,6 +4568,10 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         }
 
     }
+    if (my.member_page == "orgseq_member") {
+        $(".cg-busy").removeClass("ng-hide");
+        my.orgseq_member_fn();
+      }
     if (my.member_page == "stock_plan") {
         $('.cg-busy').removeClass('ng-hide');
         my.stock_plan_fn();
@@ -4504,6 +4637,30 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         // my.update_member_fn();
         my.chg_reco = false;
 
+        my.payTypeChange = function(index) {
+            if (index == 5) {
+                my.signNew.dlvrType = '2';
+            } else {
+                my.signNew.dlvrType = '1';
+                my.signNew.mo = '1';
+            }
+        }
+
+        $scope.$watch("ctrl.u_same_member_info", function (value) {
+            if (value) {
+            //     console.log(my.signNew.udlvrCity2);
+            //     console.log(my.signNew.udlvrAddr2);
+              my.signNew.udlvrCity = my.city[my.signNew.udlvrCity2-1]; 
+  
+            //   my.signNew.udlvrCanton = my.canton[my.signNew.udlvrCity2][my.signNew.udlvrCanton2];
+              my.signNew.udlvrAddr = my.signNew.udlvrAddr2;
+              console.log(my.city);
+            } else {
+              my.signNew.udlvrAddr = "";
+            }
+            //console.log(my);
+        });
+
         CRUD.list({ task: "get_recommend" }, "GET").then(function (res) {
             if (res.status == 1) {
                 my.mb_data = res.mb_data;
@@ -4512,7 +4669,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         })
 
         CRUD.detail({ task: "get_udlvrAddr" }, "GET").then(function (res) {
-
+            my.signNew.udlvrAddr2 = res.address;
+            my.signNew.udlvrCity2 = res.city_code;
             if (res.can_update == '1') {
                 my.can_update = '1';
                 my.reg_data = res.reg_data;
@@ -4539,33 +4697,42 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         my.updateMembernow = function () {
 
 
-
+            var addr = my.signNew.udlvrAddr;
+            var city = my.signNew.udlvrCity;
+            var canton = my.signNew.udlvrCanton;
+            var payType = my.signNew.payType;
+            var dlvrType = my.signNew.dlvrType;
+            var dlvrLocation = my.signNew.dlvrLocation;
+            var img1 = $scope.previewImage;
+            var img2 = $scope.previewImage2;
+            var img3 = $scope.previewImage3;
+            
             var err = 0;
             var sid = my.mb_data.sid;
             var rechg = my.chg_reco;
-            var code = my.reg_data.random;
-            // if (!payType) {
-            //     error("請輸入付款方式");
-            //     err++;
-            // }
-            // if (!dlvrType) {
-            //     error("請輸入取貨方式");
-            //     err++;
-            // }
+            // var code = my.reg_data.random;
+            if (!payType) {
+                error("請輸入付款方式");
+                err++;
+            }
+            if (!dlvrType) {
+                error("請輸入取貨方式");
+                err++;
+            }
 
-            // if (dlvrType == 1) {
-            //     if (!addr) {
-            //         error("請輸入寄件地址");
-            //         err++;
-            //     }
-            // }
+            if (dlvrType == 1) {
+                if (!addr) {
+                    error("請輸入寄件地址");
+                    err++;
+                }
+            }
 
-            // if (payType == 1 || dlvrType == 2) {
-            //     if (!dlvrLocation) {
-            //         error("請選擇服務中心");
-            //         err++;
-            //     }
-            // }
+            if (payType == 1 || dlvrType == 2) {
+                if (!dlvrLocation) {
+                    error("請選擇服務中心");
+                    err++;
+                }
+            }
 
             if (!my.memberTermsChk) {
                 error($translate.instant('lg_member.js_enter_clause'));
@@ -4586,14 +4753,29 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 $timeout(function () {
                     CRUD.update({
                         task: "update_member_now",
-                        sid: sid,
                         rechg: rechg,
-                        code: code
+                        city: city,
+                        canton: canton,
+                        addr: addr,
+                        payType: payType,
+                        dlvrType: dlvrType,
+                        dlvrLocation: dlvrLocation,
+                        img1: img1,
+                        img2: img2,
+                        img3: img3
 
                     }, "POST", true).then(function (res) {
                         if (res.status == 1) {
-                            success(res.msg);
-                            $location.path("/");
+                            my.signNew.udlvrAddr2 = res.address;
+                            if (payType == 6) {
+                                var url = res.url;
+                                window.location.replace(url);
+                            } else {
+                                my.chk_pay.code4 = "2";
+                                $("#myModal_CHKPAY2").modal("show");
+                                success("升級申請成功");
+                                $location.path("member_page/order");
+                            }
                         } else {
                             error(res.msg);
                             $route.reload();
@@ -4781,7 +4963,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
     my.recomUser = function () {
         CRUD.detail({ task: "get_share_url" }, "GET").then(function (res) {
             if (res.status == 1) {
-                var $html = $translate.instant('lg_memeber.js_msg5') + "<br><span id='surl'>" + res.share_url + "</span>";
+                var $html = $translate.instant('lg_main.js_msg5') + "<br><span id='surl'>" + res.share_url + "</span>";
                 var $html2 = "<span id='surl2'>您好，我是" + my.user.name + "，點選下方連結，輕鬆加入紅崴經銷商<br>" + res.share_url + "<br>和我一起科技養生，重塑人生</span>";
                 $('#s_url').html($html);
                 $('#s_url2').html($html2);
@@ -4790,7 +4972,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 // alert("透過此網址成功註冊之經銷商，您即可成為該經銷商之推薦人<br>" + res.share_url);
             } else {
                 // var $html = '您不是經銷商。';
-                var $html = $translate.instant('lg_memeber.js_msg6');
+                var $html = $translate.instant('lg_main.js_msg6');
+                console.log($html);
                 $('#s_url').html($html);
                 $('#myModal_surl').addClass('in act');
                 $('#myModal_surl').show();
@@ -4800,7 +4983,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
     my.recomUser2 = function () {
         CRUD.detail({ task: "get_share_url2" }, "GET").then(function (res) {
             if (res.status == 1) {
-                var $html = $translate.instant('lg_member.js_msg5');
+                var $html = $translate.instant('lg_main.js_msg5');
                 $html += "<br><span id='surl'>" + res.share_url + "</span>";
                 var $html2 = "<span id='surl2'>您好，我是" + my.user.name + "，點選下方連結，輕鬆加入紅崴網路福利會員<br>" + res.share_url + "<br>和我一起創造您的斜槓人生</span>";
                 $('#s_url').html($html);
@@ -4811,7 +4994,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             } else {
                 // var $html = '您不是經銷商。';
                 // var $html = '您尚未完成經銷商入會申請手續，入會申請作業流程約需兩個工作日審核，請先使用會員編號14碼，進行推薦入會';
-                var $html = $translate.instant('lg_memeber.js_msg6');
+                var $html = $translate.instant("lg_main.js_msg6");
                 $('#s_url').html($html);
                 $('#myModal_surl').addClass('in act');
                 $('#myModal_surl').show();

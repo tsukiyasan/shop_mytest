@@ -37,10 +37,14 @@
 					<a ng-if="ctrl.funcPerm.U == 'true'" ng-href="#odring_list#{{ctrl.odrhash}}" class="btn btn-success pull-right">
 						<i class="fa fa-exchange"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.odring' | translate"></span>
 					</a>
-					
-					<a ng-if="ctrl.funcPerm.C == 'true'" ng-show="ctrl.level>1" ng-href="#productType_page#{{ctrl.newhash}}" class="btn btn-success pull-right">
-						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.add' | translate"></span>
+
+					<a ng-if="ctrl.funcPerm.C == 'true'" ng-href="#productType_page#{{ctrl.newhash}}"
+						class="btn btn-success pull-right">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span
+							ng-bind="'lg_main.add' | translate"></span>
 					</a>
+
+
 					<!--
 					<a ng-if="ctrl.level<2 || !ctrl.level" href="#productType_dir#{{ctrl.newhash}}" class="btn btn-success pull-right">
 						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span ng-bind="'lg_main.adddir' | translate"></span>

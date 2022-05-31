@@ -119,5 +119,8 @@
 	"order_shipDate": "ship date",
 	"order_upsp_generate": "Generate label",
 	"order_upsp_download": "Download label",
-	"order_taxfee": "Tax"
+	"order_taxfee": "Tax",
+	"order_orderMode": "orderType",
+	"order_cart":"General",
+	"order_twcart":"Taiwan"
 }

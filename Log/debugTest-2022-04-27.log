@@ -1,0 +1,96 @@
+[2022-04-27T14:53:57] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T14:53:57] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T14:54:50] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T14:54:50] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T14:57:58] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T14:57:58] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T14:58:22] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T14:58:22] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T14:58:48] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T14:58:48] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:06:08] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:06:08] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:06:32] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:06:32] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:07:05] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:07:05] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:07:31] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:07:31] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:16:30] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:16:30] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:16:42] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:16:42] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2022-04-27T15:24:15] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2022-04-27T15:24:15] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Resources\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com

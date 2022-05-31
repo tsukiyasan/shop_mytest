@@ -1,8 +1,7 @@
 <?php
-
+// ini_set('display_errors','1');
 include('php/common_start.php');
 include('config.php');
-
 if (global_get_naps_bot() && false) {
 	$real_url = str_replace('"', '', $real_url);
 	$real_url = str_replace('\\', '', $real_url);
@@ -94,6 +93,7 @@ $_SESSION[$conf_user]['sysCurrency'] = $_currency;
 	<title><?= $siteinfo_info['name' . (($_lang) ? '_' . $_lang : '')] ?></title>
 	<!-- Favicon -->
 	<link type="image/x-icon" href="templates/default/images/favicon.png?v=2" rel="shortcut icon" />
+	<link rel="apple-touch-icon" href="templates/default/images/favicon.png?v=2" rel="shortcut icon" />
 	<!-- alertify js-->
 	<link rel="stylesheet" type="text/css" href="lib/alertifyjs/css/alertify.min.css" />
 	<link rel="stylesheet" type="text/css" href="lib/alertifyjs/css/themes/default.min.css" />

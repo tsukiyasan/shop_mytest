@@ -1,0 +1,381 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+          <li><a href="#/" ng-bind="'lg_main.index' | translate"></a></li>
+          <li class="">
+            <a href="#/order"
+              ><span ng-bind="'lg_order.order_manager' | translate"></span
+            ></a>
+          </li>
+          <li class="active">
+            <span>新增訂單</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row" print-section>
+      <div class="col-md-12">
+        <div class="main-box clearfix">
+          <header class="main-box-header clearfix">
+            <h2 class="pull-left">
+              <i class="fa fa-edit"></i>&nbsp;<span>新增訂單</span>
+            </h2>
+            <div class="filter-block pull-right">
+              <a
+                href="javascript:history.go(-1)"
+                class="btn btn-default pull-right"
+              >
+                <i class="fa fa-arrow-circle-left fa-lg"></i>&nbsp;&nbsp;<span
+                  ng-bind="'lg_main.back' | translate"
+                ></span>
+              </a>
+            </div>
+          </header>
+          <div class="main-box-body clearfix">
+            <div class="table-responsive">
+              <table class="table">
+                <caption>
+                  <h1>訂單資料</h1>
+                </caption>
+                <tbody>
+                  <tr>
+                    <td>會員</td>
+                    <td>
+                      <span ng-if="ctrl.order.member"
+                        ><b class="color:blue;">{{ctrl.order.member.ERPID}}</b
+                        >({{ctrl.order.member.name}})</span
+                      >
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#orderMemberModal"
+                        ng-if="!ctrl.order.member"
+                      >
+                        選擇會員
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-info"
+                        ng-if="ctrl.order.member"
+                      >
+                        會員資料
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        ng-if="ctrl.order.member"
+                      >
+                        清除
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>訂單編號</td>
+                    <td><input /></td>
+                  </tr>
+                  <tr>
+                    <td>完款日期</td>
+                    <!--<td colspan="2" ng-bind="ctrl.order.ctime"></td>-->
+                    <td>
+                      <div class="input-append date input-group">
+                        <span class="input-group-addon"
+                          ><i class="fa fa-calendar"></i
+                        ></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          date-range-picker
+                          ng-model="ctrl.order.finalPayDate"
+                          options="ctrl.datePickerOption"
+                          clearable="true"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>會員</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_memMail' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.email"></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_amt' | translate"></td>
+                    <td
+                      colspan="2"
+                      ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(ctrl.order.totalAmt | formatnumber)"
+                    ></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_payType' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.payType"></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_getType' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.dlvrType"></td>
+                  </tr>
+                  <!--tr>
+									<td ng-bind="'lg_order.order_coin' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.freecoin +'&emsp;'+('lg_order.order_coin_msg' | translate)"></td>
+								</tr>
+								<tr>
+									<td ng-bind="'lg_order.order_delay' | translate"></td>
+									<td colspan="2" ng-bind="ctrl.order.delayCnt"></td>
+								</tr-->
+                  <!--
+								<tr>
+									<td ng-bind="'lg_order.order_billType' | translate"></td>
+									<td colspan="2" >
+                                    <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                    	<input type="radio" name="options" id="option1"> 尚未付款
+                                    </label>
+                                    <label class="btn btn-primary">
+                                    	<input type="radio" name="options" id="option2"> 已付款
+                                    </label>
+                                    </div>
+                                    </td>
+								</tr>
+								-->
+                  <tr>
+                    <td ng-bind="'lg_order.order_type' | translate"></td>
+                    <td colspan="2">
+                      <div class="btn-group" data-toggle="buttons">
+                        <label
+                          ng-repeat="data in ctrl.pcode.bill"
+                          ng-if="ctrl.order.status!=6 || data.codeValue==6"
+                          class="btn btn-primary"
+                          ng-model="ctrl.order.status"
+                          uib-btn-radio="'{{data.codeValue}}'"
+                        >
+                          <span
+                            ng-if="!(data.codeValue==2 && ctrl.order.payTypeCode==1) && !(data.codeValue==1 && ctrl.order.payTypeCode==3)"
+                            >{{data.codeName}}</span
+                          >
+                          <span
+                            ng-if="(data.codeValue==2 && ctrl.order.payTypeCode==1) || (data.codeValue==1 && ctrl.order.payTypeCode==3)"
+                            >{{data.codeName_chs}}</span
+                          >
+                        </label>
+                      </div>
+                      <a
+                        ng-if="ctrl.order.status!=6 && ctrl.funcPerm.U == 'true'"
+                        href="javascript:void(0)"
+                        ng-click="ctrl.cancel_order()"
+                        class="btn btn-danger pull-right"
+                      >
+                        <i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;<txt
+                          ng-bind="'lg_order.order_cancel_order' | translate"
+                          >取消此訂單</txt
+                        >
+                      </a>
+                      <!--
+                                    <a ng-if="ctrl.order.status!=8 && ctrl.order.status!=6" href="javascript:void(0)" ng-click="ctrl.return_order()" class="btn btn-danger pull-right" style="margin-right:5px;">
+                                        <i class="fa fa-undo fa-lg"></i>&nbsp;&nbsp;退貨此訂單
+                                    </a>
+									-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <caption>
+                  訂單資訊
+                </caption>
+                <tbody>
+                  <tr>
+                    <td>會員</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>訂單編號</td>
+                    <td><input /></td>
+                  </tr>
+                  <tr>
+                    <td>完款日期</td>
+                    <td>
+                      <div class="input-append date input-group">
+                        <span class="input-group-addon"
+                          ><i class="fa fa-calendar"></i
+                        ></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          date-range-picker
+                          ng-model="ctrl.order.finalPayDate"
+                          options="ctrl.datePickerOption"
+                          clearable="true"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td ng-bind="'lg_order.order_memMail' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.email"></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_amt' | translate"></td>
+                    <td
+                      colspan="2"
+                      ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(ctrl.order.totalAmt | formatnumber)"
+                    ></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_payType' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.payType"></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_getType' | translate"></td>
+                    <td colspan="2" ng-bind="ctrl.order.dlvrType"></td>
+                  </tr>
+                  <tr>
+                    <td ng-bind="'lg_order.order_type' | translate"></td>
+                    <td colspan="2">
+                      <div class="btn-group" data-toggle="buttons">
+                        <label
+                          ng-repeat="data in ctrl.pcode.bill"
+                          ng-if="ctrl.order.status!=6 || data.codeValue==6"
+                          class="btn btn-primary"
+                          ng-model="ctrl.order.status"
+                          uib-btn-radio="'{{data.codeValue}}'"
+                        >
+                          <span
+                            ng-if="!(data.codeValue==2 && ctrl.order.payTypeCode==1) && !(data.codeValue==1 && ctrl.order.payTypeCode==3)"
+                            >{{data.codeName}}</span
+                          >
+                          <span
+                            ng-if="(data.codeValue==2 && ctrl.order.payTypeCode==1) || (data.codeValue==1 && ctrl.order.payTypeCode==3)"
+                            >{{data.codeName_chs}}</span
+                          >
+                        </label>
+                      </div>
+                      <a
+                        ng-if="ctrl.order.status!=6 && ctrl.funcPerm.U == 'true'"
+                        href="javascript:void(0)"
+                        ng-click="ctrl.cancel_order()"
+                        class="btn btn-danger pull-right"
+                      >
+                        <i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;<txt
+                          ng-bind="'lg_order.order_cancel_order' | translate"
+                          >取消此訂單</txt
+                        >
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--main-box end-->
+      </div>
+    </div>
+    <!--main-box end-->
+  </div>
+</div>
+<!-- 會員Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="orderMemberModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">會員查詢</h4>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end">
+          <div
+            class="input-group"
+            ng-repeat="(index,param) in ctrl.memberModal.search.params"
+          >
+            <span class="input-group-addon" style="background-color: #eee"
+              >{{index}}</span
+            >
+            <input
+              type="text"
+              ng-model="ctrl.memberModal.search.params[index]"
+              class="form-control"
+              placeholder="{{index}}"
+            />
+          </div>
+          <button
+            class="btn btn-primary"
+            ng-click="ctrl.memberModal.search.btn()"
+            type="button"
+          >
+            查詢
+          </button>
+          <button
+            class="btn btn-warning"
+            ng-click="ctrl.memberModal.search.init()"
+            type="button"
+          >
+            清除
+          </button>
+        </div>
+        <table
+          class="table table-striped"
+          ng-if="ctrl.memberModal.search.members.length > 0"
+        >
+          <tr>
+            <td>選擇</td>
+            <td>會員編號</td>
+            <td>姓名</td>
+            <td>電話</td>
+            <td>信箱</td>
+          </tr>
+          <tr
+            ng-repeat="member in ctrl.memberModal.search.members"
+            ng-click="ctrl.memberModal.select.action(member)"
+          >
+            <td>
+              <input
+                type="radio"
+                name="memberSelect"
+                ng-value="member.id"
+                ng-model="ctrl.memberModal.select.selected"
+              />
+            </td>
+            <td>{{member.ERPID}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.mobile}}</td>
+            <td>{{member.email}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;<span
+            ng-bind="'lg_main.cancel' | translate"
+          ></span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-dismiss="modal"
+          ng-click="ctrl.memberModal.getMember()"
+        >
+          <i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;<span
+            ng-bind="'lg_main.ok' | translate"
+          ></span>
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

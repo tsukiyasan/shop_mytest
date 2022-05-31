@@ -1,8 +1,5 @@
 <?php
-require '../../php/sdk-php-2.0.2/autoload.php';
-require_once '../../php/sample-code-php-master/constants/SampleCodeConstants.php';
-use net\authorize\api\contract\v1 as AnetAPI;
-use net\authorize\api\controller as AnetController;
+
 
 
 include( '../../config.php' ); 
@@ -14,9 +11,6 @@ if(!empty($EncRes))
 {
 	$task = "getReturn";
 }
-
-ini_set('display_errors','1');
-
 
 
 switch ($task) {
@@ -47,9 +41,6 @@ switch ($task) {
 	case "getReturn_vatm":
 		getReturn_vatm();
 	    break;
-	case "order_submit_auth":
-		order_submit_auth();
-		break;
 }
 
 function http_response_code_output($httpStatusCode, $httpStatusMsg)
@@ -241,6 +232,7 @@ function getReturn_vatm()
 						<p style=\"line-height:180%;\"><strong style=\"font-size:16px;\">$fromname</strong><br>
 						"._CART_PAY_SUCCESS_MSG6."{$siteinfo_arr['tel']}&emsp;&emsp;"._CART_PAY_SUCCESS_MSG7."{$siteinfo_arr['addr']}<br>
 						"._CART_PAY_SUCCESS_MSG8."{$siteinfo_arr['email']}</p>
+						
 					</div>
 				</body>
 				</html>
@@ -422,6 +414,7 @@ function getReturn_tspg()
 				<p style=\"line-height:180%;\"><strong style=\"font-size:16px;\">$fromname</strong><br>
 				"._CART_PAY_SUCCESS_MSG6."{$siteinfo_arr['tel']}&emsp;&emsp;"._CART_PAY_SUCCESS_MSG7."{$siteinfo_arr['addr']}<br>
 				"._CART_PAY_SUCCESS_MSG8."{$siteinfo_arr['email']}</p>
+				
 			</div>
 		</body>
 		</html>
@@ -547,36 +540,9 @@ function backView_tspg()
 }
 
 function order_submit(){
-	// ini_set('display_errors','1');
-	global $db,$db3,$conf_user,$tablename,$globalConf_disable_day,$conf_php,$conf_instock_mode,$db3;
+	ini_set('display_errors','1');
+	global $db,$conf_user,$tablename,$globalConf_disable_day,$conf_php,$conf_instock_mode,$db3;
 	
-	$old_orderNum  = global_get_param( $_POST, 'old_orderNum', null ,0,1);
-	$credit = array();
-	$credit['name'] = $credit_f_name = global_get_param( $_POST, 'creditcard_name', null ,0,1);
-	$credit['l_name'] = $credit_l_name = global_get_param( $_POST, 'creditcard_l_name', null ,0,1);
-	$credit['card_number'] = $credit_number = global_get_param( $_POST, 'creditcard_number', null ,0,1);
-	$credit['card_month'] = global_get_param( $_POST, 'creditcard_month', null ,0,1);
-	$credit['card_year'] = global_get_param( $_POST, 'creditcard_year', null ,0,1);
-	$credit['card_cvv'] = global_get_param( $_POST, 'creditcard_cvv', null ,0,1);
-	$_SESSION[$conf_user]['credit_card_info'] = $credit;
-	if(!empty($old_orderNum)){
-		$oid = getFieldValue("SELECT id from orders where orderNum = '$old_orderNum'",'id');
-		JsonEnd(array("status"=>'tspg',"oid"=>$oid,"data"=>$old_orderNum));
-	}
-	
-	$u_data = get_user_info_m();
-	$mb_no = $u_data['mb_no'];
-	$m_discount2 = 0;
-	$udsql = "SELECT ml.*,l.back_value from member_lv as ml left join lv_List as l on l.level = ml.lv where ml.mb_no = '$mb_no'";
-	$db3->setQuery($udsql);
-	$ml_data = $db3->loadRow();
-	$mlv = $ml_data['lv'];
-	$mbv = $ml_data['back_value'];
-	if($mlv >= 10){
-		$m_discount2 = $mbv;
-	}
-	$_SESSION[$conf_user]['m_discount_rate'] = $m_discount2;
-
 	$mode=getCartMode();
 	$uid=LoginChk();
 	$uemail=$_SESSION[$conf_user]['uemail'];
@@ -585,52 +551,51 @@ function order_submit(){
 	$uaddress=$_SESSION[$conf_user]['uaddress'];
 	$ucanton=$_SESSION[$conf_user]['ucanton'];
 	$ucity=$_SESSION[$conf_user]['ucity'];
+
 	
 	
-	$bill = array();
-	$bill['address'] = $bill_address = global_get_param( $_POST, 'bill_address', null ,0,1);
-	$bill['city'] = $bill_city = global_get_param( $_POST, 'bill_city', null ,0,1);
-	$bill['state'] = $bill_state = global_get_param( $_POST, 'bill_state', null ,0,1);
-	$bill['zip'] = $bill_zip = global_get_param( $_POST, 'bill_zip', null ,0,1);
-	$_SESSION[$conf_user]['bill_info'] = $bill;
-	// $name = global_get_param( $_POST, 'name', null ,0,1);
-	// $mobile = global_get_param( $_POST, 'mobile', null ,0,1);
-	// $email = global_get_param( $_POST, 'email', null ,0,1);
-	// $address = global_get_param( $_POST, 'address', null ,0,1);
-	// $dlvrDate = global_get_param( $_POST, 'dlvrDateD', null ,0,1);
-	// $dlvrTime = global_get_param( $_POST, 'dlvrTime', null ,0,1);
-	// $invoiceType = global_get_param( $_POST, 'invoiceType', null ,0,1);
-	// $invoiceSN = global_get_param( $_POST, 'invoiceSN', null ,0,1);
-	// $invoiceTitle = global_get_param( $_POST, 'invoiceTitle', null ,0,1);
+	$name = global_get_param( $_POST, 'name', null ,0,1);
+	$mobile = global_get_param( $_POST, 'mobile', null ,0,1);
+	$email = global_get_param( $_POST, 'email', null ,0,1);
+	$address = global_get_param( $_POST, 'address', null ,0,1);
+	$dlvrDate = global_get_param( $_POST, 'dlvrDateD', null ,0,1);
+	$dlvrTime = global_get_param( $_POST, 'dlvrTime', null ,0,1);
+	$invoiceType = global_get_param( $_POST, 'invoiceType', null ,0,1);
+	$invoiceSN = global_get_param( $_POST, 'invoiceSN', null ,0,1);
+	$invoiceTitle = global_get_param( $_POST, 'invoiceTitle', null ,0,1);
 	// $canton = global_get_param( $_POST, 'cantonCode', null ,0,1);
-	// $city = global_get_param( $_POST, 'cityCode', null ,0,1);
+	$city = global_get_param( $_POST, 'cityCode', null ,0,1);
 	
-	// $invoice = global_get_param( $_POST, 'invoice', null ,0,1);
-	// if(empty($invoice))
-	// {
-	// 	$invoice=getFieldValue("select invoice from siteinfo","invoice");
+	$invoice = global_get_param( $_POST, 'invoice', null ,0,1);
+	if(empty($invoice))
+	{
+		$invoice=getFieldValue("select invoice from siteinfo","invoice");
 		
-	// }
+	}
 	
-	// $notes = global_get_param( $_POST, 'notes', null ,0,1);
-
-	$userInfo = $_SESSION[$conf_user]['user_res_info'];
-	$name = $userInfo['name'];
-	$mobile = $userInfo['mobile'];
-	$address = $userInfo['address'];
-	$email = $userInfo['email'];
-	$city = $userInfo['city'];
-	$notes = $userInfo['notes'];
-	$state=$userInfo['state']['id'];
-	$state_s=$userInfo['state']['state_s'];
-	$dt = $userInfo['dt'];
-	$zipcode = $userInfo['zip'];
-
+	$notes = global_get_param( $_POST, 'notes', null ,0,1);
 	if(!$name || !$mobile || ( !$address && $_SESSION[$conf_user]['pay_type'] != '5' )){
 		JsonEnd(array("status"=>0,"msg"=>'請填寫收貨人資訊'));
 	}
 	$today=date("Y-m-d");
 	$now=date("Y-m-d H:i:s");
+	
+	$bill = array();
+	$bill['address'] = $bill_address = global_get_param( $_POST, 'bill_address', null ,0,1);
+	$bill_city_arr = global_get_param( $_POST, 'bill_city', null ,0,1);
+	$bill['city'] = $bill_city = $bill_city_arr['state_u'];
+	$bill['zip'] = $bill_zip = global_get_param( $_POST, 'bill_zip', null ,0,1);
+	$_SESSION[$conf_user]['bill_info'] = $bill;
+
+
+	if(empty($bill_address)){
+		$bill_address = $address;
+	}
+
+	if(empty($bill_city)){
+		$bill_city = $ucity;
+	}
+
 	
 	
 	
@@ -675,39 +640,14 @@ function order_submit(){
 		$cb_use_points = '0';
 	}
 
-	$m_discount = 0;
-	if(isset($_SESSION[$conf_user]['m_discount'])){
-		$m_discount = $_SESSION[$conf_user]['m_discount'];
-	}
 
-	$ototal = $_SESSION[$conf_user]['totalAmt'];
-	$total=$_SESSION[$conf_user]['totalAmt'];
-	$ntotal = $_SESSION[$conf_user]['ntotalAmt'];
-	// JsonEnd(array("status"=>'1',"n"=>$ntotal));
-	if($state == '5' && $state_s == 'CA'){
-		$taxrate = $siteinfo['taxrate'] / 100;
-
-		$ctotal = $ntotal; //獨立數值
-		$ctotal = bcsub($ctotal,$use_points,2); //減掉購物金
-		$ctotal = bcsub($ctotal,$cb_use_points,2); //減掉回饋點
-		$totalDiscount2=0;
-		foreach($proArr['data'] as $key=>$pro){
-			$m_dis2=(!empty($proData[$key]['prodtl_discount']) || $proData[$key]['prodtl_discount'] == '0') ? $proData[$key]['prodtl_discount'] : $pro['discount'];
-			$totalDiscount2 = bcadd($m_dis2,$totalDiscount2,2);
-		}
-		$ctotal = bcsub($ctotal,$totalDiscount2,2);// 減掉優惠
-		$tax_fee = bcmul($ctotal,$taxrate,3); 
-		$tax_fee  = round($tax_fee,2);
-		if($tax_fee < 0){
-			$tax_fee = 0;
-		}
-	}else{
-		$taxrate = 0;
-		$tax_fee = '0';
-	}
+	$taxrate = $siteinfo['taxrate'] / 100;
 	
-	$total = bcadd($total,$tax_fee,2);
-	$total = bcadd($total,$_SESSION[$conf_user]['realDlvrAmt'],2); //此處可能為0
+	$total=$_SESSION[$conf_user]['totalAmt']+$_SESSION[$conf_user]['realDlvrAmt'];
+	$tax_fee = $total * $taxrate;
+	$total = $total * (1+$taxrate);
+
+	$total = c_round($total,2);
     
 	$sql = "select coin_to,coin_take from siteinfo";
 	$db->setQuery( $sql );
@@ -719,7 +659,8 @@ function order_submit(){
 		$free_coin=floor($_SESSION[$conf_user]['totalAmt']/$coin_to)*$coin_take;
 	}
 
-	
+	$use_p = $_SESSION[$conf_user]['use_p'];
+	$use_points = $_SESSION[$conf_user]['use_points'];
 
 	$u_data = get_user_info_m();
 	$mb_no = $u_data['mb_no'];
@@ -738,24 +679,22 @@ function order_submit(){
 	if($now_points < $use_points){
 		JsonEnd(array("status"=>0,"msg"=>_POINTS_NOT_ENOUGH));
 	}
-
-	
-	$bill_state_s = $bill_state['state_s'];
 	
 	$sql="BEGIN;";
-	if($mode=="cart"){
+	if($mode=="cart" || $mode = 'twcart'){
 		
 		$sql.="insert into orders 
 			(orderMode,memberid,email,buyDate,payType,dlvrType,status,sumAmt,discount,dcntAmt,dlvrFee,usecoin,totalAmt,ccv,taxrate,taxfee,dlvrName,
-			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,use_p,use_points,cb_use_p,cb_use_points,credit_f_name,credit_l_name,credit_number,bill_address,bill_city,bill_state,bill_zip,dt,dlvrState,dlvrStateStr,back_value)
+			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,use_p,use_points,cb_use_p,cb_use_points,bill_address,bill_city,bill_zip)
 			values 
 			('$mode','$uid','$uemail','$today','{$_SESSION[$conf_user]['pay_type']}','{$_SESSION[$conf_user]['take_type']}',$status,'{$proArr['total']}',
 			 '{$proArr['discount']}','".($proArr['total']-$proArr['discount'])."','{$_SESSION[$conf_user]['realDlvrAmt']}','{$_SESSION[$conf_user]['usecoin']}','$total','$finalccv','$taxrate','$tax_fee',N'$name','$mobile','$ucanton','$ucity',N'$address',
-			 '$dlvrDate','$dlvrTime','$notes','$invoiceType','$invoiceTitle','$invoiceSN','$invoice','$now','$now','$uid','$use_p','$use_points','$cb_use_p','$cb_use_points','$credit_f_name','$credit_l_name','$credit_number','$bill_address','$bill_city','$bill_state_s','$bill_zip','$dt','$state','$state_s','$m_discount2');";
+			 '$dlvrDate','$dlvrTime','$notes','$invoiceType','$invoiceTitle','$invoiceSN','$invoice','$now','$now','$uid','$use_p','$use_points','$cb_use_p','$cb_use_points','$bill_address','$bill_city','$bill_zip');";
 		
 		$sql.="
 			SET @insertid=LAST_INSERT_ID();
 		";	 
+		
 	}else if($mode=="bonus"){
 		
 		$userbonus=intval(getFieldValue("select bonus from members where id='$uid'","bonus"));
@@ -789,14 +728,11 @@ function order_submit(){
 		JsonEnd(array("status"=>0,"msg"=>_CART_EMPTY));
 	}
 	$totalPv=0;
-	$totalDiscount=0;
 	$totalBv=0;
 	$totalBonus=0;
 	
 	
 	$cart_quantity_array = array();
-
-	
 	
 	foreach($proArr['data'] as $key=>$pro){
 		$pid=$pro['id'];
@@ -805,11 +741,8 @@ function order_submit(){
 		$subAmt=$pro['CalcSiteAmt'];
 		$bonus=$pro['bonus'];
 		$pv=(!empty($proData[$key]['prodtl_pv']) || $proData[$key]['prodtl_pv'] == '0') ? $proData[$key]['prodtl_pv'] : $pro['pv'];
-		$m_dis=(!empty($proData[$key]['prodtl_discount']) || $proData[$key]['prodtl_discount'] == '0') ? $proData[$key]['prodtl_discount'] : $pro['discount'];
 		$bv=(!empty($proData[$key]['prodtl_bv']) || $proData[$key]['prodtl_bv'] == '0') ? $proData[$key]['prodtl_bv'] : $pro['bv'];
-		$totalPv = bcadd($pv,$totalPv,2);
-		$totalDiscount = bcadd($m_dis,$totalDiscount,2);
-		// $totalPv+=$pv;
+		$totalPv+=$pv;
 		$totalBv+=$bv;
 		$totalBonus+=$bonus;
 		$protype = $pro['protype'];
@@ -820,12 +753,11 @@ function order_submit(){
 		$format2name = $pro['format2name'];
 		$unitCcv = $pro['unitCcv'];
 		$ccvAmt = $pro['CalcCcv'];
-		$need_tax = $pro['need_tax'];
 		
 		if($mode=="cart"){
-			$sql.="insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser,unitCcv,ccvAmt,m_dis,need_tax)
+			$sql.="insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser,unitCcv,ccvAmt)
 			     values 
-			     (@insertid,'$pid','$unitAmt','$quantity','$subAmt','$pv','$bv','$bonus','$protype','$format1','$format2','$format1name','$format2name','$now','$now','$uid','$unitCcv','$ccvAmt','$m_dis','$need_tax');";
+			     (@insertid,'$pid','$unitAmt','$quantity','$subAmt','$pv','$bv','$bonus','$protype','$format1','$format2','$format1name','$format2name','$now','$now','$uid','$unitCcv','$ccvAmt');";
 		}else{
 			$sql.="insert into orderdtl (oid,pid,quantity,bonusAmt,format1,format2,format1name,format2name,ctime,mtime,muser)
 			     values 
@@ -991,13 +923,12 @@ function order_submit(){
                 $sql.="update proinstock set instock=instock-1 where pid='{$_products['productId']}' AND format1 = '{$_products['spec'][1]['id']}' AND format2 = '{$_products['spec'][2]['id']}';";
             }
         }
-        // $totalPv+=$activeBundlePv;
-        $totalPv=bcadd($activeBundlePv,$totalPv,2);
+        $totalPv+=$activeBundlePv;
         $totalBv+=$activeBundleBv;
     }
     
-	if($totalPv || $totalBv || $totalBonus || $totalDiscount){
-		$sql.="update orders set pv='$totalPv',bv='$totalBv',bonus='$totalBonus',m_discount='$totalDiscount' where id=@insertid;";
+	if($totalPv || $totalBv || $totalBonus){
+		$sql.="update orders set pv='$totalPv',bv='$totalBv',bonus='$totalBonus' where id=@insertid;";
 	}
 	
 	if(count($proArr['active_list'])>0){
@@ -1053,7 +984,7 @@ function order_submit(){
 	
 	if(strtotime($today) >= strtotime('2021-07-15'))
 	{
-		$orderNum = "3U010-".date("ym").$orderseqStr;
+		$orderNum = "3S010-".date("ym").$orderseqStr;
 	}else if(strtotime($today) >= strtotime('2019-10-30')){
 		$orderNum = "3S010-".date("ym").$orderseqStr;
 	}else{
@@ -1061,232 +992,6 @@ function order_submit(){
 	}
 	$now_date = date('Y-m-d');
 
-	
-
-	// $res = array();
-	// $res['t_total'] = $t_point;
-	// $res['t_t'] = empty($t_point);
-	// $res['c_total'] = $c_point;
-	// $res['s_total'] = $s_point;
-	// $res['u'] = $use_points;
-
-	// JsonEnd($res);
-	
-	
-	$orderCodeName=getFieldValue("select codeName from pubcode where codeKinds='orderseq'","codeName");
-	if($orderCodeName==$today){
-		$orderseq=intval(getFieldValue("select codeValue from pubcode where codeKinds='orderseq'","codeValue"))+1;
-		$db->setQuery("update pubcode set codeValue='$orderseq' where codeKinds='orderseq'");
-		$r=$db->query();
-	}else{
-		$db->setQuery("update pubcode set codeValue=1,codeName='$today' where codeKinds='orderseq'");
-		$r=$db->query();
-		$orderseq=1;
-	}
-	$orderseqStr2 = "";
-	if($orderseq<10){
-		$orderseqStr2="0000".$orderseq;
-	}else if($orderseq<100){
-		$orderseqStr2="000".$orderseq;
-	}else if($orderseq<1000){
-		$orderseqStr2="00".$orderseq;
-	}else if($orderseq<10000){
-		$orderseqStr2="0".$orderseq;
-	}
-	
-	
-	$orderECNum = date("Ymd").$orderseqStr2;
-	
-	
-	$field="";
-	$field2="";
-	
-	
-	
-	
-	if($name && !$uname){
-		
-		$uname=$name;
-	}
-	if($email && !$uemail){
-		
-		$field2.=",email='$email'";
-		$uemail=$email;
-	}
-	if($mobile && !$umobile){
-		
-		$field2.=",dlvrMobile='$mobile'";
-	}
-	if($address && !$uaddress){
-		
-	}
-	if($city){
-		
-		$field2.=",dlvrCity='$city'";
-	}
-	if($canton){
-		
-		$field2.=",dlvrCanton='$canton'";
-	}else{
-		$canton=$ucanton;
-	}
-	$postcode=getFieldValue("select postcode from addrcode where id='$canton'","postcode");
-	
-	$field2.=",dlvrZip='$postcode'";
-	
-	$allcoin=getFieldValue("select coin from members where id='$uid'","coin");
-	if(intval($_SESSION[$conf_user]['usecoin'])>$allcoin){
-		
-		JsonEnd(array("status"=>0,"msg"=>_CART_BONUS_ERROR_MSG));
-	}
-	$sql.="update orders set orderNum='$orderNum',orderECNum='$orderECNum',freecoin='$free_coin' $field2 where id=@insertid;";
-	$sql.="update members set coin=coin-'".intval($_SESSION[$conf_user]['usecoin'])."' $field  where id='$uid';";
-	$sql.="insert into orderlog (oid,cdate,status,ctime,mtime,muser) values (@insertid,'$today','$status','$now','$now','$uid');";
-	
-	$sql.="COMMIT;";
-	
-		
-	$db->setQuery($sql);
-	$r=$db->query_batch();
-	
-	if(!$r){
-		
-		JsonEnd(array("status"=>0,"msg"=>_CART_NET_ERROR_MSG));
-	}
-	
-	$oid=getFieldValue("select id from orders where memberid='$uid' order by id desc ","id");
-	$code=md5($uid.$oid.$uid);
-	$sql="insert into requestLog (ctime,memberid,code,type,var01) values ('$now','$uid','$code','orderurl','member_page/orderdtl/$oid')";
-	$db->setQuery($sql);
-	$db->query();
-	
-	// use_points_fn($mb_no,$orderNum,$use_points);
-
-	// cb_use_points_fn($mb_no,$orderNum,$cb_use_points);
-	
-	// cartcvs_send_mail_fn($orderNum,$total);
-	
-	
-	
-	
-	$pay_type = $_SESSION[$conf_user]['pay_type'];
-	$mode=getCartMode();
-
-	//成立訂單後移除
-	unset($_SESSION[$conf_user]["{$mode}_list"]);
-	unset($_SESSION[$conf_user]['disDlvrAmt']);
-	unset($_SESSION[$conf_user]['pay_type']);
-	unset($_SESSION[$conf_user]['take_type']);
-	unset($_SESSION[$conf_user]['dlvrAmt']);
-	unset($_SESSION[$conf_user]['usecoin']);
-	unset($_SESSION[$conf_user]['proArr']);
-	unset($_SESSION[$conf_user]['realDlvrAmt']);
-	unset($_SESSION[$conf_user]['totalAmt']);
-	unset($_SESSION[$conf_user]["cart_list_mode"]);
-    unset($_SESSION[$conf_user]["freepro_list"]);
-    unset($_SESSION[$conf_user]['activeBundleCart']);
-    unset($_SESSION[$conf_user]['use_p']);
-    unset($_SESSION[$conf_user]['use_points']);
-	unset($_SESSION[$conf_user]['cb_use_p']);
-    unset($_SESSION[$conf_user]['cb_use_points']);
-    $_SESSION[$conf_user]['activeBundleCart']=array();
-	$_SESSION[$conf_user]['cart_addpro_list']=array();
-	unset($_SESSION[$conf_user]['cart_addpro_list']);
-	if($pay_type==3 || $pay_type==4){
-		JsonEnd(array("status"=>'aio',"oid"=>$oid));
-	}else if($pay_type==6){
-		JsonEnd(array("status"=>'tspg',"oid"=>$oid,"data"=>$orderNum));
-	}else if($pay_type==7){
-		
-		
-		$sql = " SELECT A.ccbPayCode FROM payconf A";
-		$db->setQuery($sql);
-		$payconf = $db->loadRow();
-		
-		$ccbPayCode = $payconf['ccbPayCode'];	
-		
-		$ccbPayCode = str_pad($ccbPayCode,5,'0',STR_PAD_LEFT);
-		
-		
-		
-		$orderNum_vatm = $orderNum;
-		$orderNum_vatm = str_replace("1S010-","",$orderNum_vatm);
-		$orderNum_vatm = str_replace("3S010-","",$orderNum_vatm);
-		$orderNum_vatm = str_replace("3U010-","",$orderNum_vatm);
-		
-		$orderNum_vatm = str_pad($orderNum_vatm,10,'0',STR_PAD_LEFT);
-		
-		
-		$totalAmt = "$total";
-		
-		if(strlen($totalAmt) >= 8 )
-		{
-			$totalAmt = substr($totalAmt,-8);
-		}
-		else
-		{
-			$totalAmt = str_pad($totalAmt,8,'0',STR_PAD_LEFT);
-		}
-		
-		
-		$ccbPayCode_array = str_split($ccbPayCode);
-		$orderNum_vatm_array = str_split($orderNum_vatm);
-		$array1 = array_merge($ccbPayCode_array, $orderNum_vatm_array);
-		
-		
-		$array2 = str_split($totalAmt);
-		
-		$key_array = array(3,7,1);	
-		
-		
-		
-		
-		
-		
-		
-		$num = 0;
-		foreach($array1 as $key=>$row)
-		{
-			$num += $row * $key_array[($key%3)];
-		}
-		$A = $num%10;
-		
-		
-		$num = 0;
-		foreach($array2 as $key=>$row)
-		{
-			$num += $row * $key_array[($key%3)];
-		}
-		$B = $num%10;
-		
-		
-		$C = ($A+$B)%10;
-		
-		
-		$checkCode = (10-$C)%10;
-		
-		
-		$virtualAccount = "{$ccbPayCode}{$orderNum_vatm}{$checkCode}";
-		
-		
-		$sql = "update orders set virtualAccount='$virtualAccount' where orderNum='$orderNum';";
-		$db->setQuery($sql);
-		$db->query();
-		
-		
-		$deadLineDT = date("Y/m/d 23:59:59",strtotime("+4 day"));
-		
-		JsonEnd(array("status"=>'vatm',"data"=>$orderNum,"data2"=>$virtualAccount,"data3"=>$deadLineDT));
-	}
-	else{
-		JsonEnd(array("status"=>1,"data"=>$orderNum));	
-	}
-	
-}
-
-function use_points_fn($mb_no,$orderNum,$use_points){
-	global $db,$db3,$conf_user;
-	$now_date = date('Y-m-d');
 	$p_data = array();
 	$p_data['orderNum'] = $orderNum;
 	$p_data['mb_no'] = $mb_no;
@@ -1407,16 +1112,110 @@ function use_points_fn($mb_no,$orderNum,$use_points){
 	$i_sql = dbInsert('points',$p_data);
 	$db3->setQuery($i_sql);
 	$db3->query();
-}
 
-function cb_use_points_fn($mb_no,$orderNum,$cb_use_points){
-	global $db,$db3,$conf_user;
-	//回饋點使用
-	//先找出初次發放有沒有剩下
-	$today = date('Y-m-d');
+	// $res = array();
+	// $res['t_total'] = $t_point;
+	// $res['t_t'] = empty($t_point);
+	// $res['c_total'] = $c_point;
+	// $res['s_total'] = $s_point;
+	// $res['u'] = $use_points;
+
+	// JsonEnd($res);
+	
+	
+	$orderCodeName=getFieldValue("select codeName from pubcode where codeKinds='orderseq'","codeName");
+	if($orderCodeName==$today){
+		$orderseq=intval(getFieldValue("select codeValue from pubcode where codeKinds='orderseq'","codeValue"))+1;
+		$db->setQuery("update pubcode set codeValue='$orderseq' where codeKinds='orderseq'");
+		$r=$db->query();
+	}else{
+		$db->setQuery("update pubcode set codeValue=1,codeName='$today' where codeKinds='orderseq'");
+		$r=$db->query();
+		$orderseq=1;
+	}
+	$orderseqStr2 = "";
+	if($orderseq<10){
+		$orderseqStr2="0000".$orderseq;
+	}else if($orderseq<100){
+		$orderseqStr2="000".$orderseq;
+	}else if($orderseq<1000){
+		$orderseqStr2="00".$orderseq;
+	}else if($orderseq<10000){
+		$orderseqStr2="0".$orderseq;
+	}
+	
+	
+	$orderECNum = date("Ymd").$orderseqStr2;
+	
+	
+	$field="";
+	$field2="";
+	
+	
+	
+	
+	if($name && !$uname){
+		
+		$uname=$name;
+	}
+	if($email && !$uemail){
+		
+		$field2.=",email='$email'";
+		$uemail=$email;
+	}
+	if($mobile && !$umobile){
+		
+		$field2.=",dlvrMobile='$mobile'";
+	}
+	if($address && !$uaddress){
+		
+	}
+	if($city){
+		
+		$field2.=",dlvrCity='$city'";
+	}
+	if($canton){
+		
+		$field2.=",dlvrCanton='$canton'";
+	}else{
+		$canton=$ucanton;
+	}
+	$postcode=getFieldValue("select postcode from addrcode where id='$canton'","postcode");
+	
+	$field2.=",dlvrZip='$postcode'";
+	
+	$allcoin=getFieldValue("select coin from members where id='$uid'","coin");
+	if(intval($_SESSION[$conf_user]['usecoin'])>$allcoin){
+		
+		JsonEnd(array("status"=>0,"msg"=>_CART_BONUS_ERROR_MSG));
+	}
+	$sql.="update orders set orderNum='$orderNum',orderECNum='$orderECNum',freecoin='$free_coin' $field2 where id=@insertid;";
+	$sql.="update members set coin=coin-'".intval($_SESSION[$conf_user]['usecoin'])."' $field  where id='$uid';";
+	$sql.="insert into orderlog (oid,cdate,status,ctime,mtime,muser) values (@insertid,'$today','$status','$now','$now','$uid');";
+	
+	$sql.="COMMIT;";
+	
+	// JsonEnd(array('status' => '0', 'sql' => $sql));
+
+	$db->setQuery($sql);
+	$r=$db->query_batch();
+	
+	if(!$r){
+		
+		JsonEnd(array("status"=>0,"msg"=>_CART_NET_ERROR_MSG));
+	}
+	
+	$oid=getFieldValue("select id from orders where memberid='$uid' order by id desc ","id");
+	$code=md5($uid.$oid.$uid);
+	$sql="insert into requestLog (ctime,memberid,code,type,var01) values ('$now','$uid','$code','orderurl','member_page/orderdtl/$oid')";
+	$db->setQuery($sql);
+	$db->query();
+	
+
 	$osql = "SELECT point,expiry_date from cash_back where mb_no = '$mb_no' and note = '初次發放' and kind = '0' and expiry_date > '$today'";
 	$db3->setQuery($osql);
 	$oresult = $db3->loadRow();
+	$first_ed = date('Y-m-d');
 	if (!empty($oresult)) { //如果有找到
 		$first_point = $oresult['point'];
 		$first_ed = $oresult['expiry_date'];
@@ -1463,7 +1262,7 @@ function cb_use_points_fn($mb_no,$orderNum,$cb_use_points){
 	// $cb_arr['remain'] = ;
 	if ($cb_status == 0) {
 		$cb_arr['point'] = $other_cb_use_point;
-		$cb_arr['expiry_date'] = '9999-12-31';
+		$cb_arr['expiry_date'] = $first_ed;
 		$cb_arr['note'] = '正常使用';
 		$isql = dbInsert('cash_back', $cb_arr);
 		$db3->setQuery($isql);
@@ -1483,22 +1282,14 @@ function cb_use_points_fn($mb_no,$orderNum,$cb_use_points){
 		$db3->setQuery($isql);
 		$db3->query();
 		$cb_arr['point'] = $other_cb_use_point;
-		$cb_arr['expiry_date'] = '9999-12-31';
+		$cb_arr['expiry_date'] = $first_ed;
 		$cb_arr['note'] = '切開正常點數';
 		$isql = dbInsert('cash_back', $cb_arr);
 		$db3->setQuery($isql);
 		$db3->query();
 	}
-}
 
-function cartcvs_send_mail_fn($orderNum,$total){
-
-	global $db,$conf_user;
-	$sysid = '1'; //設定第一個
-	$uid=LoginChk();
-	$uemail=$_SESSION[$conf_user]['uemail'];
-	$uname=$_SESSION[$conf_user]['uname'];
-	$now = date('Y-m-d H:i:s');
+	
 	$sql = "select * from siteinfo where sysid ='$sysid' ";
 
 	$db->setQuery( $sql );
@@ -1511,17 +1302,17 @@ function cartcvs_send_mail_fn($orderNum,$total){
 	$moneyStr = "NT.";
 	if($_SESSION[$conf_user]['syslang'])
 	{
-		$moneyStr=getFieldValue(" SELECT moneyCode FROM langConf WHERE code = '".$_SESSION[$conf_user]['syslang']."' ","moneyCode");
+		$c_lang = $_SESSION[$conf_user]['syslang'];
+		$c_lang = 'ms';
+		$moneyStr=getFieldValue(" SELECT moneyCode FROM langConf WHERE code = '".$c_lang."' ","moneyCode");
 	}
 	
 	$from = $siteinfo_arr['email'];
 	
 	$fromname = $siteinfo_arr['name'];
-	$addr = $siteinfo_arr['addr'];
 	if($_SESSION[$conf_user]['syslang'])
 	{
 		$fromname = $siteinfo_arr['name_'.$_SESSION[$conf_user]['syslang']];
-		$addr = $siteinfo_arr['addr_'.$_SESSION[$conf_user]['syslang']];
 	}
 	$sendto = array(array("email"=>$uemail,"name"=>$uname));
 	$subject = $fromname." - "._CART_ORDER_ADD_MSG1." (".date("Y-m-d H:i:s").")";
@@ -1555,8 +1346,9 @@ function cartcvs_send_mail_fn($orderNum,$total){
 			</table>
 			<br>
 			<p style=\"line-height:180%;\"><strong style=\"font-size:16px;\">$fromname</strong><br>
-			"._CART_ORDER_ADD_MSG10."{$siteinfo_arr['tel']}&emsp;&emsp;"._CART_ORDER_ADD_MSG11."$addr<br>
+			"._CART_ORDER_ADD_MSG10."{$siteinfo_arr['tel']}&emsp;&emsp;"._CART_ORDER_ADD_MSG11."{$siteinfo_arr['addr']}<br>
 			"._CART_ORDER_ADD_MSG12."{$siteinfo_arr['email']}</p>
+			
 		</div>
 	</body>
 	</html>
@@ -1600,13 +1392,139 @@ function cartcvs_send_mail_fn($orderNum,$total){
 			<p style=\"line-height:180%;\"><strong style=\"font-size:16px;\">$fromname</strong><br>
 			"._CART_ORDER_ADD_MSG10."{$siteinfo_arr['tel']}&emsp;&emsp;"._CART_ORDER_ADD_MSG11."{$siteinfo_arr['addr']}<br>
 			"._CART_ORDER_ADD_MSG12."{$siteinfo_arr['email']}</p>
-			
+
 		</div>
 	</body>
 	</html>
 	";
 	
-	$rs = global_send_mail("eways100@gmail.com","威誠購物平台",$sendto,$subject,$body);
+	$rs2 = global_send_mail("eways100@gmail.com","威誠購物平台",$sendto,$subject,$body);
+	
+	
+	
+	
+	
+	$pay_type = $_SESSION[$conf_user]['pay_type'];
+	$mode=getCartMode();
+	// unset($_SESSION[$conf_user]["{$mode}_list"]);
+	// unset($_SESSION[$conf_user]['disDlvrAmt']);
+	// unset($_SESSION[$conf_user]['pay_type']);
+	// unset($_SESSION[$conf_user]['take_type']);
+	// unset($_SESSION[$conf_user]['dlvrAmt']);
+	// unset($_SESSION[$conf_user]['usecoin']);
+	// unset($_SESSION[$conf_user]['proArr']);
+	// unset($_SESSION[$conf_user]['realDlvrAmt']);
+	// unset($_SESSION[$conf_user]['totalAmt']);
+	// unset($_SESSION[$conf_user]["cart_list_mode"]);
+    // unset($_SESSION[$conf_user]["freepro_list"]);
+    // unset($_SESSION[$conf_user]['activeBundleCart']);
+    // unset($_SESSION[$conf_user]['use_p']);
+    // unset($_SESSION[$conf_user]['use_points']);
+    $_SESSION[$conf_user]['activeBundleCart']=array();
+	$_SESSION[$conf_user]['cart_addpro_list']=array();
+	unset($_SESSION[$conf_user]['cart_addpro_list']);
+
+	$orderid = getFieldValue("SELECT id FROM orders WHERE orderNum = '$orderNum'","id");
+	//未付款先進傳銷訂單
+	toMLM($orderid,'0');
+
+
+	if($pay_type==3 || $pay_type==4){
+		JsonEnd(array("status"=>'aio',"oid"=>$oid));
+	}else if($pay_type==6){
+		$url = '';
+		$url = "/app/controllers/publicBank.php?task=orderSale&orderNum=".$orderNum;
+
+		JsonEnd(array("status"=>'tspg',"oid"=>$oid,"orderNum" => $orderNum,"rs"=>$rs,"url"=>$url ));
+	}else if($pay_type==7){
+		
+		
+		$sql = " SELECT A.ccbPayCode FROM payconf A";
+		$db->setQuery($sql);
+		$payconf = $db->loadRow();
+		
+		$ccbPayCode = $payconf['ccbPayCode'];	
+		
+		$ccbPayCode = str_pad($ccbPayCode,5,'0',STR_PAD_LEFT);
+		
+		
+		
+		$orderNum_vatm = $orderNum;
+		$orderNum_vatm = str_replace("1S010-","",$orderNum_vatm);
+		$orderNum_vatm = str_replace("3S010-","",$orderNum_vatm);
+		$orderNum_vatm = str_replace("3U010-","",$orderNum_vatm);
+		
+		$orderNum_vatm = str_pad($orderNum_vatm,10,'0',STR_PAD_LEFT);
+		
+		
+		$totalAmt = "$total";
+		
+		if(strlen($totalAmt) >= 8 )
+		{
+			$totalAmt = substr($totalAmt,-8);
+		}
+		else
+		{
+			$totalAmt = str_pad($totalAmt,8,'0',STR_PAD_LEFT);
+		}
+		
+		
+		$ccbPayCode_array = str_split($ccbPayCode);
+		$orderNum_vatm_array = str_split($orderNum_vatm);
+		$array1 = array_merge($ccbPayCode_array, $orderNum_vatm_array);
+		
+		
+		$array2 = str_split($totalAmt);
+		
+		$key_array = array(3,7,1);	
+		
+		
+		
+		
+		
+		
+		
+		$num = 0;
+		foreach($array1 as $key=>$row)
+		{
+			$num += $row * $key_array[($key%3)];
+		}
+		$A = $num%10;
+		
+		
+		$num = 0;
+		foreach($array2 as $key=>$row)
+		{
+			$num += $row * $key_array[($key%3)];
+		}
+		$B = $num%10;
+		
+		
+		$C = ($A+$B)%10;
+		
+		
+		$checkCode = (10-$C)%10;
+		
+		
+		$virtualAccount = "{$ccbPayCode}{$orderNum_vatm}{$checkCode}";
+		
+		
+		$sql = "update orders set virtualAccount='$virtualAccount' where orderNum='$orderNum';";
+		$db->setQuery($sql);
+		$db->query();
+		
+		
+		$deadLineDT = date("Y/m/d 23:59:59",strtotime("+4 day"));
+		
+		
+
+		JsonEnd(array("status"=>'vatm',"data"=>$orderNum,"data2"=>$virtualAccount,"data3"=>$deadLineDT));
+	}
+	else{
+		$url = '';
+		$url = "/app/controllers/eghl.php?task=orderSale&orderNum=".$orderNum;
+		JsonEnd(array("status"=>1,"data"=>$orderNum,"rs" => $rs, "url"=>$url));	
+	}
 	
 }
 
@@ -1874,7 +1792,6 @@ function order_submit2($type=null){
 	
 	JsonEnd(array("status"=>'1',"data"=>$obj));	
 }
-
 
 function getReturn(){
 	global $db,$conf_user,$tablename,$conf_php,$HTTP_X_FORWARDED_PROTO;
@@ -2179,27 +2096,16 @@ function showlist(){
 	
 	$uid=LoginChk();
 	$mode=getCartMode();
+	$data=array();
+	$cm = $_SESSION[$conf_user]['is_twcart_cart'];
+	if ($cm == '1') {
+		$mode = 'twcart';
+	}
     $cart=$_SESSION[$conf_user]["{$mode}_list"];
-    $data=array();
-	$user_res_info = $_SESSION[$conf_user]['user_res_info'];
-	$upsp_status = set_upsp();
-	
+    
+	// JsonEnd(array('status' => '1', 'msg'=>$is_twcart));
 	$activeChk = global_get_param( $_REQUEST, 'activeChk', null ,0,1  );
 	
-
-	$u_data = get_user_info_m();
-	$mb_no = $u_data['mb_no'];
-	$m_discount = 0;
-	$udsql = "SELECT ml.*,l.back_value from member_lv as ml left join lv_List as l on l.level = ml.lv where ml.mb_no = '$mb_no'";
-	$db3->setQuery($udsql);
-	$ml_data = $db3->loadRow();
-	$mlv = $ml_data['lv'];
-	$mbv = $ml_data['back_value'];
-	if($mlv >= 10){
-		$m_discount = $mbv;
-	}
-	$_SESSION[$conf_user]['m_discount_rate'] = $m_discount;
-
 	if($activeChk == 'true')
 	{
 		$proArr=CartProductInfo2($cart,'false');
@@ -2209,7 +2115,7 @@ function showlist(){
 		$proArr=CartProductInfo2($cart,null,true);
 	}
 	
-	if($mode == 'cart' && $activeChk != 'true')
+	if(($mode == 'cart' || $mode == 'twcart') && $activeChk != 'true')
 	{
 		$addPro=$_SESSION[$conf_user]['amtpro_list'];
 		
@@ -2225,12 +2131,16 @@ function showlist(){
 					$proArr['data'][] = $row;
 				}
 				
-				$proArr['total'] += ($amtproArr['total']);
-				$proArr['amt'] += ($amtproArr['amt']);
+				$proArr['total'] += intval($amtproArr['total']);
+				$proArr['amt'] += intval($amtproArr['amt']);
 			}
 			
 			
-			$_SESSION[$conf_user]["cart_list_mode"]='cart';
+			if ($cm == '1') {
+				$_SESSION[$conf_user]["cart_list_mode"] = 'twcart';
+			} else {
+				$_SESSION[$conf_user]["cart_list_mode"] = 'cart';
+			}
 		}
 		
 		
@@ -2257,10 +2167,15 @@ function showlist(){
 				}
 			}
 			
-			$_SESSION[$conf_user]["cart_list_mode"]='cart';
+			if ($cm == '1') {
+				$_SESSION[$conf_user]["cart_list_mode"] = 'twcart';
+			} else {
+				$_SESSION[$conf_user]["cart_list_mode"] = 'cart';
+			}
 		}
 		
 	}
+
 	
 
 	$data['list']=$proArr['data'];
@@ -2280,19 +2195,35 @@ function showlist(){
 	$member['canton']['id']=$r['canton'];
 	$member['city']['id']=$r['city'];
 	$member['salesChk']=$r['salesChk'];	
-
-	$onlyMember = $r['onlyMember'];
 	
 	
 	$invoice=getFieldValue("select invoice from siteinfo","invoice");
 	
 	$_SESSION[$conf_user]['proArr']=$proArr;
 	$_SESSION[$conf_user]['usecoin']=intval($proArr['usecoin']);
-	$dlvrAmt=$_SESSION[$conf_user]['dlvrAmt']-$proArr['disDlvrAmt'];
+
+
+	$is_twcart = $_SESSION[$conf_user]['is_twcart_cart'];
+	if ($is_twcart == '1') {
+		$getdlvr = 'f_main_dlvr';
+	} else if ($is_twcart == '0') {
+		$getdlvr = 'main_dlvr';
+	}
+	if ($activeChk == 'true') {
+		// JsonEnd(array('status'=>'1','aa'=>$proArr));
+		$logres = logisitics_type($_SESSION[$conf_user]['logistics_type'], null, $getdlvr,$proArr['total']);
+	} else {
+		$logres = logisitics_type($_SESSION[$conf_user]['logistics_type'], null, $getdlvr);
+	}
+
+
+
+
+
+	// $dlvrAmt=$_SESSION[$conf_user]['dlvrAmt']-intval($proArr['disDlvrAmt']);
+	$dlvrAmt = $logres['dlvr'] - intval($proArr['disDlvrAmt']);
 	$_SESSION[$conf_user]['realDlvrAmt']=$dlvrAmt;
 	$_SESSION[$conf_user]['totalAmt']=$proArr['amt']-intval($proArr['usecoin']);
-	$_SESSION[$conf_user]['ntotalAmt']=$proArr['namt'];
-	// JsonEnd(array("status"=>1,"n"=>$proArr));
 
 	$payable=true;
 	$bonusArr=array();
@@ -2311,7 +2242,6 @@ function showlist(){
 	$pv = 0;
 	$bv = 0;
 	$bouns = 0;
-	$m_dis = 0;
 	$pvbvratio = (float)getFieldValue("SELECT pvbvratio FROM siteinfo","pvbvratio");
 	if($member['salesChk'] == '1')
 	{
@@ -2327,11 +2257,10 @@ function showlist(){
 				else
 				{
 					$tmp_pv = $row['prodtl_pv'];
-					$tmp_dis = $row['prodtl_discount'];
-					$pv = bcadd($pv,$tmp_pv,2);
-					$m_dis = bcadd($m_dis,$tmp_dis,2);
-					// $pv += $tmp_pv;
-
+					$pv += $tmp_pv;
+					
+					
+					
 				}
 			}
 		}
@@ -2345,7 +2274,7 @@ function showlist(){
 	else
 	{
 		
-		if($mode == 'cart')
+		if($mode == 'cart' || $mode == 'twcart')
 		{
 			
 			$bouns1 = intval(getFieldValue("select bouns1 from siteinfo","bouns1"));	
@@ -2358,7 +2287,7 @@ function showlist(){
 		}
 	}
 	
-	if($mode == 'cart' && $activeChk != 'true')
+	if(($mode == 'cart' || $mode == 'twcart') && $activeChk != 'true')
 	{
 		
 		if(count($proArr['active_list']) > 0)
@@ -2385,14 +2314,14 @@ function showlist(){
         $activeBundlePv=0;
         $activeBundleBv=0;
         foreach($activeBundleCart as $key=>$value){
-            $activeBundlePrice=bcadd($value['price'],$activeBundlePrice,2);
-            $activeBundlePv=bcadd($value['pv'],$activeBundlePv,2);
+            $activeBundlePrice+=$value['price'];
+            $activeBundlePv+=$value['pv'];
             $activeBundleBv+=$value['bv'];
         }
         $_SESSION[$conf_user]['activeBundlePrice']=$activeBundlePrice;
         $_SESSION[$conf_user]['activeBundlePv']=$activeBundlePv;
         $_SESSION[$conf_user]['activeBundleBv']=$activeBundleBv;
-        $pv = bcadd($pv,$activeBundlePv,2);
+        $pv+=$activeBundlePv;
         $bv+=$activeBundleBv;
     }
 
@@ -2458,7 +2387,10 @@ function showlist(){
 		}		
 	}
 	
-	
+	$sisql = "SELECT * from siteinfo";
+	$db->setQuery($sisql);
+	$siteinfo = $db->loadRow();
+	$tax_fee = $siteinfo['taxrate'] / 100;
 
 	$use_p=$_SESSION[$conf_user]['use_p']; //檢測是否有選使用購物金
 	if($use_p == 1){
@@ -2467,7 +2399,8 @@ function showlist(){
 		$use_points = 0;
 	}
 	
-	
+	$u_data = get_user_info_m();
+	$mb_no = $u_data['mb_no'];
 	$psql = "SELECT p.*,pk.type as p_type from points as p,point_kind as pk where p.mb_no = '$mb_no' and p.is_invalid = '0' and p.kind = pk.kind";
 	$db3->setQuery($psql);
 	$plist = $db3->loadRowList();
@@ -2490,6 +2423,7 @@ function showlist(){
 		$a_use_points = 0;
 	}
 
+
 	//檢測回饋點
 	$cb_use_p = $_SESSION[$conf_user]['cb_use_p']; //檢測是否有選使用購物金	
 	if ($cb_use_p == 1) {
@@ -2498,23 +2432,27 @@ function showlist(){
 		$cb_use_points = 0;
 	}
 	$now_date = date('Y-m-d');
-	$cb_gpoints = 0;
-	$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date'";
-	$db3->setQuery($csql);
-	$cgetlist = $db3->loadRow();
-	if (!empty($cgetlist)) {
-		$cb_gpoints = $cgetlist['cb_points']; //目前可用的得到點數
-	}
-	$usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date > '$now_date'";
-	$db3->setQuery($usql);
-	$cuselist = $db3->loadRow();
-	if (!empty($cuselist)) {
-		$cb_upoints = $cuselist['cb_points']; //目前已使用的得到點數
-	}
+	//回饋點相關資料
+	$CBData = get_cash_back(0, $now_date);
+	$now_cb_points = $CBData['point'];
+	// $cb_gpoints = 0;
+	// $csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date'";
+	// $db3->setQuery($csql);
+	// $cgetlist = $db3->loadRow();
+	// if (!empty($cgetlist)) {
+	// 	$cb_gpoints = $cgetlist['cb_points']; //目前可用的得到點數
+	// }
+	// $usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date > '$now_date'";
+	// $db3->setQuery($usql);
+	// $cuselist = $db3->loadRow();
+	// if (!empty($cuselist)) {
+	// 	$cb_upoints = $cuselist['cb_points']; //目前已使用的得到點數
+	// }
 
-	$now_cb_points =floatval($cb_gpoints) - floatval($cb_upoints);
+	// $now_cb_points = (int)($cb_gpoints) - (int)($cb_upoints);
+
 	if ($now_cb_points >= $cb_use_points) {
-		$b_use_points = floatval($cb_use_points);
+		$b_use_points = (int)$cb_use_points;
 	} else {
 		$b_use_points = 0;
 	}
@@ -2522,57 +2460,16 @@ function showlist(){
 		$b_use_points = 0;
 	}
 
-	$sisql = "SELECT * from siteinfo";
-	$db->setQuery($sisql);
-	$siteinfo = $db->loadRow();
-	
-	$tax_fee = $siteinfo['taxrate'] / 100;
-	
-	$ntotal = $_SESSION[$conf_user]['ntotalAmt'];
-	
-	$ctotal = bcsub($ntotal,$a_use_points,3);
-	$ctotal = bcsub($ctotal,$b_use_points,3);
-	
-	$ctotal = bcsub($ctotal,$m_dis,3);
-	if($ctotal < 0){
-		$ctotal = 0;
-	}
-	// JsonEnd(array("status"=>'1',"n"=>$ntotal));
-	$state_s = $user_res_info['state']['state_s'];
-	$state = $user_res_info['state']['id'];
-	if($state == '5' && $state_s == 'CA'){
-		$taxrate = $siteinfo['taxrate'] / 100;
-		$ntax_fee = bcmul($ctotal,$taxrate,3);
-		$ntax_fee = round($ntax_fee,2);
-	}else{
-		$taxrate = 0;
-		$ntax_fee = '0';
-	}
-
-	
-	$_SESSION[$conf_user]['m_discount'] = round(bcmul($m_discount,$proArr['total'],3),2);
-
 	
 	$finalccv = $proArr['totalccv'] - $proArr['discount'];
-
-	
-	$status = '1';
-	
-	$msg = '';
-	if(isset($upsp_status['err']) && $upsp_status['err'] == 'yes'){
-		$status = '2';
-		$msg = $upsp_status['code'];
-	}
-
 	JsonEnd(
 		array(
-			"status" => $status, 
+			"status" => 1, 
 			"data"=>$data,
 			"activeBundleCart"=>$activeBundleCart,
 			"total"=>$proArr['total'],
 			"totalccv"=>$finalccv,
 			"tax_fee"=>$tax_fee,
-			"ntax_fee"=>$ntax_fee,
 			"amt"=>$proArr['amt'],
 			"active_list"=>$proArr['active_list'],
 			"discount"=>$proArr['discount'],
@@ -2585,355 +2482,16 @@ function showlist(){
 			"mode"=>$mode,
 			"bonusArr"=>$bonusArr,
 			"pv"=>$pv,
-			"m_dis"=>$m_dis,
 			"bv"=>$bv,
 			"bouns"=>$bouns,
 			"activeChk"=>$activeChk,
-			"use_p"=>$use_p,
-			"use_points"=>$a_use_points,
+			"use_p" => $use_p,
+			"use_points" => $a_use_points,
 			"cb_use_p" => $cb_use_p,
-			"cb_use_points" => $b_use_points,
-			"userinfo"=>$user_res_info,
-			"m_discount_rate"=>$m_discount,
-			"te" => $_SESSION[$conf_user]['m_discount'],
-			"upsp_status" => $upsp_status,
-			"msg" => $msg,
-			"c" => $c_discount,
-			"t" => $ctotal
-
+			"cb_use_points" => $b_use_points
 		)
 	);
 	
-}
-
-
-function order_submit_auth($type=null){
-	global $db,$conf_user,$tablename,$conf_php,$real_domain,$HTTP_X_FORWARDED_PROTO;
-
-	
-	
-	$uid=intval($_SESSION[$conf_user]['uid']);
-	
-	if($uid==0){	
-		header("Location: ".$HTTP_X_FORWARDED_PROTO."://".$_SERVER['HTTP_HOST']."/"); 
-	}
-
-	
-	$id = global_get_param( $_POST, 'id', null ,0,1);
-	
-	$sql="select * from orders where id='$id' AND memberid='$uid'";
-	$db->setQuery($sql);
-	$r=$db->loadRow();
-	$o_orderNum = $r['orderNum'];
-	$orderNum = $r['orderNum'];
-	$orderNum = str_replace("1S010-","1S010",$orderNum);
-	$orderNum = str_replace("3S010-","3S010",$orderNum);
-	$orderNum = str_replace("3U010-","3U010",$orderNum);
-	$totalAmt = $r['totalAmt'];
-	$m_discount = $r['m_discount'];
-	$use_points = $r['use_points'];
-	$cb_use_points = $r['cb_use_points'];
-	$total = bcsub($totalAmt,$m_discount,2);
-	$total = bcsub($total,$use_points,2);
-	$total = bcsub($total,$cb_use_points,2);
-	
-	if(empty($type))
-	{
-		$type = ($r['payType'] == '6') ? 'tspg' : '';
-	}
-
-
-	$payInfo = array();
-	$credit = $_SESSION[$conf_user]['credit_card_info'];
-	$bill = $_SESSION[$conf_user]['bill_info'];
-	$payInfo['credit'] = $credit;
-	$payInfo['bill'] = $bill;
-
-	
-
-	if($total == '0'){
-		$sql = "select ERPID,onlyMember from members where id ='$uid'";
-		$db->setQuery($sql);
-		$m=$db->loadRow();
-		$mb_no = $r['ERPID'];
-
-		use_points_fn($mb_no,$o_orderNum,$use_points);
-
-		cb_use_points_fn($mb_no,$o_orderNum,$cb_use_points);
-		
-		cartcvs_send_mail_fn($o_orderNum,$total);
-
-
-		
-		if($m['onlyMember'] == '1'){
-			$get_point_url = "http://192.168.7.46/money_bank_test/public/api/front_orders/calc_points/".$o_orderNum;
-			$results = file_get_contents($get_point_url);
-		}
-		
-		$get_point_url2 = "http://192.168.7.46/money_bank_test/public/api/front_orders/calc_cb_points/".$o_orderNum;
-		$results2 = file_get_contents($get_point_url2);
-		JsonEnd(array("status"=>'9',"msg"=>_TOTAL_AMT_0)); //免付費狀態
-	}else{
-		if(empty($credit['card_number']) || empty($credit['card_cvv'])){
-			JsonEnd(array("status"=>'0',"c"=>$credit));
-		}
-		$c_status = chargeCreditCard($total,$orderNum);
-		
-		//隱藏該筆訂單
-		if($c_status['status']!='1'){
-			JsonEnd(array("status"=>'pay_failed',"orderNum"=>$o_orderNum,"c_status"=>$c_status));
-		}
-
-		JsonEnd(array("status"=>$c_status['status'],"orderNum"=>$o_orderNum));
-	}
-	
-	
-		
-}
-
-function chargeCreditCard($amount,$orderNum)
-{
-	global $db,$db2,$conf_user;
-	$res = array();
-	$credit_info = $_SESSION[$conf_user]['credit_card_info'];
-	$bill_info = $_SESSION[$conf_user]['bill_info'];
-	$uemail=$_SESSION[$conf_user]['uemail'];
-	$uname=$_SESSION[$conf_user]['uname'];
-	$umobile=$_SESSION[$conf_user]['umobile'];
-	$uaddress=$_SESSION[$conf_user]['uaddress'];
-	$ucanton=$_SESSION[$conf_user]['ucanton'];
-	$ucity=$_SESSION[$conf_user]['ucity'];
-	$testmode = '1';
-    /* Create a merchantAuthenticationType object with authentication details
-       retrieved from the constants file */
-    // $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-    // $merchantAuthentication->setName(\SampleCodeConstants::MERCHANT_LOGIN_ID);
-    // $merchantAuthentication->setTransactionKey(\SampleCodeConstants::MERCHANT_TRANSACTION_KEY);
-
-	// $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-	// $merchantAuthentication->setName("96Z3uYdS");
-	// $merchantAuthentication->setTransactionKey("9B3rFn4zm7j778Jq");
-	$merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-	if($testmode == '1'){
-		$merchantAuthentication->setName("5Y6V7hEu4");
-		$merchantAuthentication->setTransactionKey("633LV5ep7rNet9V5");
-	}else{
-		$merchantAuthentication->setName("96Z3uYdS");
-		$merchantAuthentication->setTransactionKey("9B3rFn4zm7j778Jq");
-	}
-
-	$sql = "SELECT orderNum FROM orderanLog WHERE orderNum like '$orderNum%' ORDER BY id DESC LIMIT 0,1";
-	
-	$db->setQuery($sql);
-	$log=$db->loadRow();
-	$o_orderNum = $orderNum;
-	$o_orderNum = str_replace("1S010","1S010-",$o_orderNum);
-	$o_orderNum = str_replace("3S010","3S010-",$o_orderNum);
-	$o_orderNum = str_replace("3U010","3U010-",$o_orderNum);
-	if(count($log)>0)
-	{
-		$last_MerchantTradeNo = $log['orderNum'];
-		$index = (int)substr($last_MerchantTradeNo,-2) + 1;
-		$index_str = ($index < 10) ? "0$index" : "$index";
-		$orderNum = $orderNum.$index_str;
-	}
-	else
-	{
-		$orderNum = $orderNum."01";
-	}
-    
-    // Set the transaction's refId
-    $refId = 'ref' . $orderNum;
-
-    // Create the payment data for a credit card
-    $creditCard = new AnetAPI\CreditCardType();
-	$expiredate = $credit_info['card_year'] . '-' . str_pad($credit_info['card_month'],2,'0',STR_PAD_LEFT);
-    $creditCard->setCardNumber($credit_info['card_number']);
-    $creditCard->setExpirationDate($expiredate);
-    $creditCard->setCardCode($credit_info['card_ccv']);
-
-    // Add the payment data to a paymentType object
-    $paymentOne = new AnetAPI\PaymentType();
-    $paymentOne->setCreditCard($creditCard);
-
-    // Create order information
-    $order = new AnetAPI\OrderType();
-    $order->setInvoiceNumber($orderNum);
-    // $order->setDescription("Golf Shirts");
-
-    // Set the customer's Bill To address
-    $customerAddress = new AnetAPI\CustomerAddressType();
-    $customerAddress->setFirstName($bill_info['name']);
-    $customerAddress->setLastName($bill_info['l_name']);
-    // $customerAddress->setCompany("Homeway");
-    $customerAddress->setAddress($bill_info['address']);
-    $customerAddress->setCity($bill_info['city']);
-    $customerAddress->setState($bill_info['state']['state_s']);
-    $customerAddress->setZip($bill_info['zip']);
-    $customerAddress->setCountry("USA");
-    $customerAddress->setPhoneNumber($umobile);
-
-    // Set the customer's identifying information
-    $customerData = new AnetAPI\CustomerDataType();
-    $customerData->setType("individual");
-	$u_data = get_user_info_m();
-	$mb_no = $u_data['mb_no'];
-    $customerData->setId($mb_no);
-    $customerData->setEmail($uemail);
-
-    // Add values for transaction settings
-    $duplicateWindowSetting = new AnetAPI\SettingType();
-    $duplicateWindowSetting->setSettingName("duplicateWindow");
-    $duplicateWindowSetting->setSettingValue("28800");
-
-    // Add some merchant defined fields. These fields won't be stored with the transaction,
-    // but will be echoed back in the response.
-    $merchantDefinedField1 = new AnetAPI\UserFieldType();
-    $merchantDefinedField1->setName("customerCompanyName");
-    $merchantDefinedField1->setValue("1128836273");
-
-    $merchantDefinedField2 = new AnetAPI\UserFieldType();
-    $merchantDefinedField2->setName("favoriteColor");
-    $merchantDefinedField2->setValue("blue");
-
-    // Create a TransactionRequestType object and add the previous objects to it
-    $transactionRequestType = new AnetAPI\TransactionRequestType();
-    $transactionRequestType->setTransactionType("authCaptureTransaction");
-    $transactionRequestType->setAmount($amount);
-    $transactionRequestType->setOrder($order);
-    $transactionRequestType->setPayment($paymentOne);
-    $transactionRequestType->setBillTo($customerAddress);
-    $transactionRequestType->setCustomer($customerData);
-    $transactionRequestType->addToTransactionSettings($duplicateWindowSetting);
-    // $transactionRequestType->addToUserFields($merchantDefinedField1);
-    // $transactionRequestType->addToUserFields($merchantDefinedField2);
-
-    // Assemble the complete transaction request
-    $request = new AnetAPI\CreateTransactionRequest();
-    $request->setMerchantAuthentication($merchantAuthentication);
-    $request->setRefId($refId);
-    $request->setTransactionRequest($transactionRequestType);
-
-    // Create the controller and get the response
-    $controller = new AnetController\CreateTransactionController($request);
-	if($testmode == '1'){
-		$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-	}else{
-		$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-	}
-
-    $log = array();
-	$log['type'] = 'add';
-	$log['orderNum'] = $orderNum;
-	$log['createTime'] = date('Y-m-d H:i:s');
-	$log['ip'] = getIP();
-	$log['sendData'] = json_encode($request);
-	$log['last_4_digit_of_pan'] = substr($credit_info['card_number'],'-4');
-    $dsql = dbInsert('orderanlog',$log);
-	$db->setQuery($dsql);
-	$db->query();
-
-
-    if ($response != null) {
-        // Check to see if the API request was successfully received and acted upon
-        if ($response->getMessages()->getResultCode() == "Ok") {
-            // Since the API request was successful, look for a transaction response
-            // and parse it to display the results of authorizing the card
-            $tresponse = $response->getTransactionResponse();
-        
-            if ($tresponse != null && $tresponse->getMessages() != null) {
-                // echo " Successfully created transaction with Transaction ID: " . $tresponse->getTransId() . "\n";
-                // echo " Transaction Response Code: " . $tresponse->getResponseCode() . "\n";
-				$errcode = $tresponse->getResponseCode();
-                // echo " Message Code: " . $tresponse->getMessages()[0]->getCode() . "\n";
-                // echo " Auth Code: " . $tresponse->getAuthCode() . "\n";
-                // echo " Description: " . $tresponse->getMessages()[0]->getDescription() . "\n";
-				$res['status'] = '1';
-				$res['err'] = $tresponse->getMessages()[0]->getDescription();
-            } else {
-                // echo "Transaction Failed \n";
-                if ($tresponse->getErrors() != null) {
-                    // echo " Error Code  : " . $tresponse->getErrors()[0]->getErrorCode() . "\n";
-					$errcode = $tresponse->getErrors()[0]->getErrorCode();
-                    // echo " Error Message : " . $tresponse->getErrors()[0]->getErrorText() . "\n";
-					$res['err'] = $response->getMessages()->getMessage()[0]->getText();
-                }
-				$res['status'] = '2';
-            }
-            // Or, print errors if the API request wasn't successful
-        } else {
-            // echo "Transaction Failed \n";
-            $tresponse = $response->getTransactionResponse();
-        
-            if ($tresponse != null && $tresponse->getErrors() != null) {
-                // echo " Error Code  : " . $tresponse->getErrors()[0]->getErrorCode() . "\n";
-				$errcode = $tresponse->getErrors()[0]->getErrorCode();
-                // echo " Error Message : " . $tresponse->getErrors()[0]->getErrorText() . "\n";
-				$res['err'] = $response->getMessages()->getMessage()[0]->getText();
-            } else {
-                // echo " Error Code  : " . $response->getMessages()->getMessage()[0]->getCode() . "\n";
-				$errcode = $response->getMessages()->getMessage()[0]->getCode();
-                // echo " Error Message : " . $response->getMessages()->getMessage()[0]->getText() . "\n";
-				$res['err'] = $response->getMessages()->getMessage()[0]->getText();
-            }
-			$res['status'] = '2';
-        }
-    } else {
-        // echo  "No response returned \n";
-		$res['status'] = '3';
-    }
-
-	$logr = array();
-	$logr['type'] = 'Return';
-	$logr['orderNum'] = $orderNum;
-	$logr['createTime'] = date('Y-m-d H:i:s');
-	$logr['ip'] = getIP();
-	$logr['authcode'] = $tresponse->getAuthCode();
-	$logr['sendData'] = json_encode($request);
-	$logr['responseData'] = json_encode($response);
-	$logr['retCode'] = $errcode;
-	$logr['last_4_digit_of_pan'] = substr($credit_info['card_number'],'-4');
-    $dsqlr = dbInsert('orderanlog',$logr);
-	$db->setQuery($dsqlr);
-	$db->query();
-
-	//更新付款狀態
-	$now = date('Y-m-d H:i:s');
-	$today = date('Y-m-d');
-	if($res['status'] == '1'){
-		$sql = "SELECT * FROM orders where orderNum = '$o_orderNum'";
-		$db->setQuery($sql);
-		$od = $db->loadRow();
-		$oid = $od['id'];
-		$memberid = $od['memberid'];
-		$sql = "select onlyMember from members where id ='$memberid'";
-		$db->setQuery($sql);
-		$m=$db->loadRow();
-		$osql = "UPDATE orders set status = '1',finalPayDate = '$now' where orderNum = '$o_orderNum'";
-		$db->setQuery($osql);
-		$db->query();
-
-		$olsql="insert into orderlog (oid,cdate,status,ctime,mtime,muser) values ('$oid','$today','1','$now','$now','$memberid');";
-		$db->setQuery( $olsql );
-		$db->query();
-
-		if($m['onlyMember'] == '1'){
-			$get_point_url = "http://192.168.7.46/money_bank_test/public/api/front_orders/calc_points/".$o_orderNum;
-			$results = file_get_contents($get_point_url);
-		}
-		
-		$get_point_url2 = "http://192.168.7.46/money_bank_test/public/api/front_orders/calc_cb_points/".$o_orderNum;
-		$results2 = file_get_contents($get_point_url2);
-
-		//tomlm
-		toMLM($oid,$amount);
-		
-
-	}
-
-	
-
-    return $res;
 }
 
 include( $conf_php.'common_end.php' ); 

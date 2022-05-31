@@ -138,10 +138,130 @@ app.controller('payconfig_page',['$rootScope','$scope','CRUD','$location','$rout
 				if(res.status == 1) {
 					my.siteinfo_dtl=res.data;
 					my.moneyList=res.moneyList;
+					my.lg_list = res.lg_list;
 				}
 			});
 		}
 		my.detail();
+
+
+		my.lg_reset = function(){
+			my.lg_edit_status = '0';
+			my.lg = [];
+		}
+
+		my.addlg = function(){
+			$err2 = 0;
+			console.log(my.lg);
+			params = {
+				task:'add_lg',
+				company:my.lg.company,
+				main_dlvr:my.lg.main_dlvr,
+				outlying_dlvr:my.lg.outlying_dlvr,
+				f_main_dlvr:my.lg.f_main_dlvr,
+				f_outlying_dlvr:my.lg.f_outlying_dlvr,
+				f_outlying_dlvr_basic:my.lg.f_outlying_dlvr_basic,
+				main_fst:my.lg.main_fst,
+				outlying_fst:my.lg.outlying_fst,
+				f_main_fst:my.lg.f_main_fst,
+				f_outlying_fst:my.lg.f_outlying_fst,
+				having_outlying:my.lg.having_outlying
+			}
+			if(!my.lg.company || my.lg.company == null){
+				$err2++;
+				error('請填寫物流公司名稱');
+			}
+			if(!my.lg.main_dlvr || !my.lg.outlying_dlvr || !my.lg.f_main_dlvr || !my.lg.f_main_dlvr_basic || !my.lg.f_outlying_dlvr){
+				$err2++;
+				error('請填寫運費相關設定');
+			}
+			if(!my.lg.main_fst || !my.lg.outlying_fst || !my.lg.f_main_fst || !my.lg.f_outlying_fst){
+				$err2++;
+				error('請填寫免運門檻相關');
+			}
+
+			CRUD.update(params, "POST").then(function(res) {
+				if(res.status == 1) {
+					$route.reload();
+					$('.closing_btn').click();
+				}
+			});
+			
+		}
+
+		my.get_lg = function(id){
+			console.log(id);
+			params = {
+				task : 'get_lg',
+				id : $gid
+			}
+			CRUD.detail(params, "POST").then(function(res) {
+				if(res.status == 1) {
+					$route.reload();
+					$('.closing_btn').click();
+				}
+			});
+		}
+
+		my.lg_del = function(id){
+			console.log(id);
+			if (confirm("確定要刪除?")) {
+				params = {
+					task:'lg_delete',
+					id:id
+				};
+				CRUD.update(params, "POST").then(function(res) {
+					if(res.status == 1) {
+						$route.reload();
+						success('已更新');
+					}
+				});
+				
+			 }
+		}
+
+		my.lg_edit_pre = function(id){
+			params = {
+				task: 'lg_get',
+				id:id
+			}
+			CRUD.update(params, "POST").then(function(res) {
+				if(res.status == 1) {
+					my.lg = res.data;
+					my.lg_edit_status = '1';
+				}
+			});
+		}
+
+		my.lg_edit = function(){
+			params = {
+				task:'lg_edit',
+				id:my.lg.id,
+				company:my.lg.company,
+				main_dlvr:my.lg.main_dlvr,
+				outlying_dlvr:my.lg.outlying_dlvr,
+				f_main_dlvr:my.lg.f_main_dlvr,
+				f_outlying_dlvr:my.lg.f_outlying_dlvr,
+				f_outlying_dlvr_basic:my.lg.f_outlying_dlvr_basic,
+				main_fst:my.lg.main_fst,
+				outlying_fst:my.lg.outlying_fst,
+				f_main_fst:my.lg.f_main_fst,
+				f_outlying_fst:my.lg.f_outlying_fst,
+				having_outlying:my.lg.having_outlying
+			};
+			CRUD.detail(params, "POST").then(function(res) {
+				console.log(res);
+				if(res.status == 1) {
+					$route.reload();
+					success('已更新');
+				}else if(res.status == '0'){
+
+					console.log('err');
+					error('物流重複');
+				}
+			});
+		}
+
 	}
 }]);
 

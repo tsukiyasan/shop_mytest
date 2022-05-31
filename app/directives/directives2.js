@@ -507,6 +507,7 @@ angular.module('goodarch2uApp').directive("advContent",function(CRUD,$location,f
 				CRUD.setUrl("app/controllers/eways.php");
 				CRUD.list({task: 'getAdvContent',index:$scope.index}, "GET").then(function(res){
 					if(res.status == 1) {
+						console.log(res);
 						self.advlist[$scope.index] = res.data;
 						self.viewmode=res.viewmode?res.viewmode:2;
 					}
@@ -871,6 +872,61 @@ angular.module('goodarch2uApp').directive("onFinishRender", function ($timeout) 
 		}
 	}
 });
+
+angular.module("goodarch2uApp").directive("imgFields", function () {
+	return {
+	  require: "ngModel",
+	  restrict: "E",
+	  link: function (scope, element, attrs, ngModel) {
+		if (!attrs.class && !attrs.ngClass) {
+		  element.addClass("btn");
+		}
+  
+		if (typeof attrs.imgOnly != undefined) {
+		  element.find("input").attr("accept", "image/jpeg, image/png");
+		}
+		if (attrs.allFile) {
+		  element.find("input").attr("accept", "");
+		}
+		var fileField = element.find("input");
+		fileField.bind("change", function (event) {
+		  scope.$evalAsync(function () {
+			if (event.target.files[0]) {
+			  ngModel.$setViewValue(event.target.files[0]);
+			  if (attrs.preview) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+				  scope.$evalAsync(function () {
+					if (attrs.seq2) {
+					  if (!scope[attrs.preview][attrs.seq])
+						scope[attrs.preview][attrs.seq] = [];
+					  scope[attrs.preview][attrs.seq][attrs.seq2] =
+						e.target.result;
+					} else {
+					  if (!scope[attrs.preview]) scope[attrs.preview] = [];
+					  scope[attrs.preview][attrs.seq] = e.target.result;
+					}
+				  });
+				};
+				reader.readAsDataURL(event.target.files[0]);
+			  }
+			}
+		  });
+		});
+		fileField.bind("click", function (e) {
+		  e.stopPropagation();
+		});
+		element.bind("click", function (e) {
+		  e.preventDefault();
+		  fileField[0].click();
+		});
+	  },
+	  template:
+		'<button type="button"><ng-transclude></ng-transclude><input type="file" imgOnly style="display:none"></button>',
+	  replace: true,
+	  transclude: true,
+	};
+  });
 
 angular.module('goodarch2uApp').directive("productList",function(CRUD,$location,$route,$sce,store,sessionCtrl){
 

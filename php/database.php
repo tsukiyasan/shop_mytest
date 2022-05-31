@@ -742,6 +742,21 @@ class database {
 		.($showSQL ? "<br />SQL = <pre>$this->_sql</pre>" : '');
 	}
 
+	// function insertid()
+	// {
+	// 	global $Conf_pdo;
+		
+	// 	if($Conf_pdo == 'pdo')
+	// 	{
+	// 		return $this->_resource->lastInsertId();
+	// 	}
+	// 	else
+	// 	{
+	// 		return mysql_insert_id();
+	// 	}
+	// }
+
+	
 	function insertid()
 	{
 		global $Conf_pdo;
@@ -752,7 +767,9 @@ class database {
 		}
 		else
 		{
-			return mysql_insert_id();
+			$id = getFieldValue("SELECT LAST_INSERT_ID()","LAST_INSERT_ID()");
+			return $id;
+			// return mysql_insert_id();
 		}
 	}
 

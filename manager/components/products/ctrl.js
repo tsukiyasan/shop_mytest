@@ -457,11 +457,15 @@ app.controller('products_list',['$rootScope','$scope','$http','$location','$rout
 	};
 		
 	my.toggleAll = function(item,list,index) {
+		
+		
 		if (list.length === item.length) {
 			my.proTypeArrays[index][6] = [];
+			my.proTypeArrays[index][3] = [];
 		} else if (list.length === 0 || list.length > 0) {
 			my.proTypeArrays[index][6] = my.proTypeArrays[index][4].slice(0);
 		}
+		console.log(my.proTypeArrays);
 	};
 	
 	my.isOpen = function(index) {	
@@ -615,11 +619,11 @@ app.controller('products_list',['$rootScope','$scope','$http','$location','$rout
 		if(CKEDITOR.instances.products_content){
 			content=CKEDITOR.instances.products_content.getData();
 		}
-		if(!content)
-		{
-			error($translate.instant('lg_products.var03')+$translate.instant('lg_main.empty'));
-			return false;
-		}	
+		// if(!content)
+		// {
+		// 	error($translate.instant('lg_products.var03')+$translate.instant('lg_main.empty'));
+		// 	return false;
+		// }	
 		
 		my.products_dtl.bv = my.products_dtl.pv * my.pvbvratio;
 		
@@ -633,7 +637,7 @@ app.controller('products_list',['$rootScope','$scope','$http','$location','$rout
 			need_tax:my.products_dtl.need_tax,
 			hotChk:my.products_dtl.hotChk,
 			usebonus:my.products_dtl.usebonus,
-			var03:content,
+			// var03:content,
 			var04:my.products_dtl.var04,
 			var05:my.products_dtl.var05,
 			img: $scope.previewImage,
@@ -659,6 +663,8 @@ app.controller('products_list',['$rootScope','$scope','$http','$location','$rout
 			bv:my.products_dtl.bv,
 			ccv: my.products_dtl.ccv,
 			nccbChk: my.products_dtl.nccbChk,
+			forTW: my.products_dtl.forTW,
+			notomChk: my.products_dtl.notomChk,
 			newDate:my.products_dtl.newDate
 		};
 		

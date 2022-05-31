@@ -48,6 +48,8 @@
 	"bv": "BV",
 	"ccv": "MV",
 	"not_count_cb":"不計算回饋點",
+	"not_for_om":"會員不能買",
+	"forTW":"台灣商品",
 	"setting": "規格設定",
 	"format1": "規格一",
 	"format2": "規格二",

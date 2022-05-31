@@ -60,6 +60,15 @@
         "param": {
         }
     },
+    "poster": {
+        "name":"優惠海報管理",
+        "icon": "fa fa-picture-o",
+        "page": "list",
+        "dbpage": "false",
+        "component":"poster",
+        "param": {
+        }
+    },
     "uploadfiles": {
         "name":"檔案上傳管理",
         "icon": "fa fa-file-o",
@@ -204,6 +213,7 @@
         "dbpage": "false",
         "tablename": "p_to_m",
         "component":"p_to_m",
+        "hide": "true",
         "param": {
         }
     },

@@ -118,6 +118,7 @@ DEFINE('_COMMON_QUERYMSG_ADD_SUS','Added completed');
 DEFINE('_COMMON_QUERYMSG_ADD_ERR','Added failed');
 DEFINE('_COMMON_QUERYMSG_UPD_SUS','Update completed');
 DEFINE('_COMMON_QUERYMSG_UPD_ERR','Update failed');
+DEFINE('_COMMON_QUERYMSG_SAM_TIT','Same Title');
 DEFINE('_COMMON_QUERYMSG_DEL_SUS','Delete completed ');
 DEFINE('_COMMON_QUERYMSG_DEL_ERR','Delete failed');
 
@@ -448,7 +449,7 @@ DEFINE("_EMAIL_msg1","To verify your email address,");
 DEFINE("_EMAIL_msg2","please use the following One Time Password (OTP):");
 DEFINE("_EMAIL_msg3","");
 DEFINE("_EMAIL_msg4","Please enter your basic information and complete email verification within 15 minutes.");
-DEFINE("_EMAIL_msg5","※ This email is a systematic automatic email, please do not reply. If you have any questions, please contact our service line (626) 961 - 6059. Thank you.");
+DEFINE("_EMAIL_msg5","※ This email is a systematic automatic email, please do not reply. If you have any questions, please contact our service line (603) 9054 - 7589. Thank you.");
 DEFINE("_EMAIL_msg6","Homeway GoodARCH Website：");
 DEFINE("_EMAIL_msg7","Homeway GoodARCH Online shopping：");
 DEFINE("_EMAIL_msg8","");
@@ -456,7 +457,7 @@ DEFINE("_EMAIL_msg9"," Homeway GoodARCH");
 DEFINE("_EMAIL_msg10","Registration success ");
 DEFINE("_EMAIL_msg11","Welcome  to Homeway GoodARCH!We are so glad you joined us.");
 DEFINE("_EMAIL_msg12","Note: Please do not reply to this email as this is an automatic response to your registration. Please contact our customer service personnel if you have any inquiries, thank you.");
-DEFINE("_EMAIL_msg13","2993,600");
+DEFINE("_EMAIL_msg13","360");
 DEFINE("_EMAIL_msg14","online rebate points have been added to your account.");
 DEFINE("_EMAIL_msg15","Lets use it now!");
 DEFINE("_EMAIL_msg16","Let's Shop → ");
@@ -482,7 +483,32 @@ DEFINE("_TOTAL_AMT_0","Your order has been submitted");
 DEFINE("_PM_DONE","Done。");
 DEFINE("_PM_FAIL","Failed。");
 
-
+//補翻譯
+DEFINE("_MEMBER_SUCCESS_SMS","Dear member, congratulations on your successful registration, welcome to GoodARCH and thank you for joining us. You can access the online shopping platform with your registered ID and password and start your purchases!");
+DEFINE("_MEMBER_SID_USED","Duplicate registration with existing IC number, please contact the customer service for assistant, thank you.");
+DEFINE("_MEMBER_MOBILE_USED","Existing Contact No.");
+DEFINE("_MEMBER_ERROR_4","Invalid Sponsor ID No., please re-enter.");
+DEFINE("_MEMBER_RETURNED","Returned");
+DEFINE("_MEMBER_RETURNED_WEB","Returned online");
+DEFINE("_MEMBER_INVALID_CODE","Invalid verification code");
+DEFINE("_MEMBER_NONEXIST","Non-existing member");
+DEFINE("_MEMBER_UNOFFICIAL","Unofficial member account");
+DEFINE("_MEMBER_ERROR5","Application form not submitted ");
+DEFINE("_MEMBER_ERROR6","Unrenewed membership");
+DEFINE("_MEMBER_EXIST_IC","Existing IC number as member");
+DEFINE("_MEMBER_EXIST_MOBILE","Existing Contact No. as member");
+DEFINE("_MEMBER_SEND_FAIL","Sending Failed");
+DEFINE("_MEMBER_MOBILE_INVALID","Unverified Contact No.");
+DEFINE("_MEMBER_EMAIL_INVALID","Unverified Email");
+DEFINE("_MEMBER_REC_CODE","This is your GoodARCH verification code");
+DEFINE("_MEMBER_E21_EMPTY","e21 is empty");
+DEFINE("_MEMBER_ERROR_7","Missing content");
+DEFINE("_MEMBER_GENERATION","Generation");
+DEFINE("_MEMBER_OVERSEA_POINTS","[Oversea Incentive Points]");
+DEFINE("_MEMBER_MTD_EMPTY","mtd is empty");
+DEFINE("_MEMBER_NO_VOUCHER","Unable to find the voucher");
+DEFINE("_MEMBER_ERROR_8","Insufficient redeemable amount");
+DEFINE("_MEMBER_ERROR_9","Invalid amount");
 
 
 

@@ -48,7 +48,9 @@
 	"write":"Please fill",
 	"submit":"Send",
 	"search": "Search",
-	"end": ""
+	"end": "",
+	"js_msg5": "If you successfully register a member through this website, you can become the referrer of the member",
+	"js_msg6": "You have not completed the driver’s membership application. The membership application process will take about two working days to review. First use the 14 digits of the membership number to recommend membership."
 },
 "lg_login": {
 	"login_remember_me":"Remember me",

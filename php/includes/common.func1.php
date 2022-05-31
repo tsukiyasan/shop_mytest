@@ -1040,6 +1040,8 @@ function global_send_mail($from='', $fromname='', $sendto , $subject, $body, $fo
 		$logarr['state']='err';
 		$logarr['msg']=$mail->ErrorInfo;
 	}
+	$logarr['body'] = $body;
+	$logarr['to'] = $row['email'];
 
 	return $logarr;
 }
@@ -1749,6 +1751,29 @@ function global_img_del($id,$ext_name=null,$uppath,$errbackurl)
   	}
   	
   	return true;
+}
+
+function convertEncoding($string){
+    //根據系統進行配置
+    $encode = stristr(PHP_OS, 'WIN') ? 'GBK' : 'UTF-8';
+    $string = iconv('UTF-8', $encode, $string);
+    //$string = mb_convert_encoding($string, $encode, 'UTF-8');
+    return $string;
+}
+
+function is_simplified($str)
+{
+    $len = mb_strlen($str, 'utf-8');
+
+    return ($len != mb_strlen(iconv('UTF-8', 'cp950//IGNORE', $str), 'cp950')) ? true : false;
+}
+
+function is_traditional($str)
+{
+    $len = mb_strlen($str, 'utf-8');
+
+    // gbk 包含 big5 內的字元，所以不能用 gbk
+    return ($len != mb_strlen(iconv('UTF-8', 'gb2312//IGNORE', $str), 'gb2312')) ? true : false;
 }
 
 ?>

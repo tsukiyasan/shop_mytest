@@ -1,0 +1,541 @@
+<!-- BANNER -->
+<section class="page_banner" style="background: url(templates/default/images/title_banner.png) center center;">
+    <div class="container title_padding">
+        <div class="top_title">
+            <span class="cht" ng-if="ctrl.mode=='cart'" ng-bind="'lg_cart.title' | translate">我的購物車</span>
+            <span class="cht" ng-if="ctrl.mode=='bonus'" ng-bind="'lg_cart.title_bonus' | translate">我的紅利兌換</span><br>
+            <span class="small" ng-bind="'lg_cart.slogan' | translate">-全方位的科學養生保健之道-</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- CONTENT -->
+<section>
+    <div class="container page_padding detail_p">
+
+        <!-- 麵包屑 -->
+        <div class="row">
+            <div class="col-xs-12 padding_0">
+                <div class="col-xs-12">
+                    <span class="pathway"><a href="index_page" ng-bind="'lg_index.index' | translate">首頁</a><i
+                            class="fa fa-angle-right"></i>
+                        <a href="cart_list" ng-if="ctrl.mode=='cart'" ng-bind="'lg_cart.title' | translate">我的購物車</a>
+                        <a href="cart_list" ng-if="ctrl.mode=='bonus'"
+                            ng-bind="'lg_cart.title_bonus' | translate">我的紅利兌換</a>
+                        <i class="fa fa-angle-right"></i>
+                        <span class="txt_Green" ng-if="ctrl.mode=='cart'"
+                            ng-bind="'lg_cartcvs.title' | translate">明細確認</span>
+                        <span class="txt_Green" ng-if="ctrl.mode=='bonus'"
+                            ng-bind="'lg_cartcvs.title_bonus' | translate">紅利明細確認</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 內容大標題 -->
+        <div class="title_padding2">
+            <div class="row">
+                <div class="col-xs-12 singlepage_content_title">
+                    <h3 ng-if="ctrl.mode=='cart'" ng-bind="'lg_cartcvs.title' | translate">明細確認</h3>
+                    <h3 ng-if="ctrl.mode=='bonus'" ng-bind="'lg_cartcvs.title_bonus' | translate">紅利明細確認</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <p class="visible-xs" style="float:right;"><i class="fa fa-hand-o-right" aria-hidden="true"></i>&nbsp;<txt
+                    ng-bind="'lg_cartcvs.more_msg' | translate">右滑顯示更多訂單資訊</txt>&nbsp;</p>
+            <div class="cart_list_form table-responsive">
+                <table width="100%" border="0" class="table table-hover">
+                    <tr>
+                        <th width="40"></th>
+                        <th style="text-align:left;" ng-bind="'lg_cartcvs.name' | translate">名稱</th>
+                        <th width="" ng-bind="'lg_cartcvs.price' | translate">售價</th>
+                        <th width="" ng-bind="'lg_cartcvs.num' | translate">數量</th>
+                        <th ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'" width="">PV</th>
+                        <!-- <th ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'" width="">BV</th> -->
+                        <!--th ng-if="ctrl.mode=='cart'" width="">紅利</th-->
+                        <th width="" ng-bind="'lg_cartcvs.amt' | translate">金額</th>
+                    </tr>
+                    <tr ng-repeat="data in ctrl.info.data.list">
+                        <td style="text-align:left;"><img ng-src="{{data.imgname}}"></td>
+                        <td style="text-align:left;">
+                            <span ng-if="data.protype == 'amtpro'"
+                                ng-bind="'lg_cart.amtpro_icon' | translate">【加購品】</span>
+                            <span ng-if="data.protype == 'freepro'"
+                                ng-bind="'lg_cart.freepro_icon' | translate">【贈品】</span>
+                            <span ng-bind="data.name"></span>
+                            <div class="memo" ng-repeat="active in ctrl.info.active_list"
+                                ng-if="active.usepro.indexOf(data.id)>-1 && data.protype != 'freepro'">【{{active.name}}】
+                            </div>
+                            <div class="memo" ng-if="data.protype == 'freepro'">【{{data.activeName}}】</div>
+                            <div class="memo" ng-if="data.prodtl_amt != data.CalcSiteAmt && false"
+                                style="color:#3923eb;">（<txt ng-bind="'lg_cart.discount_product' | translate">此為折價商品
+                                </txt>）</div>
+                        </td>
+                        <td ng-bind="data.siteAmt | formatnumber"></td>
+                        <td ng-bind="data.num"></td>
+                        <td ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'"
+                            ng-bind="data.prodtl_pv | formatnumber"></td>
+                        <!-- <td ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'"
+                            ng-bind="data.prodtl_bv | formatnumber"></td> -->
+                        <!--td ng-if="ctrl.mode=='cart'" ng-bind="data.bonus"></td-->
+                        <td ng-bind="data.prodtl_amt | formatnumber"></td>
+                    </tr>
+                    <tr ng-repeat-start="data in ctrl.activeBundleCart track by data.unique">
+                        <td colspan="2" style="text-align:left;">
+                            <span ng-bind="('lg_cartcvs.active_bundle_title' | translate) +' - '+data.name"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="data.price"></span>
+                        </td>
+                        <td>
+                            <span>1</span>
+                        </td>
+                        <td>
+                            <span ng-bind="data.pv"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="data.bv"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="data.price"></span>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end ng-repeat="child in data.activeBundleDetail">
+                        <td></td>
+                        <td colspan="6" style="text-align:left;">
+                            └<span ng-bind="' '+child.products.productName"></span><span
+                                ng-bind="'【'+child.products.selectedSpecName+'】'"></span>
+                        </td>
+                    </tr>
+                    <!-- <tr ng-if="ctrl.info.member.salesChk == '1' && ctrl.mode=='cart'">
+                        <td colspan="7"
+                            style="border-top:1px #DDD solid; border-bottom:0; text-align:center; background:#F5F5F5;">
+                            <input id="activeChk" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-not-empty"
+                                type="checkbox" ng-model="ctrl.activeChk" ng-checked="ctrl.activeChk"
+                                ng-click="ctrl.activeChange()" style="">
+                            <label for="activeChk" ng-bind="'lg_cartcvs.not_used_active' | translate">不使用活動優惠</label>
+                        </td>
+                    </tr> -->
+
+                    <tr ng-if="ctrl.info.active_list.length>0">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1' )?7:5}}"
+                            style="border-top:1px #DDD solid; border-bottom:0; text-align:center; background:#F5F5F5;">
+                            <txt ng-bind="'lg_cartcvs.used_active' | translate">本次消費使用優惠折扣</txt>：<span
+                                ng-repeat="data in ctrl.info.active_list" class="txt_red">【{{data.name}}】<span
+                                    ng-if="$index(ctrl.info.active_list.length-1)">、</span></span>
+                        </td>
+                    </tr>
+
+                    <tr ng-if="ctrl.mode=='bonus'">
+                        <td colspan="3" style="border-top:1px #DDD solid; border-bottom:0;"
+                            ng-bind="'lg_cart.have_bonus' | translate">擁有點數</td>
+                        <td colspan="2" style="border-top:1px #DDD solid; border-bottom:0;">
+                            <div class="num"><strong>{{::ctrl.bonusArr.userbonus | formatnumber}}</strong></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:1px #DDD solid; border-bottom:0;" ng-if="ctrl.mode=='cart'"
+                            ng-bind="'lg_cart.subtotal' | translate">小計</td>
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:1px #DDD solid; border-bottom:0;" ng-if="ctrl.mode=='bonus'"
+                            ng-bind="'lg_cart.used_bonus' | translate">消費點數</td>
+                        <td colspan="2" style="border-top:1px #DDD solid; border-bottom:0;">
+                            <div class="total num"><strong>{{ctrl.info.total | formatnumber}}</strong></div>
+                        </td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='bonus'">
+                        <td colspan="3" style="border-top:1px #DDD solid; border-bottom:0;"
+                            ng-bind="'lg_cart.remaining_bonus' | translate">剩餘點數</td>
+                        <td colspan="2" style="border-top:1px #DDD solid; border-bottom:0;">
+                            <div class="num"><strong>{{(ctrl.bonusArr.userbonus-ctrl.info.total) |
+                                    formatnumber}}</strong></div>
+                        </td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;" ng-bind="'lg_cart.discount' | translate">折扣</td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">-{{ctrl.info.discount |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;">&emsp;<txt ng-bind="'lg_cart.dlvrAmt' | translate">運費
+                            </txt>
+                        </td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.info.dlvrAmt |
+                                formatnumber}}</span></td>
+                    </tr>
+                    
+                    <tr ng-if="ctrl.mode=='cart' && ctrl.m_discount>0">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;">
+                            &emsp;<txt ng-if="om=='1'" ng-bind="'lg_cart.use_points' | translate">購物金折抵</txt>
+                            <txt ng-if="om=='0'" ng-bind="'lg_cart.use_points2' | translate">配銷折扣</txt>
+                        </td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">-{{ctrl.m_dis |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;">&emsp;<txt ng-bind="'lg_cart.tax' | translate">稅</txt>
+                        </td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.tax_fee |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-bottom:5px #DDD double;"><strong>
+                                <txt ng-bind="'lg_cart.total_mag1' | translate">共</txt> {{ctrl.info.data.list.length}}
+                                <txt ng-bind="'lg_cart.total_mag2' | translate">項商品，總計</txt>
+                            </strong></td>
+                        <td colspan="2" style="border-bottom:5px #DDD double;">
+                            <div ng-if="ctrl.use_p=='1'" class="num">{{('lg_money.'+ctrl.currency) | translate}}
+                                {{(ctrl.info.amt*1000-ctrl.info.usecoin*1000+ctrl.info.dlvrAmt*1000+ctrl.tax_fee*1000) /
+                                1000 |
+                                formatnumber}}</div>
+                            <div ng-if="ctrl.use_p=='0'" class="total_final num">{{('lg_money.'+ctrl.currency) |
+                                translate}}
+                                {{((ctrl.info.amt*1000)-(ctrl.info.usecoin*1000)+(ctrl.info.dlvrAmt*1000)+(ctrl.tax_fee*1000)-(ctrl.m_discount*1000))/1000
+                                |
+                                formatnumber}}</div>
+                        </td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='bonus'">
+                        <td colspan="{{ctrl.mode=='cart'?5:3}}" style="border-bottom:5px #DDD double;"><strong>
+                                <txt ng-bind="'lg_cart.total_mag1' | translate">共</txt> {{ctrl.info.data.list.length}}
+                                <txt ng-bind="'lg_cart.total_mag3' | translate">項商品，運費</txt>
+                            </strong></td>
+                        <td colspan="2" style="border-bottom:5px #DDD double;">
+                            <div class="total_final num">{{('lg_money.'+ctrl.currency) | translate}} {{ctrl.info.dlvrAmt
+                                | formatnumber}}</div>
+                        </td>
+                    </tr>
+
+                    <tr ng-if="(ctrl.mode=='cart' || ctrl.mode=='frozen') && ctrl.cb_use_p=='1'">
+                        <td colspan="{{((ctrl.mode=='cart' || ctrl.mode=='frozen') && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;" ng-bind="'lg_cart.cb_use_points' | translate">回饋點折抵
+                        </td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">-{{ctrl.cb_use_points |
+                                formatnumber}}</span></td>
+                    </tr>
+
+                    <tr ng-if="ctrl.mode=='cart' && ctrl.use_p=='1'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-top:0;border-bottom:0;" ng-bind="'lg_cart.use_points' | translate">購物金折抵</td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">-{{ctrl.use_points |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart'">
+                        <td colspan="{{(ctrl.mode=='cart' && ctrl.info.member.salesChk == '1')?5:3}}"
+                            style="border-bottom:5px #DDD double;"><strong>
+                                <txt ng-bind="'lg_cart.after_discount' | translate">應付金額</txt>
+                            </strong></td>
+                        <td colspan="2" style="border-bottom:5px #DDD double;">
+                            <div class="total_final num">{{('lg_money.'+ctrl.currency) | translate}}
+                                {{(((ctrl.info.amt*1000-ctrl.info.usecoin*1000+ctrl.info.dlvrAmt*1000+ctrl.tax_fee*1000))-(ctrl.use_points*1000)-(ctrl.m_discount*1000)
+                                - (ctrl.cb_use_points*1000))/1000
+                                | formatnumber}}</div>
+                        </td>
+                    </tr>
+
+                    <tr ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'">
+                        <td colspan="5" style="border-top:0;border-bottom:0;">&emsp;<txt
+                                ng-bind="'lg_cartcvs.get' | translate">獲得</txt>PV</td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.pv |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <!-- <tr ng-if="ctrl.mode=='cart' && ctrl.info.member.salesChk == '1'">
+                        <td colspan="5" style="border-top:0;border-bottom:0;">&emsp;<txt
+                                ng-bind="'lg_cartcvs.get' | translate">獲得</txt>BV</td>
+                        <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.bv |
+                                formatnumber}}</span></td>
+                    </tr>
+                    <tr ng-if="ctrl.mode=='cart' && ctrl.bonus > 0">
+                        <td colspan="5" style="border-top:0;border-bottom:2px #DDD solid;">&emsp;<txt
+                                ng-bind="'lg_cartcvs.get_bonus' | translate">獲得紅利</txt>
+                        </td>
+                        <td colspan="2" style="border-top:0;border-bottom:2px #DDD solid;"><span
+                                class="num">{{ctrl.bonus | formatnumber}}</span></td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background:#0d924a; margin-top:40px; margin-bottom: -70px;"
+    ng-if="(((ctrl.info.amt*1000-ctrl.info.usecoin*1000+ctrl.info.dlvrAmt*1000+ctrl.tax_fee*1000))-(ctrl.use_points*1000)-(ctrl.m_discount*1000) - (ctrl.cb_use_points*1000))/1000 != 0">
+    <div class="container page_padding">
+        <div class="row box_userform">
+            <form class="form" ng-submit="ctrl.cart_calc()">
+                <div class="col-xs-12">
+
+                    <div class="contact-form col-md-5 col-sm-12 col-xs-12 col-md-offset-1" style="padding:0;">
+
+                        <h3><i class="fa fa-credit-card"></i>&nbsp;&nbsp;<txt
+                                ng-bind="'lg_cartcvs.creditcard_info' | translate">信用卡資訊</txt>
+                        </h3>
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_name' | translate">名</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.creditcard_name"
+                                placeholder="{{'lg_cartcvs.creditcard_name' | translate}} *" />
+                        </div>
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_l_name' | translate">姓</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.creditcard_l_name"
+                                placeholder="{{'lg_cartcvs.creditcard_l_name' | translate}} *" />
+                        </div>
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_number' | translate">卡號</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.creditcard_number"
+                                placeholder="{{'lg_cartcvs.creditcard_number' | translate}} *" />
+                        </div>
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_month' | translate">月</label>
+                            <select class="form-control" ng-model="ctrl.cartcvs.creditcard_month">
+                                <option value="" selected="" ng-bind="'lg_cartcvs.creditcard_month' | translate">月*
+                                </option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_year' | translate">年</label>
+                            <select class="form-control" ng-init="ctrl.cartcvs.creditcard_year = ctrl.year_list[0]"
+                                ng-model="ctrl.cartcvs.creditcard_year" ng-options="item for item in ctrl.year_list">
+                                <option value="" selected="" ng-bind="'lg_cartcvs.creditcard_year' | translate">年*
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name"
+                                ng-bind="'lg_cartcvs.creditcard_cvv' | translate">cvv</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.creditcard_cvv"
+                                placeholder="{{'lg_cartcvs.creditcard_cvv' | translate}} *" />
+                        </div>
+
+
+                    </div>
+
+                    <div class="contact-form col-md-5 col-sm-12 col-xs-12 col-md-offset-1" style="padding:0;">
+
+                        <h3><i class="fa fa-book"></i>&nbsp;&nbsp;<txt ng-bind="'lg_cartcvs.bill_info' | translate">帳單地址
+                            </txt>
+                        </h3>
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_address' | translate">地址</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_address"
+                                placeholder="{{'lg_cartcvs.bill_address' | translate}} *" />
+                        </div>
+                        <div class="form-group name">
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_city' | translate">城市</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_city"
+                                placeholder="{{'lg_cartcvs.bill_city' | translate}} *" />
+                        </div>
+                        <div class="form-group name">
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_state' | translate">地區</label>
+                            <select class="form-control" ng-model="ctrl.cartcvs.bill_state"
+                                ng-options="item as item.state_u for item in ctrl.state_list track by item.id">
+                                <option value="" selected="" ng-bind="'lg_cartcvs.bill_state' | translate">地區*</option>
+                            </select>
+                        </div>
+                        <div class="form-group name">
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_zip' | translate">郵遞區號</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_zip"
+                                placeholder="{{'lg_cartcvs.bill_zip' | translate}} *" />
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+                <div class="col-xs-12" style="margin-top:15px;" >
+                    <button ng-disabled="!ctrl.bonusArr.payable" type="submit"
+                        class="btn btn-lg btn-second btn_sytle center-block">
+                        <txt ng-bind="'lg_cartcvs.checkout' | translate">確定結帳</txt>&nbsp;&nbsp;
+                        <i class="fa fa-hand-pointer-o"></i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<div class="col-xs-12" style="margin-top:15px;" ng-if="(((ctrl.info.amt*1000-ctrl.info.usecoin*1000+ctrl.info.dlvrAmt*1000+ctrl.tax_fee*1000))-(ctrl.use_points*1000)-(ctrl.m_discount*1000) - (ctrl.cb_use_points*1000))/1000 == 0">
+    <button ng-disabled="!ctrl.bonusArr.payable" type="button" ng-click="ctrl.cart_calc('free')"
+        class="btn btn-lg btn-second btn_sytle center-block">
+        <txt ng-bind="'lg_cartcvs.checkout' | translate">確定結帳</txt>&nbsp;&nbsp;
+        <i class="fa fa-hand-pointer-o"></i>
+    </button>
+</div>
+
+
+<!-- Modal 送出 -->
+<div class="modal fade" id="myModal_ORDER" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal_header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-check"></i>&nbsp;&nbsp;<txt
+                        ng-bind="'lg_cartcvs.order_msg1' | translate">恭喜您已完成訂購！</txt>
+                </h4>
+            </div>
+            <div class="modal-body modal_body">
+                <div class="row">
+
+                    <div class="col-xs-12 modal_body_content">
+                        <ul ng-if="!ctrl.ATMSTR" class="modal_product_detail_list">
+                            <li class="col-xs-12">
+                                <p>
+                                    <txt ng-bind="'lg_cartcvs.order_msg2' | translate">您的訂單編號為：</txt><span
+                                        class="txt_red" ng-bind="ctrl.orderseq"></span>
+                                </p>
+                                <p ng-bind="'lg_cartcvs.order_msg3' | translate">如有任何疑問請洽客服中心或致電詢問，我們將竭誠位您服務。</p>
+                            </li>
+                        </ul>
+                        <ul ng-if="ctrl.ATMSTR" class="modal_product_detail_list">
+                            <li class="col-xs-12">
+                                <p>
+                                    <txt ng-bind="'lg_cartcvs.order_msg2' | translate">您的訂單編號為：</txt><span
+                                        class="txt_red" ng-bind="ctrl.orderseq"></span>
+                                </p>
+                                <table>
+                                    <tr>
+                                        <td valign="top">❶&nbsp;</td>
+                                        <td>
+                                            <txt ng-bind="'lg_cartcvs.order_msg4' | translate">請使用網路銀行或實體ATM將金額轉入以下紅崴帳戶
+                                            </txt><br />
+                                            &emsp;&emsp;<txt ng-bind="'lg_cartcvs.order_msg5' | translate">【銀行代碼】：822
+                                                中國信託</txt><br />
+                                            &emsp;&emsp;<txt ng-bind="'lg_cartcvs.order_msg6' | translate">【付款帳號】：</txt>
+                                            <span class="txt_red" id="virtualAccount" ng-bind="ctrl.ATMSTR"></span>
+                                            <button type="button" class="btn btn-second"
+                                                ng-click="ctrl.copyStr('virtualAccount')"
+                                                ng-bind="'lg_cartcvs.order_msg7' | translate">複製</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">❷&nbsp;</td>
+                                        <td ng-bind="'lg_cartcvs.order_msg8' | translate">
+                                            轉帳完成後30分鐘可至[訂單資訊]中查詢，並請保留轉帳收據直至帳款入帳。若轉帳後48小時仍未入帳，請在與我們聯繫查詢。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">❸&nbsp;</td>
+                                        <td ng-bind="'lg_cartcvs.order_msg9' | translate">
+                                            此轉帳帳號僅提供此次交易使用。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">❹&nbsp;</td>
+                                        <td>
+                                            <txt ng-bind="'lg_cartcvs.order_msg10' | translate">交易期限：</txt><span
+                                                class="txt_red" ng-bind="ctrl.deadLineDT"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!--
+							<p>您的訂單編號為：<span class="txt_red" ng-bind="ctrl.orderseq"></span></p>
+							<p>❶ 請使用網路銀行或實體ATM將金額轉入以下紅崴帳戶</p>
+							<p>
+								&emsp;&emsp;【銀行代碼】：822 中國信託<br />
+								&emsp;&emsp;【付款帳號】：<span class="txt_red" id="virtualAccount" ng-bind="ctrl.ATMSTR"></span>
+								<button type="button" class="btn btn-second" ng-click="ctrl.copyStr('virtualAccount')">複製</button>
+							</p>
+							<p>❷ 轉帳完成後30分鐘可至[訂單資訊]中查詢，並請保留轉帳收據直至帳款入帳。若轉帳後48小時仍未入帳，請在與我們聯繫查詢。</p>
+							<p>❸ 此轉帳帳號僅提供此次交易使用。</p>
+							<p>❹ 交易期限：<span class="txt_red" ng-bind="ctrl.deadLineDT"></span></p>
+							-->
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified">
+                    <a href="javascript:void(0)" ng-click="ctrl.order_clear('index_page')"
+                        class="btn btn-lg btn-first btn_left" data-dismiss="modal" aria-label="Close"
+                        ng-bind="'lg_cartcvs.back' | translate">回首頁</a>
+                    <a href="javascript:void(0)" ng-click="ctrl.order_clear('member_page/order')"
+                        class="btn btn-lg btn-second" data-dismiss="modal" aria-label="Close"
+                        ng-bind="'lg_cartcvs.go_order' | translate">前往訂單資訊</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal_ORDER2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal_header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-check"></i>&nbsp;&nbsp;<txt
+                        ng-bind="'lg_cartcvs.order_msg1' | translate">恭喜您已完成訂購！</txt>
+                </h4>
+            </div>
+            <div class="modal-body modal_body">
+                <div class="row">
+
+                    <div class="col-xs-12 modal_body_content">
+                        <ul ng-if="!ctrl.ATMSTR" class="modal_product_detail_list">
+                            <li class="col-xs-12">
+                                <p>
+                                    <txt ng-bind="'lg_cartcvs.order_msg2' | translate">您的訂單編號為：</txt><span
+                                        class="txt_red" ng-bind="ctrl.orderseq"></span>
+                                </p>
+                                <p ng-bind="'lg_cartcvs.order_msg3' | translate">如有任何疑問請洽客服中心或致電詢問，我們將竭誠位您服務。</p>
+                            </li>
+                        </ul>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified">
+                    <a href="javascript:void(0)" ng-click="ctrl.order_clear('index_page')"
+                        class="btn btn-lg btn-first btn_left" data-dismiss="modal" aria-label="Close"
+                        ng-bind="'lg_cartcvs.back' | translate">回首頁</a>
+                    <a href="javascript:void(0)" ng-click="ctrl.order_clear('member_page/order')"
+                        class="btn btn-lg btn-second" data-dismiss="modal" aria-label="Close"
+                        ng-bind="'lg_cartcvs.go_order' | translate">前往訂單資訊</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

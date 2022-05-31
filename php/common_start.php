@@ -36,7 +36,7 @@ $db2 = null;
 $db2 = new database( $globalConf_host2, $globalConf_user2, $globalConf_password2, $globalConf_db2, $Conf_dbprefix);
 $db2->debug( $Conf_debug );
 $db3 = null;
-$db3 = new database( $globalConf_host3, $globalConf_user3, $globalConf_password3, $globalConf_db3);
+$db3 = new database( $globalConf_host3, $globalConf_user3, $globalConf_password3, $globalConf_db3, $Conf_dbprefix);
 $db3->debug( $Conf_debug );
 $root_admin = "WEQGWH";
 $root_store = "HJKTDS";

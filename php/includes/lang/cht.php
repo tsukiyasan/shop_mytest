@@ -119,6 +119,7 @@ DEFINE('_COMMON_QUERYMSG_ADD_SUS','新增成功');
 DEFINE('_COMMON_QUERYMSG_ADD_ERR','新增失敗');
 DEFINE('_COMMON_QUERYMSG_UPD_SUS','更新成功');
 DEFINE('_COMMON_QUERYMSG_UPD_ERR','更新失敗');
+DEFINE('_COMMON_QUERYMSG_SAM_TIT','已有相同的標題名稱');
 DEFINE('_COMMON_QUERYMSG_DEL_SUS','刪除成功');
 DEFINE('_COMMON_QUERYMSG_DEL_ERR','刪除失敗');
 
@@ -303,7 +304,7 @@ DEFINE("_EWAYS_PAY_TYPE5","店取付現");
 DEFINE("_EWAYS_PAY_TYPE6","線上刷卡");
 DEFINE("_EWAYS_PAY_TYPE7","ATM轉帳");
 DEFINE("_EWAYS_ESIGNUO_MSG1","ｅ化入會成功通知");
-DEFINE("_EWAYS_ESIGNUO_MSG2","歡迎您");
+DEFINE("_EWAYS_ESIGNUO_MSG2","歡迎您加入");
 DEFINE("_EWAYS_ESIGNUO_MSG3","帳號：");
 DEFINE("_EWAYS_ESIGNUO_MSG4","密碼：");
 DEFINE("_EWAYS_ESIGNUO_MSG5","會員編號：");
@@ -446,7 +447,7 @@ DEFINE("_MEMBER_NOT_HAND_IN","未繳交");
 
 //0806 EMAIL
 DEFINE("_EMAIL_MEMBER","會員e化註冊成功通知");
-DEFINE("_EMAIL_MEMBER_1","配銷商ｅ化入會成功通知");
+DEFINE("_EMAIL_MEMBER_1","經銷商ｅ化入會成功通知");
 DEFINE("_EMAIL_code","您的 GoodARCH 驗證碼");
 DEFINE("_EMAIL_notification","驗證碼通知");
 DEFINE("_EMAIL_dear","親愛的");
@@ -457,7 +458,7 @@ DEFINE("_EMAIL_msg1","您正在進行 紅崴GoodARCH");
 DEFINE("_EMAIL_msg2","會員/經銷商註冊之認證");
 DEFINE("_EMAIL_msg3","您的Email驗證碼為");
 DEFINE("_EMAIL_msg4","請於15分鐘內回填以完成驗證程序");
-DEFINE("_EMAIL_msg5","※此信件為系統發出信件，請勿直接回覆。若您有任何問題請洽客服專線 (626) 961 - 6059，謝謝!");
+DEFINE("_EMAIL_msg5","※此信件為系統發出信件，請勿直接回覆。若您有任何問題請洽客服專線 (603) 9054 - 7589，謝謝!");
 DEFINE("_EMAIL_msg6","紅崴 GoodARCH 官方網站：");
 DEFINE("_EMAIL_msg7","紅崴 GoodARCH-線上購物平台：");
 DEFINE("_EMAIL_msg8","紅崴科技股份有限公司 版權所有，轉載必究");
@@ -465,7 +466,7 @@ DEFINE("_EMAIL_msg9","紅崴 GoodARCH");
 DEFINE("_EMAIL_msg10","歡迎您成為");
 DEFINE("_EMAIL_msg11","紅崴GoodARCH會員");
 DEFINE("_EMAIL_msg12","※注意：本郵件是由系統自動產生與發送，請勿直接回覆，若有問題請聯絡客服人員，謝謝。");
-DEFINE("_EMAIL_msg13","299");
+DEFINE("_EMAIL_msg13","360");
 DEFINE("_EMAIL_msg14","點網路回饋點已經放入您的帳戶中");
 DEFINE("_EMAIL_msg15","趕快去使用吧");
 DEFINE("_EMAIL_msg16","來去逛逛 → ");
@@ -489,4 +490,34 @@ DEFINE("_PM_CF_0","未結轉");
 DEFINE("_TOTAL_AMT_0","您的訂單已成立。");
 DEFINE("_PM_DONE","提領申請完成。");
 DEFINE("_PM_FAIL","提領申請失敗。");
+
+
+//補翻譯
+DEFINE("_MEMBER_SUCCESS_SMS","親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!");
+DEFINE("_MEMBER_SID_USED","您的身分證已使用無法重覆加入，如有問題請洽公司服務人員，謝謝。");
+DEFINE("_MEMBER_MOBILE_USED","手機已使用過");
+DEFINE("_MEMBER_ERROR_4","推薦人員或註冊碼錯誤，請重新輸入。");
+DEFINE("_MEMBER_RETURNED","歸還");
+DEFINE("_MEMBER_RETURNED_WEB","網購退還");
+DEFINE("_MEMBER_INVALID_CODE","驗證錯誤");
+DEFINE("_MEMBER_NONEXIST","無此經銷商");
+DEFINE("_MEMBER_UNOFFICIAL","此帳號非正式會員");
+DEFINE("_MEMBER_ERROR5","未繳交申請書");
+DEFINE("_MEMBER_ERROR6","經銷商未續約");
+DEFINE("_MEMBER_EXIST_IC","已存在相同身分證字號會員資料");
+DEFINE("_MEMBER_EXIST_MOBILE","已存在相同手機號碼會員資料");
+DEFINE("_MEMBER_SEND_FAIL","發送失敗");
+DEFINE("_MEMBER_MOBILE_INVALID","此手機號碼未驗證");
+DEFINE("_MEMBER_EMAIL_INVALID","此EMAIL未驗證");
+DEFINE("_MEMBER_REC_CODE","是你的 GoodARCH 驗證碼");
+DEFINE("_MEMBER_E21_EMPTY","e21是空");
+DEFINE("_MEMBER_ERROR_7","參數有缺");
+DEFINE("_MEMBER_GENERATION","代數");
+DEFINE("_MEMBER_OVERSEA_POINTS","[海旅點數]");
+DEFINE("_MEMBER_MTD_EMPTY","mtd是空");
+DEFINE("_MEMBER_NO_VOUCHER","找不到該兌換券");
+DEFINE("_MEMBER_ERROR_8","可兌換數量不足");
+DEFINE("_MEMBER_ERROR_9","輸入數量有誤");
+
+
 ?>

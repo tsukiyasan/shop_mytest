@@ -2,14 +2,69 @@
 <section class="page_banner" style="background: url(templates/default/images/title_banner.png) center center;">
     <div class="container title_padding">
         <div class="top_title">
-            <span class="cht" ng-if="ctrl.mode=='cart'" ng-bind="'lg_cart.title' | translate">我的購物車</span>
+            <span class="cht" ng-if="ctrl.mode=='cart' || ctrl.mode == 'twcart'" ng-bind="'lg_cart.title' | translate">我的購物車</span>
             <span class="cht" ng-if="ctrl.mode=='bonus'" ng-bind="'lg_cart.title_bonus' | translate">我的紅利兌換</span><br>
             <span class="small" ng-bind="'lg_cart.slogan' | translate">-全方位的科學養生保健之道-</span>
         </div>
     </div>
 </section>
 
-<section>
+<section ng-if="ctrl.cart_page == ''">
+    <div class="container page_padding detail_p">
+        <!-- 麵包屑 -->
+        <div class="row">
+            <div class="col-xs-12 padding_0">
+                <div class="col-xs-12">
+                    <span class="pathway"><a href="index_page">首頁</a><i class="fa fa-angle-right"></i><span
+                            class="txt_Green">選擇購物車</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="row singlepage_content_title">
+            <h3>請選擇您要結帳的購物車</h3>
+        </div>
+        <div class="ct_pre" style="display:flex;justify-content:space-around;height:550px;flex-wrap:wrap">
+            <div style="display:flex;justify-content: space-around;border:5px solid #FFC42C;border-radius:50%;width:250px;height:250px;position:relative;margin-bottom:40px;"
+                ng-if="ctrl.c_num > 0">
+                <div style="background: url(img/img/n_cart.svg);background-size:cover;width:200px;height:200px;cursor:pointer;margin-top: 25px;"
+                    ng-click="ctrl.n_cart_c();" ng-if="ctrl.c_num > 0"></div>
+                <!-- <div style="height:300px;font-size:46px;">({{ctrl.c_num}})</div> -->
+                <!-- <button class="btn" ng-click="ctrl.n_cart_c();" ng-if="ctrl.c_num > 0"><span>一般購物車</span>(<span ng-bind="ctrl.c_num"></span>)</button> -->
+                <div style="position:absolute;left:calc(50% - 55px);bottom:-40px;font-size:120%;" class="row">
+                    <span style="color:orange">一般宅配商品(</span><span style="color:orange"
+                        ng-bind="ctrl.c_num"></span><span style="color:orange">)</span>
+                </div>
+            </div>
+            <!-- <div style="display:flex;justify-content: space-around;border:5px solid #09c1e2;border-radius:50%;width:250px;height:250px;position:relative"
+                ng-if="ctrl.f_num > 0">
+                <div style="background: url(img/img/t_cart.svg);background-size:cover;width:200px;height:200px;cursor:pointer;margin-top: 25px;"
+                    ng-click="ctrl.t_cart_c();" ng-if="ctrl.f_num > 0"></div>
+                <button class="btn" ng-click="ctrl.t_cart_c();" ng-if="ctrl.f_num > 0"><span>冷凍購物車</span>(<span ng-bind="ctrl.f_num"></span>)</button>
+                <div style="position:absolute;left:calc(50% - 55px);bottom:-40px;font-size:120%" class="row">
+                    <span style="color:#09c1e2">低溫宅配商品(</span><span style="color:#09c1e2"
+                        ng-bind="ctrl.f_num"></span><span style="color:#09c1e2">)</span>
+                </div>
+            </div> -->
+
+            <div style="display:flex;justify-content: space-around;border:5px solid #eb4023;border-radius:50%;width:250px;height:250px;position:relative"
+                ng-if="ctrl.t_num > 0">
+                <div style="background: url(img/img/t_cart.svg);background-size:cover;width:200px;height:200px;cursor:pointer;margin-top: 25px;"
+                    ng-click="ctrl.t_cart_c();" ng-if="ctrl.t_num > 0"></div>
+                <!-- <button class="btn" ng-click="ctrl.t_cart_c();" ng-if="ctrl.t_num > 0"><span>冷凍購物車</span>(<span ng-bind="ctrl.t_num"></span>)</button> -->
+                <div style="position:absolute;left:calc(50% - 55px);bottom:-40px;font-size:120%" class="row">
+                    <span style="color:#eb4023">台灣宅配商品(</span><span style="color:#eb4023"
+                        ng-bind="ctrl.t_num"></span><span style="color:#eb4023">)</span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<section ng-if="ctrl.cart_page=='n_cart'">
     <div class="container page_padding detail_p">
 
         <!-- 麵包屑 -->
@@ -17,7 +72,7 @@
             <div class="col-xs-12 padding_0">
                 <div class="col-xs-12">
                     <span class="pathway"><a href="index_page" ng-bind="'lg_index.index' | translate">首頁</a><i class="fa fa-angle-right"></i>
-					<span class="txt_Green" ng-if="ctrl.mode=='cart'" ng-bind="'lg_cart.title' | translate">我的購物車</span>
+					<span class="txt_Green" ng-if="ctrl.mode=='cart' || ctrl.mode == 'twcart'" ng-bind="'lg_cart.title' | translate">我的購物車</span>
 					<span class="txt_Green" ng-if="ctrl.mode=='bonus'" ng-bind="'lg_cart.title_bonus' | translate">我的紅利兌換</span>
 					</span>
                 </div>
@@ -28,7 +83,7 @@
         <div class="title_padding2">
             <div class="row">
                 <div class="col-xs-12 singlepage_content_title">
-                    <h3 ng-if="ctrl.mode=='cart'" ng-bind="'lg_cart.title' | translate">我的購物車</h3>
+                    <h3 ng-if="ctrl.mode=='cart'  || ctrl.mode == 'twcart'" ng-bind="'lg_cart.title' | translate">我的購物車</h3>
                     <h3 ng-if="ctrl.mode=='bonus'" ng-bind="'lg_cart.title_bonus' | translate">我的紅利兌換</h3>
                 </div>
 				<div class="col-xs-12 singlepage_content_title">
@@ -58,6 +113,7 @@
                     <div class="count">
                         {{'lg_cart.num' | translate}}：{{(data.showMode == 'One') ? data.showNum : data.num}}</div>
                     <div class="price" ng-if="ctrl.mode=='cart'">{{('lg_money.'+ctrl.currency) | translate}} {{data.prodtl_amt | formatnumber}}</div>
+                    <div class="price" ng-if="ctrl.mode=='twcart'">{{('lg_money.'+ctrl.currency) | translate}} {{data.prodtl_amt | formatnumber}}</div>
                     <div class="price" ng-if="ctrl.mode=='bonus'"><txt ng-bind="'lg_cart.bonus' | translate">紅利</txt> {{data.CalcSiteAmt | formatnumber}} <txt ng-bind="'lg_cart.point' | translate">點</txt></div>
                     <div class="memo" ng-repeat="active in $root.active_list"
                         ng-if="active.dispro.indexOf(data.id)>-1 && data.protype != 'amtpro' && data.protype != 'freepro' && active.act.activePlanid != 12 && ((!data.useChk && !data.pairChk) || (data.useChk == 'N' && data.pairChk == 'N')) && !$root.activePro_arr[data.fid] ">
@@ -256,7 +312,7 @@
         </div>
 
 
-        <div class="contact-form col-md-12 col-sm-12 col-xs-12">
+        <!-- <div class="contact-form col-md-12 col-sm-12 col-xs-12">
             <h3><i class="fa fa-pencil"></i>&nbsp;&nbsp;<txt
                     ng-bind="'lg_cartcvs.recipient_info' | translate">收件人資料</txt>
             </h3>
@@ -325,7 +381,7 @@
             </div>
 
 
-        </div>
+        </div> -->
 
         <!--NEW專區活動 END-->
 
@@ -352,7 +408,9 @@
 							<div ng-repeat="data in $root.take_type_list">
 							  <label>
 								<input type="radio" ng-model="take_type.id" ng-value="data.id" ng-checked="take_type.id==data.id" ng-click="ctrl.takeTypeClick();">
-								<i></i> {{data.name}} <txt ng-if="ctrl.dlvrfeeShowStr && ctrl.mode=='cart'" style="color:#eb4023;font-size:0.9em;">【{{ctrl.dlvrfeeShowStr}}】</txt>&emsp;&emsp;
+								<i></i> {{data.name}} 
+                                <!-- <txt ng-if="ctrl.dlvrfeeShowStr && ctrl.mode=='cart'" style="color:#eb4023;font-size:0.9em;">【{{ctrl.dlvrfeeShowStr}}】</txt> -->
+                                &emsp;&emsp;
 							  </label>
 							</div>
 						</div>
@@ -507,7 +565,7 @@
             </div>
 
 
-            <div class="count_table" ng-if="ctrl.mode=='cart'">
+            <div class="count_table" ng-if="ctrl.mode=='cart' || ctrl.mode == 'twcart'">
                 <table width="100%" border="0">
                     <tr>
                         <th ng-bind="'lg_cart.subtotal' | translate">小計</th>
@@ -518,7 +576,7 @@
                             <txt ng-bind="'lg_cart.discount' | translate">折扣</txt></th>
                         <td ng-bind="'-'+($root.discount | formatnumber)"></td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <th><span class="memo"
                                 ng-if="ctrl.dlvrfeeStr && $root.dlvrAmt == 0">【{{ctrl.dlvrfeeStr}}】</span><span
                                 class="memo" ng-repeat="data in active_list" ng-if="data.dlvrfee">【{{data.name}}】</span>
@@ -526,16 +584,16 @@
                         <td
                             ng-bind="($root.dlvrAmt-$root.discountDlvrAmt)>0?($root.dlvrAmt-$root.discountDlvrAmt):0 | formatnumber">
                         </td>
-                    </tr> -->
+                    </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <th ng-bind="'lg_cart.tax' | translate">稅金</th>
                         <td width="55%" ng-bind="$root.tax_fee | formatnumber"></td>
-                    </tr>
+                    </tr> -->
 
                     <tr id="o_total">
                         <th><strong><txt ng-bind="'lg_cart.total_mag1' | translate">共</txt> {{$root.cartCnt}} <txt ng-bind="'lg_cart.total_mag2' | translate">項商品，總計</txt></strong></th>
-                        <td><span class="total" ng-bind="(('lg_money.'+ctrl.currency) | translate)+' '+(($root.totalAmt*1000+$root.dlvrAmt*1000+$root.tax_fee*1000)/1000 | formatnumber)"></span>
+                        <td><span class="total" ng-bind="(('lg_money.'+ctrl.currency) | translate)+' '+(($root.totalAmt*1000+$root.dlvrAmt*1000)/1000 | formatnumber)"></span>
                         </td>
                     </tr>
 
@@ -551,7 +609,7 @@
 
                     <tr ng-show="ctrl.check_use_points || ctrl.cb_check_use_points">
                         <th><strong><txt ng-bind="'lg_cart.after_discount' | translate">應付金額</txt></strong></th>
-                        <td><span class="total" ng-bind="(('lg_money.'+ctrl.currency) | translate)+' '+(((($root.totalAmt*1000+$root.dlvrAmt*1000+$root.tax_fee*1000))-(ctrl.use_points_val*1000)-(ctrl.cb_use_points_val*1000))/ 1000 | formatnumber)"></span>
+                        <td><span class="total" ng-bind="(('lg_money.'+ctrl.currency) | translate)+' '+(((($root.totalAmt*1000+$root.dlvrAmt*1000))-(ctrl.use_points_val*1000)-(ctrl.cb_use_points_val*1000))/ 1000 | formatnumber)"></span>
                         </td>
                     </tr>
                 </table>

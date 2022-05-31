@@ -31,7 +31,12 @@
                 <txt ng-bind="'lg_contact.contact_tel' | translate">客服專線：</txt> <span class="contact-info"><span ng-bind="ctrl.siteinfo.tel"></span> </span><br/>
                 <txt ng-bind="'lg_contact.contact_fax' | translate">傳真號碼：</txt> <span class="contact-info"><span ng-bind="ctrl.siteinfo.fax"></span> </span><br/>
                 <txt ng-bind="'lg_contact.contact_email' | translate">E-MAIL：</txt> <span class="contact-info"><span ng-bind="ctrl.siteinfo.email"></span></span><br/>
-                <txt ng-bind="'lg_contact.contact_addr' | translate">地址：</txt> <span class="contact-info"><span ng-bind="ctrl.siteinfo.addr"></span>&emsp;<a ng-href="https://www.google.com.tw/maps/place/{{ctrl.siteinfo.addr}}" target="_block" class=" txt_Green"><i class="fa fa-search" aria-hidden="true"></i><txt ng-bind="'lg_contact.contact_map' | translate">檢視地圖</txt></a></span></p>
+                <txt ng-bind="'lg_contact.contact_addr' | translate">地址：</txt> <span class="contact-info"><span ng-bind="ctrl.siteinfo.addr"></span>&emsp;</br>
+                <!-- <a ng-href="https://www.google.com.tw/maps/place/{{ctrl.siteinfo.addr}}" target="_block" class=" txt_Green"><i class="fa fa-search" aria-hidden="true"> -->
+                  <a ng-href="https://goo.gl/maps/V9jHvMYv8kMXEtDN8" target="_block" class=" txt_Green"><i class="fa fa-search" aria-hidden="true"></i>
+                  
+                </i><txt ng-bind="'lg_contact.contact_map' | translate">檢視地圖</txt>
+                </a></span></p>
             </div>
             <div class="col-md-7 col-sm-7 col-right contact_form">
                 <form ng-submit="ctrl.contact_sub()">
@@ -43,7 +48,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="contact_form_item">
-                                <input class="form-control" type="text" ng-model="ctrl.contact.phone" value="" placeholder="{{'lg_contact.contact_phone' | translate}}">
+                                <input class="form-control" type="text" ng-model="ctrl.contact.phone" value="" placeholder="{{'lg_contact.contact_phone' | translate}} *">
                             </div>
                         </div>
                     </div>
@@ -70,7 +75,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="contact_form_item">
-                                <select class="form-control" style="padding: 5px;" ng-model="ctrl.contact.city" ng-options="item as item.name for item in ctrl.city track by item.id" >
+                                <select class="form-control" style="padding: 5px;" ng-model="ctrl.contact.city" ng-options="item as item.state_u for item in ctrl.city track by item.id" >
 									<option value="" selected="" ng-bind="('lg_contact.contact_city' | translate) + ' *'">居住縣市*</option>
 								</select>
                             </div>

@@ -188,28 +188,8 @@
 										<textarea id="message" class="form-control" rows="4" ng-model="ctrl.order.dlvrNote"></textarea>
 									</td>
 								</tr>
-								<tr ng-if="ctrl.order.has_label =='0' && ctrl.order.status != '0'">
-									<td ng-bind="'lg_order.order_shipDate' | translate"></td>
-									<td colspan="1">
-										<input type="text" date-range-picker options="ctrl.datePickerOption2" class="form-control" ng-model="ctrl.order.shipDate" ng-value="ctrl.order.shipDate">
-									</td>
-									<td colspan="1">
-										<a href="javascript:void(0)" ng-click="ctrl.order_label_update()" class="btn btn-success pull-right ng-scope">
-											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_upsp_generate' | translate">產生標籤</txt>
-										</a>
-									</td>
-								</tr>
-								<tr ng-if="ctrl.order.has_label =='1' && ctrl.order.status != '0'">
-									<td ng-bind="'lg_order.order_shipDate' | translate"></td>
-									<td colspan="1">
-										<div ng-bind="ctrl.order.label_shipDate"></div>
-									</td>
-									<td colspan="1">
-										<a href="/upload/stamps/{{ctrl.order.orderNum}}.pdf" target="_blank" class="btn btn-success pull-right ng-scope">
-											<i class="fa fa-floppy-o"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_upsp_download' | translate">下載標籤</txt>
-										</a>
-									</td>
-								</tr>													
+								
+																
 							</tbody>
 						</table> 
                     </div>

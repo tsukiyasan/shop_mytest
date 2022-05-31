@@ -1,13 +1,13 @@
 "lg_index": {
-	"index_login": "會員登入",
+	"index_login": "會員/經銷商登入",
 	"index_info": "帳戶資訊",
 	"index_order": "訂單資訊",
 	"index_logout": "登出",
 	"index_member": "會員中心",
-	"index_member2": "配銷商中心",
+	"index_member2": "經銷商中心",
 	"index_shopcart": "購物車",
-	"index_signup": "會員e化註冊",
-	"index_esignup": "ｅ化入會",
+	"index_signup": "會員ｅ化註冊",
+	"index_esignup": "經銷商ｅ化入會",
 	"index_search": "商品搜尋",
 	"index_productType1": "足弓專用鞋",
 	"index_productType2": "生活贏家",
@@ -48,7 +48,10 @@
 	"write": "請填寫",
 	"submit": "送出",
 	"search": "搜尋",
-	"end": ""
+	"end": "",
+	"js_msg5":"透過此網址成功註冊之經銷商，您即可成為該經銷商之推薦人",
+	"js_msg5_err":"您不是經銷商。",
+	"js_msg6":"您尚未完成經銷商入會申請手續，入會申請作業流程約需兩個工作日審核，請先使用會員編號14碼，進行推薦入會"
 },
 "lg_login": {
 	"login_remember_me": "記住我",

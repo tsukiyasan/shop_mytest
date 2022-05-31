@@ -117,13 +117,24 @@ function createProType($belongid='root',$typeid=0,$usefirstid=0){
 		$idchk=intval(getFieldValue("select id from producttype where id='$typeid' and publish = '1'","id"));
 	}
 	
+	$uid = intval($_SESSION[$conf_user]['uid']);
+	if(!empty($uid)){
+		$om = getFieldValue("SELECT onlyMember from members WHERE id = '$uid'","onlyMember");
+		$where_str = '';
+		if($om == '1'){
+			$where_str = " AND for_member = '1'";
+		}
+	}else{
+		$where_str = " AND for_member = '1'";
+	}
+	
 	$sql_str = "";
 	if($_SESSION[$conf_user]['syslang'])
 	{
 		$sql_str .= " `name_".$_SESSION[$conf_user]['syslang']."` , ";
 	}
 	
-	$sql = " SELECT id,name,{$sql_str} pagetype,belongid FROM producttype WHERE publish = '1' AND belongid='$belongid' ORDER BY treelevel ASC,odring ASC,id ASC";
+	$sql = " SELECT id,name,{$sql_str} pagetype,belongid FROM producttype WHERE publish = '1' AND belongid='$belongid' $where_str ORDER BY treelevel ASC,odring ASC,id ASC";
 	$db->setQuery( $sql );
 	$r=$db->loadRowList();
 	$dataArr=array();

@@ -28,6 +28,22 @@ switch ($task) {
 	case "set_userinfo":
 		set_userinfo();
 		break;
+	case "get_logistics":
+		$returnData = array(
+			'status' => true,
+			'data' => array(),
+			'msg' => ''
+		);
+		$logisitics = logisitics_type();
+		$returnData['data'] = $logisitics[0];
+		$returnData['cc'] = $_SESSION[$conf_user]['freeChk'];
+		$returnData['CalcDlvrFree'] = $_SESSION[$conf_user]['CalcDlvrFree'];
+		$returnData['CalcDlvrFreeNum'] = $_SESSION[$conf_user]['CalcDlvrFreeNum'];
+		JsonEnd($returnData);
+		break;
+	case "get_num_cart_list":
+		get_num_cart_list();
+		break;
 }
 
 function updateBundle(){
@@ -146,21 +162,53 @@ function setPairProList()
 function showlist(){
 	global $db,$conf_user,$tablename,$db3;
 	$mode=getCartMode();
-	
-	if($mode != 'bonus')
-	{
-		$mode = 'cart';
-		$_SESSION[$conf_user]["cart_list_mode"]=$mode;
+	ini_set('display_errors','1');
+
+	$cm = global_get_param($_GET, 'cartmode', null, 0, 0);
+
+	if ($cm == 'twcart_cart') {
+		$_SESSION[$conf_user]['is_twcart_cart'] = '1';
+	} else {
+		$_SESSION[$conf_user]['is_twcart_cart'] = '0';
 	}
+	// $tl= '';
+
+	if ($mode == 'bonus') {
+		$mode = 'bonus';
+	} else if ($cm == 'twcart_cart') {
+		$mode = 'twcart';
+		$_SESSION[$conf_user]["cart_list_mode"] = $mode;
+	} else {
+		$mode = 'cart';
+		$_SESSION[$conf_user]["cart_list_mode"] = $mode;
+	}
+
+	
+	// if($mode != 'bonus')
+	// {
+	// 	$mode = 'cart';
+	// 	$_SESSION[$conf_user]["cart_list_mode"]=$mode;
+	// }
 	
 	$uid=LoginChk();
+	$msql = "SELECT regDate,mobileChk,emailChk,onlyMember from members where id = '$uid'";
+	$db->setQuery($msql);
+	$md = $db->loadRow();
+	$om = $md['onlyMember'];
+	$om_str = '';
+	if ($om == '0') {
+		$om_str .= " AND fordealer = '1'";
+	} else {
+		$om_str .= " AND formember = '1'";
+	}
 	
 	$orderCnt = getFieldValue(" SELECT COUNT(1) AS cnt FROM orders WHERE memberid = '$uid' AND orderMode = 'addMember' ", "cnt");
 	if( $orderCnt > 0)
 	{
 		$orderStatus = getFieldValue(" SELECT status FROM orders WHERE memberid = '$uid' AND orderMode = 'addMember' ", "status");		
 		$emailChk = getFieldValue(" SELECT emailChk FROM members WHERE id = '$uid' ","emailChk");
-		if(($orderStatus != '4' && $orderStatus != '3' && $orderStatus != '1') || $emailChk == '1')
+		$mobileChk = getFieldValue(" SELECT mobileChk FROM members WHERE id = '$uid' ","mobileChk");
+		if(($orderStatus != '4' && $orderStatus != '3' && $orderStatus != '1') || ($emailChk == '1' || $mobileChk == '0'))
 		{
 			
 			JsonEnd(array("status" => 0 , "msg"=>_CART_ERROR_MSG	));
@@ -196,6 +244,7 @@ function showlist(){
 	$md = $db->loadRow();
 	$om = $md['onlyMember'];
 	
+
 	$activePro_arr = array(); 
 	$activePro_actName_arr = array(); 
 	$activeUsedPro_arr = $_SESSION[$conf_user]['activeUsedPro_arr']; 
@@ -461,7 +510,7 @@ function showlist(){
 
 	
 
-	
+	$batotal = 0;
 	if(count($activeBundleCart) > 0)
 	{
 		$activeBundleGiftTargetAmountList = array();
@@ -470,6 +519,7 @@ function showlist(){
 		$activeBundleGiftProduct = array();
 		foreach($activeBundleCart as $key=>$row)
 		{
+			$batotal += $row['total_bundleadd'];
 			if($_SESSION[$conf_user]['syslang'] && !empty($row['name_'.$_SESSION[$conf_user]['syslang']]))
 			{
 				$activeBundleCart[$key]['name'] = $row['name_'.$_SESSION[$conf_user]['syslang']];
@@ -871,7 +921,7 @@ function showlist(){
 	
 	$pay_type = pay_type(null,true);
 	
-	
+	// JsonEnd(array('status' => '0' , 'msg' => 'not here'));
 	$take_type = take_type(null,null,true);
 
 	$u_data = get_user_info_m();
@@ -889,6 +939,8 @@ function showlist(){
 			$now_points = bcsub($now_points,$each['point'],2);
 		}
 	}
+	$CBData = get_cash_back(0, $now_date);
+	$cb_points = $CBData['point'];
 	$cb_gpoints = 0;
 	$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date'";
 	$db3->setQuery($csql);
@@ -930,48 +982,141 @@ function showlist(){
 			$now_points = bcsub($now_points,$each['point'],2);
 		}
 	}
-	JsonEnd(
-		array(
-			"status" => 1, 
-			"cnt"=>$cnt,
-			"addPro"=>$addPro,
-			"freePro"=>$freePro,
-			"bonusAct"=>$bonusActArr,
-			"kindCnt"=>$kindCnt, 
-            "data"=>$data,
-            'activeBundleCart'=>$activeBundleCart,
-            'activeBundleGiftProduct'=>$activeBundleGiftProduct,
-			'tax_fee'=>$tax_fee,
-			"ntotal"=>$ntotal,
-			"actProArr"=>$product_arr,
-			"pairList"=>$pairList,
-			"pairArr"=>$pairNameArr,
-			"total"=>$proArr['total'],
-			"totalccv" => $finalccv,
-			"amt"=>$proArr['amt'],
-			"active_list"=>$proArr['active_list'],
-			"activePro_arr"=>$activePro_arr,
-			"activeUsedPro_arr"=>$activeUsedPro_arr,
-			"activePro_actName_arr"=>$activePro_actName_arr,
-			"dlvrfeeStr"=>$dlvrfeeStr,
-			"discount"=>$proArr['discount'],
-			"dlvrAmt"=>($_SESSION[$conf_user]['dlvrAmt'])-($proArr['disDlvrAmt']),
-			"disDlvrAmt"=>($proArr['disDlvrAmt']),
-			"usecoin"=>($_SESSION[$conf_user]['usecoin']),
-			"free_coin"=>$proArr['free_coin'],
-			"mode"=>$mode,
-			"bonusArr"=>$bonusArr,
-			"activeExtraList"=>array_values($proArr['activeExtraList']),
-			"activeExtraGiftProduct"=>$activeExtraGiftProduct,
-			"pay_type"=>$pay_type,
-			"take_type"=>$take_type,
-			"dlvrfeeShowStr"=>$dlvrfeeShowStr,
-			"now_points" => floor($now_points),
-			"cb_points" => $cb_points,
-			"member"=>$member,
-			"om" => $md['onlyMember']
-		)
-	);
+
+	$_SESSION[$conf_user]['tmp_total'] = $proArr['total'] - $proArr['discount'];
+	$show_total = $proArr['total'];
+	$show_total = c_round($show_total,2);
+	if ($mode == 'cart') {
+		JsonEnd(
+			array(
+				"status" => 1,
+				"cnt" => $cnt,
+				"addPro" => $addPro,
+				"freePro" => $freePro,
+				"bonusAct" => $bonusActArr,
+				"kindCnt" => $kindCnt,
+				"data" => $data,
+				'activeBundleCart' => $activeBundleCart,
+				'activeBundleGiftProduct' => $activeBundleGiftProduct,
+				'batotal' => $batotal,
+				'proArr' => $proArr,
+				'e3Pro' => $e3Pro,
+				'e3' => $e3Pros,
+				'e3c' => $e3c_cnt,
+				'rp' => $rp,
+				'rp_discount' => $rp_discount,
+				"actProArr" => $product_arr,
+				"pairList" => $pairList,
+				"pairArr" => $pairNameArr,
+				"total" => $show_total,
+				"btotal" => $proArr['btotal'],
+				"amt" => $proArr['amt'],
+				"active_list" => $proArr['active_list'],
+				"activePro_arr" => $activePro_arr,
+				"activeUsedPro_arr" => $activeUsedPro_arr,
+				"activePro_actName_arr" => $activePro_actName_arr,
+				"dlvrfeeStr" => $dlvrfeeStr,
+				"discount" => $proArr['discount'],
+				"dlvrAmt" => intval($_SESSION[$conf_user]['dlvrAmt']) - intval($proArr['disDlvrAmt']),
+				"disDlvrAmt" => intval($proArr['disDlvrAmt']),
+				"usecoin" => intval($_SESSION[$conf_user]['usecoin']),
+				"free_coin" => $proArr['free_coin'],
+				"mode" => $mode,
+				"bonusArr" => $bonusArr,
+				"activeExtraList" => $activeExtraList_Arr,
+				"activeExtraGiftProduct" => $activeExtraGiftProduct,
+				"pay_type" => $pay_type,
+				"take_type" => $take_type,
+				"dlvrfeeShowStr" => $dlvrfeeShowStr,
+				"h_pv" => $h_pv,
+				"m_pv" => $m_pv,
+				"t_pv" => $t_pv,
+				"h_bv" => ($h_pv * 30),
+				"now_points" => floor($now_points),
+				"cb_points" => $cb_points,
+				"pa" => $pa,
+				"om" => $md['onlyMember'],
+				"aa" => $aa,
+				"act12_list" => $act12_list,
+				"logistics_type" => $logistics_list,
+				"CBData" => $CBData,
+				// "timelist" => $tl
+				// "ppv" => $freeproArr,
+				'shopCart' => $shopCart,
+				'cart_act_pair_list' => $actPair_c,
+				'actPair' => $actPair,
+				'actPair_discount' => $actPair_discount,
+				'addpro_list' => $addpro_list,
+				'addpro_list_sub' => $addpro_list_sub,
+				'addpro_list_arr' => $addpro_list_arr
+			)
+		);
+	} else if ($mode == 'twcart') {
+		JsonEnd(
+			array(
+				"status" => 1,
+				"cnt" => $cnt,
+				"addPro" => $addPro,
+				"freePro" => $freePro,
+				"bonusAct" => $bonusActArr,
+				"kindCnt" => $kindCnt,
+				"data" => $data,
+				// 'activeBundleCart' => $activeBundleCart,
+				// 'activeBundleGiftProduct' => $activeBundleGiftProduct,
+				'batotal' => $batotal,
+				'proArr' => $proArr,
+				'e3Pro' => $e3Pro,
+				'e3' => $e3Pros,
+				'e3c' => $e3c_cnt,
+				'rp' => $rp,
+				'rp_discount' => $rp_discount,
+				"actProArr" => $product_arr,
+				"pairList" => $pairList,
+				"pairArr" => $pairNameArr,
+				"total" => $proArr['total'],
+				"btotal" => $proArr['btotal'],
+				"amt" => $proArr['amt'],
+				"active_list" => $proArr['active_list'],
+				"activePro_arr" => $activePro_arr,
+				"activeUsedPro_arr" => $activeUsedPro_arr,
+				"activePro_actName_arr" => $activePro_actName_arr,
+				"dlvrfeeStr" => $dlvrfeeStr,
+				"discount" => $proArr['discount'],
+				"dlvrAmt" => intval($_SESSION[$conf_user]['dlvrAmt']) - intval($proArr['disDlvrAmt']),
+				"disDlvrAmt" => intval($proArr['disDlvrAmt']),
+				"usecoin" => intval($_SESSION[$conf_user]['usecoin']),
+				"free_coin" => $proArr['free_coin'],
+				"mode" => $mode,
+				"bonusArr" => $bonusArr,
+				"activeExtraList" => $activeExtraList_Arr,
+				"activeExtraGiftProduct" => $activeExtraGiftProduct,
+				"pay_type" => $pay_type,
+				"take_type" => $take_type,
+				"dlvrfeeShowStr" => $dlvrfeeShowStr,
+				"h_pv" => cnum_format($h_pv),
+				"m_pv" => $m_pv,
+				"t_pv" => cnum_format($t_pv),
+				"h_bv" => cnum_format(($h_pv * 30)),
+				"now_points" => floor($now_points),
+				"cb_points" => $cb_points,
+				"pa" => $pa,
+				"om" => $md['onlyMember'],
+				"aa" => $aa,
+				"act12_list" => $act12_list,
+				"logistics_type" => $logistics_list,
+				// "timelist" => $tl
+				// "ppv" => $freeproArr,
+				"CBData" => $CBData,
+				'shopCart' => $shopCart,
+				'cart_act_pair_list' => $actPair_c,
+				'actPair' => $actPair,
+				'actPair_discount' => $actPair_discount,
+				'addpro_list' => $addpro_list,
+				'addpro_list_sub' => $addpro_list_sub,
+				'addpro_list_arr' => $addpro_list_arr
+			)
+		);
+	}
 }
 
 function showAddProlist(){
@@ -1019,6 +1164,22 @@ function set_userinfo(){
 
 	$_SESSION[$conf_user]['user_res_info'] = $data;
 	JsonEnd($data);
+}
+
+function get_num_cart_list()
+{
+	global $conf_user, $db;
+	$twcart_num = count($_SESSION[$conf_user]['twcart_list']);
+	$cart_num = count($_SESSION[$conf_user]['cart_list']);
+	//舊的
+	$cart_num += count($_SESSION[$conf_user]['activeBundleCart']);
+	//新增加的購物車session數量
+	$cart_num += getShopCartItemCount();
+	$res = array();
+	$res['status'] = '1';
+	$res['twcart_num'] = $twcart_num;
+	$res['cart_num'] = $cart_num;
+	JsonEnd($res);
 }
 include( $conf_php.'common_end.php' ); 
 ?>

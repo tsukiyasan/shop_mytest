@@ -13,8 +13,7 @@ app.controller('contact_page',['$rootScope','$scope','$http','$location','$route
 		CRUD.setUrl("app/controllers/eways.php");
 		CRUD.detail({task: "get_addrCode"}, "GET").then(function(res){
 			if(res.status == 1) {
-				my.city = res.city[2];
-				my.canton = res.canton;
+				my.city = res.city;
 			}
 		});
 		CRUD.setUrl(turl);
@@ -53,6 +52,11 @@ app.controller('contact_page',['$rootScope','$scope','$http','$location','$route
 		
 		if(!my.contact.content){
 			error($translate.instant('lg_main.write') + $translate.instant('lg_contact.contact_notes'));
+			err=1;
+		}
+
+		if(!my.contact.phone){
+			error($translate.instant('lg_main.write') + $translate.instant('lg_contact.contact_phone'));
 			err=1;
 		}
 		

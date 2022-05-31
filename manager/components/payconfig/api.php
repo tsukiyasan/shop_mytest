@@ -13,6 +13,18 @@ switch ($task) {
 	case "update":	
 		pagedb();
 		break;
+	case "add_lg":
+		add_lg();
+		break;
+	case "lg_delete":
+		lg_delete();
+		break;
+	case "lg_get":
+		lg_get();
+		break;
+	case "lg_edit":
+		lg_edit();
+		break;
 }
 function pageinfo(){
     global $db;
@@ -28,7 +40,11 @@ function pageinfo(){
 	
 	$moneyList = getLanguageList("money","all");
 	
-	JsonEnd(array("status"=>1,"data"=>$data,"moneyList"=>$moneyList));
+	$lg_sql = "SELECT * FROM logistics";
+    $db->setQuery($lg_sql);
+    $lg_list = $db->loadRowList();
+
+	JsonEnd(array("status"=>1,"data"=>$data,"moneyList"=>$moneyList,"lg_list"=>$lg_list));
 	
 }
 function pagedb(){
@@ -108,6 +124,109 @@ function pagedb(){
 	
 	JsonEnd(array("status"=>1,"msg"=>_COMMON_QUERYMSG_UPD_SUS));
 		
+}
+
+function add_lg(){
+    global $db;
+
+    $res = array();
+    $data = array();
+    $data['main_dlvr'] = intval(global_get_param( $_POST, 'main_dlvr', null ,0,1  ));
+    $data['outlying_dlvr'] = intval(global_get_param( $_POST, 'outlying_dlvr', null ,0,1  ));
+    $data['f_main_dlvr'] = intval(global_get_param( $_POST, 'f_main_dlvr', null ,0,1  ));
+    $data['f_main_dlvr_basic'] = intval(global_get_param( $_POST, 'f_main_dlvr_basic', null ,0,1  ));
+    $data['f_outlying_dlvr'] = intval(global_get_param( $_POST, 'f_outlying_dlvr', null ,0,1  ));
+    $data['f_outlying_dlvr_basic'] = intval(global_get_param( $_POST, 'f_outlying_dlvr_basic', null ,0,1  ));
+    $data['main_fst'] = intval(global_get_param( $_POST, 'main_fst', null ,0,1  ));
+    $data['outlying_fst'] = intval(global_get_param( $_POST, 'outlying_fst', null ,0,1  ));
+    $data['f_main_fst'] = intval(global_get_param( $_POST, 'f_main_fst', null ,0,1  ));
+    $data['f_outlying_fst'] = intval(global_get_param( $_POST, 'f_outlying_fst', null ,0,1  ));
+    $data['having_outlying'] = intval(global_get_param( $_POST, 'having_outlying', null ,0,1  ));
+    $data['company'] = $company = global_get_param( $_POST, 'company', null ,0,1  );
+
+    $sql = "SELECT * from logistics where company = '$company'";
+    $db->setQuery($sql);
+    $check_sql = $db->loadRow();
+    if(!empty($check_sql)){
+        $res['status'] = '0';
+        $res['error'] = '物流重複';
+        JsonEnd($res);
+    }else{
+        $db_sql = dbInsert('logistics',$data);
+        $db->setQuery($db_sql);
+        $db->query();
+        $res['status'] = '1';
+    }
+   
+    JsonEnd($res);
+}
+
+function get_lg(){
+    global $db;
+    $res = array();
+
+    $id = intval(global_get_param( $_POST, 'id', null ,0,1  ));
+    $sql = "SELECT * from logistics where id = '$id'";
+    $db->setQuery($sql);
+    $data = $db->loadRow();
+    $res['data'] = $data;
+    $res['status'] = '1';
+    JsonEnd($res);
+    
+}
+
+function lg_delete(){
+    global $db;
+    $id = intval(global_get_param( $_POST, 'id', null ,0,1  ));
+    $sql = "delete from logistics where id='$id'";
+    $db->setQuery($sql);
+    $db->query();
+    JsonEnd(array("status"=>'1',"msg"=>'已更新物流'));
+}
+
+function lg_get(){
+    global $db;
+    $id = intval(global_get_param( $_POST, 'id', null ,0,1  ));
+    $sql = "SELECT * from logistics where id = '$id'";
+    $db->setQuery($sql);
+    $data = $db->loadRow();
+    JsonEnd(array("status"=>'1',"data" => $data));
+}
+
+
+function lg_edit(){
+    global $db;
+    $tablename = 'logistics';
+   
+    $data = array();
+    $data['id'] = $id = intval(global_get_param( $_POST, 'id', null ,0,1  ));
+    $data['main_dlvr'] = intval(global_get_param( $_POST, 'main_dlvr', null ,0,1  ));
+    $data['outlying_dlvr'] = intval(global_get_param( $_POST, 'outlying_dlvr', null ,0,1  ));
+    $data['f_main_dlvr'] = intval(global_get_param( $_POST, 'f_main_dlvr', null ,0,1  ));
+    $data['f_main_dlvr_basic'] = intval(global_get_param( $_POST, 'f_main_dlvr_basic', null ,0,1  ));
+    $data['f_outlying_dlvr'] = intval(global_get_param( $_POST, 'f_outlying_dlvr', null ,0,1  ));
+    $data['f_outlying_dlvr_basic'] = intval(global_get_param( $_POST, 'f_outlying_dlvr_basic', null ,0,1  ));
+    $data['main_fst'] = intval(global_get_param( $_POST, 'main_fst', null ,0,1  ));
+    $data['outlying_fst'] = intval(global_get_param( $_POST, 'outlying_fst', null ,0,1  ));
+    $data['f_main_fst'] = intval(global_get_param( $_POST, 'f_main_fst', null ,0,1  ));
+    $data['f_outlying_fst'] = intval(global_get_param( $_POST, 'f_outlying_fst', null ,0,1  ));
+    $data['having_outlying'] = intval(global_get_param( $_POST, 'having_outlying', null ,0,1  ));
+    $data['company'] = $company = global_get_param( $_POST, 'company', null ,0,1  );
+    $sql = "SELECT * from logistics where company = '$company' and id <> '$id'";
+    $db->setQuery($sql);
+    $check_sql = $db->loadRow();
+    if(!empty($check_sql)){
+        $res['status'] = '0';
+        $res['error'] = '物流重複';
+        JsonEnd($res);
+    }else{
+        $sql = createUpdateSql($tablename, $data);
+        $db->setQuery($sql);
+        $db->query();
+        $res['status'] = '1';
+    }
+    
+    JsonEnd($res);
 }
 
 

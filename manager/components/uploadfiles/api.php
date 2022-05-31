@@ -37,7 +37,7 @@ function showlist($mode=null){
 	$arrJson = array();
 	
 	$page = max(intval(global_get_param( $_REQUEST, 'page', 1 )), 1);
-	$name = global_get_param( $_REQUEST, 'name', null );
+	// $name = global_get_param( $_REQUEST, 'name', null );
 	
 	if(isset($name)){
 		
@@ -120,6 +120,7 @@ function showdetail(){
 		$info['linktype'] = $uploadfiles_arr['linktype'];
 		$info['linkurl'] = $uploadfiles_arr['linkurl'];
 		$info['filetype'] = $uploadfiles_arr['filetype'];
+		$info['filetarget'] = $uploadfiles_arr['filetarget'];
 		$info['note'] = $uploadfiles_arr['note'];
 		$filetype = $uploadfiles_arr['filetype'];
 		$imglist = getimg($tablename, $id);
@@ -150,16 +151,23 @@ function updatepage(){
 	
 	$dataArr = array();
 	$dataArr['id']		= $id = global_get_param($_REQUEST, 'id', null);
-	$dataArr['name']	= $name = global_get_param($_REQUEST, 'name', null);
+	$name = global_get_param($_REQUEST, 'name', null);
+	
+
+	
+	$dataArr['name']	= $name;
+
 	$dataArr['publish']	= global_get_param($_REQUEST, 'publish', null);
 	$dataArr['content']	= global_get_param($_REQUEST, 'content', null);
 	$dataArr['odring']	= global_get_param($_REQUEST, 'odring', null);
     $dataArr['linktype']= global_get_param( $_REQUEST, 'linktype', null ,0,1  );
     $dataArr['linkurl'] = global_get_param( $_REQUEST, 'linkurl', null);
     $dataArr['filetype'] = global_get_param( $_REQUEST, 'file_type', null);
+    $dataArr['filetarget'] = global_get_param( $_REQUEST, 'file_target', null);
     $dataArr['note'] = global_get_param( $_REQUEST, 'note', null);
 	$dataArr['mtime']	= $today;
 	$dataArr['muser']	= $_SESSION[$conf_user]['uid'];
+	// JsonEnd(array('status' => '0' , 'name' => $dec));
 	$check_name = 0;
 	$check_sql = "SELECT * from uploadfiles where name ='$name'";
 	if (!empty($id)) {
@@ -207,6 +215,7 @@ function updatepage(){
 	if($check_name == 1){
 		$arrJson['msg'] = _COMMON_QUERYMSG_SAM_TIT;
 		$arrJson['status'] = "0";
+		$arrJson['name'] = $name;
 	}else{
 		$sql = createUpdateSql($tablename, $dataArr);
 		$db->setQuery($sql);

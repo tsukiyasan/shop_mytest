@@ -11,5 +11,9 @@
 	"uploadfiles_file_type_3": "Course Registration Form",
 	"uploadfiles_file_type_4": "General Files",
 	"uploadfiles_desc": "File Description",
-	"uploadfiles_title": "File Title"
+	"uploadfiles_title": "File Title",
+    "uploadfiles_file_target": "Target",
+    "uploadfiles_file_target_1": "All",
+    "uploadfiles_file_target_2": "Distributor",
+    "uploadfiles_file_target_3": "Members"
 	}

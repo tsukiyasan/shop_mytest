@@ -211,7 +211,23 @@
 								<td width="150" style="border:0;"><span ng-bind="'lg_payconfig.payconfig_bankNum' | translate"></span> <span class="text-red">*</span></td>
 								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.bankNum" placeholder="{{'lg_payconfig.payconfig_bankNum' | translate}}" /></td>
 							</tr>
-							
+							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_money_setting' | translate"></span></h2>
+								<td>
+							</tr>
+							<tr ng-repeat="money in ctrl.moneyList">
+								<td width="150" style="border:0;" >{{('lg_money.'+money.code) | translate}}</td>
+								<td style="border:0;">
+									<div class="onoffswitch onoffswitch-success">
+										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="money.moneyChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="money.moneyChk" id="setMoney_{{money.code}}" ng-click="ctrl.moneyChange(money)"  >
+										<label class="onoffswitch-label" for="setMoney_{{money.code}}">
+											<div class="onoffswitch-inner"></div>
+											<div class="onoffswitch-switch"></div>
+										</label>
+									</div>	
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2">
 									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_logistics' | translate"></span></h2>
@@ -241,14 +257,73 @@
 									</div>	
 								</td>
 							</tr>
+
 							<tr>
+								<td colspan="2">
+									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_logistics_detail' | translate"></span></h2>
+								<td>
+									<!-- <div class="filter-block pull-right">			
+										<a ng-if="ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.lg_reset()" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_lg">
+											<i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;{{'lg_payconfig.payconfig_addlg' | translate}}
+										</a>	
+									</div> -->
+							</tr>
+							<tr>
+								<div class="main-box-body clearfix">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th></th>
+													<!-- <th>物流公司</th> -->
+													<th>國內運費</th>
+													<th>臺灣運費</th>
+													<!-- <th>國內冷凍運費(未滿門檻)</th> -->
+													<!-- <th>國內冷凍運費(基本)</th> -->
+													<!-- <th>臺灣冷凍運費(未滿門檻)</th> -->
+													<!-- <th>臺灣冷凍運費(基本)</th> -->
+													<th>國內免運門檻</th>
+													<th>臺灣免運門檻</th>
+													<!-- <th>國內冷凍免運門檻</th> -->
+													<!-- <th>臺灣冷凍運費累加門檻</th> -->
+													<!-- <th>是否有送臺灣</th> -->
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat='data in ctrl.lg_list track by data.id'>
+													<td>
+														<a href="javascript:void(0)" ng-click="ctrl.lg_del(data.id)"><i class="fa fa-trash"></i></a></button>
+														<a href="javascript:void(0)" data-toggle="modal" data-target="#add_lg" ng-click="ctrl.lg_edit_pre(data.id)"><i class="fa fa-pencil"></i></a></button>
+													</td>
+													<!-- <td ng-bind="data.company"></td> -->
+													<td ng-bind="data.main_dlvr"></td>
+													<td ng-bind="data.outlying_dlvr"></td>
+													<!-- <td ng-bind="data.f_main_dlvr"></td> -->
+													<!-- <td ng-bind="data.f_main_dlvr_basic"></td> -->
+													<!-- <td ng-bind="data.f_outlying_dlvr"></td> -->
+													<!-- <td ng-bind="data.f_outlying_dlvr_basic"></td> -->
+													<td ng-bind="data.main_fst"></td>
+													<td ng-bind="data.outlying_fst"></td>
+													<!-- <td ng-bind="data.f_main_fst"></td> -->
+													<!-- <td ng-bind="data.f_outlying_fst"></td> -->
+													<!-- <td ng-bind="data.having_outlying=='1'?'是':'否'"></td> -->
+												</tr>
+											</tbody>
+										</table>
+									</div>
+				
+								</div>
+							</tr>
+							
+
+							<!-- <tr>
 								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_homeDlvrAmt' | translate"></td>
 								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.homeDlvrAmt" id="payconfig_homeDlvrAmt" placeholder="{{'lg_payconfig.payconfig_homeDlvrAmt' | translate}}" /></td>
 							</tr>
 							<tr>
 								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_dlvrAmt' | translate"></td>
 								<td style="border:0;"><input type="text" class="form-control" ng-model="ctrl.siteinfo_dtl.dlvrAmt" id="payconfig_dlvrAmt" placeholder="{{'lg_payconfig.payconfig_dlvrAmt' | translate}}" /></td>
-							</tr>
+							</tr> -->
 							<!--
 							<tr>
 								<td width="150" style="border:0;" ng-bind="'lg_payconfig.payconfig_tcatDlvr' | translate"></td>
@@ -268,23 +343,7 @@
 							</tr>
 							-->	
 							
-							<tr>
-								<td colspan="2">
-									<h2 class="pull-left"><i class="fa fa-gear"></i>&nbsp;<span ng-bind="'lg_payconfig.payconfig_money_setting' | translate"></span></h2>
-								<td>
-							</tr>
-							<tr ng-repeat="money in ctrl.moneyList">
-								<td width="150" style="border:0;" >{{('lg_money.'+money.code) | translate}}</td>
-								<td style="border:0;">
-									<div class="onoffswitch onoffswitch-success">
-										<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="money.moneyChk" ng-true-value="'1'" ng-false-value="'0'" ng-model="money.moneyChk" id="setMoney_{{money.code}}" ng-click="ctrl.moneyChange(money)"  >
-										<label class="onoffswitch-label" for="setMoney_{{money.code}}">
-											<div class="onoffswitch-inner"></div>
-											<div class="onoffswitch-switch"></div>
-										</label>
-									</div>	
-								</td>
-							</tr>
+							
 							
 						</tbody>
 					</table>
@@ -298,4 +357,56 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="add_lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header modal_header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">&nbsp;&nbsp;{{'lg_payconfig.payconfig_add_logistics_detail' | translate}}</h4>
+				</div>
+			<div class="modal-body modal_body">
+					<!-- <label>物流公司</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.company"> -->
+					<label>本島運費</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.main_dlvr">
+					<label>離島運費</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.outlying_dlvr">
+					<!-- <label>本島冷凍運費(未滿門檻)</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_main_dlvr">
+					<label>本島冷凍運費(基本)</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_main_dlvr_basic">
+					<label>離島冷凍運費(未滿門檻)</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_outlying_dlvr">
+					<label>離島冷凍運費(基本)</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_outlying_dlvr_basic"> -->
+					<label>本島免運門檻</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.main_fst">
+					<label>離島運費門檻</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.outlying_fst">
+					<!-- <label>本島冷凍免運門檻</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_main_fst">
+					<label>離島冷凍運費累加門檻</label>
+					<input type="text" class="form-control" ng-model="ctrl.lg.f_outlying_fst">
+					<label>有送離島</label> -->
+					
+					<!-- <div class="onoffswitch onoffswitch-success">
+						<input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.lg.having_outlying" ng-true-value="'1'" ng-false-value="'0'" ng-model="ctrl.lg.having_outlying" id="having_outlying" >
+						<label class="onoffswitch-label" for="having_outlying">
+							<div class="onoffswitch-inner"></div>
+							<div class="onoffswitch-switch"></div>
+						</label>
+					</div>	 -->
+			</div>
+			
+			<div class="modal-footer">
+				<div class="btn-group btn-group-justified">
+					<a href="javascript:void(0)" class="btn btn-lg btn-first btn_left closing_btn" data-dismiss="modal" aria-label="Close">{{'lg_main.cancel' | translate}}</a>
+					<a href="javascript:void(0)" ng-if="!ctrl.lg_edit_status || ctrl.lg_edit_status !='1'" ng-click="ctrl.addlg()" class="btn btn-lg btn-second" >{{'lg_main.cfm' | translate}}</a>
+					<a href="javascript:void(0)" ng-if="ctrl.lg_edit_status && ctrl.lg_edit_status =='1'" ng-click="ctrl.lg_edit()" class="btn btn-lg btn-second" >{{'lg_main.cfm' | translate}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>

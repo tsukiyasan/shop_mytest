@@ -12,6 +12,7 @@ defined( '_VALID_WAY' ) or die( 'Do not Access the Location Directly!' );
 
 //-----共通-----//
 
+
 DEFINE('_YES','是');
 DEFINE('_NO','否');
 
@@ -28,8 +29,8 @@ DEFINE('_COMMON_PARAM_PUBLISH','显示');
 DEFINE('_COMMON_PARAM_LEVEL','阶层');
 DEFINE('_COMMON_PARAM_BELONGID','归属编号');
 DEFINE('_COMMON_PARAM_PAGETYPE','页面类型');
-DEFINE('_COMMON_PARAM_DATABASETAB','归属数据表');
-DEFINE('_COMMON_PARAM_DATABASEID','数据表编号');
+DEFINE('_COMMON_PARAM_DATABASETAB','归属资料表');
+DEFINE('_COMMON_PARAM_DATABASEID','资料表编号');
 DEFINE('_COMMON_PARAM_LINKURL','连结网址');
 DEFINE('_COMMON_PARAM_TARGET','目标');
 DEFINE('_COMMON_PARAM_CONTENT','内容');
@@ -38,25 +39,25 @@ DEFINE('_COMMON_PARAM_FAX','传真');
 DEFINE('_COMMON_PARAM_EMAIL','电子信箱');
 DEFINE('_COMMON_PARAM_ADDR','地址');
 DEFINE('_COMMON_PARAM_WEBURL','网站网址');
-DEFINE('_COMMON_PARAM_WEBTITLE','网站抬头');
-DEFINE('_COMMON_PARAM_WEBKEYS','网站关键词');
+DEFINE('_COMMON_PARAM_WEBTITLE','网站擡头');
+DEFINE('_COMMON_PARAM_WEBKEYS','网站关键字');
 DEFINE('_COMMON_PARAM_WEBINTRO','网站描述');
 DEFINE('_COMMON_PARAM_ALLRIGHT','权利宣告');
 DEFINE('_COMMON_PARAM_MEDIADEC1','媒体描述1');
 DEFINE('_COMMON_PARAM_MEDIADEC2','媒体描述2');
 DEFINE('_COMMON_PARAM_MEDIADEC3','媒体描述3');
-DEFINE('_COMMON_PARAM_MEDIAURL1','媒体链接1');
-DEFINE('_COMMON_PARAM_MEDIAURL2','媒体链接2');
-DEFINE('_COMMON_PARAM_MEDIAURL3','媒体链接3');
-DEFINE('_COMMON_PARAM_SEARCH_NAME','搜寻字符串');
+DEFINE('_COMMON_PARAM_MEDIAURL1','媒体连结1');
+DEFINE('_COMMON_PARAM_MEDIAURL2','媒体连结2');
+DEFINE('_COMMON_PARAM_MEDIAURL3','媒体连结3');
+DEFINE('_COMMON_PARAM_SEARCH_NAME','搜寻字串');
 DEFINE('_COMMON_PARAM_ODRING','排序');
 DEFINE('_COMMON_PARAM_NEWSDATE','发布日期');
 DEFINE('_COMMON_PARAM_PUBDATE','截止日期');
 DEFINE('_COMMON_PARAM_NEWS','最新消息');
 DEFINE('_COMMON_PARAM_HOT','热门');
-DEFINE('_COMMON_PARAM_LOGINID','账号');
+DEFINE('_COMMON_PARAM_LOGINID','帐号');
 DEFINE('_COMMON_PARAM_PASSWD','密码');
-DEFINE('_COMMON_PARAM_VR','认证随机数');
+DEFINE('_COMMON_PARAM_VR','认证乱数');
 DEFINE('_COMMON_PARAM_CV','认证码');
 DEFINE('_COMMON_PARAM_LG','语系码');
 DEFINE('_COMMON_PARAM_DLVRPAYCHK','货到付款');
@@ -69,13 +70,13 @@ DEFINE('_COMMON_PARAM_HOMEDLVRGMCHK_AMT','订单满额');
 DEFINE('_COMMON_PARAM_BANKNAME','银行名称');
 DEFINE('_COMMON_PARAM_BANKBRANCH','分行(银行)');
 DEFINE('_COMMON_PARAM_BANKID','户名(银行)');
-DEFINE('_COMMON_PARAM_BANKNUM','账号(银行)');
+DEFINE('_COMMON_PARAM_BANKNUM','帐号(银行)');
 DEFINE('_COMMON_PARAM_DONATEUNIT','发票捐赠单位');
 DEFINE('_COMMON_PARAM_POSTBRANCH','分局(邮局)');
 DEFINE('_COMMON_PARAM_POSTID','户名(邮局)');
-DEFINE('_COMMON_PARAM_POSTNUM1','账号一(邮局)');
-DEFINE('_COMMON_PARAM_POSTNUM2','账号二(邮局)');
-DEFINE('_COMMON_PARAM_DBTABLE','网页数据库');
+DEFINE('_COMMON_PARAM_POSTNUM1','帐号一(邮局)');
+DEFINE('_COMMON_PARAM_POSTNUM2','帐号二(邮局)');
+DEFINE('_COMMON_PARAM_DBTABLE','网页资料库');
 DEFINE('_COMMON_PARAM_TYPE','类型');
 DEFINE('_COMMON_PARAM_PROCODE','产品代码');
 DEFINE('_COMMON_PARAM_STOP_DATE','截止时间');
@@ -91,10 +92,10 @@ DEFINE('_COMMON_PARAM_BONUS','红利');
 DEFINE('_COMMON_PARAM_OTHERURL','站外连结');
 DEFINE('_COMMON_PARAM_PRODUCT_NOTES','商品描述');
 DEFINE('_COMMON_PARAM_PRODUCT_SUMMARY','简易描述');
-DEFINE('_COMMON_PARAM_FIELD','预留字段');
+DEFINE('_COMMON_PARAM_FIELD','预留栏位');
 DEFINE('_COMMON_PARAM_MEDIANAME','媒体名称');
 DEFINE('_COMMON_PARAM_MEDIACONT','媒体描述');
-DEFINE('_COMMON_PARAM_MEDIASOURCE','媒体链接网址');
+DEFINE('_COMMON_PARAM_MEDIASOURCE','媒体连结网址');
 DEFINE('_COMMON_PARAM_SID','身分证字号');
 DEFINE('_COMMON_PARAM_MOBILE','手机');
 DEFINE('_COMMON_PARAM_SEX','性别');
@@ -118,25 +119,26 @@ DEFINE('_COMMON_QUERYMSG_ADD_SUS','新增成功');
 DEFINE('_COMMON_QUERYMSG_ADD_ERR','新增失败');
 DEFINE('_COMMON_QUERYMSG_UPD_SUS','更新成功');
 DEFINE('_COMMON_QUERYMSG_UPD_ERR','更新失败');
+DEFINE('_COMMON_QUERYMSG_SAM_TIT','已有相同的标题名称');
 DEFINE('_COMMON_QUERYMSG_DEL_SUS','删除成功');
 DEFINE('_COMMON_QUERYMSG_DEL_ERR','删除失败');
 
 
 DEFINE('_COMMON_QUERYMSG_HAVE_ACT','此商品为活动中的优惠商品，不可删除');
-DEFINE('_COMMON_QUERYMSG_HAVE_DATA','此项目下还有数据，不可删除');
+DEFINE('_COMMON_QUERYMSG_HAVE_DATA','此项目下还有资料，不可删除');
 DEFINE('_COMMON_QUERYMSG_HAVE_RELATED_DATA','尚有与之关联的项目，不可删除');
-DEFINE('_COMMON_QUERYMSG_LOGIN_ERROR','账号密码错误');
+DEFINE('_COMMON_QUERYMSG_LOGIN_ERROR','帐号密码错误');
 DEFINE('_COMMON_QUERYMSG_LOGIN_ERROR2','目前仅开放经销商登入');
 DEFINE('_COMMON_QUERYMSG_HAVE_LOG','已有会员兑换Coupon卷，不可删除');
-DEFINE('_COMMON_QUERYMSG_SIGNUP_ERROR','此账号已是会员，请直接登入');
+DEFINE('_COMMON_QUERYMSG_SIGNUP_ERROR','此帐号已是会员，请直接登入');
 DEFINE('_COMMON_QUERYMSG_SIGNUP_SUC','注册成功');
 
-DEFINE('_COMMON_ERRORMSG_NET_ERR','网络错误，请确认您的联机状态');
+DEFINE('_COMMON_ERRORMSG_NET_ERR','网路错误，请确认您的连线状态');
 DEFINE('_COMMON_ERRORMSG_CHECKCODE_ERR','验证码错误');
-DEFINE('_COMMON_ERRORMSG_LOGINOUT_ERR','注销错误');
+DEFINE('_COMMON_ERRORMSG_LOGINOUT_ERR','登出错误');
 DEFINE('_COMMON_ERRORMSG_DBPAGE_ERR','不存在此项目');
-DEFINE('_COMMON_ERRORMSG_DBPAGE_HASERR','尚有项目将此当作网页数据库');
-DEFINE('_COMMON_ERRORMSG_LOGINID_REPEAT','已存在相同账号');
+DEFINE('_COMMON_ERRORMSG_DBPAGE_HASERR','尚有项目将此当作网页资料库');
+DEFINE('_COMMON_ERRORMSG_LOGINID_REPEAT','已存在相同帐号');
 
 
 DEFINE('_COMMON_NOW_DATE','即日起');
@@ -150,8 +152,8 @@ DEFINE('_COMMON_VIEWCNT','人次');
 DEFINE('_COMMON_SALECNT','数量');
 
 
-//0707共享
-DEFINE("_COMMON_QUERYMSG_SELECT_ERR","数据查询失败");
+//0707共用
+DEFINE("_COMMON_QUERYMSG_SELECT_ERR","资料查询失败");
 
 
 //0707活动专区
@@ -166,7 +168,7 @@ DEFINE("_CART_ERROR_MSG","请先完成会费付款及信箱验证");
 DEFINE("_CART_PAY_SUCCESS_MSG1","付款成功通知");
 DEFINE("_CART_PAY_SUCCESS_MSG2","订购明细");
 DEFINE("_CART_PAY_SUCCESS_MSG3","亲爱的 管理者：");
-DEFINE("_CART_PAY_SUCCESS_MSG4","已收到一笔新的付款成功信息，请尽速至管理系统处理您的订单：");
+DEFINE("_CART_PAY_SUCCESS_MSG4","已收到一笔新的付款成功资讯，请尽速至管理系统处理您的订单：");
 DEFINE("_CART_PAY_SUCCESS_MSG5","订单编号");
 DEFINE("_CART_PAY_SUCCESS_MSG6","电话：");
 DEFINE("_CART_PAY_SUCCESS_MSG7","地址：");
@@ -178,13 +180,13 @@ DEFINE("_CART_INSTOCK_ERROR_MSG","库存不足，请重新选择");
 DEFINE("_CART_PASSWORDTEXT_ERROR_MSG1","请填写通关密语于备注");
 DEFINE("_CART_PASSWORDTEXT_ERROR_MSG2","请输入正确通关密语");
 DEFINE("_CART_BONUS_ERROR_MSG","您的购物金不足");
-DEFINE("_CART_NET_ERROR_MSG","网络联机错误");
+DEFINE("_CART_NET_ERROR_MSG","网路连线错误");
 DEFINE("_CART_ORDER_ADD_MSG1","订单成立通知");
 DEFINE("_CART_ORDER_ADD_MSG2","订购明细");
 DEFINE("_CART_ORDER_ADD_MSG3","致亲爱的");
 DEFINE("_CART_ORDER_ADD_MSG4","会员：");
-DEFINE("_CART_ORDER_ADD_MSG5","已经收到您的订购信息，感谢您订购");
-DEFINE("_CART_ORDER_ADD_MSG6","的产品！您的订单信息如下：");
+DEFINE("_CART_ORDER_ADD_MSG5","已经收到您的订购资讯，感谢您订购");
+DEFINE("_CART_ORDER_ADD_MSG6","的产品！您的订单资讯如下：");
 DEFINE("_CART_ORDER_ADD_MSG7","订单编号");
 DEFINE("_CART_ORDER_ADD_MSG8","订购日期");
 DEFINE("_CART_ORDER_ADD_MSG9","订单金额");
@@ -192,11 +194,12 @@ DEFINE("_CART_ORDER_ADD_MSG10","电话：");
 DEFINE("_CART_ORDER_ADD_MSG11","地址：");
 DEFINE("_CART_ORDER_ADD_MSG12","客服信箱：");
 DEFINE("_CART_ORDER_ADD_MSG13","亲爱的 管理者：");
-DEFINE("_CART_ORDER_ADD_MSG14","已收到一笔新的订购信息，请尽速至管理系统处理您的订单：");
+DEFINE("_CART_ORDER_ADD_MSG14","已收到一笔新的订购资讯，请尽速至管理系统处理您的订单：");
 DEFINE("_CART_NET_ERROR_MSG2","系统发生问题，请联络客服人员");
+DEFINE("_POINTS_NOT_ENOUGH","点数不足");
 
 //联络我们
-DEFINE("_CONTACT_WRITE_MSG","请填写必要信息");
+DEFINE("_CONTACT_WRITE_MSG","请填写必要资讯");
 DEFINE("_CONTACT_TITLE","联络我们");
 DEFINE("_CONTACT_NAME","姓名：");
 DEFINE("_CONTACT_TEL","电话：");
@@ -206,7 +209,7 @@ DEFINE("_CONTACT_CITY","居住县市：");
 DEFINE("_CONTACT_MSG","讯息：");
 DEFINE("_CONTACT_SUCCESS_MSG","留言已送出！感谢您的留言与支持，我们将尽快与您联系。");
 
-//自定义页面
+//自订页面
 DEFINE("_DBPAGE_ABOUTUS","关于红崴");
 
 
@@ -234,10 +237,10 @@ DEFINE("_MEMBER_HAS_LOGIN","您已登入");
 DEFINE("_MEMBER_EMAILCHK_MSG1","GoodARCH 会员认证信");
 DEFINE("_MEMBER_EMAILCHK_MSG2","亲爱的GoodARCH会员您好：");
 DEFINE("_MEMBER_EMAILCHK_MSG3","为确认您的电子信箱正确无误，请您透过本封信函进行E-MAIL验证");
-DEFINE("_MEMBER_EMAILCHK_MSG4","，以启用您的在线购物功能");
+DEFINE("_MEMBER_EMAILCHK_MSG4","，以启用您的线上购物功能");
 DEFINE("_MEMBER_EMAILCHK_MSG5","验证方式：");
 DEFINE("_MEMBER_EMAILCHK_MSG6","请点选下面连结进行验证");
-DEFINE("_MEMBER_EMAILCHK_MSG7","点此连结验证会员账号");
+DEFINE("_MEMBER_EMAILCHK_MSG7","点此连结验证会员帐号");
 DEFINE("_MEMBER_EMAILCHK_MSG8","※注意：本邮件是由系统自动产生与发送，请勿直接回复，若有问题请联络客服人员");
 DEFINE("_MEMBER_EMAILCHK_MSG9","发送认证信件");
 DEFINE("_MEMBER_ERROR","非法请求");
@@ -256,7 +259,7 @@ DEFINE("_MEMBER_USER","使用者");
 DEFINE("_MEMBER_RESET_PWD_MSG1","密码重设确认");
 DEFINE("_MEMBER_RESET_PWD_MSG2","致亲爱的");
 DEFINE("_MEMBER_RESET_PWD_MSG3","您好：");
-DEFINE("_MEMBER_RESET_PWD_MSG4","请点击以下链接进行密码重设动作，如您无于本网站申请密码重设，请忽略本信件");
+DEFINE("_MEMBER_RESET_PWD_MSG4","请点击以下连结进行密码重设动作，如您无于本网站申请密码重设，请忽略本信件");
 DEFINE("_MEMBER_SEND_SUCCESS","发送成功");
 DEFINE("_MEMBER_EMAIL_USERD","此信箱已被使用");
 DEFINE("_MEMBER_PWD_ERROR_MSG1","新旧密码不可为空");
@@ -268,7 +271,7 @@ DEFINE("_MEMBER_LOGINID_ENPTY","帐密不可为空");
 DEFINE("_MEMBER_EMAIL_USED","此信箱已被注册");
 DEFINE("_MEMBER_CARD_EMPTY","经销商会员卡号不可为空");
 DEFINE("_MEMBER_CARD_USED","此经销商会员卡号已被使用");
-DEFINE("_MEMBER_NO_DISTRIBUTOR","系统中无您的经销商数据");
+DEFINE("_MEMBER_NO_DISTRIBUTOR","系统中无您的经销商资料");
 DEFINE("_MEMBER_LOGIN_SUCCESS","登入成功");
 DEFINE("_MEMBER_LOGIN_FAIL","登入失败");
 
@@ -295,14 +298,14 @@ DEFINE("_EWAYS_TAKE_TYPE2","门市自取");
 DEFINE("_EWAYS_TAKE_TYPE3","货到付款");
 DEFINE("_EWAYS_PAY_TYPE1","货到付款");
 DEFINE("_EWAYS_PAY_TYPE2","ATM汇款");
-DEFINE("_EWAYS_PAY_TYPE3","在线刷卡");
-DEFINE("_EWAYS_PAY_TYPE4","ATM虚拟账号");
+DEFINE("_EWAYS_PAY_TYPE3","线上刷卡");
+DEFINE("_EWAYS_PAY_TYPE4","ATM虚拟帐号");
 DEFINE("_EWAYS_PAY_TYPE5","店取付现");
-DEFINE("_EWAYS_PAY_TYPE6","在线刷卡");
-DEFINE("_EWAYS_PAY_TYPE7","ATM转账");
+DEFINE("_EWAYS_PAY_TYPE6","线上刷卡");
+DEFINE("_EWAYS_PAY_TYPE7","ATM转帐");
 DEFINE("_EWAYS_ESIGNUO_MSG1","ｅ化入会成功通知");
-DEFINE("_EWAYS_ESIGNUO_MSG2","欢迎您加");
-DEFINE("_EWAYS_ESIGNUO_MSG3","账号：");
+DEFINE("_EWAYS_ESIGNUO_MSG2","欢迎您加入");
+DEFINE("_EWAYS_ESIGNUO_MSG3","帐号：");
 DEFINE("_EWAYS_ESIGNUO_MSG4","密码：");
 DEFINE("_EWAYS_ESIGNUO_MSG5","会员编号：");
 DEFINE("_EWAYS_ESIGNUO_MSG6","请详记您的会员编号，若需要实体会员卡请至经销商专区下载表格申请！谢谢您！");
@@ -312,7 +315,7 @@ DEFINE("_EWAYS_ESIGNUO_MSG8","：本邮件是由系统自动产生与发送，�
 
 
 //后台员工
-DEFINE("_ADMINMANAGERS_SAME_USER","已存在相同账号的员工纪录");
+DEFINE("_ADMINMANAGERS_SAME_USER","已存在相同帐号的员工纪录");
 DEFINE("_ADMINMANAGERS_NO_SELECT","没有选择项目");
 
 //后台-快速连结
@@ -320,28 +323,30 @@ DEFINE("_BOTTOMMENU_USED_NOT_DELETE","此页面已被使用，不可删除");
 
 
 //后台-员工管理
-DEFINE("_MEMBERS_EXPORT_DATA","会员导出资料");
+DEFINE("_MEMBERS_EXPORT_DATA","会员汇出资料");
 DEFINE("_MEMBERS_AUDIT_MSG1","已通过经销商审核");
-DEFINE("_MEMBERS_AUDIT_MSG2","累积红利未达门坎");
+DEFINE("_MEMBERS_AUDIT_MSG2","累积红利未达门槛");
 DEFINE("_MEMBERS_SALESCHK0","一般会员");
 DEFINE("_MEMBERS_SALESCHK3","现有经销商审核");
 DEFINE("_MEMBERS_SALESCHK2","经销商资格审核中");
 DEFINE("_MEMBERS_SALESCHK1","正式经销商");
+DEFINE("_MEMBERS_SALESCHK4","会员");
 DEFINE("_MEMBERS_MEMTYPE1","E化加入");
 DEFINE("_MEMBERS_MEMTYPE2","一般");
-DEFINE("_MEMBERS_EXCEL_TITLE","会员编号,身分证号,会员姓名,通讯地址,电话,手机,户籍地址,E-mail,生日(公元年),申请书日期(完款日),上线编号,上线姓名,上线电话,上线手机");
+DEFINE("_MEMBERS_MEMTYPE3","升级加入");
+DEFINE("_MEMBERS_EXCEL_TITLE","会员编号,身分证号,会员姓名,通讯地址,电话,手机,户籍地址,E-mail,生日(西元年),申请书日期(完款日),上线编号,上线姓名,上线电话,上线手机");
 DEFINE("_MEMBERS_SAME_EMAIL","已存在相同的电子信箱");
 DEFINE("_MEMBERS_SAME_CARD_NO","已存在相同的经销商会员卡号");
 DEFINE("_MEMBERS_SAME_NO","已存在相同的会员编号");
-DEFINE("_MEMBERS_LOGOUT","注销");
+DEFINE("_MEMBERS_LOGOUT","登出");
 DEFINE("_MEMBERS_LOGIN","登入");
 
 
 //后台-订单
 DEFINE("_ORDER_ORDER_EMPTY","此订单不存在");
 DEFINE("_ORDER_UPDATE_PAYDATE","已更新完款日期");
-DEFINE("_ORDER_UPDATE_INVOICE_INFO","已更新收据信息");
-DEFINE("_ORDER_UPDATE_RECEIVE","已更新收货人信息");
+DEFINE("_ORDER_UPDATE_INVOICE_INFO","已更新收据资讯");
+DEFINE("_ORDER_UPDATE_RECEIVE","已更新收货人资讯");
 DEFINE("_ORDER_UNABLE_MERGE","无法合并订单");
 DEFINE("_ORDER_UNABLE_MERGE_MSG1","无法合并已配货的货到付款订单");
 DEFINE("_ORDER_UNABLE_MERGE_MSG2","无法合并已付款的订单");
@@ -355,12 +360,12 @@ DEFINE("_ORDER_UNABLE_MERGE_MSG9","无法合并不同收件人连络电话的订
 DEFINE("_ORDER_UNABLE_MERGE_MSG10","无法合并不同收件人地址的订单");
 DEFINE("_ORDER_UNABLE_MERGE_MSG11","无法合并不同配送日期的订单");
 DEFINE("_ORDER_UNABLE_MERGE_MSG12","无法合并不同发票处理的订单");
-DEFINE("_ORDER_UNABLE_MERGE_MSG13","无法合并不同发票抬头的订单");
+DEFINE("_ORDER_UNABLE_MERGE_MSG13","无法合并不同发票擡头的订单");
 DEFINE("_ORDER_UNABLE_MERGE_MSG14","无法合并不同发票统编的订单");
 DEFINE("_ORDER_SHIPPING_MSG","出货通知");
 DEFINE("_ORDER_SHIPPING_MSG1","致亲爱的");
 DEFINE("_ORDER_SHIPPING_MSG2","会员：");
-DEFINE("_ORDER_SHIPPING_MSG3","你所订购的商品已出货，请于期限内领取您的商品，感谢您的合作。出货信息如下：");
+DEFINE("_ORDER_SHIPPING_MSG3","你所订购的商品已出货，请于期限内领取您的商品，感谢您的合作。出货资讯如下：");
 DEFINE("_ORDER_SHIPPING_MSG4","订单编号");
 DEFINE("_ORDER_SHIPPING_MSG5","订购日期");
 DEFINE("_ORDER_SHIPPING_MSG6","订单金额");
@@ -404,15 +409,27 @@ DEFINE("_ORDER_EXPORT_STR26","备注栏");
 DEFINE("_ORDER_EXPORT_MSG","搜寻结果笔数过多(超过300笔)，请设定筛选条件后再做汇出");
 DEFINE("_ORDER_EXPORT_STR27","赠品");
 DEFINE("_ORDER_EXPORT_STR28","运费");
+DEFINE("_ORDER_SHIPDATE_ERROR","寄送日期必须大于今天");
+
+//后台-奖金转点数
+DEFINE("_PM_EXPORT_STR_1","会员编号");
+DEFINE("_PM_EXPORT_STR_2","会员姓名");
+DEFINE("_PM_EXPORT_STR_3","申请日期");
+DEFINE("_PM_EXPORT_STR_4","金额");
+DEFINE("_PM_EXPORT_STR_5","提领模式");
+DEFINE("_PM_EXPORT_STR_6","是否有效");
+DEFINE("_PM_EXPORT_STR_7","是否结转");
+
+
 
 
 //后台-商品管理
 DEFINE("_PRODUCTS_SELECT_FILE","请选择档案");
-DEFINE("_PRODUCTS_EXCEL_FILE","excel文件格式限制:xls、xlsx");
+DEFINE("_PRODUCTS_EXCEL_FILE","excel档案格式限制:xls、xlsx");
 DEFINE("_PRODUCTS_IMPORT_MSG1","第");
 DEFINE("_PRODUCTS_IMPORT_MSG2","列商品");
 DEFINE("_PRODUCTS_IMPORT_MSG3","部分档案无法汇入，请检查后重新上传");
-DEFINE("_PRODUCTS_IMPORT_MSG4","商品汇入完成，请进入商品页补完其他字段与开启商品");
+DEFINE("_PRODUCTS_IMPORT_MSG4","商品汇入完成，请进入商品页补完其他栏位与开启商品");
 DEFINE("_PRODUCTS_COPY_SUCCESS","复制成功");
 DEFINE("_PRODUCTS_ROOT","根目录");
 DEFINE("_PRODUCTS_DELETE_ERROR","有包含此商品的订单，不可删除");
@@ -422,32 +439,85 @@ DEFINE("_PRODUCTS_DELETE_ERROR","有包含此商品的订单，不可删除");
 DEFINE("_PROINSTOCK_DANGER","危险");
 DEFINE("_PROINSTOCK_SAFE","安全");
 
+//整合新增
+DEFINE("_MEMBER_MALE","男");
+DEFINE("_MEMBER_FEMALE","女");
+DEFINE("_MEMBER_HAS_HAND_IN","已缴交");
+DEFINE("_MEMBER_NOT_HAND_IN","未缴交");
+
+//0806 EMAIL
+DEFINE("_EMAIL_MEMBER","会员e化注册成功通知");
+DEFINE("_EMAIL_MEMBER_1","经销商ｅ化入会成功通知");
+DEFINE("_EMAIL_code","您的 GoodARCH 验证码");
+DEFINE("_EMAIL_notification","验证码通知");
+DEFINE("_EMAIL_dear","亲爱的");
+DEFINE("_EMAIL_hello","您好");
+DEFINE("_EMAIL_membership","会员/经销商");
+DEFINE("_EMAIL_register","注册");
+DEFINE("_EMAIL_msg1","您正在进行 红崴GoodARCH");
+DEFINE("_EMAIL_msg2","会员/经销商注册之认证");
+DEFINE("_EMAIL_msg3","您的Email验证码为");
+DEFINE("_EMAIL_msg4","请于15分钟内回填以完成验证程序");
+DEFINE("_EMAIL_msg5","※此信件为系统发出信件，请勿直接回复。若您有任何问题请洽客服专线 (603) 9054 - 7589，谢谢!");
+DEFINE("_EMAIL_msg6","红崴 GoodARCH 官方网站：");
+DEFINE("_EMAIL_msg7","红崴 GoodARCH-线上购物平台：");
+DEFINE("_EMAIL_msg8","红崴科技股份有限公司 版权所有，转载必究");
+DEFINE("_EMAIL_msg9","红崴 GoodARCH");
+DEFINE("_EMAIL_msg10","欢迎您成为");
+DEFINE("_EMAIL_msg11","红崴GoodARCH会员");
+DEFINE("_EMAIL_msg12","※注意：本邮件是由系统自动产生与发送，请勿直接回复，若有问题请联络客服人员，谢谢。");
+DEFINE("_EMAIL_msg13","360");
+DEFINE("_EMAIL_msg14","点网路回馈点已经放入您的帐户中");
+DEFINE("_EMAIL_msg15","赶快去使用吧");
+DEFINE("_EMAIL_msg16","来去逛逛 → ");
+DEFINE("_EMAIL_msg17","会员福利 → ");
+DEFINE("_EMAIL_msg19","验证成功");
+DEFINE("_EMAIL_msg20","验证码失效");
+DEFINE("_EMAIL_msg21","验证码失败");
+DEFINE("_EMAIL_msg22","");
+DEFINE("_EMAIL_msg23","ID");
+DEFINE("_EMAIL_msg24","红崴 GoodARCH线上购物平台");
+DEFINE("_EMAIL_msg25","您现在可以开始使用购物平台。");
+
+//杂项
+DEFINE("_SET_PM_MIN","必须大于25");
+DEFINE("_PM_KIND_1","每月固定");
+DEFINE("_PM_KIND_2","单次提领");
+DEFINE("_PM_IS_INV_0","有效");
+DEFINE("_PM_IS_INV_1","无效");
+DEFINE("_PM_CF_1","已结转");
+DEFINE("_PM_CF_0","未结转");
+DEFINE("_TOTAL_AMT_0","您的订单已成立。");
+DEFINE("_PM_DONE","提领申请完成。");
+DEFINE("_PM_FAIL","提领申请失败。");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//补翻译
+DEFINE("_MEMBER_SUCCESS_SMS","亲爱的会员，恭喜您已注册成功，欢迎您成为红崴GoodARCH会员，感谢您的加入，您可以使用你设定的帐号及密码，立即登入使用购物平台购买商品!");
+DEFINE("_MEMBER_SID_USED","您的身分证已使用无法重复加入，如有问题请洽公司服务人员，谢谢。");
+DEFINE("_MEMBER_MOBILE_USED","手机已使用过");
+DEFINE("_MEMBER_ERROR_4","推荐人员或注册码错误，请重新输入。");
+DEFINE("_MEMBER_RETURNED","归还");
+DEFINE("_MEMBER_RETURNED_WEB","网购退还");
+DEFINE("_MEMBER_INVALID_CODE","验证错误");
+DEFINE("_MEMBER_NONEXIST","无此经销商");
+DEFINE("_MEMBER_UNOFFICIAL","此帐号非正式会员");
+DEFINE("_MEMBER_ERROR5","未缴交申请书");
+DEFINE("_MEMBER_ERROR6","经销商未续约");
+DEFINE("_MEMBER_EXIST_IC","已存在相同身分证字号会员资料");
+DEFINE("_MEMBER_EXIST_MOBILE","已存在相同手机号码会员资料");
+DEFINE("_MEMBER_SEND_FAIL","发送失败");
+DEFINE("_MEMBER_MOBILE_INVALID","此手机号码未验证");
+DEFINE("_MEMBER_EMAIL_INVALID","此EMAIL未验证");
+DEFINE("_MEMBER_REC_CODE","是你的 GoodARCH 验证码");
+DEFINE("_MEMBER_E21_EMPTY","e21是空");
+DEFINE("_MEMBER_ERROR_7","参数有缺");
+DEFINE("_MEMBER_GENERATION","代数");
+DEFINE("_MEMBER_OVERSEA_POINTS","[海旅点数]");
+DEFINE("_MEMBER_MTD_EMPTY","mtd是空");
+DEFINE("_MEMBER_NO_VOUCHER","找不到该兑换券");
+DEFINE("_MEMBER_ERROR_8","可兑换数量不足");
+DEFINE("_MEMBER_ERROR_9","输入数量有误");
 
 
 ?>

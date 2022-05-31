@@ -262,13 +262,17 @@ function pagedb(){
     $data = array();
     $id = intval(global_get_param( $_REQUEST, 'id', null ,0,1  ));
     $belongid = global_get_param( $_REQUEST, 'belongid', null ,0,1  );
-    $name = global_get_param( $_REQUEST, 'name', null ,0,1,1,'',_COMMON_PARAM_NAME  );
+    $name = global_get_param( $_REQUEST, 'name_zh-tw', null ,0,1,1,'',_COMMON_PARAM_NAME  );
     $publish = global_get_param( $_REQUEST, 'publish', null ,0,1  );
     $content = global_get_param( $_REQUEST, 'content', null ,0,0  );
     $level = intval(global_get_param( $_REQUEST, 'level', null ,0,1  ));
 	$var1 = global_get_param( $_REQUEST, 'var1', null ,0,1  );
 	$formchk = global_get_param( $_REQUEST, 'formchk', null ,0,1  );
-    
+    $show_ab = global_get_param($_REQUEST, 'show_ab', null, 0, 1);
+	$has_end = global_get_param($_REQUEST, 'has_end', null, 0, 1);
+	$end_time = global_get_param($_REQUEST, 'end_time', null, 0, 1);
+	$start_time = global_get_param($_REQUEST, 'start_time', null, 0, 1);
+
 	$updatesql_addStr = "";
 	$updatevalue_addStr = "";
 	$updatesqlend_addStr = "";
@@ -283,10 +287,28 @@ function pagedb(){
 			$updatesqlend_addStr .= " `name_".$row['code']."`=VALUES(`name_".$row['code']."`), ";
 		}
 	}
+
+
+	$pageType = 'page';
+	//root
+	if ($belongid == 'root') {
+		$pageType = 'dir';
+	}
+	if ($end_time == '') {
+		$end_time = 'null';
+	} else {
+		$end_time = "'" . $end_time . "'";
+	}
+	if ($start_time == '') {
+		$start_time = 'null';
+	} else {
+		$start_time = "'" . $start_time . "'";
+	}
+
 	
-    $updatesql = "INSERT INTO $tablename (id,name,{$updatesql_addStr} belongid,treelevel,publish,pagetype,content,formchk,var1) VALUES ";
-	$updatevalue = "('$id',N'$name',{$updatevalue_addStr} '$belongid','$level','$publish','page',N'$content','$formchk',N'$var1')";
-	$updatesqlend = " ON DUPLICATE KEY UPDATE name=VALUES(name),{$updatesqlend_addStr} publish=VALUES(publish),content=VALUES(content),formchk=VALUES(formchk),var1=VALUES(var1)";
+    $updatesql = "INSERT INTO $tablename (id,name,{$updatesql_addStr} belongid,treelevel,publish,pagetype,content,formchk,var1,show_ab,has_end,end_time,start_time) VALUES ";
+	$updatevalue = "('$id',N'$name',{$updatevalue_addStr} '$belongid','$level','$publish','$pageType',N'$content','$formchk',N'$var1','$show_ab','$has_end',$end_time,$start_time)";
+	$updatesqlend = " ON DUPLICATE KEY UPDATE name=VALUES(name),{$updatesqlend_addStr} publish=VALUES(publish),content=VALUES(content),formchk=VALUES(formchk),var1=VALUES(var1),show_ab=VALUES(show_ab),has_end=VALUES(has_end),end_time=VALUES(end_time),start_time=VALUES(start_time)";
 		
 	if($id==0){
 		$msg=_COMMON_QUERYMSG_ADD_SUS;
@@ -296,6 +318,7 @@ function pagedb(){
 	
 	$db->setQuery( $updatesql.$updatevalue.$updatesqlend );
 	$db->query();
+
 	JsonEnd(array("status"=>1,"msg"=>$msg));
 	
 		
@@ -303,5 +326,4 @@ function pagedb(){
 
 
 
-include( $conf_php.'common_end.php' ); 
-?>
+include( $conf_php.'common_end.php' );

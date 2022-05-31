@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="706" height="467" viewBox="0 0 706 467">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #097c25;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        font-size: 26.55px;
+        fill: #f6ff00;
+        font-family: DFPYuanMXBold-B5;
+      }
+    </style>
+  </defs>
+  <rect id="圓角矩形_1" data-name="圓角矩形 1" class="cls-1" width="706" height="467" rx="10" ry="10"/>
+  <rect id="矩形_1" data-name="矩形 1" y="66.188" width="706" height="73.438"/>
+  <rect id="矩形_2" data-name="矩形 2" class="cls-2" x="39" y="186" width="368" height="77"/>
+  <text id="_666" data-name="666" class="cls-3" transform="matrix(3.468, 0, 0, 3.468, 439.5, 253.921)">666</text>
+</svg>
