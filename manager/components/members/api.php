@@ -311,7 +311,7 @@ function members_list()
 		
 		
 		
-		$sql = "SELECT * FROM addrcode WHERE 1=1";
+		$sql = "SELECT * FROM region WHERE 1=1";
 		$db->setQuery($sql);
 		$list = $db->loadRowList();
 		
@@ -321,7 +321,7 @@ function members_list()
 		{
 			foreach($list as $info)
 			{
-				$addrcode_arr[$info['id']] = $info['name'];
+				$addrcode_arr[$info['id']] = $info['state_u'];
 			}
 		}
 		
@@ -338,14 +338,24 @@ function members_list()
 			{
 				$Birthday = (!empty($info["Birthday"])) ? date("Y/m/d", strtotime($info["Birthday"])):"";
 				$payDate = (!empty($info["payDate"])) ? date("Y/m/d", strtotime($info["payDate"])):"";
+				if($info['onlyMember'] == '1'){
+					$memberYN = 'Y';
+				}
 				
+
 				$printcsv .= $info['cardnumber'].",";
 				$printcsv .= $info['sid'].",";
 				$printcsv .= $info['name'].",";
-				$printcsv .= $addrcode_arr[$info['city']].$addrcode_arr[$info['canton']].$info['addr'].",";
+				$addr_tmp = $addrcode_arr[$info['city']].' '.$info['addr'].",";
+				$addr_tmp = str_replace(',', '', $addr_tmp);
+				$addr_tmp = str_replace(';', '', $addr_tmp);
+				$printcsv .= "\"" . $addr_tmp . "\",";
 				$printcsv .= $info['phone'].",";
 				$printcsv .= $info['mobile'].",";
-				$printcsv .= $addrcode_arr[$info['rescity']].$addrcode_arr[$info['rescanton']].$info['resaddr'].",";
+				$addr_tmp2 = $addrcode_arr[$info['rescity']].' '.$info['resaddr'].",";
+				$addr_tmp2 = str_replace(',', '', $addr_tmp);
+				$addr_tmp2 = str_replace(';', '', $addr_tmp);
+				$printcsv .= "\"" . $addr_tmp2 . "\",";
 				$printcsv .= $info['email'].",";
 				$printcsv .= $Birthday.",";
 				$printcsv .= $payDate.",";
@@ -353,6 +363,7 @@ function members_list()
 				$printcsv .= $info['recommendName'].",";
 				$printcsv .= $info['recommendPhone'].",";
 				$printcsv .= $info['recommendMobile'].",";
+				$printcsv .= $memberYN.",";
 				$printcsv .= "\n";
 			}
 		}

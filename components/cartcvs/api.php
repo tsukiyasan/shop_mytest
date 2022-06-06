@@ -676,8 +676,11 @@ function order_submit(){
 			$now_points = bcsub($now_points,$each['point'],2);
 		}
 	}
+	if($now_points < 0){
+		$now_points = 0;
+ 	}
 	if($now_points < $use_points){
-		JsonEnd(array("status"=>0,"msg"=>_POINTS_NOT_ENOUGH));
+		JsonEnd(array("status"=>0,"msg"=>_POINTS_NOT_ENOUGH,'use_p' => $use_p,'use_po' => $use_points,'now_po' => $now_points));
 	}
 	
 	$sql="BEGIN;";

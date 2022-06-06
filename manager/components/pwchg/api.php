@@ -16,6 +16,7 @@ function passwordSet(){
 	$arrJson = array();
 	
 	$sysid = getSysid($_SESSION[$conf_user]['ulevel']);
+	$uloginid = $_SESSION[$conf_user]['uloginid'];
 	
 	$oripwd	= global_get_param( $_REQUEST, 'opw', null, 0, 1, 1, null,   _COMMON_PARAM_PASSWD);	
 	$passwd	= global_get_param( $_REQUEST, 'npw', null, 0, 1, 1, null,   _COMMON_PARAM_PASSWD);	
@@ -23,9 +24,9 @@ function passwordSet(){
 	$passwd = md5 ($globalConf_encrypt_1.$passwd.$globalConf_encrypt_2);
 	if($sysid == 'admin')
 	{
-		$sqlChk = "SELECT * FROM adminmanagers WHERE loginid = 'admin' AND  passwd='$oripwd'";
+		$sqlChk = "SELECT * FROM adminmanagers WHERE loginid = '$uloginid' AND  passwd='$oripwd'";
 		
-		$sql = "UPDATE adminmanagers SET passwd='$passwd' WHERE loginid = 'admin'";
+		$sql = "UPDATE adminmanagers SET passwd='$passwd' WHERE loginid = '$uloginid'";
 	}
 	else
 	{
