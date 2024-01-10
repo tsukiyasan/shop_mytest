@@ -4072,7 +4072,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		//	ft: 2 bytes; ftCmo type (0x15)
 		//	cb: 2 bytes; size in bytes of ftCmo data
 		//	ot: 2 bytes; Object Type
-		//	id: 2 bytes; Object id number
+		//	id: 2 bytes; Object IC Number
 		//	grbit: 2 bytes; Option Flags
 		//	data: var; subrecord data
 

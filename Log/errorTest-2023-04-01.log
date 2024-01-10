@@ -1,0 +1,8 @@
+[2023-04-01T14:35:19] [ERROR] [ApiClient] : ApiException : [401] Error connecting to the API (https://apitest.cybersource.com/tss/v2/searches)
+[2023-04-01T14:35:19] [ERROR] [SearchTransactionsApi] : ApiException : exception 'CyberSource\ApiException' with message '[401] Error connecting to the API (https://apitest.cybersource.com/tss/v2/searches)' in D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\ApiClient.php:427
+Stack trace:
+#0 D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\Api\SearchTransactionsApi.php(179): CyberSource\ApiClient->callApi('/tss/v2/searche...', 'POST', Array, Object(CyberSource\Model\CreateSearchRequest), Array, '\\CyberSource\\Mo...', '/tss/v2/searche...')
+#1 D:\wamp64\www\shop_mytest\vendor\cybersource\rest-client-php\lib\Api\SearchTransactionsApi.php(109): CyberSource\Api\SearchTransactionsApi->createSearchWithHttpInfo(Object(CyberSource\Model\CreateSearchRequest))
+#2 D:\wamp64\www\shop_mytest\app\controllers\cybersource.php(27): CyberSource\Api\SearchTransactionsApi->createSearch(Object(CyberSource\Model\CreateSearchRequest))
+#3 D:\wamp64\www\shop_mytest\app\controllers\cybersource.php(38): CreateSearchRequest('3S010-22040146')
+#4 {main}

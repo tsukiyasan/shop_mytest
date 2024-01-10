@@ -1,0 +1,861 @@
+[2023-03-31T16:24:33] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:33] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:33] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:33] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:33] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:33] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:33] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:33] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="MQ23iR84E08xNUZs7+EUhf0nja7T3ZpY5nyaoAHIsnk="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:33 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:33] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:45] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/7eb6399c-625f-4918-8750-1d5cae28b200","method":"GET"}},"searchId":"7eb6399c-625f-4918-8750-1d5cae28b200","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:45Z"}
+[2023-03-31T16:24:45] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "1509211714"
+Expires = Fri, 31 Mar 2023 08:24:45 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:45 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 36ca4605-d381-4156-bcd5-bee331943352
+[2023-03-31T16:24:45] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:45] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:45] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:45] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:45] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:45] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:45] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:45] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:45] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="PxTIlp35r5J71S2V81Uuo8Ig/6dIdkt2q8FsG2YpUfA="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:45 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:45] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:46] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/6a6a9102-79d4-417a-9bc6-64157fee7c4d","method":"GET"}},"searchId":"6a6a9102-79d4-417a-9bc6-64157fee7c4d","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:47Z"}
+[2023-03-31T16:24:46] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "1206726016"
+Expires = Fri, 31 Mar 2023 08:24:47 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:46 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = eec926b6-dbf3-4232-8f93-c5ad501fb0b1
+[2023-03-31T16:24:46] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:49] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:49] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:49] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:49] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:49] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:49] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:49] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:49] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="VME6Ewb6FMJrVuxKob/87cwRTgNJm/NBRNVftKlSax8="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:49 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:49] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:50] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/a55ff1fe-246d-41f5-971e-21b1950da550","method":"GET"}},"searchId":"a55ff1fe-246d-41f5-971e-21b1950da550","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:51Z"}
+[2023-03-31T16:24:50] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-1325992761"
+Expires = Fri, 31 Mar 2023 08:24:51 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:51 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = c7256acd-387f-42b0-aa6a-0bc0998d6470
+[2023-03-31T16:24:50] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:52] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:52] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:52] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:52] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:52] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:52] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:52] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:52] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="KlVFTV/Q9OUYOiQti7qr8pSNhaZlhlIjnUNrysZB/gY="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:52 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:52] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:53] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/21fda9b9-eefd-4abb-894e-812c521d8f09","method":"GET"}},"searchId":"21fda9b9-eefd-4abb-894e-812c521d8f09","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:54Z"}
+[2023-03-31T16:24:53] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-74943900"
+Expires = Fri, 31 Mar 2023 08:24:54 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:53 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = db30deed-3cc8-4c8b-a3c0-9d5dbeebd05b
+[2023-03-31T16:24:53] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:55] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:55] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:55] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:55] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:55] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:55] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:55] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:55] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="jzc9AggnlXVQiMFMIBqLeJrVyMIn/fBIhR8ZdMMG/8o="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:55 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:55] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:56] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/4de15ce8-bff4-4e3f-8a45-acdc43a1ba8f","method":"GET"}},"searchId":"4de15ce8-bff4-4e3f-8a45-acdc43a1ba8f","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:57Z"}
+[2023-03-31T16:24:56] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "332558465"
+Expires = Fri, 31 Mar 2023 08:24:57 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:56 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = ba292457-3610-4630-a5c5-32eb03e7997a
+[2023-03-31T16:24:56] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:58] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:58] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:58] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:58] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:58] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:58] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:58] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:58] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="lik0HFEKYeWhsZWFUu4NLncGs9AQ1RQVAZzZRy6YwIw="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:58 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:58] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:59] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/34194979-696a-40ab-b7a1-f30276748ed3","method":"GET"}},"searchId":"34194979-696a-40ab-b7a1-f30276748ed3","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:24:59Z"}
+[2023-03-31T16:24:59] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-134001249"
+Expires = Fri, 31 Mar 2023 08:24:59 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:24:59 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 84453744-5321-4769-acfd-c000b7d50260
+[2023-03-31T16:24:59] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:24:59] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:24:59] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:24:59] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:24:59] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:24:59] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:24:59] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:24:59] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:24:59] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="dKh+3uq57lZY0SpClQK8mAGlZpi1ViRWDmpaav17fx8="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:24:59 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:24:59] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:00] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/201ab79f-b68a-4266-8aee-9b86b499a6c9","method":"GET"}},"searchId":"201ab79f-b68a-4266-8aee-9b86b499a6c9","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:25:01Z"}
+[2023-03-31T16:25:00] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-1243169725"
+Expires = Fri, 31 Mar 2023 08:25:01 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:25:00 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 338897cb-cc2c-4e6b-91f8-427d55b6a2ac
+[2023-03-31T16:25:00] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:25:04] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:25:04] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:25:04] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:25:04] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:25:04] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:04] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:25:04] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:25:04] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="EYWy/PTMt44iFZD1EqBnAgswN7N9lt2WWGCxKHTkDW8="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:25:04 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:25:04] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:05] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/edeb6600-1785-451e-ae38-ffb4bf1ec0b4","method":"GET"}},"searchId":"edeb6600-1785-451e-ae38-ffb4bf1ec0b4","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:25:05Z"}
+[2023-03-31T16:25:05] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-167226113"
+Expires = Fri, 31 Mar 2023 08:25:05 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:25:05 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 6223a204-9b1e-4d25-ad1d-26c0ffe2983c
+[2023-03-31T16:25:05] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:25:15] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:25:15] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:25:15] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:25:15] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:25:15] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:15] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:25:15] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:25:15] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="43qOwyIxl1OLhqHWv+U7D44531KNEGYC6UbDvPzfbRg="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:25:15 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:25:15] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:16] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/b6aa10f2-f1b5-46d3-b2ed-a9e1c6b569e4","method":"GET"}},"searchId":"b6aa10f2-f1b5-46d3-b2ed-a9e1c6b569e4","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:25:17Z"}
+[2023-03-31T16:25:16] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-702867746"
+Expires = Fri, 31 Mar 2023 08:25:17 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:25:17 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 8cb68ca2-a76f-4526-8e23-ec0b64d8bc85
+[2023-03-31T16:25:16] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T16:25:19] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T16:25:19] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T16:25:19] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T16:25:19] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T16:25:19] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:19] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T16:25:19] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T16:25:19] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="Ntgsuv/KA57RORUnMoPIzBdrzNDcM304MUh0qpUtTR4="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 16:25:19 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T16:25:19] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T16:25:20] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/f30eec7a-4aba-4872-9673-6c37ec4d9437","method":"GET"}},"searchId":"f30eec7a-4aba-4872-9673-6c37ec4d9437","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T08:25:21Z"}
+[2023-03-31T16:25:20] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-1888019707"
+Expires = Fri, 31 Mar 2023 08:25:21 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 08:25:21 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = da1b6dba-4bbf-457b-b721-6d88f41c4b28
+[2023-03-31T16:25:20] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:11] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:11] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:11] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:11] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:11] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:11] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:11] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:11] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="0V/8VGCSFTjwgm52HdJZxpJVdSHkgzCQkik3GUKkz/0="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:11 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:11] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:14] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/42bbb641-48fd-407e-9c05-f09a654f7cb4","method":"GET"}},"searchId":"42bbb641-48fd-407e-9c05-f09a654f7cb4","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:14Z"}
+[2023-03-31T23:59:14] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-993286906"
+Expires = Fri, 31 Mar 2023 15:59:14 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:14 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 8d156577-adb3-48e4-b5f0-5f4a4dc55781
+[2023-03-31T23:59:14] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:15] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:15] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:15] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:15] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:15] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:15] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:15] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:15] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="Us4cj9zIewrqK9iyhXSKeVxisacCDwHG9O6UZn6Yris="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:15 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:15] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:16] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/872736dc-2785-4e32-b0f6-8b60acb229a8","method":"GET"}},"searchId":"872736dc-2785-4e32-b0f6-8b60acb229a8","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:16Z"}
+[2023-03-31T23:59:16] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "2025861476"
+Expires = Fri, 31 Mar 2023 15:59:16 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:16 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 0d8a3ab2-a128-40f4-9e0d-37fcdc7e63d0
+[2023-03-31T23:59:16] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:29] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:29] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:29] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:29] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:29] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:29] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:29] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:29] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="7oy4GAiW+VPny49pC8HmP2zdUZShmsCnORnCaiPpBbQ="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:29 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:29] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:30] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/12a24bf5-3be3-4100-9791-5999a166715a","method":"GET"}},"searchId":"12a24bf5-3be3-4100-9791-5999a166715a","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:30Z"}
+[2023-03-31T23:59:30] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "309102284"
+Expires = Fri, 31 Mar 2023 15:59:30 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:30 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = b9dcb4df-b0d0-47a4-bd8d-243a5b0da935
+[2023-03-31T23:59:30] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:34] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:34] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:34] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:34] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:34] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:34] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:34] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:34] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="Fz2Y8WWbCPG4kIn3r/CxaxfdrgPoDYv36OndEMRj4WE="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:34 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:34] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:35] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/20778c32-a076-45ba-8cbe-5d511344414f","method":"GET"}},"searchId":"20778c32-a076-45ba-8cbe-5d511344414f","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:35Z"}
+[2023-03-31T23:59:35] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "1853410503"
+Expires = Fri, 31 Mar 2023 15:59:35 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:35 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 0d6b1845-6d51-4ccb-90e8-6a3031945c4f
+[2023-03-31T23:59:35] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:36] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:36] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:36] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:36] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:36] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:36] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:36] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:36] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="hxVSE+rSigoOlbBYxqXJsn3v/Sor/2rDmQ5I7ZGUf0M="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:36 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:36] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:37] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/ef60eeb6-eb26-4b1a-a093-ee9cd44fca04","method":"GET"}},"searchId":"ef60eeb6-eb26-4b1a-a093-ee9cd44fca04","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:37Z"}
+[2023-03-31T23:59:37] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-2028068315"
+Expires = Fri, 31 Mar 2023 15:59:37 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:36 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 76efdf5f-49c6-4a33-858b-a944194d31e3
+[2023-03-31T23:59:37] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:39] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:39] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:39] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:39] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:39] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:39] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:39] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:39] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="I7bZyZPY+wJ8NRkrXutBIe3VS9jwXvmrPTOARaXk1fc="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:39 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:39] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:40] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/021a91ff-44b0-4443-9234-eb2f6ccf4b33","method":"GET"}},"searchId":"021a91ff-44b0-4443-9234-eb2f6ccf4b33","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:40Z"}
+[2023-03-31T23:59:40] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "1712238445"
+Expires = Fri, 31 Mar 2023 15:59:40 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:39 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = aac2cd64-b3c7-4cc4-8f03-5ce38ed7a88c
+[2023-03-31T23:59:40] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:43] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:43] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:43] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:43] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:43] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:43] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:43] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:43] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="8smVOihFW8y68s1M5MyecPfOOnFfMOlftxIJ36f/sLY="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:43 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:43] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:44] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/8b871ed6-fbcc-4fa6-97a9-dc2486360c23","method":"GET"}},"searchId":"8b871ed6-fbcc-4fa6-97a9-dc2486360c23","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:44Z"}
+[2023-03-31T23:59:44] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-148507351"
+Expires = Fri, 31 Mar 2023 15:59:44 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:44 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 4629dc6d-d41a-47b4-a9f0-3db24192d71a
+[2023-03-31T23:59:44] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:51] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:51] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:51] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:51] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:51] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:51] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:51] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:51] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="SS8DYkcgyP0YcHVGe4RbXaUGQ/SRLnRXEcd1gA61awU="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:51 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:51] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:52] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/8ba4665d-d5f0-46f0-be8b-a12b9b4cdfb2","method":"GET"}},"searchId":"8ba4665d-d5f0-46f0-be8b-a12b9b4cdfb2","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:52Z"}
+[2023-03-31T23:59:52] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-290835476"
+Expires = Fri, 31 Mar 2023 15:59:52 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:52 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = 6ad7bdaa-2e29-4cde-81c7-5b6ceaced396
+[2023-03-31T23:59:52] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:56] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:56] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:56] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:56] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:56] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:56] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:56] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:56] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="eKXEhddrnLTYg804KlryKwtNNuztr8wk/7we8sLs++8="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:56 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:56] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:57] [DEBUG] [ApiClient] : HTTP Response Body:
+{"_links":{"self":{"href":"https:\/\/apitest.cybersource.com\/tss\/v2\/searches\/855fe907-5fcd-4569-9610-25b60ad21b20","method":"GET"}},"searchId":"855fe907-5fcd-4569-9610-25b60ad21b20","save":false,"name":"MRN","query":"clientReferenceInformation.code:3S010-22040146","count":0,"totalCount":0,"limit":100,"offset":0,"sort":"id:asc,submitTimeUtc:asc","timezone":"America\/Chicago","submitTimeUtc":"2023-03-31T15:59:57Z"}
+[2023-03-31T23:59:57] [DEBUG] [SearchTransactionsApi] : Response Headers :
+HTTP/1.1 201
+Cache-Control = no-cache, no-transform
+ETag = "-825783801"
+Expires = Fri, 31 Mar 2023 15:59:57 GMT
+Last-Modified = Thu, 01 Jan 1970 00:00:00 GMT
+X-XSS-Protection = 1
+X-Content-Type-Options = nosniff
+Content-Security-Policy = default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';
+Strict-Transport-Security = max-age=31536000; includeSubDomains
+Vary = Accept-Encoding
+Content-Type = application/json
+Date = Fri, 31 Mar 2023 15:59:57 GMT
+Connection = keep-alive
+transfer-encoding = chunked
+v-c-correlation-id = c2bac253-e19d-43b8-b775-cd8446c71443
+[2023-03-31T23:59:57] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch ENDED
+[2023-03-31T23:59:59] [INFO] [MerchantConfiguration] : APPLICATION LOGGING START:
+
+[2023-03-31T23:59:59] [INFO] [MerchantConfiguration] : CONFIGURATION INFORMATION :
+authenticationType  = HTTP_SIGNATURE
+enableLogging  = 1
+debugLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\debugTest.log
+errorLogFile  = D:\wamp64\www\shop_mytest\Cybersource\..\Log\errorTest.log
+RunEnvironment  = apitest.cybersource.com
+[2023-03-31T23:59:59] [INFO] [SearchTransactionsApi] : CALL TO METHOD createSearch STARTED
+[2023-03-31T23:59:59] [DEBUG] [SearchTransactionsApi] : Resource : POST /tss/v2/searches
+[2023-03-31T23:59:59] [DEBUG] [SearchTransactionsApi] : Body Parameter :
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}
+[2023-03-31T23:59:59] [DEBUG] [SearchTransactionsApi] : Return Type : \CyberSource\Model\TssV2TransactionsPost201Response
+[2023-03-31T23:59:59] [INFO] [ApiClient] : CALLING API "/tss/v2/searches" STARTED
+[2023-03-31T23:59:59] [DEBUG] [ApiClient] : Request Headers :
+Accept: */*
+Content-Type: application/json
+v-c-merchant-id:pbb_goodarchtechsbmyr
+Signature:keyid="XXXXX", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="/CwGVTOsX/UbjotONgJ1YrSZ+XxTkxFNcTgmxBM3qbw="
+Host:apitest.cybersource.com
+Date:Fri, 31 Mar 2023 23:59:59 GMT
+v-c-client-id:
+Digest: SHA-256=vP0plSQCO9l8NtRzewyJSU8NhfpIf1p9DRPybrVqXsA=
+[2023-03-31T23:59:59] [DEBUG] [ApiClient] : HTTP Request Body:
+{"save":false,"name":"MRN","timezone":"America\/Chicago","query":"clientReferenceInformation.code:3S010-22040146","offset":0,"limit":100,"sort":"id:asc,submitTimeUtc:asc"}

@@ -8,7 +8,7 @@
 	"members_name": "Member Name",
 	"members_loginid": "Account",
 	"members_passwd": "Password",
-	"members_sid": "ID number",
+	"members_sid": "IC Number",
 	"members_phone": "Contact Tel",
 	"members_mobile": "Mobile",
 	"members_sex": "Gender",
@@ -69,5 +69,11 @@
 	"members_order_payType": "payment method",
 	"members_order_takeType": "Delivery Method",
 	"members_back": "Back to previous page",
-	"member_end": ""
+	"member_end": "",
+	"members_memLocked": "Member account status",
+	"members_memLocked0": "ALL",
+	"members_memLocked1": "active",
+	"members_memLocked2": "locked",
+	"members_dis_cnt": "Active Distributor:",
+	"members_mem_cnt": "Active Member:"
 }

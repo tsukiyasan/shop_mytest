@@ -12,32 +12,105 @@
             </div>
           </div>
         
-        <div class="page_padding">
-        <!-- 內容大標題 -->
-          <div class="title_padding2">
-            <div class="row">
-              <div class="col-xs-12 page_content_title">
-                <h3 ng-bind="'lg_news.news' | translate">最新消息</h3>
-              </div>
-            </div>
-          </div>
-            <div class="col-xs-12 col-sm-12 col-md-6" ng-repeat="data in ctrl.data_list" on-finish-render>
-                <div class="Lastest-News">
-                    <div class="col-xs-12 page_news_area_padding padding_0">
-                        <div class="col-xs-2 date">
-                            <a ng-href="news_page?cur={{ctrl.page}}&id={{data.id}}"><p>{{data.newsM}}<br><span>{{data.newsD}}</span></p></a>
-                        </div>      
-                        <div class="col-xs-10 content">
-                            <a ng-href="{{data.linkurl}}" target="{{data.linktype=='link'?'_blank':'_self'}}">
-                                <h4 ng-bind="data.name"></h4>
-                                <p ng-bind="data.summary"></p>
-                            </a>
-                        </div>
+          <div class="page_padding col-md-12 col-sm-12 col-xs-12 padding_0">
+            <!-- 內容大標題 -->
+            <div class="title_padding2">
+                <div class="row">
+                    <div class="col-xs-12 page_content_title">
+                        <h3 ng-bind="'lg_news.news' | translate">最新消息</h3>
                     </div>
                 </div>
             </div>
-            
-            <page-ctrl-el cnt="ctrl.cnt"></page-ctrl-el>
+            <div class="col-md-2 col-xs-12 col-sm-12 nav" id="news_menu" style="border-left:3px solid rgb(210, 210, 210)">
+                <div class="nav">
+                    <li class="col-md-12 col-xs-6 col-sm-6 news-menu news active" ng-click="ctrl.go_news()">
+                        <a href="javascript:void(0)" ng-click="ctrl.go_news()"><txt ng-bind="'lg_news.news_list' | translate">最新消息</txt></a>
+                    </li>
+                    <li class="col-md-12 col-xs-6 col-sm-6 news-menu cale" ng-click="ctrl.go_calendar()">
+                        <a href="javascript:void(0)" ng-click="ctrl.go_calendar()"><txt ng-bind="'lg_news.calendar_list' | translate">行事曆</txt></a>
+                    </li>
+                    <li class="col-md-12 col-xs-6 col-sm-6 news-menu cour" ng-click="ctrl.go_course()">
+                        <a href="javascript:void(0)" ng-click="ctrl.go_course()"><txt ng-bind="'lg_news.course_list' | translate">課程資訊</txt></a>
+                    </li>
+                    <li class="col-md-12 col-xs-6 col-sm-6 news-menu duty" ng-click="ctrl.go_duty()">
+                        <a href="javascript:void(0)" ng-click="ctrl.go_duty()"><txt ng-bind="'lg_news.duty_list' | translate">各區值班日</txt></a>
+                    </li>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8">
+                <div ng-if="ctrl.news_page=='news_list'">
+                    <div class="" ng-repeat="data in ctrl.data_list" on-finish-render>
+                        <div class="Lastest-News">
+                            <div class="col-xs-12 page_news_area_padding padding_0">
+                                <div class="col-xs-2 date">
+                                    <a ng-href="news_page?cur={{ctrl.page}}&id={{data.id}}">
+                                        <p>{{data.newsM}}<br><span>{{data.newsD}}</span></p>
+                                    </a>
+                                </div>
+                                <div class="col-xs-10 content">
+                                    <a ng-href="{{data.linkurl}}" target="{{data.linktype=='link'?'_blank':'_self'}}">
+                                        <h4 class="hidden-xs hidden-sm multi_ellipsis_2" ng-bind="data.name"></h4>
+                                        <p class="hidden-md hidden-lg multi_ellipsis" ng-bind="data.name"></p>
+                                        <!-- <p class="hidden-xs" ng-bind="data.summary"></p> -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <page-ctrl-el cnt="ctrl.cnt"></page-ctrl-el>
+                </div>
+
+                <div ng-if="ctrl.news_page=='course_list'">
+                    <div class="" ng-repeat="data in ctrl.data_list" on-finish-render>
+                        <div class="Lastest-News">
+                            <div class="col-xs-12 page_news_area_padding padding_0">
+                                <div class="col-xs-2 date">
+                                    <a ng-href="news_page?cur={{ctrl.page}}&id={{data.id}}">
+
+                                    </a>
+                                </div>
+                                <div class="col-xs-10 content">
+                                    <a ng-href="{{data.linkurl}}" target="{{data.linktype=='link'?'_blank':'_self'}}">
+                                        <h4 class="hidden-xs hidden-sm multi_ellipsis_2" ng-bind="data.name"></h4>
+                                        <p class="hidden-md hidden-lg multi_ellipsis" ng-bind="data.name"></p>
+                                        <!-- <p class="hidden-xs" ng-bind="data.summary"></p> -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <page-ctrl-el cnt="ctrl.cnt"></page-ctrl-el>
+                </div>
+
+                <div ng-show="ctrl.news_page=='calendar_list' || ctrl.news_page=='duty_list'">
+                    <div class="title_padding2">
+                        <div class="row">
+                            <div class="col-xs-12 singlepage_content_title">
+                                <h3 ng-bind="ctrl.news_detail.name"></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        #dbpage_content iframe{
+                            width:100%
+                        }
+                    </style>
+                    
+                    <div class="row">
+                        <div ng-if="ctrl.news_detail.post_type != '2'" class="col-xs-12 news_detail" id="dbpage_content" ng-bind-html="ctrl.news_detail.content">
+                        </div>
+                        <div ng-if="ctrl.news_detail.post_type == '2'" class="col-xs-12 news_detail" id="dbpage_content" ng-bind-html="ctrl.news_detail.xcontent">
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
         </div>
 </div>
       </section>        

@@ -60,10 +60,10 @@ DEFINE('_COMMON_PARAM_VR','Authentication random number');
 DEFINE('_COMMON_PARAM_CV','Authentication Code');
 DEFINE('_COMMON_PARAM_LG','Language code');
 DEFINE('_COMMON_PARAM_DLVRPAYCHK','Cash on delivery');
-DEFINE('_COMMON_PARAM_BANKPAYCHK','ATM Remittance');
+DEFINE('_COMMON_PARAM_BANKPAYCHK','Online banking');
 DEFINE('_COMMON_PARAM_CREDITPAYCHK','credit card payment');
-DEFINE('_COMMON_PARAM_HOMEDLVRCHK','Home delivery');
-DEFINE('_COMMON_PARAM_HOMEDLVRCHK_AMT','Home delivery fee');
+DEFINE('_COMMON_PARAM_HOMEDLVRCHK','Shipping');
+DEFINE('_COMMON_PARAM_HOMEDLVRCHK_AMT','Shipping fee');
 DEFINE('_COMMON_PARAM_HOMEDLVRGMCHK','Free shipping for order ');
 DEFINE('_COMMON_PARAM_HOMEDLVRGMCHK_AMT','Order ');
 DEFINE('_COMMON_PARAM_BANKNAME','Bank name');
@@ -95,7 +95,7 @@ DEFINE('_COMMON_PARAM_FIELD','Reserved field');
 DEFINE('_COMMON_PARAM_MEDIANAME','Media name');
 DEFINE('_COMMON_PARAM_MEDIACONT','Media description');
 DEFINE('_COMMON_PARAM_MEDIASOURCE','Media destination URL');
-DEFINE('_COMMON_PARAM_SID','ID number');
+DEFINE('_COMMON_PARAM_SID','IC Number');
 DEFINE('_COMMON_PARAM_MOBILE','Mobile');
 DEFINE('_COMMON_PARAM_SEX','gender');
 DEFINE('_COMMON_PARAM_BIRTHDATE','Date of birth');
@@ -216,9 +216,10 @@ DEFINE("_DBPAGE_ABOUTUS","About GoodARCH");
 //會員中心
 DEFINE("_MEMBER_NO_DATA","Info not found");
 DEFINE("_MEMBER_ERROR_CARD","Invalid card");
-DEFINE("_MEMBER_SID_REPEAT","ID number has been used");
+DEFINE("_MEMBER_SID_REPEAT","IC Number has been used");
+DEFINE("_MEMBER_SID_REPEAT_MEMBER","IC Number has been used");
 DEFINE("_MEMBER_EMAIL_REPEAT","Email has been used");
-DEFINE("_MEMBER_SID_ERROR","Invalid ID number");
+DEFINE("_MEMBER_SID_ERROR","Invalid IC Number");
 DEFINE("_MEMBER_EMAIL_ERROR","Invalid email");
 DEFINE("_MEMBER_SC1","Northern Region Joint Service Center");
 DEFINE("_MEMBER_SC1_ADDR","11F.-1, No.266, Sec. 1, Wenhua 2nd Rd., Linkou Dist., New Taipei City 244, Taiwan");
@@ -265,8 +266,8 @@ DEFINE("_MEMBER_EMAIL_USERD","This email has been used");
 DEFINE("_MEMBER_PWD_ERROR_MSG1","The old and new passwords cannot be empty");
 DEFINE("_MEMBER_PWD_ERROR_MSG2","Old password error");
 DEFINE("_MEMBER_UPDATE_SUCCESS","Successfully changed");
-DEFINE("_MEMBER_SID_EMPTY","The ID number cannot be empty");
-DEFINE("_MEMBER_SID_REPEAT","This ID number has been registered");
+DEFINE("_MEMBER_SID_EMPTY","The IC Number cannot be empty");
+DEFINE("_MEMBER_SID_REPEAT","This IC Number has been registered");
 DEFINE("_MEMBER_LOGINID_ENPTY","Account cannot be empty");
 DEFINE("_MEMBER_EMAIL_USED","This email has been registered");
 DEFINE("_MEMBER_CARD_EMPTY","The membership card number cannot be empty");
@@ -293,16 +294,16 @@ DEFINE("_EWAYS_CART_MSG2","There are normal item in the shopping cart, please em
 DEFINE("_EWAYS_SUCCESS","Operation succeeded");
 DEFINE("_EWAYS_ADDPROD","add on");
 DEFINE("_EWAYS_CART_EMPTY","Shopping cart is empty");
-DEFINE("_EWAYS_TAKE_TYPE1","Home delivery");
+DEFINE("_EWAYS_TAKE_TYPE1","Shipping");
 DEFINE("_EWAYS_TAKE_TYPE2","Self collection");
 DEFINE("_EWAYS_TAKE_TYPE3","Cash on delivery");
 DEFINE("_EWAYS_PAY_TYPE1","Cash on delivery");
-DEFINE("_EWAYS_PAY_TYPE2","ATM remittance");
-DEFINE("_EWAYS_PAY_TYPE3","Online credit card payment");
+DEFINE("_EWAYS_PAY_TYPE2","Online banking");
+DEFINE("_EWAYS_PAY_TYPE3","Credit card");
 DEFINE("_EWAYS_PAY_TYPE4","ATM virtual account");
 DEFINE("_EWAYS_PAY_TYPE5","Cash on store collection");
-DEFINE("_EWAYS_PAY_TYPE6","Online credit card payment");
-DEFINE("_EWAYS_PAY_TYPE7","ATM remittance");
+DEFINE("_EWAYS_PAY_TYPE6","Credit card");
+DEFINE("_EWAYS_PAY_TYPE7","Online banking");
 DEFINE("_EWAYS_ESIGNUO_MSG1","Notification of e-member successful membership");
 DEFINE("_EWAYS_ESIGNUO_MSG2","Welcome");
 DEFINE("_EWAYS_ESIGNUO_MSG3","Account");
@@ -333,7 +334,7 @@ DEFINE("_MEMBERS_SALESCHK1","Formal");
 DEFINE("_MEMBERS_SALESCHK4","Member");
 DEFINE("_MEMBERS_MEMTYPE1","e-sign up");
 DEFINE("_MEMBERS_MEMTYPE2","general");
-DEFINE("_MEMBERS_EXCEL_TITLE","Member ID, Identity card number, member name, mailing address, telephone, mobile, address, E-mail, date of birth, application date (date of payment), upline ID, upline name, upline contact, upline mobile");
+DEFINE("_MEMBERS_EXCEL_TITLE","Member ID, Identity card number, member name, mailing address, telephone, mobile, address, E-mail, date of birth, application date (date of payment), upline ID, upline name, upline contact, upline mobile, Member");
 DEFINE("_MEMBERS_SAME_EMAIL","The same email address already exists");
 DEFINE("_MEMBERS_SAME_CARD_NO","The same member card number already exists");
 DEFINE("_MEMBERS_SAME_NO","The same member ID already exists");
@@ -482,6 +483,10 @@ DEFINE("_PM_CF_0","Not Done");
 DEFINE("_TOTAL_AMT_0","Your order has been submitted");
 DEFINE("_PM_DONE","Done。");
 DEFINE("_PM_FAIL","Failed。");
+DEFINE("_BILL_ADDRESS_ERROR","Bill address 1 more than 60 characters");
+DEFINE("_BILL_ADDRESS_EMPTY","Bill address can't empty");
+DEFINE("_BILL_ADDRESS2_ERROR","Bill address 2 more than 60 characters");
+DEFINE("_BILL_CITY_EMPTY","Bill Stat can't empty");
 
 //補翻譯
 DEFINE("_MEMBER_SUCCESS_SMS","Dear member, congratulations on your successful registration, welcome to GoodARCH and thank you for joining us. You can access the online shopping platform with your registered ID and password and start your purchases!");
@@ -509,9 +514,11 @@ DEFINE("_MEMBER_MTD_EMPTY","mtd is empty");
 DEFINE("_MEMBER_NO_VOUCHER","Unable to find the voucher");
 DEFINE("_MEMBER_ERROR_8","Insufficient redeemable amount");
 DEFINE("_MEMBER_ERROR_9","Invalid amount");
-
-
-
+DEFINE("_PW_ERROR_MSG","Please complete the email or mobile verification");
+DEFINE("_MEMBER_MOBILE","Mobile");
+DEFINE("_MEMBER_ACCPW","Password");
+DEFINE("_CODE","Code");
+DEFINE("_CODE_EMPTY","Code can't empty");
 
 
 

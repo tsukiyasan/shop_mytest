@@ -480,7 +480,7 @@ angular.module('goodarch2uApp')
     return {
         CurrentPage: "",
         templates: {
-    		default: {index: 'templates/default/index.html?v=081102', login: 'templates/default/login.html'}
+    		default: {index: 'templates/default/index.html?v=0525', login: 'templates/default/login.html?v=0525'}
     	},
         
         templateChg: function(template){

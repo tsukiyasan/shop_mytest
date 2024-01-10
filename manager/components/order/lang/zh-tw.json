@@ -93,7 +93,7 @@
 	"order_store": "自取門市",
 	"order_cancel_order": "取消此訂單",
 	"order_city": "居住縣市",
-	"order_state": "居住州",
+	"order_state": "居住城市",
 	"order_area": "居住地區",
 	"order_dlvrTime": "宅配時段 (不指定時間)",
 	"order_dlvrTime1": "13時前",
@@ -122,5 +122,8 @@
 	"order_taxfee": "稅金",
 	"order_orderMode": "訂單類別",
 	"order_cart":"一般",
-	"order_twcart":"台灣"
+	"order_twcart":"台灣",
+	"order_use_points": "購物金折抵",
+    "order_cb_use_points": "回饋點折抵",
+    "order_acb_use_points": "活動回饋點折抵"
 }

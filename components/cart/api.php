@@ -16,6 +16,10 @@ switch ($task) {
 	case "setPairProList":
 		setPairProList();
 	    break;
+	case "setp":
+		$p = global_get_param( $_REQUEST, 'p', null ,0,0  );
+		$res = setPairProList_pre($p);
+		break;
 	case "setActiveProList":
 		setActiveProList();
 	    break;
@@ -43,6 +47,14 @@ switch ($task) {
 		break;
 	case "get_num_cart_list":
 		get_num_cart_list();
+		break;
+	case "reset_points":
+		unset($_SESSION[$conf_user]['cb_use_p']);
+		break;
+	case "tomlm_test":
+		ini_set('display_errors','1');
+		$result = toMLM('349',0);
+		JsonEnd($result);
 		break;
 }
 
@@ -159,11 +171,65 @@ function setPairProList()
 	JsonEnd($returnArr);
 }
 
+function setPairProList_pre($params = [])
+{
+	global $db,$conf_user,$tablename;
+	$aa = array();
+	$returnArr = array();
+	//組合成 ID1@@ID2@-@ID3@@ID4
+	$price = array();
+	foreach ($params as $key => $row)
+	{
+		$price[$key] = $row['CalcSiteAmt'];
+	}
+	array_multisort($price, SORT_DESC, $params);
+	$chunk = array_chunk($params,2);
+	$first_str = '';
+	foreach ($chunk as $k => $v) {
+		$check_value = count($v); //檢查是否兩兩一組
+		if($check_value == '2'){
+			$second_str = $v[0]['id'] . '@@' . $v[1]['id'];
+			$first_str .= $second_str . '@-@';
+			
+		}
+	}
+	$first_str = trim($first_str,'@-@');
+	// array_push($aa,$first_str);
+	// $pairProStr = global_get_param( $_REQUEST, 'pairProStr', null ,0,0  );
+	$pairProStr = $first_str;
+	$pairProArr = array();
+	if(!empty($pairProStr))
+	{
+		$arr = explode("@-@",$pairProStr);
+		if(count($arr) > 0)
+		{
+			foreach($arr as $row)
+			{
+				if(!empty($row))
+				{
+					$pairProArr[] = $row;
+				}
+			}
+		}
+	}
+	
+	$_SESSION[$conf_user]["pairpro_list"] = $pairProArr;
+
+	$returnArr["status"] = 1;
+	$returnArr['pl'] = $pairProArr;
+	$returnArr['p'] = $params;
+	$returnArr['chunk'] = $chunk;
+	$returnArr['pp'] = $_SESSION[$conf_user]["pairpro_list"];
+	$returnArr['aa'] = $aa;
+	// JsonEnd($returnArr);
+}
+
 function showlist(){
 	global $db,$conf_user,$tablename,$db3;
 	$mode=getCartMode();
-	ini_set('display_errors','1');
-
+	$aa = array();
+	// ini_set('display_errors','1');
+	
 	$cm = global_get_param($_GET, 'cartmode', null, 0, 0);
 
 	if ($cm == 'twcart_cart') {
@@ -213,12 +279,88 @@ function showlist(){
 			
 			JsonEnd(array("status" => 0 , "msg"=>_CART_ERROR_MSG	));
 		}
+	}else{
+		$emailChk = getFieldValue(" SELECT emailChk FROM members WHERE id = '$uid' ","emailChk");
+		$mobileChk = getFieldValue(" SELECT mobileChk FROM members WHERE id = '$uid' ","mobileChk");
+		if(($emailChk == '1' || $mobileChk == '0'))
+		{
+			
+			JsonEnd(array("status" => 0 , "msg"=>_CART_ERROR_MSG	));
+		}
 	}
 	
 	
     $cart=$_SESSION[$conf_user]["{$mode}_list"];
+	
 	$data=array();
     $proArr=CartProductInfo2($cart);
+	$aa['1'] = $proArr;
+	$usepro_arr = array();
+	if(count($proArr['active_list']) > 0)
+	{
+		foreach( $proArr['active_list'] as $row )
+		{
+			if($row['act']['activePlanid'] == '12')
+			{
+				if(count($row['usepro']) > 0)
+				{
+					foreach($row['usepro'] as $row2)
+					{
+						$usepro_arr[] = $row2;
+						
+
+					}
+				}
+			}
+		}
+	}
+	$tmp_list = $proArr['data'];
+	$product_order_arr = array();  
+	if(count($tmp_list) > 0)
+	{
+		foreach($tmp_list as $key=>$row)
+		{
+			if(in_array($row['id'],$usepro_arr) && $row['protype'] != "freepro" && $row['protype'] != "amtpro")
+			{
+				$product_order_arr[$key] = ($row['siteAmt']);
+			}
+		}
+	}
+	arsort($product_order_arr);
+	
+	$product_arr = array();  
+	$index = 0;
+	
+	if(count($product_order_arr) > 0)
+	{
+		foreach($product_order_arr as $key=>$row)
+		{
+			$max_tmp = ($tmp_list[$key]['num']);
+			
+			$tmp = 0;
+			foreach($usepro_arr as $usepro_pid)
+			{
+				if($usepro_pid == $tmp_list[$key]['id'])
+				{
+					$tmp++;
+				}
+			}
+			
+			$tmp = ($tmp > $max_tmp) ? $max_tmp : $tmp;
+			
+			for($i = 0 ; $i < $tmp ; $i ++)
+			{
+				$tmp_list[$key]['num'] = 1;
+				$tmp_list[$key]['numOri'] = $tmp;
+				$tmp_list[$key]['index'] = $index;
+				$product_arr[] = $tmp_list[$key];
+				$index++;
+			}
+		}
+	}
+	
+	//auto_pair
+	setPairProList_pre($product_arr);
     
     $_SESSION[$conf_user]['activeBundlePrice']=0;
     $_SESSION[$conf_user]['activeBundlePv']=0;
@@ -329,7 +471,7 @@ function showlist(){
 	
 	
 	$proArr=CartProductInfo2($cart,null,true);
-	
+	$aa['2'] = $proArr;
 	
 	$payable=true;
 	$bonusArr=array();
@@ -495,9 +637,19 @@ function showlist(){
 			 ORDER BY A.odring, A.actRangePCode DESC, B.type ASC, A.id ASC ";
 	$db->setQuery( $tmpSql );
 	$tmpActiveData = $db->loadRow();
+
+	$cb_use_p = $_SESSION[$conf_user]['cb_use_p'];
+	if ($cb_use_p == '1') {
+		$cb_use_points = $_SESSION[$conf_user]['cb_use_points'];
+	} else {
+		$cb_use_points = '0';
+	}
+
+	$pa = bcsub($proArr['amt'],$cb_use_points,2);
+
 	if( $tmpActiveData['ptype'] == '3' && $tmpActiveData['activePlanid'] == '9')
 	{
-		if($proArr['amt'] >= $tmpActiveData['var01'])
+		if($pa >= $tmpActiveData['var01'])
 		{
 			$proArr['active_list'][] = $_SESSION['tmpActive0221'];
 			
@@ -731,77 +883,80 @@ function showlist(){
 	
 	
 	
-	$usepro_arr = array();
-	if(count($proArr['active_list']) > 0)
-	{
-		foreach( $proArr['active_list'] as $row )
-		{
-			if($row['act']['activePlanid'] == '12')
-			{
-				if(count($row['usepro']) > 0)
-				{
-					foreach($row['usepro'] as $row2)
-					{
-						$usepro_arr[] = $row2;
+	// $usepro_arr = array();
+	// if(count($proArr['active_list']) > 0)
+	// {
+	// 	foreach( $proArr['active_list'] as $row )
+	// 	{
+	// 		if($row['act']['activePlanid'] == '12')
+	// 		{
+	// 			if(count($row['usepro']) > 0)
+	// 			{
+	// 				foreach($row['usepro'] as $row2)
+	// 				{
+	// 					$usepro_arr[] = $row2;
 						
 
-					}
-				}
-			}
-		}
-	}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 	
 	
 	
 	
-	$tmp_list = $data['list'];
+	// $tmp_list = $data['list'];
 	
 	
 	
-	$product_order_arr = array();  
-	if(count($tmp_list) > 0)
-	{
-		foreach($tmp_list as $key=>$row)
-		{
-			if(in_array($row['id'],$usepro_arr) && $row['protype'] != "freepro" && $row['protype'] != "amtpro")
-			{
-				$product_order_arr[$key] = ($row['siteAmt']);
-			}
-		}
-	}
-	arsort($product_order_arr);
+	// $product_order_arr = array();  
+	// if(count($tmp_list) > 0)
+	// {
+	// 	foreach($tmp_list as $key=>$row)
+	// 	{
+	// 		if(in_array($row['id'],$usepro_arr) && $row['protype'] != "freepro" && $row['protype'] != "amtpro")
+	// 		{
+	// 			$product_order_arr[$key] = ($row['siteAmt']);
+	// 		}
+	// 	}
+	// }
+	// arsort($product_order_arr);
 	
-	$product_arr = array();  
-	$index = 0;
+	// $product_arr = array();  
+	// $index = 0;
 	
-	if(count($product_order_arr) > 0)
-	{
-		foreach($product_order_arr as $key=>$row)
-		{
-			$max_tmp = ($tmp_list[$key]['num']);
+	// if(count($product_order_arr) > 0)
+	// {
+	// 	foreach($product_order_arr as $key=>$row)
+	// 	{
+	// 		$max_tmp = ($tmp_list[$key]['num']);
 			
-			$tmp = 0;
-			foreach($usepro_arr as $usepro_pid)
-			{
-				if($usepro_pid == $tmp_list[$key]['id'])
-				{
-					$tmp++;
-				}
-			}
+	// 		$tmp = 0;
+	// 		foreach($usepro_arr as $usepro_pid)
+	// 		{
+	// 			if($usepro_pid == $tmp_list[$key]['id'])
+	// 			{
+	// 				$tmp++;
+	// 			}
+	// 		}
 			
-			$tmp = ($tmp > $max_tmp) ? $max_tmp : $tmp;
+	// 		$tmp = ($tmp > $max_tmp) ? $max_tmp : $tmp;
 			
-			for($i = 0 ; $i < $tmp ; $i ++)
-			{
-				$tmp_list[$key]['num'] = 1;
-				$tmp_list[$key]['numOri'] = $tmp;
-				$tmp_list[$key]['index'] = $index;
-				$product_arr[] = $tmp_list[$key];
-				$index++;
-			}
-		}
-	}
+	// 		for($i = 0 ; $i < $tmp ; $i ++)
+	// 		{
+	// 			$tmp_list[$key]['num'] = 1;
+	// 			$tmp_list[$key]['numOri'] = $tmp;
+	// 			$tmp_list[$key]['index'] = $index;
+	// 			$product_arr[] = $tmp_list[$key];
+	// 			$index++;
+	// 		}
+	// 	}
+	// }
 	
+	// //auto_pair
+	// setPairProList_pre($product_arr);
+
 	$pairProArr = $_SESSION[$conf_user]["pairpro_list"];
 		
 	$pairList = array();	
@@ -873,11 +1028,18 @@ function showlist(){
 
 	
 	
-	
-
+	$res = array();
+	$res['b1'] = $data['list'];
 	$data['list'] = cartProductClac( $proArr['active_list'], $data['list'], $proArr['activeExtraList']);
 	
 	
+	$res['status'] = '1';
+	$res['a'] = $proArr['active_list'];
+	$res['b'] = $data['list'];
+	$res['c'] = $proArr['activeExtraList'];
+	$res['d'] = $proArr;
+	ksort($res);
+	// JsonEnd($res);
 	
 	$tmp_data_list = array();
 	
@@ -1181,5 +1343,4 @@ function get_num_cart_list()
 	$res['cart_num'] = $cart_num;
 	JsonEnd($res);
 }
-include( $conf_php.'common_end.php' ); 
-?>
+include( $conf_php.'common_end.php' );

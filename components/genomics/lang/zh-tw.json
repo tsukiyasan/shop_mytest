@@ -1,0 +1,18 @@
+"lg_genomics":{
+	"genomics":"端粒報告",
+	"sn":"序號",
+	"mb_name":"姓名",
+	"mb_no":"購買者會編",
+	"sid":"身分證字號",
+	"mb_mobile":"電話",
+	"report_date":"檢驗日期",
+	"report_url":"報告網址",
+	"sn_status":"序號狀態",
+	"region":"國別",
+	"sn_status_0":"全部",
+	"sn_status_1":"合格",
+	"sn_status_2":"作廢",
+	"sn_status_3":"退回",
+	"sn_status_4":"雜發",
+	"sn_status_9":"售出"
+}

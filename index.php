@@ -93,7 +93,10 @@ $_SESSION[$conf_user]['sysCurrency'] = $_currency;
 	<title><?= $siteinfo_info['name' . (($_lang) ? '_' . $_lang : '')] ?></title>
 	<!-- Favicon -->
 	<link type="image/x-icon" href="templates/default/images/favicon.png?v=2" rel="shortcut icon" />
-	<link rel="apple-touch-icon" href="templates/default/images/favicon.png?v=2" rel="shortcut icon" />
+	<link rel="apple-touch-icon" href="templates/default/images/favicon_logo.png?v=3" rel="shortcut icon" />
+	<link rel="icon" sizes="192x192" href="templates/default/images/favicon_logo.png?v=3">
+	<link rel="icon" sizes="128x128" href="templates/default/images/favicon_logo.png?v=3">
+	<link rel="apple-touch-icon-precomposed" sizes="128x128" href="templates/default/images/favicon_logo.png?v=3">
 	<!-- alertify js-->
 	<link rel="stylesheet" type="text/css" href="lib/alertifyjs/css/alertify.min.css" />
 	<link rel="stylesheet" type="text/css" href="lib/alertifyjs/css/themes/default.min.css" />
@@ -170,6 +173,7 @@ $_SESSION[$conf_user]['sysCurrency'] = $_currency;
 <script src="lib/basic-rwd-table/jquery.basictable.js"></script>
 <script src="lib/underscore/underscore-min.js"></script>
 <script src="lib/dom2image/dom2image.js"></script>
+<script src="https://www.tracking.my/track-button.js"></script>
 <?php
 
 $dir = scandir("components");
@@ -197,7 +201,17 @@ $js_arr = array();
 	var clipboard = new ClipboardJS('.copy');
 	clipboard.on('success', function(e) {
 		e.clearSelection();
-		alert("OK");
+		console.log('ok');
+		var syslang = '<?= $_lang ?>';
+		if(syslang == 'en'){
+			msg = 'Copy success!';
+		}else if (syslang == 'zh-cn'){
+			msg = '复制成功！';
+		}else{
+			msg = '複製成功！';
+		}
+		console.log(syslang);
+		alert(msg);
 	});
 </script>
 

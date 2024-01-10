@@ -1,6 +1,7 @@
 <?php
 
 include( '../../config.php' ); 
+include('../../lib/barcode-master/barcode.php');
 $task = global_get_param( $_REQUEST, 'task', null , 0, 1);
 
 switch ($task) {
@@ -105,6 +106,9 @@ switch ($task) {
 		break;
 	case "set_upsp":
 		set_upsp();
+		break;
+	case "get_card":
+		get_card();
 		break;
 }
 
@@ -1397,20 +1401,20 @@ function set_cb_use_points()
 	$mb_no = $u_data['mb_no'];
 	$now_date = date('Y-m-d');
 	$cb_gpoints = 0;
-	$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date'";
+	$csql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '0' and expiry_date > '$now_date' and is_invalid = '0'";
 	$db3->setQuery($csql);
 	$cgetlist = $db3->loadRow();
 	if(!empty($cgetlist)){
 		$cb_gpoints = $cgetlist['cb_points']; //目前可用的得到點數
 	}
-	$usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date > '$now_date'";
+	$usql = "select sum(point) as cb_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date > '$now_date' and is_invalid = '0'";
 	$db3->setQuery($usql);
 	$cuselist = $db3->loadRow();
 	if(!empty($cuselist)){
 		$cb_upoints = $cuselist['cb_points']; //目前已使用的得到點數
 	}
 	
-	$now_points = (int)($cb_gpoints) - (int)($cb_upoints);
+	$now_points = bcsub($cb_gpoints,$cb_upoints,2);
 	if ($now_points >= $use_points) {
 		$res['status'] = 1;
 		$_SESSION[$conf_user]['cb_use_points'] = $use_points;
@@ -1422,10 +1426,61 @@ function set_cb_use_points()
 		$res['status'] = 0;
 		$_SESSION[$conf_user]['cb_use_points'] = 0;
 	}
+	$res['cb_gpoints'] = $cb_gpoints;
+	$res['cb_upoints'] = $cb_upoints;
+	$res['csql'] = $csql;
+	$res['usql'] = $usql;
 	JsonEnd($res);
 }
 
+function get_card()
+{
+	global $db;
+	ini_set('display_errors','1');
+	$res = array();
+	$uid = LoginChk();
+	$sql = "select ERPID,name,onlyMember from members where id='$uid'";
+	$db->setQuery($sql);
+	$r = $db->loadRow();
+	if (!empty($r['ERPID'])) {
+		$barcode = new barcode_generator();
+		$format = 'png';
+		$symbology = 'Code 128';
+		$data = $r['ERPID'];
+		$options = array();
+		// $options['h'] = '60';
+		// $options['p'] = '0';
+		$res['status'] = 1;
+		$svg = $barcode->render_svg($symbology, $data, $options);
 
+		// imagedestroy($barcode);
+		$res['barcode_64'] = $svg;
+		$res['mb_name'] = $r['name'];
+
+
+
+		$urlToEncode = 'http://' . $_SERVER['HTTP_HOST'] . "/member_page/signup?rec=" . $data . "%26openExternalBrowser=1%26l=1";
+		$qr1 = generateQRwithGoogle($urlToEncode);
+		$res['qr1'] = $qr1;
+		$urlToEncode2 = 'http://' . $_SERVER['HTTP_HOST'] . "/member_page/signup?rec=" . $data . "%26openExternalBrowser=1%26mem=1%26l=1";
+		$qr2 = generateQRwithGoogle($urlToEncode2);
+		$res['qr2'] = $qr2;
+	} else {
+		$res['status'] = 0;
+	}
+	$res['om'] = $r['onlyMember'];
+	JsonEnd($res);
+}
+
+function generateQRwithGoogle($url, $widthHeight = '150', $EC_level = 'L', $margin = '0')
+{
+	$url = urlencode($url);
+	$html = '<img src="http://chart.apis.google.com/chart?chs=' . $widthHeight .
+		'x' . $widthHeight . '&cht=qr&chld=' . $EC_level . '|' . $margin .
+		'&chl=' . $url . '" alt="QR code" widthHeight="' . $widthHeight .
+		'" widthHeight="' . $widthHeight . '"/>';
+	return $html;
+}
 
 
 include( $conf_php.'common_end.php' ); 

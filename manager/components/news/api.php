@@ -139,7 +139,7 @@ function news_detail(){
 		}
 	}
 
-	$sql = "SELECT id,{$sql_str} name, linktype, newsDate, pubDate, content, newsType, publish, linkurl, summary FROM news WHERE id = '$id'";
+	$sql = "SELECT id, {$sql_str} name, linktype, post_type, audience, newsDate, pubDate, target, content, newsType, publish, linkurl, summary FROM news WHERE id = '$id'";
 	$db->setQuery( $sql );
 	$news_arr = $db->loadRow();	
 	
@@ -148,12 +148,15 @@ function news_detail(){
 	{
 		$info['id'] = $news_arr['id'];
 		$info['name'] = $news_arr['name'];
+		$info['post_type'] = $news_arr['post_type'];
+		$info['audience'] = $news_arr['audience'];
 		$info['linktype'] = $news_arr['linktype'];
 		$info['newsDate'] = $news_arr['newsDate'];
 		$info['pubDate'] = $news_arr['pubDate'];
 		$info['content'] = $news_arr['content'];
 		$info['newsType'] = $news_arr['newsType'];
 		$info['publish'] = $news_arr['publish'];
+		$info['target'] = $news_arr['target'];
 		$info['linkurl'] = $news_arr['linkurl'];
 		$info['summary'] = $news_arr['summary'];
 		
@@ -201,7 +204,10 @@ function news_update() {
 	$dataArr = array();
 	$dataArr['id']			= global_get_param($_REQUEST, 'id', null);
 	$dataArr['publish']		= global_get_param($_REQUEST, 'publish', null);
+	$dataArr['target']		= global_get_param($_REQUEST, 'target', null);
 	$dataArr['newsType']	= global_get_param($_REQUEST, 'newsType', null);
+	$dataArr['post_type']	= global_get_param($_REQUEST, 'post_type', null);
+	$dataArr['audience']	= global_get_param($_REQUEST, 'audience', null);
 	$dataArr['linktype']	= global_get_param($_REQUEST, 'linktype', null);
 	$dataArr['linkurl']		= global_get_param($_REQUEST, 'linkurl', null);
 	$dataArr['newsDate']	= global_get_param($_REQUEST, 'newsDate', null);

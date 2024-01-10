@@ -1,9 +1,23 @@
 "lg_news": {
-	"news": "最新消息",
+    "news": "最新消息",
 	"news_manager": "最新消息管理",
 	"news_title": "讯息",
 	"news_name": "讯息标题",
 	"news_summary": "简述",
 	"news_content": "讯息内容",
-	"news_date_msg": "空白为无期限"
+	"news_date_msg": "空白为无期限",
+    "audience": "会员对象",
+    "audience_all": "全部",
+    "audience_member": "会员",
+    "audience_dealer": "经销商",
+    "post_type": "类别",
+    "post_type_all": "全部",
+    "post_type_news": "最新消息",
+    "post_type_calendar": "行事历",
+    "post_type_course": "课程资讯",
+    "post_type_duty": "各区值班日",
+    "end_date": "截止日",
+    "pubdate_0": "全部",
+    "pubdate_1": "有截止日",
+    "pubdate_2": "无截止日"
 }

@@ -3,8 +3,8 @@
 	"index_info":"My account",
 	"index_order":"Order details",
 	"index_logout":"Log Out",
-	"index_member":"Member Center",
-	"index_member2":"Distributor Center",
+	"index_member":"Member Portal",
+	"index_member2":"Distributor Portal",
 	"index_shopcart":"Cart",
 	"index_signup":"Sign up",
 	"index_esignup":"e-member",
@@ -33,7 +33,7 @@
 	"end": ""
 },
 "lg_main": {
-	"edit":"Change",
+	"edit":"Edit",
 	"cfm":"Confirm",
 	"ok":"Confirm",
 	"yes":"Yes",
@@ -50,7 +50,13 @@
 	"search": "Search",
 	"end": "",
 	"js_msg5": "If you successfully register a member through this website, you can become the referrer of the member",
-	"js_msg6": "You have not completed the driver’s membership application. The membership application process will take about two working days to review. First use the 14 digits of the membership number to recommend membership."
+	"js_msg6": "You have not completed the driver’s membership application. The membership application process will take about two working days to review. First use the 14 digits of the membership number to recommend membership.",
+	"copy_ok":"Copy Success!",
+	"rec_msg1":"Hi, my name is ",
+	"rec_msg2":"please use the link below to register as GoodARCH distributor.",
+	"rec_msg3":"Lets rebuild our health and life together!",
+	"rec_msg4":"please use the link below to register as GoodARCH Member.",
+	"rec_msg5":"Lets rebuild our health and life together!"
 },
 "lg_login": {
 	"login_remember_me":"Remember me",
@@ -102,7 +108,7 @@
 	"directives_point":"Point",
 	"directives_go_exchange":"Redeem now",
 	"directives_add_exchange_list":"Add to redemption list",
-	"directives_edit_count":"Change quantity",
+	"directives_edit_count":"Edit quantity",
 	"directives_count":"Quantity",
 	"directives_delete_product":"Remove item",
 	"directives_delete_msg1":"Are you sure you want to remove this item?",

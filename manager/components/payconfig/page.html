@@ -368,9 +368,9 @@
 			<div class="modal-body modal_body">
 					<!-- <label>物流公司</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.company"> -->
-					<label>本島運費</label>
+					<label ng-bind="'lg_payconfig.domestic_shipping' | translate">本島運費</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.main_dlvr">
-					<label>離島運費</label>
+					<label ng-bind="'lg_payconfig.international_shipping' | translate">離島運費</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.outlying_dlvr">
 					<!-- <label>本島冷凍運費(未滿門檻)</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.f_main_dlvr">
@@ -380,9 +380,9 @@
 					<input type="text" class="form-control" ng-model="ctrl.lg.f_outlying_dlvr">
 					<label>離島冷凍運費(基本)</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.f_outlying_dlvr_basic"> -->
-					<label>本島免運門檻</label>
+					<label ng-bind="'lg_payconfig.domestic_threshold_shipping' | translate">本島免運門檻</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.main_fst">
-					<label>離島運費門檻</label>
+					<label ng-bind="'lg_payconfig.international_threshold_shipping' | translate">離島運費門檻</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.outlying_fst">
 					<!-- <label>本島冷凍免運門檻</label>
 					<input type="text" class="form-control" ng-model="ctrl.lg.f_main_fst">

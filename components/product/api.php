@@ -75,7 +75,7 @@ function detail(){
 		
 		
 		$today=date("Y-m-d H:i:s");
-		$sql = " SELECT DISTINCT AB.id , AB.name {$sql_strAB} FROM activeBundle AB , activeBundleDetail ABD WHERE AB.id = ABD.activeBundleId AND enable = '1' 
+		$sql = " SELECT DISTINCT AB.id , AB.name {$sql_strAB} FROM activeBundle AB , activeBundleDetail ABD WHERE AB.id = ABD.activeBundleId AND enable = '1' AND alive = '1' 
 		AND ( AB.startTime<='$today' OR AB.startTime='') AND ( AB.endTime>='$today' OR AB.endTime='') AND ABD.products LIKE '%|".$proid."|%' ";
 		$db->setQuery($sql);
 		$ab=$db->loadRowList();

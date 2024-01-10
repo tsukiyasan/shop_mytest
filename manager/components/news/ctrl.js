@@ -244,6 +244,8 @@ app.controller('news_list', ['$rootScope', '$scope', '$http', '$location', '$rou
 				newsDate: date.toISOString().slice(0,10).replace(/-/g,"-"),
 				pubDate: "",
 				publish: '1',
+				post_type: "1",
+                audience: "0",
 				linktype: "page",
 				tablename: "",
 				databaseid: 0,

@@ -107,26 +107,32 @@
                                     </td>
 								</tr>
 								-->
-								<tr >
+								<tr ng-if="!ctrl.order.orderMode == 'twcart'">
 									<td ng-bind="'lg_order.order_type' | translate"></td>
-									<td colspan="2" >
-                                    <div class="btn-group" data-toggle="buttons">
-                                    	<label ng-repeat="data in ctrl.pcode.bill" ng-if="ctrl.order.status!=6 || data.codeValue==6" class="btn btn-primary" ng-model="ctrl.order.status" uib-btn-radio="'{{data.codeValue}}'">
-                                    		<span ng-if="!(data.codeValue==2 && ctrl.order.payTypeCode==1) && !(data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName}}</span>
-                                    		<span ng-if="(data.codeValue==2 && ctrl.order.payTypeCode==1) || (data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName_chs}}</span>
-                                    	</label>
-                                    </div>	
-                                    <a ng-if="ctrl.order.status!=6 && ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.cancel_order()" class="btn btn-danger pull-right">
-                                        <i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;<txt ng-bind="'lg_order.order_cancel_order' | translate">取消此訂單</txt>
-                                    </a>
-									<!--
-                                    <a ng-if="ctrl.order.status!=8 && ctrl.order.status!=6" href="javascript:void(0)" ng-click="ctrl.return_order()" class="btn btn-danger pull-right" style="margin-right:5px;">
-                                        <i class="fa fa-undo fa-lg"></i>&nbsp;&nbsp;退貨此訂單
-                                    </a>
-									-->
-                                    </td>
+									<td colspan="2">{{ctrl.order.p_name}}</td>
 								</tr>
-                                														
+                                			
+								<tr ng-if="ctrl.order.orderMode == 'twcart'">
+									<td ng-bind="'lg_order.order_type' | translate"></td>
+									<td colspan="2">
+										<div class="btn-group" data-toggle="buttons">
+											<label ng-repeat="data in ctrl.pcode.bill" ng-if="ctrl.order.status!=6 || data.codeValue==6" class="btn btn-primary" ng-model="ctrl.order.status" uib-btn-radio="'{{data.codeValue}}'">
+												<span
+													ng-if="!(data.codeValue==2 && ctrl.order.payTypeCode==1) && !(data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName}}</span>
+												<span
+													ng-if="(data.codeValue==2 && ctrl.order.payTypeCode==1) || (data.codeValue==1 && ctrl.order.payTypeCode==3)">{{data.codeName_chs}}</span>
+											</label>
+										</div>
+										<a ng-if="ctrl.order.status!=6 && ctrl.funcPerm.U == 'true'" href="javascript:void(0)" ng-click="ctrl.cancel_order()" class="btn btn-danger pull-right">
+											<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;取消此訂單
+										</a>
+										<!--
+								<a ng-if="ctrl.order.status!=8 && ctrl.order.status!=6" href="javascript:void(0)" ng-click="ctrl.return_order()" class="btn btn-danger pull-right" style="margin-right:5px;">
+									<i class="fa fa-undo fa-lg"></i>&nbsp;&nbsp;退貨此訂單
+								</a>
+								-->
+									</td>
+								</tr>
 							</tbody>
 						</table> 
                     </div>
@@ -172,10 +178,9 @@
 								<tr>
 									<td ng-bind="'lg_order.order_recipient_addr' | translate"></td>
 									<td colspan="2">
-										<select class="form-control" ng-model="ctrl.order.dlvrState" ng-options="item as item.state for item in ctrl.city track by item.id">
+										<select class="form-control" ng-model="ctrl.order.dlvrCity" ng-options="item as item.state for item in ctrl.city track by item.id">
 				                            <option value="" selected="" ng-bind="('lg_order.order_state' | translate) + ' *'">居住州*</option>
 				                        </select>
-										<input type="text" class="form-control" ng-model="ctrl.order.dlvrCity.id" ng-value="ctrl.order.dlvrCity.id">
 				                        
 				                        <br>
 										<input type="text" class="form-control" ng-model="ctrl.order.dlvrAddr" ng-value="ctrl.order.dlvrAddr">
@@ -486,10 +491,21 @@
                                 </td>
                                 <td align="right" ng-bind="ctrl.order.dlvrFee"></td>
                             </tr>
+
+							<tr ng-if="ctrl.order.cb_use_p=='1'&&ctrl.order.cb_use_points>0">
+								<td colspan="5" align="right" ng-bind="'lg_order.order_cb_use_points' | translate"></td>
+								<td align="right"><span ng-bind="ctrl.order.cb_use_points"></span></td>
+							</tr>
+
+							<tr ng-if="ctrl.order.use_p=='1'&&ctrl.order.use_points>0">
+								<td colspan="5" align="right" ng-bind="'lg_order.order_use_points' | translate">
+								</td>
+								<td align="right"><span ng-bind="ctrl.order.use_points"></span></td>
+							</tr>
 							
                             <tr style="border-top:2px #DFE6EA solid; border-bottom:6px #DFE6EA double;">
                                 <td colspan="5" align="right" ng-bind="'lg_order.order_total' | translate"></td>
-                                <td align="right"><span style="font-size:1.5em;" ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(((ctrl.order.totalAmt*1000)-(ctrl.order.m_discount*1000))/1000 | formatnumber)"></span></td>
+                                <td align="right"><span style="font-size:1.5em;" ng-bind="(('lg_moneyStr.'+ctrl.sysCurrency) | translate)+' '+(((ctrl.order.totalAmt*1000)-(ctrl.order.m_discount*1000)-(ctrl.order.cb_use_points*1000)-(ctrl.order.use_points*1000))/1000 | formatnumber)"></span></td>
                             </tr>
                             <tr ng-if="ctrl.order.pv != '0'">
                                 <td colspan="5" align="right" ng-bind="'lg_order.order_pv' | translate"></td>

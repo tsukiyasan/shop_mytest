@@ -55,5 +55,9 @@
 	"payconfig_money_setting_msg": "請至少設定一個貨幣",
 	"payconfig_money_change_msg": "請先確認商品、優惠活動、金流方式皆為更換後的幣別資，送出設定後會直接採用新幣別運作",
 	"payconfig_end": "",
-	"payconfig_addlg": "新增物流"
+	"payconfig_addlg": "新增物流",
+	"domestic_shipping" : "國內運費",
+	"international_shipping" : "臺灣運費",
+	"domestic_threshold_shipping" : "國內運費門檻",
+	"international_threshold_shipping" : "臺灣運費門檻"
 }

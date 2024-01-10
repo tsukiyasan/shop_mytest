@@ -1,5 +1,6 @@
 <?php
 
+// ini_set('display_errors','1');
 
 define( '_VALID_WAY', 1 );
 
@@ -38,6 +39,12 @@ $db2->debug( $Conf_debug );
 $db3 = null;
 $db3 = new database( $globalConf_host3, $globalConf_user3, $globalConf_password3, $globalConf_db3, $Conf_dbprefix);
 $db3->debug( $Conf_debug );
+$db5 = null;
+$db5 = new database( $globalConf_host5, $globalConf_user5, $globalConf_password5, $globalConf_db5, $Conf_dbprefix);
+$db5->debug( $Conf_debug );
+$db6 = null;
+$db6 = new database( $globalConf_host6, $globalConf_user6, $globalConf_password6, $globalConf_db6, $Conf_dbprefix);
+$db6->debug( $Conf_debug );
 $root_admin = "WEQGWH";
 $root_store = "HJKTDS";
 

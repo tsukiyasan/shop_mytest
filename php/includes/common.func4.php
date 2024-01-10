@@ -79,7 +79,6 @@ function take_type($getamt = null, $getname = null, $getarray = null)
             if ($row['id'] == $_SESSION[$conf_user]['take_type']) {
                 $take_type = $row['id'];
                 $dlvrAmt = $row['amt'];
-
             }
         }
     }
@@ -99,7 +98,6 @@ function take_type($getamt = null, $getname = null, $getarray = null)
     } else {
         JsonEnd(array("status" => 1, "data" => $data, "take_type" => $take_type, "dlvrAmt" => intval($dlvrAmt) - intval($proArr['disDlvrAmt']), "disDlvrAmt" => intval($proArr['disDlvrAmt'])));
     }
-
 }
 
 function logisitics_type($getid = null, $getom = null, $getdlvr = null, $temp_total = null)
@@ -340,7 +338,6 @@ function pay_type($getname = null, $getarray = null)
     } else {
         JsonEnd(array("status" => 1, "data" => $data, "pay_type" => $pay_type));
     }
-
 }
 
 function getdbpagelinkdata($tablename, $fromid = 0)
@@ -428,7 +425,6 @@ function getProductFormat($id = 0)
             $format2Arr[$format1][$format2]['instockchk'] = $instockchk;
             $format2Arr2[$format1][] = array('id' => $format2, 'name' => $name2, 'instock' => $instock, 'instockchk' => $instockchk);
         }
-
     }
 
     $tmp = array();
@@ -576,7 +572,6 @@ function userPermissionChk($func)
         $arrJson['msg'] = _COMMON_ERRORMSG_NET_ERR;
         JsonEnd($arrJson);
     }
-
 }
 
 function createUpdateSql($tablename, $dataArr)
@@ -642,7 +637,6 @@ function fieldExist($tablename, $fieldname)
         }
     }
     return $returnVal;
-
 }
 
 function order_instock($ori_status = null, $status = null, $oid = null)
@@ -753,14 +747,12 @@ function order_instock($ori_status = null, $status = null, $oid = null)
                 $db->setQuery($sql);
                 $r = $db->query_batch();
             }
-
         }
 
         return true;
     } else {
         return false;
     }
-
 }
 
 function cartProductClac($active_list = array(), $cart_list = array(), $activeExtraList = array(), $activeBundleCart = null)
@@ -898,7 +890,6 @@ function cartProductClac($active_list = array(), $cart_list = array(), $activeEx
                     $index3_pro_list[$row2] = $index;
                 }
             }
-
         }
     }
 
@@ -931,7 +922,6 @@ function cartProductClac($active_list = array(), $cart_list = array(), $activeEx
                                     $activeExtraPVList[] = $activeExtra['pv'] - ($productMix['quantity'] - 1) * $getPV;
                                     $activeExtraAmountList[] = $activeExtra['amount'] - $activeExtraList[$activeExtraKey]['productMix'][$productMixKey]['tempAmount'];
                                     $activeExtraNameList[] = $activeExtra['name'];
-
                                 } else {
                                     $tempAmount = round($activeExtra['amount'] * $product['amount'] / $productMix['amount']);
                                     $activeExtraPVList[] = $getPV;
@@ -940,7 +930,6 @@ function cartProductClac($active_list = array(), $cart_list = array(), $activeEx
 
                                     $activeExtraList[$activeExtraKey]['productMix'][$productMixKey]['tempAmount'] += $tempAmount;
                                 }
-
                             }
                         }
                     }
@@ -1011,7 +1000,6 @@ function cartProductClac($active_list = array(), $cart_list = array(), $activeEx
                         $prodtl_act .= ",";
                     }
                     $prodtl_act .= $tmp_arr['name'];
-
                 } else {
                     $prodtl['amt'][] = $row["siteAmt"];
                     $prodtl['amt_pv'][] = $row["pv"];
@@ -1045,12 +1033,10 @@ function cartProductClac($active_list = array(), $cart_list = array(), $activeEx
             $cart_list[$key]['prodtl_bv'] = $prodtl_amt_bv;
             $cart_list[$key]['prodtl_act'] = $prodtl_act;
             $cart_list[$key]['prodtl_use_act'] = $prodtl_use_act;
-
         }
     }
 
     return $cart_list;
-
 }
 
 function orderChk()
@@ -1065,7 +1051,10 @@ function orderChk()
         $day3Str = date("Y-m-d", strtotime("-5 days"));
         $day5Str = date("Y-m-d", strtotime("-5 days"));
 
-        $sql = " SELECT * FROM orders WHERE status='0' AND ( ( buyDate <= '$day3Str' AND orderMode = 'addMember') OR ( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
+        // $sql = " SELECT * FROM orders WHERE status='0' AND ( ( buyDate <= '$day3Str' AND orderMode = 'addMember') OR ( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
+
+        $sql = " SELECT * FROM orders WHERE status='0' AND ( ( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
+
         $db->setQuery($sql);
         $list = $db->loadRowList();
 
@@ -1087,14 +1076,12 @@ function orderChk()
                 $db->query();
 
                 order_instock("0", "6", $id);
-
             }
         }
 
         $sql = "update syscode set CodeValue='" . date("Y-m-d") . "' WHERE CodeKind = 'orderChkDate' ";
         $db->setQuery($sql);
         $db->query();
-
     }
 
     return true;
@@ -1209,7 +1196,7 @@ function sendMailToMemberBySignupSuccess($uid, $getData = false, $type = null)
     $email = getFieldValue(" SELECT email FROM members WHERE id = '$uid' ", "email");
     $ERPID = getFieldValue(" SELECT ERPID FROM members WHERE id = '$uid' ", "ERPID");
 
-    $tmpStr = "登入密碼：<b style=\"color:#0d924a\">$passwd</b><br />";
+    $tmpStr = _MEMBER_ACCPW . "：<b style=\"color:#0d924a\">$passwd</b><br />";
     if ($globalConf_signup_ver2020) {
 
         $loginId = substr($loginId, 0, 2) . "*****" . substr($loginId, -3);
@@ -1217,7 +1204,7 @@ function sendMailToMemberBySignupSuccess($uid, $getData = false, $type = null)
 
         if ($signupMode == "SMS") {
             $mobile = getFieldValue(" SELECT mobile FROM members WHERE id = '$uid' ", "mobile");
-            $tmpStr = "手機號碼：<b style=\"color:#0d924a\">$mobile</b><br />";
+            $tmpStr = _MEMBER_MOBILE . "：<b style=\"color:#0d924a\">$mobile</b><br />";
         } else if ($signupMode == "MAIL") {
             $tmpStr = "E-Mail：<b style=\"color:#0d924a\">$email</b><br />";
         }
@@ -1277,7 +1264,7 @@ function sendMailToMemberBySignupSuccess($uid, $getData = false, $type = null)
 				<tr style='padding-bottom:10px;'>
 					<td align='center' style='padding: 10px 0px;'>
 						" . _EMAIL_msg10 . "<br /><span style='color:#870000'>" . _EMAIL_msg11 . "</span><br />" . _EMAIL_msg25 . "<br>
-						<span style='color:#FFC42C'>360 TEST</span>" . _EMAIL_msg14 . "<br>
+						<span style='color:#FFC42C'>360</span>" . _EMAIL_msg14 . "<br>
 						<br /><div style='padding-bottom:7px'>" . _EMAIL_msg15 . "</div>
 
 					</td>
@@ -1387,7 +1374,6 @@ function sendMailToMemberBySignupSuccess($uid, $getData = false, $type = null)
     }
 
     return true;
-
 }
 
 function getLanguageList($txt = null, $all = null)
@@ -1674,7 +1660,7 @@ function checkShopCart($checkType = '', $checkData = array(), $typeArr = ['activ
         //如果shopCart無資料
         if (empty($shopCart['session'][$checkType])) {
             switch ($checkType) {
-                //活動分組
+                    //活動分組
                 case "activeBundle":
                     $shopCart[$checkType] = getActiveBundle($checkData['id'], '1');
                     break;
@@ -2085,6 +2071,26 @@ function orderSuccessUpdate($orderNum)
             sendMailToMemberBySignupSuccess($memberId);
             // $lv = '1';
             // export_tomlm($memberId, $lv);
+
+
+            //更新mbst
+            //先加兩年
+            $tmp_pg_end_date = strtotime('+2 year', $time);
+            //取年分
+            $pg_end_date_y = date("Y", $tmp_pg_end_date);
+            //當年元旦-1剛好等於當天加一年的年底
+            $pg_end_date = strtotime($pg_end_date_y . '01-01') - 1;
+            $updateMbst = array(
+                'mb_status' => '1',
+                'member_date' => '',
+                'grade_class' => '1',
+                'grade_1_chk' => '1',
+                'pg_end_date' => $pg_end_date,
+                'grade_1_date' => $now
+            );
+            $updateMbstSql = dbUpdate('mbst', $updateMbst, "mb_no = '" . $ERPID . "'");
+            $db2->setQuery($updateMbstSql);
+            $db2->query();
         }
 
         if ($order['orderMode'] == 'updateMember') {
@@ -2106,9 +2112,9 @@ function orderSuccessUpdate($orderNum)
             $cnt = $db2->loadRow();
 
             if ($cnt > 0) {
-                $umbsql = "UPDATE mbst SET grade_1_chk = '1' and grade_1_date = '$next_m' where mb_no = '$mb_no'";
+                $umbsql = "UPDATE mbst SET grade_1_chk = '1', grade_1_date = '$next_m', grade_class = '1' where mb_no = '$mb_no'";
             } else {
-                $umbsql = "UPDATE mbst SET grade_1_chk = '1' and grade_1_date = '$this_m' where mb_no = '$mb_no'";
+                $umbsql = "UPDATE mbst SET grade_1_chk = '1', grade_1_date = '$this_m', grade_class = '1' where mb_no = '$mb_no'";
             }
 
             $db2->setQuery($umbsql);
@@ -2138,14 +2144,13 @@ function orderSuccessUpdate($orderNum)
                 $db3->setQuery($pusql);
                 $db3->query();
             }
-
         }
 
         //寫傳銷資料-改在建訂單的時候寫入
         //toMLM($orderId, $totalAmt);
 
         //傳銷寫入付款資訊
-        paid($order,$orderNum,$ERPID,$totalAmt);
+        paid($order, $orderNum, $ERPID, $totalAmt);
 
         //給購物金
         $get_point_url = POINTBANKURL . "public/api/front_orders/calc_points/" . $orderNum;
@@ -2154,9 +2159,7 @@ function orderSuccessUpdate($orderNum)
         //給回饋點數
         $get_point_url2 = POINTBANKURL . "public/api/front_orders/calc_cb_points/" . $orderNum;
         $results2 = file_get_contents($get_point_url2);
-
     }
-
 }
 
 /**
@@ -2352,12 +2355,11 @@ function orderCancelUpdate($orderNum)
 
         order_instock($status, "6", $orderId);
     }
-
 }
 
 function send_sms($sms_to, $sms_msg)
 {
-    
+
     global $Conf_sms_username, $Conf_sms_password, $globalConf_sms_open, $conf_user;
     $res = array();
     if ($_SESSION[$conf_user]['syslang'] == 'en') {
@@ -2366,11 +2368,10 @@ function send_sms($sms_to, $sms_msg)
     } else {
         $languageType = '2';
         $send_context = String2Hex($sms_msg);
-        
     }
     // $languageType = '2';
     if ($globalConf_sms_open) {
-        $send_context = json_decode(str_replace(["\u"," "],"",json_encode($send_context)));
+        $send_context = json_decode(str_replace(["\u", " "], "", json_encode($send_context)));
         $query_string = "api.aspx?apiusername=" . $Conf_sms_username . "&apipassword=" . $Conf_sms_password;
         $query_string .= "&senderid=INFO&mobileno=" . rawurlencode($sms_to);
         $query_string .= "&message=" . $send_context . "&languagetype=" . $languageType;
@@ -2379,7 +2380,7 @@ function send_sms($sms_to, $sms_msg)
         $res['context'] = $send_context;
         $res['sms'] = $sms_msg;
         // JsonEnd($res);
-        
+
         $fd = @implode('', file($url));
         if ($fd) {
             if ($fd > 0) {
@@ -2401,19 +2402,18 @@ function send_sms($sms_to, $sms_msg)
 
         // JsonEnd($res);
     }
-
 }
 
-function String2Hex($string){
-    $hex='';
-    for ($i=0; $i < strlen($string); $i++){
-        if(ctype_digit($string[$i])){
-            $temp = str_pad(dechex(ord($string[$i])),4,"0",STR_PAD_LEFT);
-        }else if(ctype_alpha($string[$i])){
-            $temp = str_pad(dechex(ord($string[$i])),4,"0",STR_PAD_LEFT);
-        }else{
+function String2Hex($string)
+{
+    $hex = '';
+    for ($i = 0; $i < strlen($string); $i++) {
+        if (ctype_digit($string[$i])) {
+            $temp = str_pad(dechex(ord($string[$i])), 4, "0", STR_PAD_LEFT);
+        } else if (ctype_alpha($string[$i])) {
+            $temp = str_pad(dechex(ord($string[$i])), 4, "0", STR_PAD_LEFT);
+        } else {
             $temp = $string[$i];
-            
         }
         $hex .= $temp;
     }
@@ -2429,28 +2429,29 @@ function String2Hex($string){
 // }
 
 
-function utf8_substr($str, $start, $num){  
+function utf8_substr($str, $start, $num)
+{
     $res = '';      //存儲截取到的字符串  
     $cnt = 0;       //計數器，用來判斷字符串是否走到$start位置  
     $t = 0;         //計數器，用來判斷字符串已經截取了$num的數量  
-    for($i = 0; $i < strlen($str); $i++){  
-        if(ord($str[$i]) > 127){    //非ascii碼時  
-            if($cnt >= $start){     //如果計數器走到了$start的位置  
-                $res .=$str[$i].$str[++$i].$str[++$i]; //utf-8是三字節編碼，$i指針連走三下，把字符存起來  
-                $t ++;              //計數器++，表示我存了幾個字符串了到$num的數量就退出了  
-            }else{    
+    for ($i = 0; $i < strlen($str); $i++) {
+        if (ord($str[$i]) > 127) {    //非ascii碼時  
+            if ($cnt >= $start) {     //如果計數器走到了$start的位置  
+                $res .= $str[$i] . $str[++$i] . $str[++$i]; //utf-8是三字節編碼，$i指針連走三下，把字符存起來  
+                $t++;              //計數器++，表示我存了幾個字符串了到$num的數量就退出了  
+            } else {
                 $i++;               //如果沒走到$start的位置，那就只走$i指針，字符不用處理  
-                $i++;     
-            }         
-            $cnt ++;  
-        }else{    
-            if($cnt >= $start){     //acsii碼正常處理就好  
-                $res .=$str[$i];  
-                $t++;     
-            }         
-            $cnt ++;                          
-        }         
-        if($num == $t) break;       //ok,我要截取的數量已經夠了，我不貪婪，我退出了  
-    }         
-    return $res;  
-}  
+                $i++;
+            }
+            $cnt++;
+        } else {
+            if ($cnt >= $start) {     //acsii碼正常處理就好  
+                $res .= $str[$i];
+                $t++;
+            }
+            $cnt++;
+        }
+        if ($num == $t) break;       //ok,我要截取的數量已經夠了，我不貪婪，我退出了  
+    }
+    return $res;
+}

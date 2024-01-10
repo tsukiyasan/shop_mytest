@@ -1051,6 +1051,17 @@ function pagedb(){
     $checked2_instock = global_get_param( $_REQUEST, 'checked2_instock', null ,0,1  );
     $checked2_procode = global_get_param( $_REQUEST, 'checked2_procode', null ,0,1  );
     
+	//新增檢查不可為空
+	foreach ($checked2_procode as $k => $v) {
+		foreach ($v as $k2 => $v2) {
+			if(empty($v2)){
+				$msg = _CODE_EMPTY;
+				JsonEnd(array("status"=>0,"msg"=>$msg));
+			}
+		}
+	}
+	
+
     $amtProChk = intval(global_get_param( $_REQUEST, 'amtProChk', null ,0,1  ));
     $amtProAmt = floatval(global_get_param( $_REQUEST, 'amtProAmt', null ,0,1  ));
     $freeProChk = intval(global_get_param( $_REQUEST, 'freeProChk', null ,0,1  ));

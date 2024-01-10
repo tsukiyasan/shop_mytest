@@ -15,6 +15,7 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 			search: !param.search ? "" : param.search,
 			proclass: typeof param.proclass=='undefined' ? -1 : param.proclass,
 			memType: typeof param.memType=='undefined' ? -1 : param.memType,
+			memLocked: typeof param.memLocked=='undefined' ? -1 : param.memLocked,
 			date: {
 				startDate:  param.date ? (!param.date.startDate ? null : param.date.startDate) : null,
 				endDate: param.date ? (!param.date.endDate ? null : param.date.endDate) : null
@@ -24,6 +25,7 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 				endDate: param.date2 ? (!param.date2.endDate ? null : param.date2.endDate) : null
 			}
 		}
+		console.log(my.params);
 		
 		my.nowclass=$translate.instant('lg_members.members_sales'+my.params.proclass);
 		
@@ -38,6 +40,15 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 			my.memTypeStr = $translate.instant('lg_members.members_memType5'); 
 		} else if (my.params.memType == 6){
 			my.memTypeStr = $translate.instant('lg_members.members_memType6');
+		}
+
+		if(my.params.memLocked == '-1')
+		{
+			my.memLockedStr = $translate.instant('lg_members.members_memLocked');
+		}else if(my.params.memLocked == 0){
+			my.memLockedStr = $translate.instant('lg_members.members_memLocked1');
+		}else if (my.params.memLocked == 1) {
+			my.memLockedStr = $translate.instant('lg_members.members_memLocked2'); 
 		}
 		
 		my.options = {
@@ -58,6 +69,9 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 					my.data_list = res.data.data;
 					
 					my.printhtml = res.data.printhtml;
+					my.cnt1 = res.data.cnt1;
+					my.cnt2 = res.data.cnt2;
+					console.log(res);
 				}	
 			});
 		}
@@ -131,6 +145,23 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 			}
 		
 			my.params.memType=t;
+			my.refresh();
+		};
+
+		my.memLockedChg=function(t){
+			console.log('locked');
+			console.log(t);
+			if(t == '-1')
+			{
+				my.memLockedStr = $translate.instant('lg_members.members_memLocked0');//一般會員
+			} else if(t == 0) {
+				my.memLockedStr = $translate.instant('lg_members.members_memLocked1');
+			} else if (t == 1) {
+				my.memLockedStr = $translate.instant('lg_members.members_memLocked2');
+			}
+		
+			console.log(my.memLockedStr);
+			my.params.memLocked=t;
 			my.refresh();
 		};
 		
@@ -251,6 +282,11 @@ app.controller('members_list', ['$rootScope', '$scope', '$http', '$location', '$
 					my.detailData = res.info;
 					my.detailData.salesChkStr=$translate.instant('lg_members.members_sales'+my.detailData.salesChk);
 					my.listcanton(my.detailData.city);
+					my.memberloginStraight = (res.memberloginStraight == 'true') ? true : false;
+					my.keydata = {
+						ac: res.ac,
+						pwd: res.upwd
+					}
 				}
 			});
 		}

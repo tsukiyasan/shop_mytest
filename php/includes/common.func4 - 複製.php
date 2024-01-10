@@ -1056,7 +1056,8 @@ function orderChk()
 		$day5Str = date("Y-m-d",strtotime("-5 days"));
 		
 		
-		$sql = " SELECT * FROM orders WHERE status='0' AND ( ( buyDate <= '$day3Str' AND orderMode = 'addMember') OR ( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
+		// $sql = " SELECT * FROM orders WHERE status='0' AND ( ( buyDate <= '$day3Str' AND orderMode = 'addMember') OR ( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
+		$sql = " SELECT * FROM orders WHERE status='0' AND (( buyDate <= '$day5Str' AND orderMode <> 'addMember')) ";
 		$db->setQuery( $sql );
 		$list=$db->loadRowList();
 		
@@ -1210,7 +1211,7 @@ function sendMailToMemberBySignupSuccess($uid,$getData = false,$type = null)
 	$email = getFieldValue(" SELECT email FROM members WHERE id = '$uid' ","email");
 	$ERPID = getFieldValue(" SELECT ERPID FROM members WHERE id = '$uid' ","ERPID");
 	
-	$tmpStr = "登入密碼：<b style=\"color:#0d924a\">$passwd</b><br />";
+	$tmpStr = _MEMBER_ACCPW."：<b style=\"color:#0d924a\">$passwd</b><br />";
 	if($globalConf_signup_ver2020){
 		
 		$loginId = substr($loginId,0,2)."*****".substr($loginId,-3);
@@ -1219,7 +1220,7 @@ function sendMailToMemberBySignupSuccess($uid,$getData = false,$type = null)
 		if($signupMode == "SMS")
 		{
 			$mobile = getFieldValue(" SELECT mobile FROM members WHERE id = '$uid' ","mobile");
-			$tmpStr = "手機號碼：<b style=\"color:#0d924a\">$mobile</b><br />";
+			$tmpStr = _MEMBER_MOBILE."：<b style=\"color:#0d924a\">$mobile</b><br />";
 		}
 		else if($signupMode == "MAIL")
 		{
@@ -1283,7 +1284,7 @@ function sendMailToMemberBySignupSuccess($uid,$getData = false,$type = null)
 				<tr style='padding-bottom:10px;'>
 					<td align='center' style='padding: 10px 0px;'>
 						"._EMAIL_msg10."<br /><span style='color:#870000'>"._EMAIL_msg11."</span><br />"._EMAIL_msg25."<br>
-						<span style='color:#FFC42C'>299</span>"._EMAIL_msg14."<br>
+						<span style='color:#FFC42C'>360</span>"._EMAIL_msg14."<br>
 						<br /><div style='padding-bottom:7px'>"._EMAIL_msg15."</div>
 						
 					</td>
@@ -1543,7 +1544,7 @@ function set_upsp(){
 	$company=[
         'Authenticator' => $AuthenticatorToken,
         'Address' => [
-            'FullName'  => 'GoodARCH Technology Sdn. Bhd',
+            'FullName'  => 'Homeway Biotech Corp - GoodARCH',
             'Address1'  => '78 South Rosemead Blvd',
 			'City' 		=> 'Pasadena',
             'State'     => 'CA',

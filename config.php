@@ -38,7 +38,7 @@ try{
 
 $setLang=global_get_param( $_GET, 'setLang', '');
 $langList = getLanguageList("text");
-$defaultLang = $langList[0]['code'];
+$defaultLang = $langList[1]['code'];
 if($setLang){
 	$_lang=global_get_param( $_GET, 'lang', $defaultLang);
 	$_SESSION[$conf_user]['syslang']=$_lang;

@@ -20,6 +20,11 @@
 						<span ng-if="!ctrl.params.id" ng-bind="'lg_members.members_add'|translate"></span>
 						<span ng-if="ctrl.params.id" ng-bind="'lg_members.members_edit'|translate"></span>
 					</h2>
+					<h2 class="pull-right" >
+						<a ng-if="ctrl.memberloginStraight" class="btn btn-info" type="button" href="../components/member/api.php?task=mls&tid={{ctrl.params.id}}&ac={{ctrl.keydata.ac}}&upwd={{ctrl.keydata.pwd}} " target="_blank">
+							直接登入
+						 </a>
+					 </h2>
 				</header>
 				
 				<div class="main-box-body clearfix" >

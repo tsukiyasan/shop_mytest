@@ -1,6 +1,10 @@
 "lg_news":{
 	"news":"最新消息",	
 	"newsdtl":"详细",	
-	"news_end":""
+	"news_end":"",
+	"news_list":"最新消息",
+	"calendar_list":"行事历",
+	"course_list":"课程资讯",
+	"duty_list":"各区值班日"
 	
 }

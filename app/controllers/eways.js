@@ -285,5 +285,180 @@ app.controller('main_ctrl',["$rootScope","$scope", "$http", "$timeout", "$transl
 			location.href=path+'?lang='+lang+'&setLang=1';
 		}
 	};
+
+	my.get_card = function () {
+      
+		CRUD.setUrl("app/controllers/eways.php");
+		CRUD.list({ task: "get_card" }, "GET").then(function (res) {
+		  if (res.status == 1) {
+			my.card_om = res.om;
+			$scope.om = res.om;
+			$scope.$parent.om = res.om;
+			my.barcode_64 = 1;
+  
+			$("#show_card_btn").show();
+			$("#card_svg").append(res.barcode_64);
+			if (res.om == "0") {
+			  $(".card_title").text($translate.instant('lg_member.details_setting_om_status_0'));
+			  $(".n_center").text($translate.instant('lg_member.distributor_center'));
+			  $("#card_qr1i").append(res.qr1);
+			  $("#card_qr2i").append(res.qr2);
+			} else {
+			  $(".card_title").text($translate.instant('lg_member.details_setting_om_status_1'));
+			  $(".n_center").text($translate.instant('lg_member.member_center'));
+			  $("#card_choice").hide();
+			}
+  
+			$("#card_name").append(res.mb_name);
+			//console.log(res.om);
+  
+			var $width = $(window).width();
+			var $height = $(window).height();
+			if ($width > $height) {
+			  $("#card_svg").removeClass("degree_90");
+			  $("#card_svg").removeClass("d_center");
+			  $("#vip_card").hide();
+			  // $('#show_card .modal-footer').hide();
+			  $("#card_svg").find("svg").css("width", "100%");
+			  $("#card_svg").find("svg").css("height", "170px");
+  
+			  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+			  if ($height < 500) {
+				$("#show_card .modal-footer").hide();
+			  }
+			} else if ($width < $height) {
+			  // $('#card_svg').addClass('degree_90');
+			  $("#card_svg").addClass("d_center");
+			  $("#vip_card").show();
+			  $("#show_card .modal-footer").show();
+			  $("#card_svg").find("svg").css("width", "100%");
+			  $("#card_svg").find("svg").css("height", "170px");
+			  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+			  if ($height < 500) {
+				$("#show_card .modal-footer").hide();
+			  }
+			} else {
+			  // $('#card_svg').addClass('degree_90');
+			  $("#card_svg").addClass("d_center");
+			  $("#vip_card").show();
+			  $("#show_card .modal-footer").show();
+			  $("#card_svg").find("svg").css("width", "100%");
+			  $("#card_svg").find("svg").css("height", "170px");
+			  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+			  if ($height < 500) {
+				$("#show_card .modal-footer").hide();
+			  }
+			}
+		  } else {
+			$("#show_card_btn").hide();
+		  }
+		});
+	  };
+  
+	  $.attrHooks["viewbox"] = {
+		set: function (elem, value, name) {
+		  elem.setAttributeNS(null, "viewBox", value + "");
+		  return value;
+		},
+	  };
+  
+	  my.get_card();
+  
+	  $(window).resize(function () {
+		var $width = $(window).width();
+		var $height = $(window).height();
+		if ($width > $height) {
+		  $("#card_svg").removeClass("degree_90");
+		  $("#card_svg").removeClass("d_center");
+		  $("#vip_card").hide();
+		  $("#show_card .modal-footer").hide();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		} else if ($width < $height) {
+		  // $('#card_svg').addClass('degree_90');
+		  $("#card_svg").addClass("d_center");
+		  $("#vip_card").show();
+		  $("#show_card .modal-footer").show();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		} else {
+		  // $('#card_svg').addClass('degree_90');
+		  $("#card_svg").addClass("d_center");
+		  $("#vip_card").show();
+		  $("#show_card .modal-footer").show();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		}
+	  });
+  
+	  window.onorientationchange = function () {
+		var orientation = window.orientation;
+		var $width = $(window).width();
+		var $height = $(window).height();
+		// Look at the value of window.orientation:
+  
+		if (orientation === 0) {
+		  // $('#card_svg').addClass('degree_90');
+		  $("#card_svg").addClass("d_center");
+		  $("#vip_card").show();
+		  $("#show_card .modal-footer").show();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		} else if (orientation === 90) {
+		  $("#card_svg").removeClass("degree_90");
+		  $("#card_svg").removeClass("d_center");
+		  $("#vip_card").hide();
+		  $("#show_card .modal-footer").hide();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		} else if (orientation === -90) {
+		  $("#card_svg").removeClass("degree_90");
+		  $("#card_svg").removeClass("d_center");
+		  $("#vip_card").hide();
+		  $("#show_card .modal-footer").hide();
+		  $("#card_svg").find("svg").css("width", "100%");
+		  $("#card_svg").find("svg").css("height", "170px");
+		  $("#card_svg svg").attr("viewBox", "0 0 170 100");
+		  if ($height < 500) {
+			$("#show_card .modal-footer").hide();
+		  }
+		}
+	  };
+  
+	  my.close_card = function () {
+		//console.log('remove');
+		$("#show_card").removeClass("in");
+	  };
+  
+	  my.card_type = function (type) {
+		$(".card_info").hide();
+		if (type == 1) {
+		  $("#card_svg").show();
+		} else if (type == 2) {
+		  $("#card_qr1").show();
+		} else if (type == 3) {
+		  $("#card_qr2").show();
+		}
+	  };
 	
 }]);

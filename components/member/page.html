@@ -22,11 +22,11 @@
 
 							<button class="btn" style="margin-left:5px;background-color:#0d924a;color:white"
                                 type="button" ng-click="ctrl.recomUser()">
-                                推薦經銷商
+                                <span ng-bind="'lg_member.distributor_sponsor' | translate">推薦經銷商</span>
                             </button>
 							<button class="btn" style="margin-left:5px;background-color:#FEC000;color:#880115"
 								type="button" ng-click="ctrl.recomUser2()">
-								推薦會員
+								<span ng-bind="'lg_member.member_sponsor' | translate">推薦會員</span>
 							</button>
 						</div>
 						<div class="col-sm-12">
@@ -42,7 +42,7 @@
 
 						<button class="btn" style="margin-left:5px;background-color:#0d924a;color:white" type="button"
                             ng-click="ctrl.recomUser()">
-                            推薦經銷商
+                            <span ng-bind="'lg_member.distributor_sponsor' | translate">推薦經銷商</span>
                         </button>
 						<button class="btn" style="margin-left:5px;background-color:#FEC000;color:#880115;margin-right:20px" type="button"
 							ng-click="ctrl.recomUser2()">
@@ -221,11 +221,11 @@
 
 
 								<div class="tip">
-									<i class="glyphicon glyphicon-info-sign"></i> 會員註冊：僅限於本公司台灣合格經銷商<br /><br />
-									<i class="glyphicon glyphicon-info-sign"></i>
-									感謝您光臨紅崴GoodARCH - 會員購物專區。每一位紅崴會員都是由另一會員推薦。想要了解如何才能成為紅崴會員，請聯繫推薦您來本網站的會員。<br /><br />
-									<i class="glyphicon glyphicon-info-sign"></i> 如果您沒有推薦者，請撥打服務專線：(603) 9054 - 7589
-									由專人為您服務。
+									<i class="glyphicon glyphicon-info-sign"></i> <txt ng-bind="'lg_member.sinup_msg1' | translate">經銷商註冊：僅限於本公司台灣合格經銷商</txt><br /><br />
+									<i class="glyphicon glyphicon-info-sign"></i><txt ng-bind="'lg_member.sinup_msg2' | translate">感謝您光臨紅崴GoodARCH - 會員購物專區。每一位紅崴會員都是由另一會員推薦。想要了解如何才能成為紅崴會員，請聯繫推薦您來本網站的會員。</txt>
+									<br /><br />
+									<i class="glyphicon glyphicon-info-sign"></i> <txt ng-bind="'lg_member.sinup_msg3' | translate">如果您沒有推薦者，請撥打服務專線：(603) 9054 - 7589
+										由專人為您服務。</txt>
 								</div>
 								<button class="btn btn-lg btn-first btn-block" type="submit">確定註冊</button>
 								<button class="btn btn-lg btn-second btn-block" type="button"
@@ -641,16 +641,16 @@
 									<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 											ng-bind="'lg_member.signupNew3_msg3' | translate">
 											現在起只要880元加入成為紅崴GoodARCH經銷商資格，即可獲得GoodARCH 活力能量七彩夜光珠1條(7mm,28顆）</txt>
-										<txt ng-if="ctrl.ESignupActiveChk != 'true'"
+										<!-- <txt ng-if="ctrl.ESignupActiveChk != 'true'"
 											ng-bind="'lg_member.signupNew3_msg4' | translate">價值2,100元</txt>
 										<txt ng-if="ctrl.ESignupActiveChk == 'true'"
 											ng-bind="'lg_member.signupNew3_msg5' | translate">及精油潔淨凝膠１條總價值2,398元</txt>
-										<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt>
+										<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt> -->
 									</h4>
-									<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
+									<!-- <h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 											ng-bind="'lg_member.signupNew3_msg7' | translate">
 											公平交易委員會規定：入會者須另填協議書一份，方可符合領取獎金之資格（協議書於完成ｅ化入會５日後寄出）</txt>
-									</h4>
+									</h4> -->
 									<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 											ng-bind="'lg_member.signupNew3_msg8' | translate">
 											提醒您，ｅ化入會需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。</txt>
@@ -681,7 +681,7 @@
 
 									</div>
 								</div>
-
+								<div class="clearfix"></div>
 								<div class="form-group">
 									<label for="dlvrType" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 9px; text-align: right;"><span class="text-danger">* </span>
@@ -933,7 +933,6 @@
 									</label>
 									<div
 										ng-class="(ctrl.signNew.signupMode == 'SMS') ? 'col-sm-9 col-md-8 col-lg-9': 'col-sm-9 col-md-8 col-lg-9'">
-										<txt ng-bind="'lg_member.us1' | translate">馬來西亞+60</txt>
 										&emsp;
 										<input type="text"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
@@ -966,8 +965,7 @@
 
 								<div class="form-group">
 									<label for="memberEmail" class="col-sm-3 col-md-4 col-lg-3 control-label"
-										style="padding-top: 7px; text-align: right;"><span class="text-danger"
-											ng-if="!signupMode2020 || ctrl.signNew.signupMode == 'MAIL'">*
+										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
 										</span>E-mail</label>
 									<div
 										ng-class="(ctrl.signNew.signupMode == 'MAIL') ? 'col-sm-9 col-md-8 col-lg-9': 'col-sm-9 col-md-8 col-lg-9'">
@@ -1212,16 +1210,16 @@
 												現在起只要880元加入成為紅崴GoodARCH經銷商資格，即可獲得GoodARCH
 												活力能量七彩夜光珠1條(7mm,28顆）
 											</txt>
-											<txt ng-if="ctrl.ESignupActiveChk != 'true'"
+											<!-- <txt ng-if="ctrl.ESignupActiveChk != 'true'"
 											ng-bind="'lg_member.signupNew3_msg4' | translate">價值2,100元</txt>
 										<txt ng-if="ctrl.ESignupActiveChk == 'true'"
 											ng-bind="'lg_member.signupNew3_msg5' | translate">及精油潔淨凝膠１條總價值2,398元</txt>
-										<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt>
+										<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt> -->
                                     </h4>
-                                    <h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
+                                    <!-- <h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.signupNew3_msg7' | translate">
 										公平交易委員會規定：入會者須另填協議書一份，方可符合領取獎金之資格（協議書於完成ｅ化入會５日後寄出）</txt>
-									</h4>
+									</h4> -->
 									<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 											ng-bind="'lg_member.signupNew3_msg8' | translate">
 											提醒您，ｅ化入會需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。</txt>
@@ -1231,7 +1229,7 @@
                                 <div class="form-group">
                                     <label for="payType" class="col-sm-3 col-md-4 col-lg-3 control-label"
                                         style="padding-top: 9px; text-align: right;"><span class="text-danger">*
-                                        </span>付款方式</label>
+                                        </span><txt ng-bind="'lg_member.signupNew3_payType' | translate">付款方式</txt></label>
                                     <div class="col-sm-9 col-md-8 col-lg-9">
                                         <div class="radio i-checks ng-scope" style="">
                                             <label class="ng-binding">
@@ -1272,22 +1270,22 @@
                                     </div>
                                 </div> -->
 
-
-                                <div class="form-group">
+								<div class="clearfix"></div>
+                                <!-- <div class="form-group">
                                     <label for="dlvrType" class="col-sm-3 col-md-4 col-lg-3 control-label"
                                         style="padding-top: 9px; padding-left:0px; text-align: right;"><span
                                             class="text-danger">*
                                         </span><txt ng-bind="'lg_member.signupNew3_takeType' | translate">取贈品方式</txt></label>
                                     <div class="col-sm-9 col-md-8 col-lg-9">
                                         <div class="radio i-checks ng-scope" style="">
-                                            <!--
+                                            
                                     <label class="ng-binding">
                                         <input type="radio" ng-model="ctrl.signNew.dlvrType" ng-value="1" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="1"  /><i></i> 宅配 ($100)
                                     </label>&emsp;
                                     <label class="ng-binding">
                                         <input type="radio" ng-model="ctrl.signNew.dlvrType" ng-value="2" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="2" /><i></i> 門市自取
                                     </label>
-                                    -->
+                                    
                                             <txt ng-if="ctrl.signNew.dlvrType == 1"
 												ng-bind="'lg_member.signupNew3_takeType1' | translate">宅配 (RM 10)</txt>
 											<txt ng-if="ctrl.signNew.dlvrType == 2"
@@ -1296,10 +1294,35 @@
 
 
                                     </div>
-                                </div>
+                                </div> -->
+
+								<div class="form-group">
+									<label for="dlvrType" class="col-sm-3 col-md-4 col-lg-3 control-label"
+										style="padding-top: 9px; text-align: right;"><span class="text-danger">* </span>
+										<txt ng-bind="'lg_member.signupNew3_takeType' | translate">取贈品方式</txt>
+									</label>
+									<div class="col-sm-9 col-md-8 col-lg-9">
+										<div class="radio i-checks ng-scope" style="">
+											<!--
+										<label class="ng-binding">
+											<input type="radio" ng-model="ctrl.signNew.dlvrType" ng-value="1" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="1"  /><i></i> 宅配 ($100)
+										</label>&emsp;
+										<label class="ng-binding">
+											<input type="radio" ng-model="ctrl.signNew.dlvrType" ng-value="2" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="2" /><i></i> 門市自取
+										</label>
+										-->
+											<txt ng-if="ctrl.signNew.dlvrType == 1"
+												ng-bind="'lg_member.signupNew3_takeType1' | translate">宅配 (RM 10)</txt>
+											<txt ng-if="ctrl.signNew.dlvrType == 2"
+												ng-bind="'lg_member.signupNew3_takeType2' | translate">門市自取</txt>
+										</div>
+
+
+									</div>
+								</div>
 
                                 
-
+								<div class="clearfix"></div>
                                 <div ng-if="ctrl.signNew.dlvrType == 1" class="form-group">
                                     <label for="dlvrAddr" class="col-sm-3 col-md-4 col-lg-3 control-label"
                                         style="padding-top: 7px; text-align: right;"><span class="text-danger">*
@@ -1400,7 +1423,7 @@
 					<!-- 大標題 -->
 					<div class="row">
 						<div class="col-xs-12 page_content_title">
-							<h3>經銷商註冊</h3>
+							<h3 ng-bind="'lg_member.sign_Distributor_register' | translate">經銷商註冊</h3>
 						</div>
 					</div>
 					<div class="col-xs-12">
@@ -1409,13 +1432,13 @@
 							<form class="form-signin" ng-submit="ctrl.signup201()">
 
 								<div class="form-group">
-									<h4>&nbsp;<br /><i class="fa fa-user"></i>&nbsp;&nbsp;基本資料</h4>
+									<h4>&nbsp;<br /><i class="fa fa-user"></i>&nbsp;&nbsp;<txt ng-bind="'lg_member.signup300_basic_data' | translate">基本資料</txt></h4>
 								</div>
 
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberName" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
-										</span>經銷商姓名</label>
+										</span><txt ng-bind="'lg_member.register_name' | translate">經銷商姓名</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
 										<input type="text"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
@@ -1423,16 +1446,16 @@
 											placeholder="" style="padding: 5px;" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberSID" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
-										</span>身分證字號</label>
+										</span><txt ng-bind="'lg_member.signup300_ID' | translate">身分證字號</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
 										<input type="text"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
 											id="memberSID" ng-model="ctrl.sign20.memberSID" ng-readonly="true"
 											placeholder="" style="padding: 5px; text-transform:uppercase;" />
-										※身份證字號為登入預設帳號
+											<txt ng-bind="'lg_member.signup300_ID_default' | translate">※身份證字號為登入預設帳號</txt>
 									</div>
 								</div>
 								<!-- <div class="form-group" ng-if="ctrl.sign20.signupMode == 'SMS'">
@@ -1466,15 +1489,15 @@
                                             style="padding: 5px;" />
                                     </div>
                                 </div> -->
-								<div class="form-group pwd_div">
+								<div class="clearfix form-group pwd_div">
 									<label for="memberPasswd" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
-										</span>設定密碼</label>
+										</span><txt ng-bind="'lg_member.signup300_resetpw' | translate">設定密碼</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9" style="position: relative;">
 										<input type="password"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched thepwd"
 											id="memberPasswd" ng-model="ctrl.sign20.memberPasswd"
-											placeholder="密碼請設定６碼以上" style="padding: 5px;" />
+											placeholder="{{'lg_member.signup300_pw6' | translate}}" style="padding: 5px;" />
 
 									</div>
 									<button class="show_pwd" id="toggle_pwd" ng-click="ctrl.toggle_pwd()" style="
@@ -1486,10 +1509,10 @@
 
 									</button>
 								</div>
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberPasswdChk" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
-										</span>確認密碼</label>
+										</span><txt ng-bind="'lg_member.signup300_pwchk' | translate">確認密碼</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
 										<input type="password"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched thepwd"
@@ -1497,9 +1520,9 @@
 											style="padding: 5px;" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberTel" class="col-sm-3 col-md-4 col-lg-3 control-label"
-										style="padding-top: 7px; text-align: right;">電話號碼</label>
+										style="padding-top: 7px; text-align: right;"><txt ng-bind="'lg_member.mobile' | translate">電話號碼</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
 										<!-- <input type="text"
                                             class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
@@ -1512,7 +1535,7 @@
 											style="width: 100%; overflow:left; display: inline; padding: 5px;" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberEmail" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger"
 											ng-if="ctrl.sign20.signupMode == 'MAIL'">* </span>E-mail</label>
@@ -1532,7 +1555,7 @@
 											style="padding: 6px;" ng-value="ctrl.verification.sendCaptchaStr" />
 									</div>
 								</div>
-								<div class="form-group" ng-if="ctrl.sign20.signupMode == 'MAIL'">
+								<div class="clearfix form-group" ng-if="ctrl.sign20.signupMode == 'MAIL'">
 									<label for="memberCaptcha" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"><span class="text-danger">*
 										</span>驗證碼</label>
@@ -1543,7 +1566,7 @@
 											style="padding: 5px;" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberCity" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;">
 										<txt ng-bind="'lg_member.Mailing_State' | translate">州</txt>
@@ -1568,7 +1591,7 @@
                                         </select>
                                     </div>
                                 </div> -->
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberAddress" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;">
 										<txt ng-bind="'lg_member.signupNew3_addr' | translate">通訊地址</txt>
@@ -1581,11 +1604,12 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div class="clearfix form-group">
 									<label for="memberTip" class="col-sm-3 col-md-4 col-lg-3 control-label"
 										style="padding-top: 7px; text-align: right;"></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
-										<br /><i class="glyphicon glyphicon-info-sign"></i> 經銷商註冊：僅限於本公司台灣合格經銷商<br />
+										<br /><i class="glyphicon glyphicon-info-sign"></i> 
+										<txt ng-bind="'lg_member.sinup_msg1' | translate">經銷商註冊：僅限於本公司台灣合格經銷商</txt><br />
 										<!-- <txt ng-if="ctrl.sign20.signupMode == 'SMS'" ng-click="ctrl.signup20_SMSTIP()"
                                             style="cursor: pointer;"><br /><i class="glyphicon glyphicon-info-sign"></i>
                                             收不到手機認證碼？
@@ -1677,7 +1701,7 @@
 							type: "POST",
 							url: "components/member/api.php",
 							data: {
-								secret: "6LepqZsfAAAAAKLS_-EAru5VOZf42k1bvfG9TECL",
+								secret: "6LfhzSAgAAAAAHsAwBxVFjVCw2NMXh4ITjb7vTAy",
 								task: "resetPW20_captchaChk",
 								response: response
 							},
@@ -1694,7 +1718,7 @@
 					var onloadCallback = function () {
 
 						grecaptcha.render('example3', {
-							'sitekey': '6LepqZsfAAAAAD6b4mUE10_hE5YaHo1Cz6NZacpU',
+							'sitekey': '6LfhzSAgAAAAABL9W0c82QV5sYh5KvRjAf5muiyB',
 							'callback': verifyCallback,
 							'theme': 'light'
 						});
@@ -1906,9 +1930,9 @@
 					<div class="row">
 						<div class="col-xs-12 page_content_title">
 							<h3>
-								<span ng-if="ctrl.sign20.signupMode=='SMS'">手機</span>
-								<span ng-if="ctrl.sign20.signupMode=='MAIL'"></span>
-								{{'lg_member.msg_3' | translate}}
+								<span ng-if="ctrl.sign20.signupMode=='SMS'">{{'lg_member.msg_31' | translate}}</span>
+								<span ng-if="ctrl.sign20.signupMode=='MAIL'">{{'lg_member.msg_3' | translate}}</span>
+								
 							</h3>
 						</div>
 					</div>
@@ -1922,11 +1946,10 @@
 										| translate}}</label>
 									<div
 										ng-class="(ctrl.sign20.signupMode == 'SMS') ? 'col-sm-6 col-md-4 col-lg-6': 'col-sm-9 col-md-8 col-lg-9'">
-										{{'lg_member.us1' | translate}}
 										<input type="text"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
 											id="memberPhone" ng-model="ctrl.sign3011.memberPhone" placeholder=""
-											style="width: 55%; overflow:left; display: inline; padding: 5px;" />
+											style="width: 100%; overflow:left; display: inline; padding: 5px;" />
 									</div>
 									<div ng-if="ctrl.sign20.signupMode == 'SMS'" id="memberPhoneChk_div"
 										class="col-sm-3 col-md-4 col-lg-3">
@@ -2022,11 +2045,10 @@
 										style="padding-top: 7px; text-align: right;">{{'lg_member.signupNew3_mobileNo' | translate}}</label>
 									<div
 										ng-class="(ctrl.sign20.signupMode == 'SMS') ? 'col-sm-6 col-md-4 col-lg-6': 'col-sm-9 col-md-8 col-lg-9'">
-										{{'lg_member.us1' | translate}}
 										<input type="text"
 											class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
 											id="memberPhone" ng-model="ctrl.sign3012.memberPhone" placeholder=""
-											style="width: 55%; overflow:left; display: inline; padding: 5px;" />
+											style="width: 100%; overflow:left; display: inline; padding: 5px;" />
 									</div>
 									<div ng-if="ctrl.sign20.signupMode == 'SMS'" id="memberPhoneChk_div"
 										class="col-sm-3 col-md-4 col-lg-3">
@@ -2628,32 +2650,32 @@
 										</span>
 
 										<br />
-										<h4 style="padding-left:25px;"><i class="fa fa-user"></i>&nbsp;&nbsp;基本資料</h4>
+										<h4 style="padding-left:25px;"><i class="fa fa-user"></i>&nbsp;&nbsp;<txt ng-bind="'lg_member.signup300_basic_data' | translate">基本資料</txt></h4>
 										<div ng-if="ctrl.sign30.memberNo" class="form-group"
 											style="padding-bottom: 18px;">
 											<label for="memberNo" class="col-sm-3 col-md-4 col-lg-3 control-label"
-												style="text-align: right;">經銷商編號</label>
+												style="text-align: right;"><txt ng-bind="'lg_member.signup300_memberNo' | translate">經銷商編號</txt></label>
 											<div class="col-sm-9 col-md-8 col-lg-9">
 												{{ctrl.sign30.memberNo}}
 											</div>
 										</div>
 										<div class="form-group" style="padding-bottom: 18px;">
 											<label for="memberName" class="col-sm-3 col-md-4 col-lg-3 control-label"
-												style="text-align: right;">經銷商姓名</label>
+												style="text-align: right;"><txt ng-bind="'lg_member.signup300_member_name' | translate">經銷商姓名</txt></label>
 											<div class="col-sm-9 col-md-8 col-lg-9">
 												{{ctrl.sign30.memberName}}
 											</div>
 										</div>
 										<div class="form-group" style="padding-bottom: 18px;">
 											<label for="memberSID" class="col-sm-3 col-md-4 col-lg-3 control-label"
-												style="text-align: right;">身分證字號</label>
+												style="text-align: right;"><txt ng-bind="'lg_member.signup300_ID' | translate">身分證字號</txt></label>
 											<div class="col-sm-9 col-md-8 col-lg-9">
 												{{ctrl.sign30.memberSID}}
 											</div>
 										</div>
 										<div class="form-group" style="padding-bottom: 18px;">
 											<label for="memberBirthday" class="col-sm-3 col-md-4 col-lg-3 control-label"
-												style="text-align: right;">生日(西元年)</label>
+												style="text-align: right;"><txt ng-bind="'lg_member.signup300_birthday' | translate">生日(西元年)</txt></label>
 											<div class="col-sm-9 col-md-8 col-lg-9">
 												{{ctrl.sign30.memberBirthdayStr}}
 											</div>
@@ -2683,8 +2705,7 @@
                                         </div> -->
 										<div class="form-group" style="padding-bottom: 18px;">
 											<label for="memberPhone" class="col-sm-3 col-md-4 col-lg-3 control-label"
-												style="text-align: right;">手機號碼</label><span class="text-danger">*
-												</span>
+												style="text-align: right;"><txt ng-bind="'lg_member.signup300_mobile_num' | translate">手機號碼</txt></label>
 											<div class="col-sm-9 col-md-8 col-lg-9">
 												{{ctrl.sign30.memberPhone}}
 											</div>
@@ -3151,7 +3172,7 @@
                                         </th>
                                         <td colspan="3" class="hidden-xs">
                                             <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon1">+60</span>
+                                                
                                                 <input type="text" class="form-control" ng-model="ctrl.user.mobile"
                                                     ng-readonly="!ctrl.verification.verifyingM" placeholder="{{'lg_member.details_setting_Mobile' | translate}} *" />
                                                 <span class="input-group-btn">
@@ -3169,7 +3190,6 @@
 
                                         <td colspan="3" class="hidden-sm hidden-md hidden-lg">
                                             <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon1">+60</span>
                                                 <input type="text" class="form-control" ng-model="ctrl.user.mobile"
                                                     ng-readonly="!ctrl.verification.verifyingM" placeholder="{{'lg_member.details_setting_Mobile' | translate}} *" />
                                                 <span class="">
@@ -3184,6 +3204,27 @@
                                                 </span>
                                             </div>
                                         </td>
+
+										<tr ng-if="signupMode2020 && ctrl.verification.verifyingM">
+											<th style="min-width:80px;max-width:150px;background:#f3f3f3;"><txt ng-bind="'lg_member.signup300_certify_code' | translate">驗證碼</txt></th>
+											<td colspan="3">
+												<div class="input-group">
+													<input type="text" class="form-control" ng-model="ctrl.user.captcha"
+														placeholder="{{'lg_member.mobile_code' | translate}} *" />
+													<span class="input-group-btn">
+														<button class="btn btn-default" type="button"
+															ng-click="ctrl.info20_editInfo('info_SMS',false)"
+															style="background-color: #eee; border-color: #ccc;"><txt ng-bind="'lg_main.cancel' | translate">取消</txt></button>
+													</span>
+												</div>
+											</td>
+	
+										</tr>
+										<tr ng-if="signupMode2020 && ctrl.verification.verifyingM">
+											<td colspan="3">
+												<button class="btn btn-lg btn-first btn-block" type="submit"><txt ng-bind="'lg_main.submit' | translate">確定</txt></button>
+											</td>
+										</tr>
                                     </tr>
 
 									<tr ng-if="signupMode2020">
@@ -3238,15 +3279,17 @@
 									</tr>
 
 									<tr ng-if="signupMode2020 && ctrl.verification.verifyingE">
-										<th style="min-width:80px;max-width:150px;background:#f3f3f3;">驗證碼</th>
+										<th style="min-width:80px;max-width:150px;background:#f3f3f3;"><txt ng-bind="'lg_member.signup300_certify_code' | translate">驗證碼</txt></th>
 										<td colspan="3">
 											<div class="input-group">
 												<input type="text" class="form-control" ng-model="ctrl.user.captcha"
-													placeholder="信箱驗證碼 *" />
+													placeholder="{{'lg_member.email_code' | translate}} *" />
 												<span class="input-group-btn">
 													<button class="btn btn-default" type="button"
 														ng-click="ctrl.info20_editInfo('MAIL',false)"
-														style="background-color: #eee; border-color: #ccc;">取消</button>
+														style="background-color: #eee; border-color: #ccc;">
+														<txt ng-bind="'lg_main.cancel' | translate">取消</txt>
+													</button>
 												</span>
 											</div>
 										</td>
@@ -3254,7 +3297,8 @@
 
 									<tr ng-if="signupMode2020 && ctrl.verification.verifyingE">
 										<td colspan="3">
-											<button class="btn btn-lg btn-first btn-block" type="submit">確定</button>
+											<button class="btn btn-lg btn-first btn-block" type="submit"><txt
+												ng-bind="'lg_main.submit' | translate">確定</txt></button>
 										</td>
 									</tr>
 									<!-- <tr>
@@ -3644,7 +3688,7 @@
 							<div class="col-md-6 col-xs-6 col-sm-6 box-shadow"
 								style="border:1px solid orange;border-radius:20px;height:100px;margin:0px 5px;width:calc(50% - 10px)">
 								<div style="padding-top:10px">
-									可用回饋點
+									<txt ng-bind="'lg_member.usable_online_rebate_points' | translate">可用回饋點</txt>
 								</div>
 								<div>
 									<img src="img/img/point-b.png" style="height:26px;margin-bottom:5px"> <span
@@ -3662,14 +3706,14 @@
 										id="cb_get_page_head">
 										<button type="button" class="btn" ng-click="ctrl.cb_get_page()"
 											style="background-color:rgba(0,0,0,0);width:100%;text-align:left">
-											增加
+											<txt ng-bind="'lg_member.debit' | translate">增加</txt>
 										</button>
 									</div>
 									<div class="col-xs-6 cb_point_page_head hide_effect"
 										style="border-radius:0px 20px 20px 0px" id="cb_use_page_head">
 										<button type="button" class="btn" ng-click="ctrl.cb_use_page()"
 											style="background-color:rgba(0,0,0,0);width:100%;text-align:right">
-											扣除
+											<txt ng-bind="'lg_member.credit' | translate">扣除</txt>
 										</button>
 									</div>
 
@@ -3682,16 +3726,17 @@
 									<div class="col-xs-12 col-md-12 col-sm-12 no-padding"
 										ng-repeat="data in ctrl.cb_get_list track by data.id">
 										<div class="col-md-7 col-xs-7 col-sm-7" style="padding-top:5px">
-											<div ng-if="data.note=='初次發放'">新會員歡迎禮</div>
+											<div ng-if="data.note=='初次發放'">
+												<txt ng-bind="'lg_member.welcome_gift' | translate">新會員歡迎禮</txt></div>
 											<div ng-if="data.note!='初次發放'" style="font-weight:bold">{{data.kind_name}}
 												{{data.orderNum}}</div>
-											<div style="padding:5px 0px">發放日期:{{data.provide_date}}</div>
-											<div>到期日期:{{data.expiry_date}}</div>
+											<div style="padding:5px 0px"><txt ng-bind="'lg_member.issued_date' | translate">發放日期</txt>:{{data.provide_date}}</div>
+											<div><txt ng-bind="'lg_member.expiration_date' | translate">到期日期</txt>:{{data.expiry_date}}</div>
 										</div>
 										<div class="col-md-5 col-xs-5 col-sm-5 no-padding"
 											style="line-height:32px;padding-top:5px">
 											<div class="col-md-12 col-xs-12 col-sm-12 no-padding">
-												<span ng-if="data.this_ccv > 0">${{data.this_ccv}} | </span>
+												<span ng-if="data.this_ccv > 0">RM{{data.this_ccv}} | </span>
 												<span ng-if="data.rate > 0">{{data.rate}}% </span>
 												<br /><img src="img/img/point-b.png"
 													style="height:18px;margin-bottom:5px"> {{data.point}}
@@ -3708,8 +3753,8 @@
 										ng-repeat="data in ctrl.cb_use_list track by data.id">
 										<div class="col-md-7 col-xs-7 col-sm-7" style="padding-top:5px">
 											<div style="font-weight:bold">{{data.orderNum}}<span style="color:red"
-													ng-if="data.note=='使用初次點數'">(使用新會員歡迎禮)</span></div>
-											<div style="padding:5px 0px">使用日期:{{data.active_date}}</div>
+													ng-if="data.note=='使用初次點數'"><txt ng-bind="'lg_member.use_welcome_gift' | translate">(使用新會員歡迎禮)</txt></span></div>
+											<div style="padding:5px 0px"><txt ng-bind="'lg_member.used_date' | translate">使用日期</txt>:{{data.active_date}}</div>
 										</div>
 										<div class="col-md-5 col-xs-5 col-sm-5 no-padding"
 											style="line-height:56px;padding-top:5px">
@@ -3832,14 +3877,14 @@
 								</div>
 								<div ng-if="data.orderMode=='cart'" class="count">
 									<txt ng-bind="'lg_member.order_msg1' | translate">共</txt> {{data.cnt}} <txt
-										ng-bind="'lg_member.order_msg2' | translate">項商品，總計</txt> ${{data.totalAmt |
+										ng-bind="'lg_member.order_msg2' | translate">項商品，總計</txt> RM{{data.totalAmt |
 									formatnumber}}
 								</div>
 								<div ng-if="data.orderMode=='bonus'" class="count">
 									<txt ng-bind="'lg_member.order_msg1' | translate">共</txt> {{data.cnt}} <txt
 										ng-bind="'lg_member.order_msg3' | translate">項商品，消費點數</txt> {{data.bonusAmt |
 									formatnumber}}<txt ng-bind="'lg_member.order_msg4' | translate">，運費</txt>
-									${{data.totalAmt | formatnumber}}
+									RM{{data.totalAmt | formatnumber}}
 								</div>
 								<div class="state">{{data.status}}</div>
 								<div class="btns">
@@ -4126,12 +4171,12 @@
 						</div>
 
 						<div class="row" ng-if="ctrl.order_dtl.status=='0' && ctrl.order_dtl.payTypeCode=='6' && ctrl.order_dtl.orderMode =='addMember'">
-							<div class="col-xs-12">
+							<!-- <div class="col-xs-12">
 								<button type="button" class="btn btn-second"
 									style="font-size:1.1em; border:0; padding-left:25px; padding-right:30px; float:right; margin:10px 5px 5px;"
 									ng-click="ctrl.go_pay('pb',ctrl.order_dtl.orderNum)"><i class="fa fa-hand-pointer-o"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.orderdtl_go_pay' | translate">前去付款！</txt></button>
-							</div>
+							</div> -->
 							
 							<!-- <form class="form" ng-submit="ctrl.cart_calc()">
 								<div class="col-xs-12">
@@ -4245,7 +4290,7 @@
 							</form> -->
 						</div>
 
-						<div class="row"
+						<!-- <div class="row"
 							ng-if="ctrl.order_dtl.status=='0' && ctrl.order_dtl.payTypeCode!='1' && ctrl.order_dtl.payTypeCode!='2' && ctrl.order_dtl.payTypeCode!='5' && ctrl.order_dtl.payTypeCode!='6' && ctrl.order_dtl.payTypeCode!='7'">
 							<div class="col-xs-12">
 								<button type="button" class="btn btn-second"
@@ -4253,7 +4298,7 @@
 									ng-click="ctrl.go_pay()"><i class="fa fa-hand-pointer-o"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.orderdtl_go_pay' | translate">前去付款！</txt></button>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="row" ng-if="ctrl.order_dtl.status=='0' && ctrl.order_dtl.payTypeCode=='5'">
 							<div class="col-xs-12">
@@ -4452,9 +4497,16 @@
 
 								<div
 									ng-if="(ctrl.order_dtl.status == '1' || ctrl.order_dtl.status == '3') && ctrl.order_dtl.traceNumber ">
-									<txt ng-bind="'lg_member.orderdtl_tracking' | translate">物品追蹤查詢：</txt><a
+									<txt ng-bind="'lg_member.orderdtl_tracking' | translate">物品追蹤查詢：</txt>
+									<!-- <button ng-click="ctrl.linkTrack('{{ctrl.order_dtl.traceNumber}}')">TRACK</button> -->
+									<!-- <a
 										href="http://www.t-cat.com.tw/Inquire/TraceDetail.aspx?BillID={{ctrl.order_dtl.traceNumber}}"
-										target="_blend">http://www.t-cat.com.tw/Inquire/TraceDetail.aspx?BillID={{ctrl.order_dtl.traceNumber}}</a>
+										target="_blend">http://www.t-cat.com.tw/Inquire/TraceDetail.aspx?BillID={{ctrl.order_dtl.traceNumber}}</a> -->
+										<a
+										href="https://www.tracking.my/externalcall?style=iframebox&lang=en&tracking_no={{ctrl.order_dtl.traceNumber}}"
+										target="_blend" class="a_origin">https://www.tracking.my/externalcall?style=iframebox&lang=en&tracking_no={{ctrl.order_dtl.traceNumber}}</a>
+
+										
 								</div>
 
 								<!--<div class="alert alert-success" role="alert" style="margin-bottom: 15px;">
@@ -4497,7 +4549,7 @@
 								<div ng-if="data.orderMode=='cart'"
 									class="count col-md-12 col-xs-12 col-sm-12 padding_0" style="width:100%">
 									<div class=" col-md-6 col-xs-12 col-sm-12 padding_0 ">共 {{data.cnt}} 項商品，總計
-										${{data.totalAmt*1 | formatnumber}}
+										RM{{data.totalAmt*1 | formatnumber}}
 									</div>
 									<div class="col-md-6 hidden-xs hidden-sm padding_0 ">
 										<span style="color:mediumblue ">BV:{{data.totalbv | formatnumber}}</span>
@@ -4646,7 +4698,7 @@
 										style="border-bottom:5px #DDD double;"><strong>共 {{ctrl.mlm_order_dtl.cnt}}
 											項商品，總計</strong></td>
 									<td colspan="2" style="border-bottom:5px #DDD double;">
-										<div class="total_final num">NT$ {{ctrl.mlm_order_dtl.sumAmt*1 | formatnumber}}
+										<div class="total_final num">RM {{ctrl.mlm_order_dtl.sumAmt*1 | formatnumber}}
 										</div>
 									</td>
 								</tr>
@@ -4997,7 +5049,7 @@
 									on-finish-render="scrollToEnd">
 									<span class="s_b3" ng-attr-id="{{value.money_field}}">
 										<a name="{{value.money_field}}" id="{{value.money_field}}"></a>
-										{{value.detail_kind}}
+										{{value.dk_name}}
 									</span>
 									<a href="javascript:void(0)" class="bo2 goTopButton" ng-click="ctrl.goTop()"><span
 											ng-bind="'lg_member.money_gotop' | translate">回頂層</span></a>
@@ -5008,7 +5060,7 @@
 
 									<tr>
 										<th class="min50" style="text-align:left;"><span
-												ng-bind="'lg_member.money_generation' | translate"></span>代數</th>
+												ng-bind="'lg_member.money_generation' | translate">代數</span></th>
 										<th ng-bind="'lg_member.money_member' | translate">會員</th>
 										<th class="min175" ng-bind="'lg_member.money_detail' | translate">明細</th>
 										<th class="min50" ng-bind="'lg_member.money_subtotal' | translate">小計</th>
@@ -5437,16 +5489,16 @@
 						<table class="col-md-12 col-xs-12 col-sm-12" style="border:0;text-align:left;margin-top:15px"
 							cellpadding="0" cellspacing="0" class="tabo5 s_mo">
 							<tr ng-if="ctrl.ecash21_dtl.mb_order1.io_kind==1 || ctrl.ecash21_dtl.mb_order1.io_kind==3">
-								<td>訂單小計：$<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_order_money"></span> </td>
+								<td>訂單小計：RM<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_order_money"></span> </td>
 								<td>總 PV：<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_total_pv"></td>
 							</tr>
 							<tr style="margin-top:10px"
 								ng-if="ctrl.ecash21_dtl.mb_order1.io_kind==1 || ctrl.ecash21_dtl.mb_order1.io_kind==3">
-								<td>運費：$<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_send_money"></td>
-								<td>應付金額：$<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_total_money"> </td>
+								<td>運費：RM<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_send_money"></td>
+								<td>應付金額：RM<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_total_money"> </td>
 							</tr>
 							<tr ng-if="ctrl.ecash21_dtl.mb_order1.io_kind==2">
-								<td colspan="2">退貨金額：$<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_total_money"></td>
+								<td colspan="2">退貨金額：RM<span ng-bind="ctrl.ecash21_dtl.mb_order1.nf_total_money"></td>
 							</tr>
 						</table>
 
@@ -5555,7 +5607,7 @@
 					<!-- 大標題 -->
 					<div class="row">
 						<div class="col-xs-12 page_content_title">
-							<h3>90天到期獎勵3S點數</h3>
+							<h3 ng-bind="'lg_member.90_3S_reward_points_inquire' | translate">90天到期獎勵3S點數</h3>
 						</div>
 					</div>
 
@@ -5565,19 +5617,19 @@
 								<td>
 
 									<div class="col-md-4 col-xs-6 col-sm-6 print_col d_bo2">
-										有服務卡點數
+										<txt ng-bind="'lg_member.points_with_service_card' | translate">有服務卡點數</txt>
 										<span class="s_b1" ng-bind="ctrl.ecash_new2_2_list.n_e_cash2">
 
 										</span>
 									</div>
 									<div class="col-md-4 col-xs-6 col-sm-6 print_col d_bo2">
-										無服務卡點數
+										<txt ng-bind="'lg_member.points_without_service_card' | translate">無服務卡點數</txt>
 										<span class="s_b1" ng-bind="ctrl.ecash_new2_2_list.n_e_cash3">
 
 										</span>
 									</div>
 									<div class="col-md-4 col-xs-6 col-sm-6 print_col d_bo2">
-										可使用點數
+										<txt ng-bind="'lg_member.usable_points' | translate">可使用點數</txt>
 										<span class="s_b1" ng-bind="ctrl.ecash_new2_2_list.n_can_use_point">
 
 										</span>
@@ -5601,30 +5653,30 @@
 					<div class="col-xs-12" style="padding-left:0px;padding-right:0px">
 						<div class="row cart_item">
 							<div class="col-xs-12 product_list_cart_title"
-								ng-repeat-start="data in ctrl.ecash_new2_1_list.basic_data track by $index"
+								ng-repeat-start="data in ctrl.ecash_new2_2_list.basic_data track by $index"
 								on-finish-render="finishData" style="font-weight:normal" ng-if="data.n_point >= '0'">
 								<div class="col-xs-12" ng-if="data.n_point >= '0'">
-									<div class="name col-md-4 col-xs-12 col-sm-12 no-padding text-left">類別：<span
+									<div class="name col-md-4 col-xs-12 col-sm-12 no-padding text-left"><span ng-bind="'lg_member.category' | translate">類別</span>：<span
 											ng-bind="data.name"></span></div>
-									<div class="name col-md-4 col-xs-5 col-sm-5 no-padding">服務卡：
+									<div class="name col-md-4 col-xs-5 col-sm-5 no-padding"><span ng-bind="'lg_member.service_card' | translate">服務卡</span>：
 										<span ng-bind="data.card"></span>
 									</div>
-									<div class="name col-md-4 col-xs-7 col-sm-7 no-padding text-right">到期：
+									<div class="name col-md-4 col-xs-7 col-sm-7 no-padding text-right"><span ng-bind="'lg_member.expiration_date' | translate">到期</span>：
 										<span ng-bind="data.end_date"></span>
 									</div>
 								</div>
 							</div>
 							<div class="col-xs-12 product_list_cart no-padding" ng-if="data.n_point >= '0'">
 								<div class="col-xs-12" style="display:flex;justify-content:space-between">
-									<div class="name no-padding">點數：<span style="font-weight:800"
+									<div class="name no-padding"><span ng-bind="'lg_member.points' | translate">點數</span>：<span style="font-weight:800"
 											ng-bind="data.n_point"></span></div>
-									<div class="name no-padding" style="min-width:60px">已用：<span style="font-weight:800"
+									<div class="name no-padding" style="min-width:60px"><span ng-bind="'lg_member.used' | translate">已用</span>：<span style="font-weight:800"
 											ng-bind="data.bonus2"></span></div>
-									<div class="name no-padding">可用：<span style="font-weight:800;color:#246696"
+									<div class="name no-padding"><span ng-bind="'lg_member.usable' | translate">可用</span>：<span style="font-weight:800;color:#246696"
 											ng-bind="data.bonus1"></span></div>
 								</div>
 								<div class="col-xs-12">
-									<div class="name  no-padding">備註：<span ng-bind="data.ps"></span></div>
+									<div class="name  no-padding"><txt ng-bind="'lg_member.remark' | translate"></txt>：<span ng-bind="data.ps"></span></div>
 								</div>
 							</div>
 							<div ng-repeat-end></div>
@@ -6134,8 +6186,102 @@
 				</div>
 				<!-- END -->
 
+				<div class="col-xs-12 col-sm-9 col-md-9 page_content container"
+                    ng-show="member_status && ctrl.member_page=='footpic'">
 
-				<!-- 業績查詢 -->
+                    <!--大標題-->
+                    <div class="row">
+                        <div class="col-xs-12 page_content_title">
+                            <h3 ng-bind="'lg_member.footpic_search' | translate">腳圖查詢</h3>
+                        </div>
+                    </div>               
+                    <div class="contact-form col-md-12 col-sm-12 col-xs-12 padding_0">      
+                    <!--<img ng-src="{{ctrl.footpic.img0}}" style="width:100%;max-width:300px">
+                    <img ng-src="{{ctrl.footpic.img1}}" style="width:100%;max-width:300px">
+                    <img ng-src="{{ctrl.footimg}}" style="width:100%;max-width:300px">-->
+                        <div ng-repeat="(key,img) in ctrl.footpic" style="display: inline-block; padding: 15px;">
+                            <figure>
+                                <img ng-src="{{img}}"  style="max-width:300px; cursor:pointer; box-shadow: 5px 5px 5px #888888;" id="{{key}}" 
+                                    ng-click="ctrl.footpic_large_fn()">
+                                <figcaption style="text-align:center; font-size:15px; margin-top:5px;">{{key}}</figcaption>
+                            </figure>                                   
+                        </div>
+                    </div>                                                          
+                </div>
+				<!--END-->
+				<div class="col-xs-12 col-sm-9 col-md-9 page_content container"
+                    ng-show="member_status && ctrl.member_page=='my_bone_density'">
+
+                    <!--大標題-->
+                    <div class="row">
+                        <div class="col-xs-12 page_content_title">
+                            <h3 ng-bind="'lg_member.my_bone_density' | translate">我的骨密度</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content-item text-center"
+                    style="width:70%;">
+                        <!--<a ng-href="/templates/my_bone_density/929307.jpg"
+                            data-lightbox="image-1">-->
+                            <img src="/templates/my_bone_density/929307.jpg"
+                                class="img-responsive img-fluid">
+                        <!--</a>-->
+                        <!--<a ng-href="/templates/my_bone_density/929308.jpg"
+                            data-lightbox="image-2">-->
+                            <img src="/templates/my_bone_density/929308.jpg"
+                                class="img-responsive img-fluid">
+                        <!--</a>-->
+                    </div>               
+                    <div class="contact-form col-md-12 col-sm-12 col-xs-12 padding_0">      
+                        <div class="col-md-12 col-sm-12 col-xs-12 padding_0" style="font-size:120%">
+                            <table width="100% " border="0 " class="table table-hover" ng-repeat="(key, tscore) in ctrl.tscore">
+                                <tr>
+                                    <th style="background-color:#dcdcdc;color:#696969; text-align:center;" ><span ng-bind="'lg_member.inputdate' | translate">檢測日期:</span>{{key}}</th>                                    
+                                </tr>
+                                <tr>
+                                    <th style="color:#808080; text-align:center;" ><span ng-bind="'lg_member.tscore' | translate">骨密數值:</span>{{tscore}}
+                                        <span ng-if="tscore >= -1" style="background-color:#4169e1; color:white; padding:3px 5px;border-radius: 10px;" ng-bind="'lg_member.normal_bone' | translate">骨質正常</span>
+                                        <span ng-if="-2.5 < tscore && tscore < -1" style="background-color:#ffa500; color:white; padding:3px 5px;border-radius: 10px;" ng-bind="'lg_member.less_bone' | translate">骨質缺乏</span>
+                                        <span ng-if="tscore <= -2.5" style="background-color:#800000; color:white; padding:3px 5px;border-radius: 10px;" ng-bind="'lg_member.danger_bone' | translate">骨質疏鬆高危險群</span>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>                                                          
+                </div>
+                <!--END-->
+				<!--端力-->
+				<div class="col-xs-12 col-sm-9 col-md-9 page_content container"
+                    ng-show="member_status && ctrl.member_page=='genomics'">
+
+                    <!--大標題-->
+                    <div class="row">
+                        <div class="col-xs-12 page_content_title">
+                            <h3 ng-bind="'lg_member.genomics' | translate">我的青春指數端力</h3>
+                        </div>
+                    </div> 					
+												
+					<div class="col-xs-12">
+						<div class="print_max cart_list_form table-responsive">
+							<table width="100%" border="0" class="table table-hover rwd-table all-left">
+								<tr>
+									<th class="left">檢測日期</th>
+									<th class="min100">檢測報告</th>
+								</tr>       
+								<tr ng-if="ctrl.data_list != 'null'"
+                                        ng-repeat="data in ctrl.data_list">
+                                        <td data-th="檢測日期">{{data.report_date}}</td>
+                                        <td class="left" data-th="查看"><a href="{{data.report_url}}" target="_blank"
+                                                download style="color:blue">查看報告</a>
+                                        </td>
+                                    </tr>                            
+							</table>
+							<div ng-repeat-end></div>
+							<page-ctrl-el cnt="ctrl.cnt"></page-ctrl-el>
+						</div>
+					</div>                                                                
+                </div>
+				<!--END-->
+				<!-- 組織查詢 -->
 				<link rel="stylesheet" type="text/css" href="css/orgseq.css" />
 				<link rel="stylesheet" type="text/css" href="css/memo.css" />
 				<div class="col-xs-12 col-sm-9 col-md-9 page_content"
@@ -6288,6 +6434,59 @@
 				</div>
 
 				<!-- END -->
+
+
+				<!---檔案下載--->
+				<div class="col-xs-12 col-sm-9 col-md-9 page_content"
+					ng-if="member_status && ctrl.member_page=='cp58'">
+					<div>
+						<!-- 大標題 -->
+						<div class="row">
+							<div class="col-xs-12 page_content_title" id="mt_top" style="display:none">
+								<h3 ng-bind="'lg_member.cp58_download' | translate">CP58下載</h3>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+
+							<div class="print_max cart_list_form table-responsive">
+								<div ng-if="ctrl.cp58_exist == false">
+									<span ng-bind="'lg_member.cp58_not_exist' | translate" ></span>
+								</div>
+								<div ng-if="ctrl.cp58_exist == true">
+									<table width="100%" border="0" class="table table-hover rwd-table all-left">
+										<tr>
+											<th ng-bind="'lg_member.upload_time' | translate" class="">上傳日期</th>
+											<th ng-bind="'lg_member.cp58_year' | translate">年份</th>
+											
+											<th ng-bind="'lg_member.doc_ctrl' | translate" class="min50">操作</th>
+										</tr>
+										<tr ng-if="ctrl.cp58_list != 'null'"
+											ng-repeat="data in ctrl.cp58_list track by $index"
+											on-finish-render="finishData">
+											<td data-th="上傳日期">{{data.create_time}}</td>
+											<td data-th="年分">{{data.yy}}</td>
+											<td class="rwd-td" data-th="操作"><a href="{{data.path}}" target="_blank"
+													download style="color:blue"
+													ng-bind="'lg_member.doc_download' | translate">下載</a>
+											</td>
+										</tr>
+	
+	
+	
+									</table>
+									<div ng-repeat-end></div>
+								</div>
+								
+							</div>
+						</div>
+
+						<!--cart_list_form end-->
+					</div>
+				</div>
+
+				<!-- END -->
+
 
 				<!---事業手冊下載--->
 				<div class="col-xs-12 col-sm-9 col-md-9 page_content"
@@ -6468,16 +6667,16 @@
 									<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.signupNew3_msg3' | translate">
 										現在起只要880元加入成為紅崴GoodARCH經銷商資格，即可獲得GoodARCH 活力能量七彩夜光珠1條(7mm,28顆）</txt>
-									<txt ng-if="ctrl.ESignupActiveChk != 'true'"
+									<!-- <txt ng-if="ctrl.ESignupActiveChk != 'true'"
 										ng-bind="'lg_member.signupNew3_msg4' | translate">價值2,100元</txt>
 									<txt ng-if="ctrl.ESignupActiveChk == 'true'"
 										ng-bind="'lg_member.signupNew3_msg5' | translate">及精油潔淨凝膠１條總價值2,398元</txt>
-									<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt>
+									<txt ng-bind="'lg_member.signupNew3_msg6' | translate">、學習護照1本及歡迎函1封。</txt> -->
 								</h4>
-								<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
+								<!-- <h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.signupNew3_msg7' | translate">
 										公平交易委員會規定：入會者須另填協議書一份，方可符合領取獎金之資格（協議書於完成ｅ化入會５日後寄出）</txt>
-								</h4>
+								</h4> -->
 								<h4>&nbsp;<br /><i class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt
 										ng-bind="'lg_member.signupNew3_msg9' | translate">
 										提醒您，ｅ化入會需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。</txt>
@@ -6487,7 +6686,7 @@
 								<div class="form-group">
 									<label for="payType" class="col-sm-3 col-md-4 col-lg-3 control-label" style="padding-top: 9px; padding-left:0px; text-align: left;"><span
 													class="text-danger">*
-												</span>付款方式</label>
+												</span><txt ng-bind="'lg_member.signupNew3_payType' | translate">付款方式</txt></label>
 									<div class="col-sm-9 col-md-8 col-lg-9">
 										<div class="radio i-checks ng-scope" style="">
 											<label class="ng-binding">
@@ -6507,7 +6706,7 @@
 								</div>
 			
 								
-			
+								<div class="clearfix"></div>
 								<div class="form-group">
 									<label for="dlvrType" class="col-sm-3 col-md-4 col-lg-3 control-label" style="padding-top: 9px; padding-left:0px; text-align: left;"><span
 													class="text-danger">*
@@ -6705,6 +6904,7 @@
 			<div class="modal-body modal_body">
 				<div class="row">
 					<div class="col-xs-12" style="word-break: break-all;" id="s_url"></div>
+					<div class="col-xs-12" style="opacity:0;pointer-events:none;position:absolute" id="s_url2"></div>
 				</div>
 			</div>
 
@@ -6712,7 +6912,7 @@
 				<div class="btn-group btn-group-justified">
 					<a href="javascript:void(0)" ng-click="ctrl.close_clip()" class="btn btn-lg btn-first btn_left"
 						data-dismiss="modal" aria-label="Close">確定</a>
-					<a href="javascript:void(0)" data-clipboard-target="#surl" ng-click="ctrl.copy_alert()"
+					<a href="javascript:void(0)" data-clipboard-target="#surl2" ng-click="ctrl.copy_alert()"
 						class="btn btn-lg btn-second copy" data-dismiss="modal" aria-label="Close">複製</a>
 				</div>
 			</div>

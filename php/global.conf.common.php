@@ -24,6 +24,18 @@ define("OROCLE", "oci:dbname=192.168.7.11:1521/toptest;charset=UTF8");
 define("MAILIP", "192.168.7.3");
 //海旅年月
 define("ECASHDATE", "2022-01");
+//保暖壺CODE
+define("LIMITPROCODE", json_encode([
+	1 => '4713696395492',
+	2 => '4713696395508',
+	3 => '4713696395515',
+	4 => 'FD00372',
+	5 => 'FD00373',
+	6 => 'FD00374',
+]));
+
+//保暖壺PID
+define("LIMITPROPID","563");
 
 $encryt1 = "";
 $encryt2 = "";
@@ -53,24 +65,36 @@ $template_option = '';
 
 
 $globalConf_dbtype = 'mysql';
-$globalConf_host = '127.0.0.1';
-$globalConf_user = 'root';
-$globalConf_password = '';
+$globalConf_host = '192.168.7.39';
+$globalConf_user = 'hwadmin';
+$globalConf_password = 'x!7wu$VSwx';
 $globalConf_db = 'shop_goodarch2u_mytest';
 
 
 $globalConf_dbtype2 = 'mysql';
 $globalConf_host2 = '192.168.7.30';
 $globalConf_user2 = 'root';
-$globalConf_password2 = 's88104';
+$globalConf_password2 = 'nVE-=x=UrYMhssZV';
 $globalConf_db2 = 'goodarch';
 
 
 $globalConf_dbtype3 = 'mysql';
 $globalConf_host3 = '192.168.7.46';
 $globalConf_user3 = 'hwadmin';
-$globalConf_password3 = 'h80737468w';
+$globalConf_password3 = 'f@CPNM29vvHz@vXb';
 $globalConf_db3 = 'money_bank_my_test';
+
+$globalConf_dbtype5 = 'mysql';
+$globalConf_host5 = '192.168.7.41';
+$globalConf_user5 = 'hwroot';
+$globalConf_password5 = 'p5ph@qTEdtSQnxhz';
+$globalConf_db5 = 'genomics';
+
+$globalConf_dbtype6 = 'mysql';
+$globalConf_host6 = '192.168.7.54';
+$globalConf_user6 = 'hwadmin';
+$globalConf_password6 = 'm57qHWFgAh';
+$globalConf_db6 = 'ai_foot';
 
 // $globalConf_dbtype2 = 'mysql';
 // $globalConf_host2 = '192.168.7.37';
@@ -116,7 +140,7 @@ $globalConf_service_website = 'https://shop.goodarch2u.com.tw/';
 $globalConf_mailer = "smtp";
 $Conf_smtpauth = true;
 $Conf_smtpuser = 'service';
-$Conf_smtppass = 's123123e';
+$Conf_smtppass = 's80737468e';
 $Conf_smtphost = '192.168.7.3';
 
 // $Conf_smtpport = '2525';
@@ -180,10 +204,20 @@ $globalConf_default_contactPage_limit = '5';
 $tmpActiveId0221 = 99;
 
 $ESignupActiveEndDate = '2029-12-31';
-$ESignupFreeProductId = '529';
+$ESignupFreeProductId = '356'; //七彩珠 28
 $ESignupFreeProductQuantity = '1';
 $ESignupFreeProductFormat1 = '155';
 $ESignupFreeProductFormat2 = '153';
+
+$ESignupFreeProductId_2 = '527'; //咖啡 5包
+$ESignupFreeProductQuantity_2 = '5';
+$ESignupFreeProductFormat1_2 = '155';
+$ESignupFreeProductFormat2_2 = '153';
+
+$ESignupFreeProductId_3 = '525'; //學習護照
+$ESignupFreeProductQuantity_3 = '1';
+$ESignupFreeProductFormat1_3 = '155';
+$ESignupFreeProductFormat2_3 = '153';
 
 		
 $globalConf_signup_ver2020 = true;		

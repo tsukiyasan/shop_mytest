@@ -72,6 +72,43 @@
 										</div>
 									</td>
 								</tr>
+
+								<!-- 發布對象 -->
+                                <tr>
+                                    <td ng-bind="'lg_main.mtarget' | translate"></td>
+                                    <td>
+                                        <div class="onoffswitch onoffswitch-success">
+                                            <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" ng-checked="ctrl.news_dtl.target" ng-model="ctrl.news_dtl.target" id="news_target" ng-true-value="'1'" ng-false-value="'0'">
+                                            <label class="onoffswitch-label" for="news_target">
+												<div class="onoffswitch-inner"></div>
+												<div class="onoffswitch-switch"></div>
+											</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td ng-bind="'lg_news.post_type' | translate"></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.post_type" uib-btn-radio="'1'">{{'lg_news.post_type_news' | translate}}</label>
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.post_type" uib-btn-radio="'2'"> {{'lg_news.post_type_calendar' | translate}}</label>
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.post_type" uib-btn-radio="'3'"> {{'lg_news.post_type_course' | translate}}</label>
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.post_type" uib-btn-radio="'4'"> {{'lg_news.post_type_duty' | translate}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td ng-bind="'lg_news.audience' | translate"></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.audience" uib-btn-radio="'0'">{{'lg_news.audience_all' | translate}}</label>
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.audience" uib-btn-radio="'1'"> {{'lg_news.audience_member' | translate}}</label>
+                                            <label class="btn btn-primary" ng-model="ctrl.news_dtl.audience" uib-btn-radio="'2'"> {{'lg_news.audience_dealer' | translate}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
 								
 								<tr ng-if="ctrl.textList.length == 0">
 									<td width="150" ><span ng-bind="'lg_news.news_summary' | translate"></span><span class="text-red">*</span></td>

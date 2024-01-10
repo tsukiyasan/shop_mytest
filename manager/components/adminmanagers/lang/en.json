@@ -7,7 +7,7 @@
 	"locked":"Login authority",
 	"loginid":"Account",
 	"passwd":"Password",
-	"sid":"Member ID Number",
+	"sid":"Member IC Number",
 	"name":"Name",
 	"depTitle":"Title",
 	"mobile":"Tel",

@@ -230,17 +230,17 @@
 
                     <tr ng-if="ctrl.mode=='cart' || ctrl.mode=='twcart' && ctrl.info.member.salesChk == '1'">
                         <td colspan="5" style="border-top:0;border-bottom:0;">&emsp;<txt
-                                ng-bind="'lg_cartcvs.get' | translate">獲得</txt>PV</td>
+                                ng-bind="'lg_cartcvs.get_pv' | translate"></txt></td>
                         <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.pv |
                                 formatnumber}}</span></td>
                     </tr>
                     <tr ng-if="ctrl.mode=='cart' || ctrl.mode=='twcart' && ctrl.info.member.salesChk == '1'">
                         <td colspan="5" style="border-top:0;border-bottom:0;">&emsp;<txt
-                                ng-bind="'lg_cartcvs.get' | translate">獲得</txt>BV</td>
+                                ng-bind="'lg_cartcvs.get_bv' | translate"></txt></td>
                         <td colspan="2" style="border-top:0;border-bottom:0;"><span class="num">{{ctrl.bv |
                                 formatnumber}}</span></td>
                     </tr>
-                    <tr ng-if="ctrl.mode=='cart' || ctrl.mode=='twcart' && ctrl.bonus > 0">
+                    <tr ng-if="false && ctrl.mode=='cart' || ctrl.mode=='twcart' && ctrl.bonus > 0">
                         <td colspan="5" style="border-top:0;border-bottom:2px #DDD solid;">&emsp;<txt
                                 ng-bind="'lg_cartcvs.get_bonus' | translate">獲得紅利</txt>
                         </td>
@@ -415,27 +415,31 @@
                                 placeholder="{{'lg_cartcvs.bill_city' | translate}} *" />
                         </div> -->
 
-                        <div class="form-group name">
-                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_city' | translate">城市</label>
-                            <select class="form-control" ng-model="ctrl.cartcvs.bill_city"
-                                ng-options="item as item.state_u for item in ctrl.city">
-                                <option value="" selected="" ng-bind="'lg_cartcvs.bill_city' | translate">城市*</option>
-                            </select>
-                        </div>
+                        
 
                         <div class="form-group name">
-                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_address' | translate">地址</label>
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_address' | translate">地址1</label>
                             <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_address"
-                                placeholder="{{'lg_cartcvs.bill_address' | translate}} *" />
+                                placeholder="{{'lg_cartcvs.bill_address_p' | translate}} *" />
                         </div>
 
                         
+
+                        
                         <div class="form-group name">
-                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_zip' | translate">郵遞區號</label>
-                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_zip"
-                                placeholder="{{'lg_cartcvs.bill_zip' | translate}} *" />
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_address2' | translate">郵遞區號</label>
+                            <input id="name" type="text" class="form-control" ng-model="ctrl.cartcvs.bill_address2"
+                                placeholder="{{'lg_cartcvs.bill_address2_p' | translate}} *" />
                         </div>
 
+
+                        <div class="form-group name">
+                            <label class="sr-only" for="name" ng-bind="'lg_cartcvs.bill_city' | translate">州屬</label>
+                            <select class="form-control" ng-model="ctrl.cartcvs.bill_city"
+                                ng-options="item as item.state_u for item in ctrl.city track by item.id">
+                                <option value="" selected="" ng-bind="'lg_cartcvs.bill_city' | translate">州屬*</option>
+                            </select>
+                        </div>
                     </div>
                     
 

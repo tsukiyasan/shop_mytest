@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/" ng-bind="'lg_main.index' | translate"></a>
+            </li>
+            <li class="active"><span ng-bind="'lg_news.news_manager' | translate"></span></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_news.news_manager' | translate">&nbsp;</span></h2>
+
+                <div class="filter-block pull-right">
+                    <!-- <div ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
+                        <button class="form-control" data-toggle="dropdown">
+							{{'lg_main.operate'|translate}}
+							<i class="fa fa-angle-down"></i>
+						</button>
+                        <ul class="dropdown-menu">
+                            <li ng-if="ctrl.funcPerm.U == 'true'"><a ng-click="ctrl.batchOperate('open')"><i class="fa fa-eye"></i>{{'lg_main.openitem'|translate}}</a></li>
+                            <li ng-if="ctrl.funcPerm.U == 'true'"><a ng-click="ctrl.batchOperate('close')"><i class="fa fa-eye-slash"></i>{{'lg_main.closeitem'|translate}}</a></li>
+                            <li ng-if="ctrl.funcPerm.D == 'true'"><a ng-click="ctrl.batchOperate('delete')"><i class="fa fa-trash-o"></i>{{'lg_main.delitem'|translate}}</a></li>
+                        </ul>
+                    </div> -->
+
+                    <!-- <div class="form-group pull-left">
+                        <a class="form-control" data-toggle="dropdown">
+                            <span ng-bind="'lg_news.post_type' | translate"></span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ng-click="ctrl.posttypeChg(0)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.post_type_all' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.posttypeChg(1)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.post_type_news' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.posttypeChg(2)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.post_type_calendar' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.posttypeChg(3)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.post_type_course' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.posttypeChg(4)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.post_type_duty' | translate"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group pull-left">
+                        <a class="form-control" data-toggle="dropdown">
+                            <span ng-bind="'lg_news.end_date' | translate"></span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ng-click="ctrl.pubdateChg(0)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.pubdate_0' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.pubdateChg(1)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.pubdate_1' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.pubdateChg(2)"><i class="fa fa-cube"></i><span ng-bind="'lg_news.pubdate_2' | translate"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div ng-if="ctrl.funcPerm.R == 'true'" class="form-group pull-left">
+                        <input type="text" class="form-control" date-range-picker ng-model="ctrl.params.search.newsDate" options="{singleDatePicker: true}" placeholder=" {{'lg_main.fdate' | translate}}">
+                    </div> -->
+
+                    <div class="form-group pull-left">
+                        <a class="form-control" data-toggle="dropdown">
+                            <span ng-bind="'lg_genomics.sn_status' | translate"></span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(0)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_0' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(9)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_9' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(1)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_1' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(2)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_2' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(3)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_3' | translate"></span></a>
+                            </li>
+                            <li>
+                                <a ng-click="ctrl.snstatusChg(4)"><i class="fa fa-cube"></i><span ng-bind="'lg_genomics.sn_status_4' | translate"></span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+
+                    <div ng-if="ctrl.funcPerm.R == 'true'" class="form-group pull-left">
+                        <input type="text" class="form-control" ng-model="ctrl.params.search.keyword" my-enter="ctrl.refresh()" placeholder="{{'lg_main.search' | translate}}">
+                        <a ng-click="ctrl.refresh()"><i class="fa fa-search search-icon"></i></a>
+                    </div>
+
+                </div>
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <!-- <th class="text-center" width="60">
+                                    <md-checkbox md-no-ink ng-checked="ctrl.isChecked()" md-indeterminate="ctrl.isIndeterminate()" ng-click="ctrl.toggleAll()" aria-label=" " class="md-primary" style="margin-bottom:0px;">
+                                    </md-checkbox>
+                                </th> -->
+                                <th>
+                                    <a ng-click="ctrl.sort('report_date')" id="reportDate" class="{{ctrl.params.orderby.report_date}}"><span ng-bind="'lg_genomics.report_date' | translate"></span></a>
+                                </th>
+                                <th class="" ng-bind="'lg_genomics.report_url' | translate"></th>
+                                <th class="" ng-bind="'lg_genomics.mb_no' | translate"></th>
+                                <th><span ng-bind="'lg_genomics.sn' | translate"></span></th>
+                                <th class="" ng-bind="'lg_genomics.sid' | translate"></th>
+                                
+                                <th class="" ng-bind="'lg_genomics.mb_name' | translate"></th>
+                                <th class="" ng-bind="'lg_genomics.mb_mobile' | translate"></th>
+                                
+                               
+                                
+                                <th class="" ng-bind="'lg_genomics.sn_status' | translate"></th>
+                                <th class="" ng-bind="'lg_genomics.region' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in ctrl.data_list">
+                                <td ng-bind="data.report_date"></td>
+                                <td><a ng-if="data.report_exist == '1'" target="_blank" download href="{{data.report_url}}">download</a></td>
+                                <td ng-bind="data.mb_no"></td>
+                                <td ng-bind="data.sn"></td>
+                                <td style="min-width:100px;" ng-bind="data.boss_id"></td>
+                                <td ng-bind="data.mb_name"></td>
+                                <td ng-bind="data.mb_mobile"></td>
+                                <td ng-bind="data.sn_status_str"></td>
+                                <td ng-bind="data.region_str"></td>
+                                
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <page-ctrl-el params="ctrl.params " cnt="ctrl.cnt " page="ctrl.params.page "></page-ctrl-el>
+            </div>
+        </div>
+    </div>
+
+</div>

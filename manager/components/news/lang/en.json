@@ -5,5 +5,19 @@
 	"news_name": "Message title",
 	"news_summary": "Summary",
 	"news_content": "Message content",
-	"news_date_msg": "Blank is no time limit"
+	"news_date_msg": "Blank is no time limit",
+	"audience": "Target",
+	"audience_all": "ALL",
+	"audience_member": "Member",
+	"audience_dealer": "Distributor",
+	"post_type": "Category",
+	"post_type_all": "ALL",
+	"post_type_news": "News",
+	"post_type_calendar": "Calendar",
+	"post_type_course": "Course",
+	"post_type_duty": "Duty",
+	"end_date": "End Date",
+	"pubdate_0": "ALL",
+	"pubdate_1": "Has Deadline",
+	"pubdate_2": "No Deadline"
 }

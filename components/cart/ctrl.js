@@ -610,6 +610,7 @@ app.controller("cart_list", [
           //     }
           //   }
           // }
+          console.log(res.actProArr);
           $rootScope.batotal = res.batotal;
           $rootScope.actProArr = res.actProArr;
           $rootScope.isfourone = res.isfourone;
@@ -773,7 +774,7 @@ app.controller("cart_list", [
           my.dlvrfeeShowStr = res.dlvrfeeShowStr;
 
           my.c_pairArr_list = res.cart_act_pair_list;
-
+          console.log($rootScope.actProArr);
           my.logisticsTypeClick();
         } else {
           // console.log(res.status);
@@ -945,7 +946,7 @@ app.controller("cart_list", [
       if ($right_val > use_p) {
         $right_val = use_p;
       }
-
+      console.log($right_val);
       if (isNaN($right_val) || $right_val == "") {
         $right_val = 0;
       }
@@ -1302,6 +1303,11 @@ app.controller("cart_list", [
         err++;
       }
 
+      if(!my.check_terms){
+        error($translate.instant("lg_cart.please_check_terms"));
+        err++;
+      }
+
       //檢查活動選取
       if (
         $rootScope.activePro_arr &&
@@ -1533,6 +1539,7 @@ app.controller("cart_list", [
 
     my.submitPair = function () {
       var pairProStr = "";
+      console.log($rootScope.actProArr);
       angular.forEach(my.pairList, function (v, k) {
         var arr = v.split("|");
 
@@ -1550,13 +1557,14 @@ app.controller("cart_list", [
         }
       });
 
-      // console.log(pairProStr);
+      console.log(pairProStr);
 
       CRUD.setUrl("components/cart/api.php");
       CRUD.list(
         { task: "setPairProList", pairProStr: pairProStr },
         "POST"
       ).then(function (res) {
+        console.log($rootScope.actProArr);
         if (res.status == 1) {
           $rootScope.getlist();
           //console.log('setparprolist');
@@ -1696,6 +1704,18 @@ app.controller("cart_list", [
       
       my.use_points_val = 0;
       my.cb_use_points_val = 0;
+
+      CRUD.setUrl("components/cart/api.php");
+      CRUD.update(
+        {
+          task: "reset_points"
+        },
+        "POST",
+        true
+      ).then(function (res) {
+        console.log(res);
+      });
+
       // my.jump = "0";
       // $(".acts_div").first().show();
       //console.log('n_cart_c');
@@ -1712,6 +1732,17 @@ app.controller("cart_list", [
         $rootScope.getlist();
       // }
       
+      CRUD.setUrl("components/cart/api.php");
+      CRUD.update(
+        {
+          task: "reset_points"
+        },
+        "POST",
+        true
+      ).then(function (res) {
+        console.log(res);
+      });
+
       my.use_points_val = 0;
       my.cb_use_points_val = 0;
       // my.jump = "0";

@@ -2462,254 +2462,250 @@ function toMLM($oid,$paid_money){ //插入訂單資訊
 	$osql = "SELECT * FROM orders where id = '$oid'";
 	$db->setQuery($osql);
 	$o = $db->loadRow();
-
-	if($o['orderMode'] == 'cart'){
-		$orderNum = $o['orderNum'];
-		$memberid = $o['memberid'];
-		$msql = "SELECT * FROM members where id = '$memberid'";
-		$db->setQuery($msql);
-		$m = $db->loadRow();
-		$mb_no = $m['ERPID'];
-		$usersql = "SELECT * from mbst where mb_no = '$mb_no'";
-		$db2->setQuery($usersql);
-		$user_detail = $db2->loadRow();
-		$same_time=time();
-		$same_time2 = date('Y-m-d H:i:s');
-		$new_ord_no=pick_tmp_no();
-		$new_ord_no=get_new_ordno($new_ord_no);
-		$new_ord_no=$orderNum;
-		if(!empty($o)){
-			$d['ord_no'] = $new_ord_no;
-			$d['ord_date'] = $same_time;
-			$d['ord_date2'] = $same_time2;
-			$d['mb_no'] = $mb_no;
-			$d['mb_name'] = $user_detail['mb_name'];
-			//自取
-			if($_SESSION['order']['send_type'] == 1){ //目前沒有
-				$arData['branch_no']=$_SESSION['manifest']['branch'];
-		
-				$branch = $_SESSION['manifest']['branch'];
-				$branchQuery=$db->query("select jit_no from branch_list where branch_no = '$branch'");
-				$branchRs=$branchQuery->fetch();
-		
-				$jitQuery=$db->query("select * from jit where jit_no = '$branchRs[jit_no]'");
-				$jitRs=$jitQuery->fetch();
-				$arData['jit_no'] = $jitRs['jit_no'];
-				$arData['jit_name'] = $jitRs['jit_name'];
-			}
-			else{ //郵寄
-				$jit_no='CN01';
-				$jit_name='美國倉Usa';
-			}
-			$d['jit_no'] = $jit_no; //這是大馬的總倉，每區不同，如果有修改自取則要抓取 by Evan20200814
-			$d['tel_send'] = $o['dlvrMobile'];
-			// IF(isset($_SESSION['order']['send_type'])){
-			// 	$arData['send_method']=$_SESSION['order']['send_type'];
-			// }else{
-			// 	$arData['send_method']=$_SESSION['manifest']['get_method'];
-			// }
-			$d['send_method'] = 2; //目前只有寄送
-			$dlvrst=$o['dlvrStateStr'];
-			$dlvrci=$o['dlvrCity'];
-			$dlvrca=$o['dlvrCanton'];
-			$dlvrzip = $o['dlvrZip'];
-			$dlvraddr = $o['dlvrAddr'];
-			$sql = "SELECT * from addrcode where id = '$dlvrci'";
-			$db->setQuery($sql);
-			$scity = $db->loadRow();
-			// $dlvrcity=$scity['name'];
-			$dlvrcity=$dlvrci;
-			
-			$add_send = $dlvraddr.','.$dlvrcity.','.$dlvrst;
-			$d['add_send'] = $add_send;
-			$d['pv_month'] = $pv_month = date('Ym');
-			// $d['pv_month2'] = ;
-			$d['pv_date'] = date('Y-m-d');
-			$d['remark'] = $o['dlvrNote'];
-			$d['io_kind'] = 1;
-			if($_POST['shopping_type']=='join'){
-				//入會訂單為1
-				$order_kind=1;
-			}else{
-				//網路訂單為3
-				$order_kind=2;
-			}
-			$d['order_kind'] = $order_kind;
-			$chk_query="select week_no from date_tb where start_date <='$same_time2' and cut_date >='$same_time2'";
-			$db2->setQuery($chk_query);
-			$chk=$db2->loadRow();
-			$d['week_no'] = $chk['week_no'];
-			$d['jit_name'] = $jit_name;
-			// $d['currency'] = ;
-			$d['country_id'] = 'us';
-			// $d['sn'] = ;
-			$d['order_pv'] = $o['pv'];
-			$d['order_money'] = $o['sumAmt'];
-			$d['total_pv'] = $o['pv'];
-			$atotal = bcsub($o['totalAmt'],$o['m_discount'],2);
-			$atotal = bcsub($atotal,$o['use_points'],2);
-			$atotal = bcsub($atotal,$o['cb_use_points'],2);
-			// $atotal = bcsub($atotal,$o['taxfee'],2);
-			$d['total_money'] = $atotal;
-			$d['total_paid_money'] = $d['total_money'];
-			$d['order_money'] = $d['total_money'];
-			// $d['invoice_no'] = ;
-			// $d['invoice_date'] = ;
-			$d['update_user'] = 'H1905';
-			$d['data_timestamp'] = $same_time;
-			$d['create_date'] = date('Y-m-d H:i:s');
-			$d['send_money'] = $o['dlvrFee'];
-			$update_state = 1;//1.新增 2.修改 3.刪除
-			$d['update_state'] = $update_state;
-			$d['reserve'] = 'n';
-			// $d['reserve_unit'] = ;
-			// $d['reserve_no'] = ;
-			// $d['ord_m_no'] = ;
-			// $d['reason'] = ;
-			// $d['ps'] = ;
-			// $d['deduct'] = ;
-			// $d['memo'] = '';
-			// $d['memo2'] = '';
-			// $d['ord_state'] = ;
-			$d['boss_id'] = $user_detail['boss_id'];
-			$serQ="SELECT service_no FROM service where money_to_mb_no='$mb_no'";
-			$db2->setQuery($serQ);
-			$serR=$db2->loadRowList();
-			if(count($serR)>0){
-				$serRow=$db2->loadRow();
-				$d['service_no']=$serRow['service_no'];
-			}else{
-				$d['service_no']='id01';
-			}
-			// $d['chk_yn'] = ;
-			$d['name_send'] = $o['dlvrName'];
-			// $d['verify'] = ;
-			// $d['verify_date'] = ;
-			// $d['confirm'] = ;
-			$d['mail_send'] = $o['email'];
-			$d['sub_no'] = $mb_no;
-			$d['sub_name'] = $user_detail['mb_name'];
-			// $d['b_tax_oym'] = ;
-			$d['b_tax_oform'] = '-1';
-			$d['b_tax_okind'] = '-1';
-			$btotal = bcsub($o['totalAmt'],$o['m_discount'],2);
-			$btotal = bcsub($btotal,$o['taxfee'],2);
-			$d['b_tax_omoney'] = $btotal;
-			$d['b_tax_otax'] = $o['taxfee'];
-			// $d['b_tax_ocf'] = ;
-			$d['user_confirm'] = '1';
-			$d['flag'] = '0';
-			$d['create_user'] = 'H1905';
-			$t1_s="select count(ord_no) a  from order_m where pv_month ='$pv_month'";
-			$db2->setQuery($t1_s);
-			$t1=$db2->loadRow();
-			$d['order_seq'] = $t1['a']+1;
-			$shop3 = 0;
-			if($user_detail['grade_class'] >= 10){
-				$shop3 = '1';
-				$shop2 = '';
-				$shop1 = '1';
-			}else{
-				$s_total = bcsub($o['totalAmt'],$o['taxfee'],2);
-				$u_total = bcsub($s_total,$o['dlvrFee'],2);
-				$f_total = bcsub($u_total,$o['cb_use_points']);
-				$shop2 = $o['pv'].'|@|'.$f_total.'|@|'.$u_total;
-				$shop1 = '0.6';
-			}
-			// $d['cancel_flag'] = ;
-			// $d['shop_order'] = ;
-			// $d['money_to_mb_no'] = ;
-			// $d['service_mb_no'] = ;
-			$d['shop_1'] = $shop1;
-			
-			
-			$d['shop_2'] = $shop2;
-			
-			$d['shop_3'] = $shop3;
-			$d['online_order'] = 1;
-			$d['ord_send_no'] = '';
-			if($_SESSION['order']['chk_use_birthday_voucher']==1&&$_POST['bir_prod']!="-1"&&isset($_POST['bir_prod'])){
-				$sql = "select comp_price from product_m where prod_no='".$_POST['bir_prod']."'";
-				$db2->setQuery($sql);
-				$prod_data=$db2->loadRow();
-				$cost_money=round($prod_data['comp_price']-($prod_data['comp_price']*0.79),2);
-				
-				
-				
-				$birthday_sql="select * from birthday_voucher where mb_no='$mb_no' and status=0 and chk_invalid=0 and end_date>='".date("Ymd")."' order by coupon_no limit 1";
-				$db2->setQuery($birthday_sql);
-				$birthday_res=$db2->loadRowList();
-				if(count($birthday_res)>=1){
-					$birthday_data=$db2->loadRow();
-					$db2->setQuery("update birthday_voucher set ord_no ='$new_ord_no',status=1,exchange_date='".date("Ymd")."' where coupon_no ='". $birthday_data['coupon_no'] ."'");
-					$db2->query();
-				}
-				$cost=$cost_money;
-				$bir_prod=$_POST['bir_prod'].'||'.$cost_money;
-			}else{
-				$cost=0;
-				$bir_prod='-1';
-			}
-			$d['bir_prod'] = $bir_prod;
-			$d['cost'] = $cost;
-			$d['total_bv'] = $o['m_discount'];
-			$d['int_adjust'] = '0';
-			// $d['service_mb'] = '';
-			// $d['gst_tax'] = ;
-			if(isset($_POST['MID'])){
-				$MID=$_POST['MID'];
-			}else{
-				$MID="";
-			}
-			$d['MID'] = $MID;
-			$d['card_od_no'] = '0';
-			// $d['branch_no'] = '-1'; //目前無店取故-1
-			// $d['of_no'] = ;
-			// $d['discounted_bv'] = ;
-			$d['length_left'] = $o['back_value'];
-			$lr = '0';
-			if($o['dlvrStateStr'] == 'CA'){
-				$lr = '1';
-			}
-			$d['length_right'] = $lr;
-			$d['adjust_left'] = '';
-			$d['adjust_right'] = '';
-			$d['reward_point'] = $o['cb_use_points'];
-			$d['shop_money'] = $o['use_points'];
-			$d['real_money'] = (($o['totalAmt']*1000) - ($o['m_discount']*1000) - ($o['use_points']*1000) - ($o['cb_use_points']*1000) - $o['taxfee'] * 1000)/1000;
+	$orderNum = $o['orderNum'];
+	$memberid = $o['memberid'];
+	$msql = "SELECT * FROM members where id = '$memberid'";
+	$db->setQuery($msql);
+	$m = $db->loadRow();
+	$mb_no = $m['ERPID'];
+	$usersql = "SELECT * from mbst where mb_no = '$mb_no'";
+	$db2->setQuery($usersql);
+	$user_detail = $db2->loadRow();
+	$same_time=time();
+	$same_time2 = date('Y-m-d H:i:s');
+	$new_ord_no=pick_tmp_no();
+	$new_ord_no=get_new_ordno($new_ord_no);
+	$new_ord_no=$orderNum;
+	if(!empty($o)){
+		$d['ord_no'] = $new_ord_no;
+		$d['ord_date'] = $same_time;
+		$d['ord_date2'] = $same_time2;
+		$d['mb_no'] = $mb_no;
+		$d['mb_name'] = $user_detail['mb_name'];
+		//自取
+		if($_SESSION['order']['send_type'] == 1){ //目前沒有
+			$arData['branch_no']=$_SESSION['manifest']['branch'];
 	
+			$branch = $_SESSION['manifest']['branch'];
+			$branchQuery=$db->query("select jit_no from branch_list where branch_no = '$branch'");
+			$branchRs=$branchQuery->fetch();
 	
-			$go_double=0;
-			while($go_double<1){
-				$chk_double="select ord_no from order_m_log where ord_no='$new_ord_no'";
-				$db2->setQuery($chk_double);
-				$chk_doubleR=$db2->loadRowList();
-				if(count($chk_doubleR)>0){			//1204	代表訂單編號重複了!	09/08/04	從log檔找ord_no
-					$d['memo'].=" Double#".$new_ord_no." Date:".date('Y/m/d H:i:s',$same_time);
-					$new_ord_no=pick_tmp_no();
-					//取正式單號
-					$new_ord_no=get_new_ordno($new_ord_no,$same_time);
-					$d['ord_no']=$new_ord_no;	//重存		
-					$go_double=0;					//再檢查一次
-				}else{
-					$go_double=1;
-				}
-			}
-	
+			$jitQuery=$db->query("select * from jit where jit_no = '$branchRs[jit_no]'");
+			$jitRs=$jitQuery->fetch();
+			$arData['jit_no'] = $jitRs['jit_no'];
+			$arData['jit_name'] = $jitRs['jit_name'];
 		}
-	
-		$sql=dbInsert('order_m',$d);
-		$db2->setQuery($sql);
-		$db2->query();
-		// $dd = array();
-		// $dd['o'] = $o;
-		// $dd['data'] = $d;
-		// JsonEnd($dd);
-	
-		// JsonEnd(array("status"=>'1',"S"=>$sql));
-		toMLMd($o,$new_ord_no,$mb_no,$paid_money);
+		else{ //郵寄
+			$jit_no='CN01';
+			$jit_name='美國倉Usa';
+		}
+		$d['jit_no'] = $jit_no; //這是大馬的總倉，每區不同，如果有修改自取則要抓取 by Evan20200814
+		$d['tel_send'] = $o['dlvrMobile'];
+		// IF(isset($_SESSION['order']['send_type'])){
+		// 	$arData['send_method']=$_SESSION['order']['send_type'];
+		// }else{
+		// 	$arData['send_method']=$_SESSION['manifest']['get_method'];
+		// }
+		$d['send_method'] = 2; //目前只有寄送
+		$dlvrst=$o['dlvrStateStr'];
+		$dlvrci=$o['dlvrCity'];
+		$dlvrca=$o['dlvrCanton'];
+		$dlvrzip = $o['dlvrZip'];
+		$dlvraddr = $o['dlvrAddr'];
+		$sql = "SELECT * from addrcode where id = '$dlvrci'";
+		$db->setQuery($sql);
+		$scity = $db->loadRow();
+		// $dlvrcity=$scity['name'];
+		$dlvrcity=$dlvrci;
+		
+		$add_send = $dlvraddr.','.$dlvrcity.','.$dlvrst;
+		$d['add_send'] = $add_send;
+		$d['pv_month'] = $pv_month = date('Ym');
+		// $d['pv_month2'] = ;
+		$d['pv_date'] = date('Y-m-d');
+		$d['remark'] = $o['dlvrNote'];
+		$d['io_kind'] = 1;
+		if($_POST['shopping_type']=='join'){
+			//入會訂單為1
+			$order_kind=1;
+		}else{
+			//網路訂單為3
+			$order_kind=2;
+		}
+		$d['order_kind'] = $order_kind;
+		$chk_query="select week_no from date_tb where start_date <='$same_time2' and cut_date >='$same_time2'";
+		$db2->setQuery($chk_query);
+		$chk=$db2->loadRow();
+		$d['week_no'] = $chk['week_no'];
+		$d['jit_name'] = $jit_name;
+		// $d['currency'] = ;
+		$d['country_id'] = 'my';
+		// $d['sn'] = ;
+		$d['order_pv'] = $o['pv'];
+		$d['order_money'] = $o['sumAmt'];
+		$d['total_pv'] = $o['pv'];
+		$atotal = bcsub($o['totalAmt'],$o['m_discount'],2);
+		$atotal = bcsub($atotal,$o['use_points'],2);
+		$atotal = bcsub($atotal,$o['cb_use_points'],2);
+		// $atotal = bcsub($atotal,$o['taxfee'],2);
+		$d['total_money'] = $atotal;
+		$d['total_paid_money'] = $d['total_money'];
+		$d['order_money'] = $d['total_money'];
+		// $d['invoice_no'] = ;
+		// $d['invoice_date'] = ;
+		$d['update_user'] = 'H1905';
+		$d['data_timestamp'] = $same_time;
+		$d['create_date'] = date('Y-m-d H:i:s');
+		$d['send_money'] = $o['dlvrFee'];
+		$update_state = 1;//1.新增 2.修改 3.刪除
+		$d['update_state'] = $update_state;
+		$d['reserve'] = 'n';
+		// $d['reserve_unit'] = ;
+		// $d['reserve_no'] = ;
+		// $d['ord_m_no'] = ;
+		// $d['reason'] = ;
+		// $d['ps'] = ;
+		// $d['deduct'] = ;
+		// $d['memo'] = '';
+		// $d['memo2'] = '';
+		// $d['ord_state'] = ;
+		$d['boss_id'] = $user_detail['boss_id'];
+		$serQ="SELECT service_no FROM service where money_to_mb_no='$mb_no'";
+		$db2->setQuery($serQ);
+		$serR=$db2->loadRowList();
+		if(count($serR)>0){
+			$serRow=$db2->loadRow();
+			$d['service_no']=$serRow['service_no'];
+		}else{
+			$d['service_no']='id01';
+		}
+		// $d['chk_yn'] = ;
+		$d['name_send'] = $o['dlvrName'];
+		// $d['verify'] = ;
+		// $d['verify_date'] = ;
+		// $d['confirm'] = ;
+		$d['mail_send'] = $o['email'];
+		$d['sub_no'] = $mb_no;
+		$d['sub_name'] = $user_detail['mb_name'];
+		// $d['b_tax_oym'] = ;
+		$d['b_tax_oform'] = '-1';
+		$d['b_tax_okind'] = '-1';
+		$btotal = bcsub($o['totalAmt'],$o['m_discount'],2);
+		$btotal = bcsub($btotal,$o['taxfee'],2);
+		$d['b_tax_omoney'] = $btotal;
+		$d['b_tax_otax'] = $o['taxfee'];
+		// $d['b_tax_ocf'] = ;
+		$d['user_confirm'] = '1';
+		$d['flag'] = '0';
+		$d['create_user'] = 'H1905';
+		$t1_s="select count(ord_no) a  from order_m where pv_month ='$pv_month'";
+		$db2->setQuery($t1_s);
+		$t1=$db2->loadRow();
+		$d['order_seq'] = $t1['a']+1;
+		$shop3 = 0;
+		if($user_detail['grade_class'] >= 10){
+			$shop3 = '1';
+			$shop2 = '';
+			$shop1 = '1';
+		}else{
+			$s_total = bcsub($o['totalAmt'],$o['taxfee'],2);
+			$u_total = bcsub($s_total,$o['dlvrFee'],2);
+			$f_total = bcsub($u_total,$o['cb_use_points']);
+			$shop2 = $o['pv'].'|@|'.$f_total.'|@|'.$u_total;
+			$shop1 = '0.6';
+		}
+		// $d['cancel_flag'] = ;
+		// $d['shop_order'] = ;
+		// $d['money_to_mb_no'] = ;
+		// $d['service_mb_no'] = ;
+		$d['shop_1'] = $shop1;
+		
+		
+		$d['shop_2'] = $shop2;
+		
+		$d['shop_3'] = $shop3;
+		$d['online_order'] = 1;
+		$d['ord_send_no'] = '';
+		if($_SESSION['order']['chk_use_birthday_voucher']==1&&$_POST['bir_prod']!="-1"&&isset($_POST['bir_prod'])){
+			$sql = "select comp_price from product_m where prod_no='".$_POST['bir_prod']."'";
+			$db2->setQuery($sql);
+			$prod_data=$db2->loadRow();
+			$cost_money=round($prod_data['comp_price']-($prod_data['comp_price']*0.79),2);
+			
+			
+			
+			$birthday_sql="select * from birthday_voucher where mb_no='$mb_no' and status=0 and chk_invalid=0 and end_date>='".date("Ymd")."' order by coupon_no limit 1";
+			$db2->setQuery($birthday_sql);
+			$birthday_res=$db2->loadRowList();
+			if(count($birthday_res)>=1){
+				$birthday_data=$db2->loadRow();
+				$db2->setQuery("update birthday_voucher set ord_no ='$new_ord_no',status=1,exchange_date='".date("Ymd")."' where coupon_no ='". $birthday_data['coupon_no'] ."'");
+				$db2->query();
+			}
+			$cost=$cost_money;
+			$bir_prod=$_POST['bir_prod'].'||'.$cost_money;
+		}else{
+			$cost=0;
+			$bir_prod='-1';
+		}
+		$d['bir_prod'] = $bir_prod;
+		$d['cost'] = $cost;
+		$d['total_bv'] = $o['m_discount'];
+		$d['int_adjust'] = '0';
+		// $d['service_mb'] = '';
+		// $d['gst_tax'] = ;
+		if(isset($_POST['MID'])){
+			$MID=$_POST['MID'];
+		}else{
+			$MID="";
+		}
+		$d['MID'] = $MID;
+		$d['card_od_no'] = '0';
+		// $d['branch_no'] = '-1'; //目前無店取故-1
+		// $d['of_no'] = ;
+		// $d['discounted_bv'] = ;
+		$d['length_left'] = $o['back_value'];
+		$lr = '0';
+		if($o['dlvrStateStr'] == 'CA'){
+			$lr = '1';
+		}
+		$d['length_right'] = $lr;
+		$d['adjust_left'] = '';
+		$d['adjust_right'] = '';
+		$d['reward_point'] = $o['cb_use_points'];
+		$d['shop_money'] = $o['use_points'];
+		$d['real_money'] = (($o['totalAmt']*1000) - ($o['m_discount']*1000) - ($o['use_points']*1000) - ($o['cb_use_points']*1000) - $o['taxfee'] * 1000)/1000;
+
+
+		$go_double=0;
+		while($go_double<1){
+			$chk_double="select ord_no from order_m_log where ord_no='$new_ord_no'";
+			$db2->setQuery($chk_double);
+			$chk_doubleR=$db2->loadRowList();
+			if(count($chk_doubleR)>0){			//1204	代表訂單編號重複了!	09/08/04	從log檔找ord_no
+				$d['memo'].=" Double#".$new_ord_no." Date:".date('Y/m/d H:i:s',$same_time);
+				$new_ord_no=pick_tmp_no();
+				//取正式單號
+				$new_ord_no=get_new_ordno($new_ord_no,$same_time);
+				$d['ord_no']=$new_ord_no;	//重存		
+				$go_double=0;					//再檢查一次
+			}else{
+				$go_double=1;
+			}
+		}
+
 	}
-	
+
+	$sql=dbInsert('order_m',$d);
+	$db2->setQuery($sql);
+	$db2->query();
+	// $dd = array();
+	// $dd['o'] = $o;
+	// $dd['data'] = $d;
+	// JsonEnd($dd);
+
+	// JsonEnd(array("status"=>'1',"S"=>$sql));
+	toMLMd($o,$new_ord_no,$mb_no,$paid_money);
 }
 
 function toMLMd($o,$ord_no,$mb_no,$paid_money){
@@ -3109,14 +3105,7 @@ function export_tomlm($tid, $target)
 	
 	$arData['mb_name']=$md['name'];
 	$arData['country']='us';
-	$sid = $md['sid'];
-	$gender = '0'; //0女1男
-	$gender_chk_num = substr($sid,-1);
-	$gender_chk = $gender_chk_num % 2;
-	if($gender_chk == 1){
-		$gender = '1';
-	}
-	$arData['sex']=$gender;
+	// $arData['sex']='';
 	$arData['shop_kind_grade']=''; //體系
 
 	$arData['boss_id']=$md['sid'];

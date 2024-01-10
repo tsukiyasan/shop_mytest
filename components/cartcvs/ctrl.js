@@ -146,18 +146,25 @@ app.controller('cartcvs_list',['$rootScope','$scope','$http','$location','$route
 		
 		if(my.info ){
 			if(value){
+				
 				my.cartcvs.name=my.info.member.name;
 				my.cartcvs.mobile=my.info.member.mobile;
 				my.cartcvs.address=my.info.member.address;
 				my.cartcvs.city=my.info.member.city;
 				my.cartcvs.canton=my.info.member.canton;
+				my.cartcvs.bill_city = my.info.member.city;
+				my.cartcvs.bill_address = my.info.member.address;
+				
 			}else{
 				my.cartcvs.name='';
 				my.cartcvs.mobile='';
 				my.cartcvs.address='';
 				my.cartcvs.city='';
 				my.cartcvs.canton='';
+				// my.cartcvs.bill_city='';
+				my.cartcvs.bill_address='';
 			}
+			console.log(my.cartcvs);
 		}
 	});
 	
@@ -234,14 +241,21 @@ app.controller('cartcvs_list',['$rootScope','$scope','$http','$location','$route
 		    CRUD.update(my.cartcvs,"POST").then(function(res){
 		    	
 		    	if(res.status==1){
-					$rootScope.cartCnt=0;
-		    		my.orderseq=res.data;
-		    		// $('#myModal_ORDER').modal('show');
-					var url = res.url;
+					// $rootScope.cartCnt=0;
+		    		// my.orderseq=res.data;
+		    		// // $('#myModal_ORDER').modal('show');
+					// var url = res.url;
 
-					window.location.replace(url);
-					
-					// window.location.replace("https://myshoptest.goodarch2u.com/app/controllers/eghl.php?task=orderSale&handMode=1&orderNum="+res.data);
+					// window.location.replace(url);
+					var turl = CRUD.getUrl();
+
+					CRUD.setUrl("app/controllers/eways.php");
+					CRUD.list({ task: "get_cart_num" }, "GET").then(function (res) {
+					  $rootScope.cartCnt = res.cnt;
+					});
+					CRUD.setUrl(turl);
+					my.orderseq = res.data;
+					$("#myModal_ORDER").modal("show");
 		    	}
 				else if(res.status == 'vatm')
 				{
@@ -255,7 +269,6 @@ app.controller('cartcvs_list',['$rootScope','$scope','$http','$location','$route
 				}
 		    	else if(res.status == 'aio' || res.status == 'tspg')
 		    	{
-					
 		    		// var form = document.createElement("form");
 				    // form.method = "POST";
 				    // var element = document.createElement("input"); 

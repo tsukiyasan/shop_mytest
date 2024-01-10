@@ -71,12 +71,12 @@
 	"signupNew3_birthday_msg":"西元年-月-日",
 	"signupNew3_msg1":"使用過紅崴足弓矯正器鞋組",
 	"signupNew3_msg2":"保固卡號",
-	"signupNew3_msg3":"現在起只要880元加入成為紅崴GoodARCH經銷商資格，即可獲得GoodARCH 活力能量七彩夜光珠1條(7mm,28顆）",
-	"signupNew3_msg4":"價值2,100元",
-	"signupNew3_msg5":"及精油潔淨凝膠１條總價值2,398元",
-	"signupNew3_msg6":"、學習護照1本及歡迎函1封。",
+	"signupNew3_msg3":"現在起只要RM88加入成為紅崴GoodARCH經銷商資格，即可獲得GoodARCH168綠原酸牛樟芝咖啡和168綠原酸能量滿足包各5小包及學習護照1本。",
+	"signupNew3_msg4":"GoodARCH168綠原酸牛樟芝咖啡",
+	"signupNew3_msg5":"和168綠原酸能量滿足包各5小包",
+	"signupNew3_msg6":"及學習護照1本。",
 	"signupNew3_msg7":"公平交易委員會規定：入會者須另填協議書一份，方可符合領取獎金之資格（協議書於完成ｅ化入會５日後寄出）",
-	"signupNew3_msg8":"提醒您，ｅ化入會需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。",
+	"signupNew3_msg8":"提醒您，e化入會需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。",
 	"signupNew3_msg9":"提醒您，升級需三天內付款完成，才算成功入會；若三天內未付款則自動取消入會訂單。",
 	"signupNew3_payType":"付款方式",
 	"signupNew3_payType1":"線上刷卡",
@@ -344,6 +344,7 @@
 	"doc_download":"下載",
 	"chinese_doc":"中文版經銷商事業手冊",
 	"bonus_inquiry":"獎金查詢",
+	"bonus_detail":"獎金明細",
 	"member_profile":"經銷商基本資料",
 	"member_profile2":"會員基本資料",
 	"personal_information":"個人基本資料",
@@ -568,6 +569,7 @@
 	"msg_4":"已存在相同電子信箱會員資料",
 	"msg_5":"請輸入上線會員編號",
 	"msg_6":"取回方式",
+	"msg_7":"您的密碼已成功變更. 請使用新的密碼登入以使用網購平台",
 	"withdraw_points":"提領金額:",
 	"money_gotop":"回頂端",
 	"submit":"送出",
@@ -630,21 +632,38 @@
 	"voucher":"兌換券產生",
 	"sales_date":"業績日期",
 	"points_with_service_card":"有服務卡點數",
-	"used_points":"扣除點數"
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	"used_points":"扣除點數",
+	"mobile_code":"手機驗證碼",
+	"email_code":"EMAIL驗證碼",
+	"orgseq_stat1" : "正式",
+	"orgseq_stat2" : "停權",
+	"orgseq_stat3" : "被置換",
+	"orgseq_stat4" : "未審核",
+	"distributor_sponsor":"推薦經銷商",
+	"member_sponsor":"推薦會員",
+	"sms_sended" : "已發送驗證碼簡訊至您的手機",
+	"usable_online_rebate_points" : "可用回饋點",
+	"debit" : "增加",
+	"credit" : "扣除",
+	"welcome_gift" : "新會員歡迎禮",
+	"use_welcome_gift" : "(使用新會員歡迎禮)",
+	"issued_date" : "發放日期",
+	"expiration_date" : "到期日期",
+	"used_date" : "使用日期",
+	"please_select_signup_mode" : "請選擇註冊方式",
+	"cp58": "CP58",
+	"cp58_download": "CP58下載",
+	"cp58_not_exist": "你尚未有檔案可下載",
+	"cp58_year": "年份",
+	"footpic_search" : "腳圖查詢",
+	"my_bone_density" : "我的骨密度",
+	"healthy_info" :"健康資訊",
+	"inputdate":"檢測日期:",
+	"normal_bone":"骨質正常",
+	"less_bone":"骨質缺乏",
+	"danger_bone":"骨質疏鬆高危險群",
+	"tscore": "骨密數值:",
+	"genomics" : "我的青春指數端力"
+
 	
 }

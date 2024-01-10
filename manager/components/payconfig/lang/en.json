@@ -52,5 +52,9 @@
 	"payconfig_money_setting": "Website currency setting",
 	"payconfig_money_setting_msg": "Please set at least one currency",
 	"payconfig_money_change_msg": "Please confirm that the products, promotions, and cash flow methods are all exchanged currencies, and the new currency will be used directly after the settings are sent.",
-	"payconfig_end": ""
+	"payconfig_end": "",
+	"domestic_shipping" : "Domestic Shipping",
+	"international_shipping" : "Taiwan Shipping",
+	"domestic_threshold_shipping" : "Domestic Threshold Shipping",
+	"international_threshold_shipping" : "Taiwan Threshold Shipping"
 }

@@ -10,6 +10,41 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 <top-btn></top-btn>
+
+<!--                                                             
+                                                            
+                    ~****.       ****~.                     
+               -*~.~*****-      .******.~*~                 
+           -~,,***,.*****,       *****,,***-.~~             
+        . .**~                              -**, .          
+      -**~  .,-~~*****~-          ,~~****~~-,.  ~***        
+   ,**.  ,***************.       ~**************-   **-     
+    .  -*****************.       *****************~  .      
+     .******************,        .~*****************-       
+     ****************-.             -~***************.      
+    .************~,                    .~************-      
+    .***********.                         ~**********-      
+     **********                            ~*********,      
+     -*********                            ~********~       
+      *********                            ~********,       
+      ,********~                          ,********~        
+       ~********~.                       -*********         
+       .***********,                  ,~*******^**,         
+        -*>^**********-            ,~***^******=*-          
+         ~>^^>^^^^^^^^>^-         ~^>^^^^^^^^>^=*.          
+         .*=^^^^^^^^^^^^>-       ^^^^^^^^^^^^^^=,           
+          ,>^^^^^^^^^^^^>.       *^^^^^^^^^^^^>~            
+            ~^^^^^^^^^^*.         ~^^^^^^^^^^*.             
+              .-****~,              ,~****~.                
+                                                            
+  ,^>>^                   ,^   .>~   .>>>>*   ->>>,  ~-  ,* 
+ ->       -=?*   *?=-  .==>=   =~=,  ,=   >, *^      ^~  -> 
+ ~^  ~>? ,>  -^ ^*  =~ =. ~=  ^=-^=  ,=-*=.  ^*      ^*--*> 
+  *=>>?^  >>^=,  =^>=  ^=*== ->   *= ,=  .=,  >=>=*  ^~  -> 
+                                                            
+                                                            
+                                                             -->
+
 <div id="theme-wrapper" ng-controller="main_ctrl as mainctrl">
 
 
@@ -34,10 +69,12 @@
 							<span>A</span>
 						</div>
 					</div> -->
-
+					<button type="button" id="show_card_btn" class="navbar-toggle collapsed" style="display:none"
+						data-toggle="collapse" data-target="#show_card" aria-expanded="false"
+						aria-controls="show_card"><img src="img/card-banner.svg" style="height:18px"></button>
 					<form class="navbar-formnavbar-left col-sm-10 ng-hides-none" role="search">
 						<div class="form-group col-sm-12 input-group"
-							style="padding: 10px 15px 0 0;width: 60%;float: right; ">
+							style="padding: 10px 15px 0 0;width: 50%;float: right; ">
 
 							<input type="text" ng-model="mainctrl.search_text" id="searchKey" class="form-control"
 								style="height: 40px;" placeholder="{{'lg_index.index_search' | translate}}">
@@ -53,6 +90,13 @@
 			<div id="navbar" class="navbar-collapse collapse padding_change navMenu9999"
 				style="max-height: 200px; overflow-y: auto;">
 				<ul class="col-xs-12 nav navbar-nav padding_0 visible-xs visible-sm" id="navMenu">
+					<li class="col-xs-12">
+						<p style="font-weight:600;color:#0d924a;padding-top:20px;">-Language-</p>
+					</li>
+					<li class="col-xs-12 padding_0" ng-repeat="lang in mainctrl.langList ">
+						<a ng-href="javascript:void(0)" ng-click="mainctrl.set_lang(lang.code)">{{('lg_lang.'+lang.code)
+							| translate}}</a>
+					</li>
 					<li class="col-xs-12 ng-hides-none">
 						<p style="font-weight:600;color:#0d924a;">-Menu-</p>
 					</li>
@@ -66,8 +110,7 @@
 						<p style="font-weight:600;color:#0d924a;padding-top:20px;">-Member-</p>
 					</li>
 					<li ng-if="!member_status" class="col-xs-12 padding_0 ng-hides-none">
-						<a ng-href="member_page/login"
-							ng-click="mainctrl.clickmenu()">
+						<a ng-href="member_page/login" ng-click="mainctrl.clickmenu()">
 							<span ng-bind="'lg_index.index_login' | translate"></span>
 						</a>
 					</li>
@@ -85,11 +128,13 @@
 					<!-- <li ng-if="member_status" class="col-xs-12 padding_0"><a ng-href="member_page/info"
 							ng-click="mainctrl.clickmenu()"><span
 								ng-bind="'lg_index.index_info' | translate"></span></a></li> -->
-					<li class="col-sm-12 padding_0 ng-hides-none">
+					<li class="col-xs-12 padding_0 ng-hides-none">
 						<a ng-href="member_page/info" ng-click="mainctrl.clickmenu()" ng-if="member_status">
 							<!-- <span ng-bind="'lg_index.index_member' | translate"></span> -->
-							<span class="n_center" ng-if="om=='1'">會員中心</span>
-							<span class="n_center" ng-if="om=='0' || !om">經銷商中心</span>
+							<span class="n_center" ng-if="om=='1'"
+								ng-bind="'lg_member.member_center' | translate">會員中心</span>
+							<span class="n_center" ng-if="om=='0' || !om"
+								ng-bind="'lg_member.distributor_center' | translate">經銷商中心</span>
 						</a>
 					</li>
 					<li ng-if="member_status" class="col-xs-12 padding_0 ng-hides-none"><a ng-href="member_page/order"
@@ -97,14 +142,63 @@
 								ng-bind="'lg_index.index_order' | translate"></span></a></li>
 					<!--<div class="clearfix"></div>-->
 
-					<li class="col-xs-12">
-						<p style="font-weight:600;color:#0d924a;padding-top:20px;">-Language-</p>
-					</li>
-					<li class="col-xs-12 padding_0" ng-repeat="lang in mainctrl.langList ">
-						<a ng-href="javascript:void(0)" ng-click="mainctrl.set_lang(lang.code)">{{('lg_lang.'+lang.code)
-							| translate}}</a>
-					</li>
+
 				</ul>
+			</div>
+			<div class="modal fade" id="show_card" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog card-model-dialog">
+					<div class="modal-content card-model-content" style="height:calc(100% - 40px)">
+						<div class="modal-header modal_header">
+							<button type="button" class="close" style="opacity: 1;"
+								ng-click="mainctrl.close_card()"><span aria-hidden="true"
+									style="color:white;opacity:1">x</span></button>
+							<h4 class="modal-title" id="myModalLabel"><i class="fa fa-detent"></i>
+								<!-- <span ng-if="om=='0'">經銷商</span>
+                                <span ng-if="om=='1'">會員</span> -->
+								<span class="card_title"></span> 卡
+							</h4>
+						</div>
+						<div class="modal-body modal_body" style="max-height: calc(100vh - 170px);">
+							<div class="row">
+								<img id="vip_card" src="img/vip-card.svg" class="vip_card"
+									style="width:80%;display:flex;justify-content:center" ng-show="im==0">
+								<div id="card_name" style="font-size:120%;display:flex;justify-content:center"></div>
+								<div ng-if="om=='0'" id="card_choice" style="display:flex;justify-content:space-around">
+									<button class="btn btn-success" type="button"
+										ng-click="mainctrl.card_type(1)">會員卡</button>
+									<button ng-if="om=='0'" class="btn btn-success" type="button"
+										ng-click="mainctrl.card_type(2)">推薦經銷商</button>
+									<button ng-if="om=='0'" class="btn btn-success" type="button"
+										ng-click="mainctrl.card_type(3)"
+										style="border:#FEC000 1px solid;background-color:#FEC000;color:#880115">推薦會員</button>
+								</div>
+								<div id="card_svg" class="card_info"></div>
+								<div ng-if="om=='0'" id="card_qr1" class="card_info" style="display:none">
+									<div id="card_qr1i" style="display:flex;justify-content: center;padding-top:20px">
+
+									</div>
+								</div>
+								<div ng-if="om=='0'" id="card_qr2" class="card_info" style="display:none">
+									<div id="card_qr2i" style="display:flex;justify-content: center;padding-top:20px">
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group" style="display:flex;justify-content:center">
+								<button type="button" class="" ng-click="mainctrl.close_card()"><span aria-hidden="true"
+										style="color:red;padding:15px 20px">關閉
+										<!-- <span ng-if="om=='0'">經銷商</span>
+                    <span ng-if="om=='1'">會員</span> -->
+										<span class="card_title"></span>
+										卡
+									</span></button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</nav>
 	</header>
@@ -155,10 +249,8 @@
 					<li><a href="member_page/signupNew" ng-if="!member_status"><i
 								class="fa fa-user-plus"></i>&nbsp;<span
 								ng-bind="'lg_index.index_esignup' | translate"></span></a></li>
-					<!-- <li><a href="member_page/info" ng-if="member_status"><i class="fa fa-user"></i>&nbsp;<span
-								ng-bind="'lg_index.index_member' | translate"></span></a></li> -->
-					<li><a href="member_page/info" ng-if="member_status"><i class="fa fa-user"></i>&nbsp;
-							<!-- <span ng-bind="'lg_index.index_member' | translate"></span> -->
+					<li><a href="member_page/info" ng-if="member_status">
+						<i class="fa fa-user"></i>&nbsp;
 							<span class="n_center" ng-if="om=='1'"
 								ng-bind="'lg_index.index_member' | translate">會員中心</span>
 							<span class="n_center" ng-if="om=='0' || !om"
@@ -216,7 +308,8 @@
 
 	<main id="main" class="site-main" cg-busy="{promise:promise,message:appctrl.plswaittext}">
 
-		<div class="container visible-xs visible-sm ng-hides-none" style="margin-top: 20px;margin-bottom: 20px;font-weight: bold;">
+		<div class="container visible-xs visible-sm ng-hides-none"
+			style="margin-top: 20px;margin-bottom: 20px;font-weight: bold;">
 			<div class="row">
 				<div class="col-xs-4 text-center" style="border-right:1px solid #000;">
 					<a href="product_list/22?id=23">
@@ -224,12 +317,12 @@
 					</a>
 				</div>
 				<div class="col-xs-4 text-center" style="border-right:1px solid #000;">
-					<a href="product_list/21?id=34">
+					<a href="product_list/21?id=50">
 						<txt ng-bind="'lg_index.index_productType2' | translate"></txt>
 					</a>
 				</div>
 				<div class="col-xs-4 text-center">
-					<a href="product_list/44?id=45">
+					<a href="product_list/44?id=65">
 						<txt ng-bind="'lg_index.index_productType3' | translate"></txt>
 					</a>
 				</div>
@@ -297,5 +390,7 @@
 			</div>
 		</div>
 	</footer>
+
+	
 
 </div>

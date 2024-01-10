@@ -33,6 +33,7 @@ class PublicBankSyberCourse
         'bill_to_surname' => '',
         'bill_to_email' => '',
         'bill_to_address_line1' => '',
+        'bill_to_address_line2' => '',
         'bill_to_address_city' => '',
         'bill_to_address_country' => '',
     );
@@ -144,7 +145,7 @@ class PublicBankSyberCourse
             $html .= '</fieldset>';
         }
         $html .= '<form id="payment_confirmation" action="' . $url . '" method="post">';
-        foreach ($this->requestParam as $name => $value):
+        foreach ($this->requestParam as $name => $value) :
             $html .= '<input type="hidden" id="' . $name . '" name="' . $name . '" value="' . $value . '">';
         endforeach;
         if ($test) {
@@ -191,7 +192,7 @@ if (in_array($request['decision'], array('CANCEL', 'ACCEPT'))) {
 }
 
 switch ($task) {
-    //購物車訂單授權+請款
+        //購物車訂單授權+請款
     case "orderSale":
         $orderNum = $_REQUEST['orderNum'];
 
@@ -254,9 +255,12 @@ switch ($task) {
         //email
         $billFormat['bill_to_email'] = '';
         $billFormat['bill_to_email'] = $order['memberEmail'];
-        //地址
+        //地址1
         $billFormat['bill_to_address_line1'] = '';
         $billFormat['bill_to_address_line1'] = $order['bill_address'];
+        //地址2
+        $billFormat['bill_to_address_line2'] = '';
+        $billFormat['bill_to_address_line2'] = $order['bill_address2'];
         //城市
         $billFormat['bill_to_address_city'] = '';
         $billFormat['bill_to_address_city'] = $order['bill_city'];
@@ -270,8 +274,10 @@ switch ($task) {
             $billFormat['bill_to_surname'] = "B";
             //email
             $billFormat['bill_to_email'] = "C@gmail.com";
-            //地址
-            $billFormat['bill_to_address_line1'] = '456';
+            //地址1
+            $billFormat['bill_to_address_line1'] = '666666666666666666666666666666666666666666666666666666666666';
+            //地址2
+            $billFormat['bill_to_address_line2'] = '777777777777777777777777777777777777777777777777777777777777';
             //城市
             $billFormat['bill_to_address_city'] = '789';
             //國家代號(ISO country codes)
@@ -303,7 +309,7 @@ switch ($task) {
         }
 
         break;
-    //接收通知
+        //接收通知
     case "receipt":
         // $paramsStr = '{"task":"notice","auth_cv_result":"M","req_locale":"en","req_card_type_selection_indicator":"1","auth_trans_ref_no":"6492107251406391603005","payer_authentication_enroll_veres_enrolled":"Y","req_bill_to_surname":"Smith","payer_authentication_proof_xml":"&lt;AuthProof&gt;&lt;Time&gt;2022 Apr 06 02:05:19&lt;/Time&gt;&lt;DSUrl&gt;https://merchantacsstag.cardinalcommerce.com/MerchantACSWeb/vereq.jsp?acqid=CYBS&lt;/DSUrl&gt;&lt;VEReqProof&gt;&lt;Message id=&quot;VQHgxWH9mWyVFMAAaJy0&quot;&gt;&lt;VEReq&gt;&lt;version&gt;1.0.2&lt;/version&gt;&lt;pan&gt;XXXXXXXXXXXX1096&lt;/pan&gt;&lt;Merchant&gt;&lt;acqBIN&gt;469216&lt;/acqBIN&gt;&lt;merID&gt;3301574068&lt;/merID&gt;&lt;/Merchant&gt;&lt;Browser&gt;&lt;deviceCategory&gt;0&lt;/deviceCategory&gt;&lt;accept&gt;*/*&lt;/accept&gt;&lt;userAgent&gt;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36&lt;/userAgent&gt;&lt;/Browser&gt;&lt;/VEReq&gt;&lt;/Message&gt;&lt;/VEReqProof&gt;&lt;VEResProof&gt;&lt;Message id=&quot;VQHgxWH9mWyVFMAAaJy0&quot;&gt;&lt;VERes&gt;&lt;version&gt;1.0.2&lt;/version&gt;&lt;CH&gt;&lt;enrolled&gt;Y&lt;/enrolled&gt;&lt;acctID&gt;5397223&lt;/acctID&gt;&lt;/CH&gt;&lt;url&gt;https://merchantacsstag.cardinalcommerce.com/MerchantACSWeb/pareq.jsp?vaa=b&amp;amp;gold=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&lt;/url&gt;&lt;protocol&gt;ThreeDSecure&lt;/protocol&gt;&lt;/VERes&gt;&lt;/Message&gt;&lt;/VEResProof&gt;&lt;/AuthProof&gt;","req_card_expiry_date":"12-2025","merchant_advice_code":"01","card_type_name":"Visa","auth_amount":"100.00","auth_response":"00","bill_trans_ref_no":"6492107251406391603005","req_payment_method":"card","auth_time":"2022-04-06T020525Z","transaction_id":"6492107251406391603005","req_card_type":"001","payer_authentication_pares_status":"Y","payer_authentication_cavv":"AAABAWFlmQAAAABjRWWZEEFgFz+=","auth_avs_code":"Y","auth_code":"831000","req_bill_to_address_country":"MY","auth_cv_result_raw":"M","req_profile_id":"30B0DB1F-6784-41E5-AC87-E25FDED3DA54","signed_date_time":"2022-04-06T02:05:25Z","req_bill_to_address_line1":"1 My Apartment","payer_authentication_validate_e_commerce_indicator":"vbv","req_card_number":"445653xxxxxx1096","signature":"NmkQxgFhFuAPECwiYyGHwJm0JSzDzpKtcm4DVse5hTg=","req_bill_to_address_city":"Mountain View","auth_cavv_result":"2","reason_code":"100","req_bill_to_forename":"Joe","request_token":"Axj//wSTX/AWPH7nke89ABos2aOWTFg3ZNWLRg2ZuWLZgzYMGqiONzNwiwFRHG5m4RblDpxAgvhk0ky9GLCQEIMFcmv+AseP3PI956AAKzNK","auth_cavv_result_raw":"2","req_amount":"100","req_bill_to_email":"joesmith@example.com","payer_authentication_reason_code":"100","auth_avs_code_raw":"Y","req_currency":"MYR","decision":"ACCEPT","message":"Request was processed successfully.","signed_field_names":"transaction_id,decision,req_access_key,req_profile_id,req_transaction_uuid,req_transaction_type,req_reference_number,req_amount,req_currency,req_locale,req_payment_method,req_bill_to_forename,req_bill_to_surname,req_bill_to_email,req_bill_to_address_line1,req_bill_to_address_city,req_bill_to_address_country,req_card_number,req_card_type,req_card_type_selection_indicator,req_card_expiry_date,card_type_name,message,reason_code,auth_avs_code,auth_avs_code_raw,auth_response,auth_amount,auth_code,auth_cavv_result,auth_cavv_result_raw,auth_cv_result,auth_cv_result_raw,auth_trans_ref_no,auth_time,request_token,merchant_advice_code,bill_trans_ref_no,payer_authentication_enroll_veres_enrolled,payer_authentication_xid,payer_authentication_proof_xml,payer_authentication_eci,payer_authentication_cavv,payer_authentication_pares_status,payer_authentication_validate_result,payer_authentication_reason_code,payer_authentication_validate_e_commerce_indicator,signed_field_names,signed_date_time","req_transaction_uuid":"624cf512cc22e","payer_authentication_eci":"05","req_transaction_type":"sale","payer_authentication_xid":"VlFIZ3hXSDltV3lWRk1BQWFKeTA=","req_access_key":"ad32f2d96b933f20a491831c66ae3576","req_reference_number":"1649210642","payer_authentication_validate_result":"0"}';
         // $paramsStr = '{"task":"notice","req_currency":"MYR","decision":"CANCEL","req_locale":"en","signature":"0KexKeJIIWwD00cArlGpeG2+yYZhWt6/cK9uuD0XXgg=","req_card_type_selection_indicator":"1","req_bill_to_surname":"Smith","req_bill_to_address_city":"Mountain View","message":"The consumer cancelled the transaction","signed_field_names":"req_currency,decision,req_locale,req_card_type_selection_indicator,req_bill_to_surname,req_bill_to_address_city,message,req_transaction_uuid,req_bill_to_forename,req_bill_to_address_country,req_transaction_type,req_payment_method,req_access_key,req_profile_id,req_reference_number,req_amount,req_bill_to_email,req_bill_to_address_line1,signed_field_names,signed_date_time","req_transaction_uuid":"6246c49d86d24","req_bill_to_forename":"Joe","req_bill_to_address_country":"MY","req_transaction_type":"sale","req_payment_method":"card","req_access_key":"ad32f2d96b933f20a491831c66ae3576","req_profile_id":"30B0DB1F-6784-41E5-AC87-E25FDED3DA54","req_reference_number":"1648805021","req_amount":"100","req_bill_to_email":"joesmith@example.com","signed_date_time":"2022-04-01T09:23:49Z","req_bill_to_address_line1":"1 My Apartment"}';
@@ -341,7 +347,7 @@ switch ($task) {
                 switch ($params['decision']) {
                     case "CANCEL":
                         echo "取消($orderNum)";
-                        
+
                         // $orderMode = getFieldValue(" SELECT orderMode FROM orders WHERE orderNum = '$orderNum' ", "orderMode");
                         // //不是addMember才取消
                         // if (!($orderMode == 'addMember')) {

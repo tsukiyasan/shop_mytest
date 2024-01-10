@@ -490,5 +490,6 @@
 	"signup300_no":"編號",
 	"signup300_name":"姓名",
 	"signup300_pwchk":"確認密碼",
-	"code_error": "註冊碼或上線錯誤"
+	"code_error": "註冊碼或上線錯誤",
+	"sms_sended" : "已發送驗證碼簡訊至您的手機"
 }

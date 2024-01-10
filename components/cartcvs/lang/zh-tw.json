@@ -63,6 +63,8 @@
 	"creditcard_month":"月",
 	"creditcard_year":"年",
 	"creditcard_cvv":"cvv",
+	"get_pv":"獲得PV",
+	"get_bv":"獲得BV",
 	"bill_address":"地址",
 	"bill_city":"城市",
 	"bill_state":"地區",

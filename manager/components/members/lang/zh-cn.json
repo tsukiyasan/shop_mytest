@@ -69,5 +69,11 @@
 	"members_order_payType": "付款方式",
 	"members_order_takeType": "配送方式",
 	"members_back": "回上一页",
-	"member_end": ""
+	"member_end": "",
+	"members_memLocked": "会员启用状态",
+	"members_memLocked0": "全部",
+	"members_memLocked1": "启用",
+	"members_memLocked2": "锁定",
+	"members_dis_cnt": "现有启用经销商:",
+	"members_mem_cnt": "现有启用会员:"
 }

@@ -2666,11 +2666,11 @@ function order_submit_auth($type=null){
 
 		
 		if($m['onlyMember'] == '1'){
-			$get_point_url = "http://192.168.7.46/money_bank_my_test/public/api/front_orders/calc_points/".$o_orderNum;
+			$get_point_url = "http://192.168.7.46/money_bank_my/public/api/front_orders/calc_points/".$o_orderNum;
 			$results = file_get_contents($get_point_url);
 		}
 		
-		$get_point_url2 = "http://192.168.7.46/money_bank_my_test/public/api/front_orders/calc_cb_points/".$o_orderNum;
+		$get_point_url2 = "http://192.168.7.46/money_bank_my/public/api/front_orders/calc_cb_points/".$o_orderNum;
 		$results2 = file_get_contents($get_point_url2);
 		JsonEnd(array("status"=>'9',"msg"=>_TOTAL_AMT_0)); //免付費狀態
 	}else{
@@ -2918,11 +2918,11 @@ function chargeCreditCard($amount,$orderNum)
 		$db->query();
 
 		if($m['onlyMember'] == '1'){
-			$get_point_url = "http://192.168.7.46/money_bank_my_test/public/api/front_orders/calc_points/".$o_orderNum;
+			$get_point_url = "http://192.168.7.46/money_bank_my/public/api/front_orders/calc_points/".$o_orderNum;
 			$results = file_get_contents($get_point_url);
 		}
 		
-		$get_point_url2 = "http://192.168.7.46/money_bank_my_test/public/api/front_orders/calc_cb_points/".$o_orderNum;
+		$get_point_url2 = "http://192.168.7.46/money_bank_my/public/api/front_orders/calc_cb_points/".$o_orderNum;
 		$results2 = file_get_contents($get_point_url2);
 
 		//tomlm

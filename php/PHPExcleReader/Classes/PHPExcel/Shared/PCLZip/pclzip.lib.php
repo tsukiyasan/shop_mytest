@@ -327,7 +327,7 @@
         }
         else if ($v_size > 2) {
           PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER,
-		                       "Invalid number / type of arguments");
+		                       "InvalIC Number / type of arguments");
           return 0;
         }
       }
@@ -512,7 +512,7 @@
         }
         else if ($v_size > 2) {
           // ----- Error log
-          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Invalid number / type of arguments");
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "InvalIC Number / type of arguments");
 
           // ----- Return
           return 0;
@@ -789,7 +789,7 @@
         }
         else if ($v_size > 2) {
           // ----- Error log
-          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Invalid number / type of arguments");
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "InvalIC Number / type of arguments");
 
           // ----- Return
           return 0;
@@ -950,7 +950,7 @@
         }
         else if ($v_size > 2) {
           // ----- Error log
-          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Invalid number / type of arguments");
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "InvalIC Number / type of arguments");
 
           // ----- Return
           return 0;

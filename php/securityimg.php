@@ -18,9 +18,9 @@ class SecurityImage {
       
      function SecurityImage( 
         $iWidth = 100, 
-        $iHeight = 25, 
+        $iHeight = 40, 
         $iNumChars = 4, 
-        $iNumLines = 30 
+        $iNumLines = 40 
      ) { 
       	
   		$this->iWidth = $iWidth; 

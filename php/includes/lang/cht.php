@@ -164,7 +164,7 @@ DEFINE("_ACTIVE_ACTIVITY_LIMIT","已達此活動限購次數");
 DEFINE("_BONUS_NO_PRODUCT","無此商品");
 
 //0707購物車
-DEFINE("_CART_ERROR_MSG","請先完成會費付款及信箱驗證");
+DEFINE("_CART_ERROR_MSG","請先完成會費付款、手機及信箱驗證");
 DEFINE("_CART_PAY_SUCCESS_MSG1","付款成功通知");
 DEFINE("_CART_PAY_SUCCESS_MSG2","訂購明細");
 DEFINE("_CART_PAY_SUCCESS_MSG3","親愛的 管理者：");
@@ -217,6 +217,7 @@ DEFINE("_DBPAGE_ABOUTUS","關於紅崴");
 DEFINE("_MEMBER_NO_DATA","查無資料");
 DEFINE("_MEMBER_ERROR_CARD","無效卡片");
 DEFINE("_MEMBER_SID_REPEAT","身分證字號已使用過");
+DEFINE("_MEMBER_SID_REPEAT_MEMBER","身分證字號已註冊會員");
 DEFINE("_MEMBER_EMAIL_REPEAT","電子信箱已使用過");
 DEFINE("_MEMBER_SID_ERROR","無效身分證字號");
 DEFINE("_MEMBER_EMAIL_ERROR","無效電子信箱");
@@ -327,14 +328,14 @@ DEFINE("_MEMBERS_EXPORT_DATA","會員匯出資料");
 DEFINE("_MEMBERS_AUDIT_MSG1","已通過經銷商審核");
 DEFINE("_MEMBERS_AUDIT_MSG2","累積紅利未達門檻");
 DEFINE("_MEMBERS_SALESCHK0","一般會員");
-DEFINE("_MEMBERS_SALESCHK3","現有經銷商審核");
-DEFINE("_MEMBERS_SALESCHK2","經銷商資格審核中");
-DEFINE("_MEMBERS_SALESCHK1","正式經銷商");
+DEFINE("_MEMBERS_SALESCHK3","現有審核");
+DEFINE("_MEMBERS_SALESCHK2","資格審核中");
+DEFINE("_MEMBERS_SALESCHK1","正式");
 DEFINE("_MEMBERS_SALESCHK4","會員");
 DEFINE("_MEMBERS_MEMTYPE1","E化加入");
 DEFINE("_MEMBERS_MEMTYPE2","一般");
 DEFINE("_MEMBERS_MEMTYPE3","升級加入");
-DEFINE("_MEMBERS_EXCEL_TITLE","會員編號,身分證號,會員姓名,通訊地址,電話,手機,戶籍地址,E-mail,生日(西元年),申請書日期(完款日),上線編號,上線姓名,上線電話,上線手機");
+DEFINE("_MEMBERS_EXCEL_TITLE","會員編號,身分證號,會員姓名,通訊地址,電話,手機,戶籍地址,E-mail,生日(西元年),申請書日期(完款日),上線編號,上線姓名,上線電話,上線手機,是否會員");
 DEFINE("_MEMBERS_SAME_EMAIL","已存在相同的電子信箱");
 DEFINE("_MEMBERS_SAME_CARD_NO","已存在相同的經銷商會員卡號");
 DEFINE("_MEMBERS_SAME_NO","已存在相同的會員編號");
@@ -490,10 +491,13 @@ DEFINE("_PM_CF_0","未結轉");
 DEFINE("_TOTAL_AMT_0","您的訂單已成立。");
 DEFINE("_PM_DONE","提領申請完成。");
 DEFINE("_PM_FAIL","提領申請失敗。");
-
+DEFINE("_BILL_ADDRESS_ERROR","帳單地址1超過60個字元");
+DEFINE("_BILL_ADDRESS_EMPTY","帐单地址不得为空");
+DEFINE("_BILL_ADDRESS2_ERROR","帳單地址2超過60個字元");
+DEFINE("_BILL_CITY_EMPTY","帳單州屬不得為空");
 
 //補翻譯
-DEFINE("_MEMBER_SUCCESS_SMS","親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可以使用你設定的帳號及密碼，立即登入使用購物平台購買商品!");
+DEFINE("_MEMBER_SUCCESS_SMS","親愛的會員，恭喜您已註冊成功，歡迎您成為紅崴GoodARCH會員，感謝您的加入，您可使用帳號及密碼，立即登入購物平台購買商品");
 DEFINE("_MEMBER_SID_USED","您的身分證已使用無法重覆加入，如有問題請洽公司服務人員，謝謝。");
 DEFINE("_MEMBER_MOBILE_USED","手機已使用過");
 DEFINE("_MEMBER_ERROR_4","推薦人員或註冊碼錯誤，請重新輸入。");
@@ -518,6 +522,9 @@ DEFINE("_MEMBER_MTD_EMPTY","mtd是空");
 DEFINE("_MEMBER_NO_VOUCHER","找不到該兌換券");
 DEFINE("_MEMBER_ERROR_8","可兌換數量不足");
 DEFINE("_MEMBER_ERROR_9","輸入數量有誤");
-
-
+DEFINE("_PW_ERROR_MSG","請先驗證手機或信箱");
+DEFINE("_MEMBER_MOBILE","手機號碼");
+DEFINE("_MEMBER_ACCPW","登入密碼");
+DEFINE("_CODE","商品編號(國際條碼)");
+DEFINE("_CODE_EMPTY","商品編號(國際條碼)不可為空");
 ?>

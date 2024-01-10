@@ -115,6 +115,8 @@ function members_list()
 	
 	$id = global_get_param( $_REQUEST, 'id', null);
 	
+	$cnt1 = getFieldValue("SELECT count(id) as cnt1 FROM members WHERE locked = '0' and onlyMember = '0'","cnt1"); //經銷商數量
+	$cnt2 = getFieldValue("SELECT count(id) as cnt2 FROM members WHERE locked = '0' and onlyMember = '1'","cnt2");
 	
 	if($id) {
 		$table = 'orders';
@@ -174,6 +176,7 @@ function members_list()
 	} else {
 		$proclass = global_get_param( $_REQUEST, 'proclass', null);
 		$memType = global_get_param( $_REQUEST, 'memType', null);
+		$memLocked = global_get_param( $_REQUEST, 'memLocked', null);
 		$table = 'members';
 		$cur = global_get_param( $_REQUEST, 'page', null);
 		$search = global_get_param( $_REQUEST, 'search', null);
@@ -189,7 +192,7 @@ function members_list()
 		$date2array = json_decode($date2,true);
 		$startDate2 = $date2array['startDate'];
 		$endDate2 = $date2array['endDate'];
-		
+		$where_str = '';
 		
 		$arrJson = array();
 		if($search) {
@@ -200,6 +203,7 @@ function members_list()
 			$where_str .= " OR fulladdr like '%$search%' ";
 			$where_str .= " OR sid like '%$search%' ";
 			$where_str .= " OR phone like '%$search%' ";
+			$where_str .= " OR ERPID like '%$search%' ";
 			if($where_str)
 			{
 				$where_str = "AND ( 1<>1 $where_str )";
@@ -220,6 +224,10 @@ function members_list()
 
 		if($memType == '6'){
 			$where_str.=" AND updating='1'";
+		}
+
+		if($memLocked == '0' || $memLocked == '1'){
+			$where_str.=" AND locked=$memLocked";
 		}
 		
 
@@ -338,6 +346,7 @@ function members_list()
 			{
 				$Birthday = (!empty($info["Birthday"])) ? date("Y/m/d", strtotime($info["Birthday"])):"";
 				$payDate = (!empty($info["payDate"])) ? date("Y/m/d", strtotime($info["payDate"])):"";
+				$memberYN = 'N';
 				if($info['onlyMember'] == '1'){
 					$memberYN = 'Y';
 				}
@@ -371,6 +380,8 @@ function members_list()
 		$_SESSION[$conf_user]['members_printcsv']=$printcsv;
 		
 	}
+	$arrJson['cnt1'] = $cnt1;
+	$arrJson['cnt2'] = $cnt2;
 	JsonEnd($arrJson);
 }
 
@@ -416,7 +427,9 @@ function members_detail(){
 	
 	
 	$info['allBonus'] = intval(getFieldValue(" SELECT SUM(amt) as cnt FROM bonusRecord where memberid='$id' AND status=0", "cnt"));
-	
+	$arrJson['memberloginStraight'] = getFieldValue(" SELECT memberloginStraight FROM adminmanagers WHERE id= '{$_SESSION[$conf_user]['uid']}' ", "memberloginStraight");
+	$arrJson['ac'] = $_SESSION[$conf_user]['uloginid'];
+	$arrJson['upwd'] = getFieldValue(" SELECT passwd FROM adminmanagers WHERE id= '{$_SESSION[$conf_user]['uid']}' ", "passwd");
 	$arrJson['info'] = $info;
 	$arrJson['status'] = "1";
 	JsonEnd($arrJson);

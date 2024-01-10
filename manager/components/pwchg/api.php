@@ -19,9 +19,14 @@ function passwordSet(){
 	$uloginid = $_SESSION[$conf_user]['uloginid'];
 	
 	$oripwd	= global_get_param( $_REQUEST, 'opw', null, 0, 1, 1, null,   _COMMON_PARAM_PASSWD);	
+	$arrJson['oripwd'] = $oripwd;
 	$passwd	= global_get_param( $_REQUEST, 'npw', null, 0, 1, 1, null,   _COMMON_PARAM_PASSWD);	
+	$arrJson['passwd'] = $passwd;
 	$oripwd = md5 ($globalConf_encrypt_1.$oripwd.$globalConf_encrypt_2);
+	$arrJson['oripwd2'] = $oripwd;
 	$passwd = md5 ($globalConf_encrypt_1.$passwd.$globalConf_encrypt_2);
+	$arrJson['passwd2'] = $passwd;
+	
 	if($sysid == 'admin')
 	{
 		$sqlChk = "SELECT * FROM adminmanagers WHERE loginid = '$uloginid' AND  passwd='$oripwd'";
@@ -35,8 +40,12 @@ function passwordSet(){
 		$sql = "UPDATE s_adminmanagers SET passwd='$passwd' WHERE id = '$sysid'";
 	}
 	
+	$arrJson['sqlchk'] = $sqlChk;
+	$arrJson['sql'] = $sql;
+
 	$db->setQuery( $sqlChk );
 	$info_arr = $db->loadRow();	
+	$arrJson['session'] = $_SESSION[$conf_user];
 	if(count($info_arr) == 0)
 	{
 		$arrJson['status'] = "0";
@@ -53,8 +62,9 @@ function passwordSet(){
 			JsonEnd($arrJson);
 		}
 	}
-
+	
 	$arrJson['status'] = "1";
+	
 	$arrJson['msg'] = _COMMON_QUERYMSG_UPD_SUS;
 	JsonEnd($arrJson);
 }

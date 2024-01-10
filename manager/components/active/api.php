@@ -747,6 +747,11 @@ function updatepage(){
 		$var04 = $var03;
 	}
 	
+	$nameTmp = global_get_param( $_REQUEST, 'name_zh-cn', null ,0,0  );
+	
+	$name = $nameTmp;
+	
+
 	$updatesql_addStr = "";
 	$updatevalue_addStr = "";
 	$updatesqlend_addStr = "";

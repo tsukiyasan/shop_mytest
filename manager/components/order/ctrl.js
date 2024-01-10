@@ -546,9 +546,9 @@ app
               my.sysCurrency = res.sysCurrency;
               if (!my.trace) {
                 my.trace = {};
-                my.trace.traceName = "黑貓宅急便";
+                my.trace.traceName = "POS Laju";
                 my.trace.traceUrl =
-                  "http://www.t-cat.com.tw/Inquire/Trace.aspx";
+                  "https://www.tracking.my/";
               }
               my.trace.traceNumber = res.data.traceNumber;
 

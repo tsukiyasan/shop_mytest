@@ -1,9 +1,23 @@
 "lg_news": {
-	"news": "最新消息",
+    "news": "最新消息",
 	"news_manager": "最新消息管理",
 	"news_title": "訊息",
 	"news_name": "訊息標題",
 	"news_summary": "簡述",
 	"news_content": "訊息內容",
-	"news_date_msg": "空白為無期限"
+	"news_date_msg": "空白為無期限",
+    "audience": "會員對象",
+    "audience_all": "全部",
+    "audience_member": "會員",
+    "audience_dealer": "經銷商",
+    "post_type": "類別",
+    "post_type_all": "全部",
+    "post_type_news": "最新消息",
+    "post_type_calendar": "行事曆",
+    "post_type_course": "課程資訊",
+    "post_type_duty": "各區值班日",
+    "end_date": "截止日",
+    "pubdate_0": "全部",
+    "pubdate_1": "有截止日",
+    "pubdate_2": "無截止日"
 }

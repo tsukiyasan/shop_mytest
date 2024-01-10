@@ -1,6 +1,10 @@
 "lg_news":{
 	"news":"Latest news",	
 	"newsdtl":"Details",	
-	"news_end":""
+	"news_end":"",
+	"news_list":"News list",
+	"calendar_list":"Calendar list",
+	"course_list":"Course list",
+	"duty_list":"Duty list"
 	
 }

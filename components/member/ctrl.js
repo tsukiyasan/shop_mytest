@@ -132,11 +132,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 },
                 {
                     id: "member_news_page",
-                    name: "會員最新消息",
-                    title: "會員最新消息",
+                    name: $translate.instant('lg_member.member_news'),
+                    title: $translate.instant('lg_member.member_news'),
                     loginonly: true,
                     hide: true,
-                    dtl: "詳細"
+                    dtl: $translate.instant('lg_member.org_details'),
                 },
                 {
                     id: "order",
@@ -196,14 +196,41 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 },
                 {
                     id: "moneydtl",
-                    name: "獎金查詢",
-                    title: "獎金查詢",
+                    name: $translate.instant('lg_member.bonus_inquiry'),
+                    title: $translate.instant('lg_member.bonus_inquiry'),
                     loginonly: true,
                     hide: true,
-                    dtl: "獎金明細"
+                    dtl: $translate.instant('lg_member.bonus_detail'),
                 }
             ]
-        }, {
+        }, 
+        {           
+            id:"3",
+            name:$translate.instant('lg_member.healthy_info'),
+            loginonly:true,
+            child:[
+                {             
+                    id: "footpic",
+                    name: $translate.instant('lg_member.footpic_search'),
+                    title: $translate.instant('lg_member.footpic_search'),
+                    loginonly: true,
+                },
+                {             
+                    id: "my_bone_density",
+                    name: $translate.instant('lg_member.my_bone_density'),
+                    title: $translate.instant('lg_member.my_bone_density'),
+                    loginonly: true,
+                },
+                {             
+                    id: "genomics",
+                    name: $translate.instant('lg_member.genomics'),
+                    title: $translate.instant('lg_member.genomics'),
+                    loginonly: true,
+                },
+
+            ]             
+        },
+        {
             id: "4",
             name: $translate.instant('lg_member.file_download'),
             loginonly: true,
@@ -441,7 +468,33 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
           loginonly: true,
         },
         ]
-    }, {
+    }, 
+    {           
+        id:"3",
+        name:$translate.instant('lg_member.healthy_info'),
+        loginonly:true,
+        child:[
+            {             
+                id: "footpic",
+                name: $translate.instant('lg_member.footpic_search'),
+                title: $translate.instant('lg_member.footpic_search'),
+                loginonly: true,
+            },
+            {             
+                id: "my_bone_density",
+                name: $translate.instant('lg_member.my_bone_density'),
+                title: $translate.instant('lg_member.my_bone_density'),
+                loginonly: true,
+            },
+            {             
+                id: "genomics",
+                name: $translate.instant('lg_member.genomics'),
+                title: $translate.instant('lg_member.genomics'),
+                loginonly: true,
+            },
+        ]             
+    },
+    {
         id: "4",
         name: $translate.instant('lg_member.file_download'),
         loginonly: true,
@@ -450,6 +503,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             name: $translate.instant('lg_member.file_download'),
             title: $translate.instant('lg_member.file_download'),
             loginonly: true
+        }, {
+            id: "cp58",
+            name: $translate.instant('lg_member.cp58'),
+            title: $translate.instant('lg_member.cp58'),
+            loginonly: true,
         }]
     }, {
         id: "5",
@@ -652,7 +710,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             $('#show_card_btn').show();
             if ((!my.member_page || my.member_page == "login" || my.member_page == "forgot" || my.member_page == "resetPW") && $scope.$parent.member_status == 1) {
                 $location.path("member_page/info");
-            } else if ((!my.member_page || my.member_page == "info" || my.member_page == "m_info" || my.member_page == "pwchg" || my.member_page == "order" || my.member_page == "orderdtl" || my.member_page == "likeproduct" || my.member_page == "money_total" || my.member_page == "moneydtl" || my.member_page == "e_cash" || my.member_page == "e_cash_new2_1" || my.member_page == "e_cash_new2_2" || my.member_page == "ecash21_dtl" || my.member_page == "ecash22_dtl" || my.member_page == "member_news_page" || my.member_page == "orgseq" || my.member_page == "orgseq5" || my.member_page == "birthday_voucher" || my.member_page == "soybean_voucher" || my.member_page == "carry_treasure" || my.member_page == "register_tb_list") && $scope.$parent.member_status == 0) {
+            } else if ((!my.member_page || my.member_page == "info" || my.member_page == "m_info" || my.member_page == "pwchg" || my.member_page == "order" || my.member_page == "orderdtl" || my.member_page == "likeproduct" || my.member_page == "money_total" || my.member_page == "moneydtl" || my.member_page == "e_cash" || my.member_page == "e_cash_new2_1" || my.member_page == "e_cash_new2_2" || my.member_page == "ecash21_dtl" || my.member_page == "ecash22_dtl" || my.member_page == "member_news_page" || my.member_page == "orgseq" || my.member_page == "orgseq5" || my.member_page == "birthday_voucher" || my.member_page == "soybean_voucher" || my.member_page == "carry_treasure" || my.member_page == "register_tb_list" || my.member_page == "footpic" || my.member_page == "my_bone_density"|| my.member_page == "genomics") && $scope.$parent.member_status == 0) {
                 $('.cg-busy').addClass('ng-hide');
                 my.member_page = 'login';
                 $location.path("member_page/login");
@@ -844,6 +902,24 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         });
         CRUD.setUrl("components/member/api.php");
     }
+
+    if(my.member_page == 'pwchg'){
+        CRUD.list({ task: "chkchk"}, "GET").then(function (res) {
+            console.log(res);
+            if (res.status == 1) {
+                
+            }else if(res.status == 0){
+                error($translate.instant('lg_member.member_msg1'));
+                // location.href="/member_page/info";
+                $location.$$path = '/member_page/info';
+                $location.$$url = '/member_page/info';
+                $location.$$absUrl = '/member_page/info';
+                console.log($location);
+                // my.member_page = 'info';
+            }
+        })
+    }
+
     my.pwchg_fn = function () {
         try {
             var opasswd = my.pwchg.opasswd;
@@ -1338,7 +1414,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var err = 0;
 
         if (!memberName) {
-            error("請輸入經銷商姓名");
+            error($translate.instant('lg_member.js_enter_name'));
             err++;
         }
         // if (!memberSID) {
@@ -1437,6 +1513,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             //     error("電話號碼輸入格式錯誤（請填寫數字即可）");
             //     err++;
             // }
+        }
+
+        if (!memberEmail) {
+            error($translate.instant('lg_member.js_enter_email'));
+            err++;
         }
 
 
@@ -1581,25 +1662,23 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
 
             if (index == 0) {
-                //檢查身分證
-                // CRUD.update({
-                //     task: "signNew_memberSIDChk",
-                //     sid: memberSID,
-                //     email: memberEmail,
-                //     rec2: my.signNew.re2,
-                //     signupMode: signupMode,
-                //     memberCaptcha: memberCaptcha,
-                //     memberEmail: memberEmail,
-                //     memberPhone: memberPhone
-                // }, "POST", true).then(function (res) {
-                //     if (res.status == 1) {
-                //         $('#signNewChk').modal('show');
-                //     } else {
-                //         err++;
-                //     }
-                // });
-                $('#signNewChk').modal('show');
-
+                // 檢查身分證
+                CRUD.update({
+                    task: "signNew_memberSIDChk",
+                    sid: memberSID,
+                    email: memberEmail,
+                    rec2: my.signNew.re2,
+                    signupMode: signupMode,
+                    memberCaptcha: memberCaptcha,
+                    memberEmail: memberEmail,
+                    memberPhone: memberPhone
+                }, "POST", true).then(function (res) {
+                    if (res.status == 1) {
+                        $('#signNewChk').modal('show');
+                    } else {
+                        err++;
+                    }
+                });
             } else {
                 $('#signNewChk').modal('hide');
 
@@ -1659,9 +1738,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
                                 // form.submit();
                                 console.log(res);
-                                var url = res.url;
-                                window.location.replace(url);
-                                // window.location.replace("/app/controllers/publicBank.php?task=orderSale&handMode=1&session=0&orderNum="+res.orderNum);
+                                //window.location.replace("/app/controllers/publicBank.php?task=orderSale&handMode=1&session=0&orderNum="+res.orderNum);
+                                window.location.replace(res.url);
                             } else {
                                 my.chk_pay.code4 = '2';
                                 // $('#myModal_CHKPAY').modal('show');
@@ -1744,7 +1822,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var rec = (my.first) ? my.first.rec : "";
         var err = 0;
         if (!email) {
-            error("請輸入電子信箱");
+            error($translate.instant('lg_member.js_please_email'));
             err++;
         }
         if (err == 0) {
@@ -1860,11 +1938,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
             var err = 0;
             if (!sid) {
-                error("請輸入身分證字號");
+                error($translate.instant('lg_member.js_please_sid'));
                 err++;
             }
             // if (!signupMode) {
-            //     error("請選擇註冊方式");
+            //     error($translate.instant('lg_member.please_select_signup_mode'));
             //     err++;
             // }
             if (err == 0) {
@@ -1924,7 +2002,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 CRUD.update({ task: "sign20_sendCaptcha", signupMode: signupMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
                         my.verification.sendCaptchaStr = my.verification.countdownTime + "秒";
-                        success("已發送驗證碼簡訊至您的手機" + res.msg);
+                        success($translate.instant('lg_member.sms_sended') + res.msg);
                         $timeout(my.countdown, 1000);
                     } else {
                         my.verification.verifying = false;
@@ -2075,7 +2153,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 err++;
             }
             if (!signupMode) {
-                error("請選擇註冊方式");
+                error($translate.instant('lg_member.please_select_signup_mode'));
                 err++;
             }
             if (err == 0) {
@@ -2122,7 +2200,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 if (res.status == 1) {
                     my.member_page = "forgot201";
                     my.verification.sendCaptchaStr = my.verification.countdownTime + "秒";
-                    success("已發送驗證碼簡訊至您的手機" + res.msg);
+                    success($translate.instant('lg_member.sms_sended') + res.msg);
                     $timeout(my.countdown, 1000);
                 } else {
                     my.verification.verifying = false;
@@ -2265,7 +2343,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 CRUD.update({ task: "info20_sendCaptcha", infoMode: infoMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
                         my.verification.sendCaptchaStrM = my.verification.countdownTime + "秒";
-                        success("已發送驗證碼簡訊至您的手機" + res.msg);
+                        success($translate.instant('lg_member.sms_sended') + res.msg);
                         $timeout(my.countdownM, 1000);
                     } else {
                         my.verification.verifying = false;
@@ -2310,7 +2388,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             var signupMode = my.sign30.signupMode;
             var err = 0;
             if (!signupMode) {
-                error("請選擇註冊方式");
+                error($translate.instant('lg_member.please_select_signup_mode'));
                 err++;
             }
             if (err == 0) {
@@ -2337,7 +2415,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 CRUD.update({ task: "sign20_sendCaptcha", signupMode: signupMode, phone: deviceStr }, "POST").then(function (res) {
                     if (res.status == 1) {
                         my.verification.sendCaptchaStr = my.verification.countdownTime + $translate.instant('lg_member.sec');
-                        success("已發送驗證碼簡訊至您的手機" + res.msg);
+                        success($translate.instant('lg_member.sms_sended') + res.msg);
                         $timeout(my.countdown, 1000);
                     } else {
                         my.verification.verifying = false;
@@ -2562,7 +2640,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             }
 
             if (!signupMode) {
-                error("請選擇註冊方式");
+                error($translate.instant('lg_member.please_select_signup_mode'));
                 err++;
             }
 
@@ -2807,11 +2885,11 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         var err = 0;
 
         if (!memberName) {
-            error("請輸入經銷商姓名");
+            error($translate.instant('lg_member.js_enter_name'));
             err++;
         }
         // if (!memberSID) {
-        //     error("請輸入身分證字號");
+        //     error($translate.instant('lg_member.js_please_sid'));
         //     err++;
         // } else {
         //     // memberSID = memberSID.toUpperCase();
@@ -3056,7 +3134,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 memberTel = '';
             }
 
-            index = 1;
+            // index = 1;
 
             if (index == 0) {
                 //檢查身分證
@@ -3176,7 +3254,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             // 	err++;
             // }
             if (!phone) {
-                error("請輸入電話");
+                error($translate.instant('lg_member.js_enter_phone'));
                 err++;
             }
             /*
@@ -3191,7 +3269,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                     err++;
                 }
                 if (passwd.length < 6) {
-                    error("密碼長度不足，請輸入6位以上英數字");
+                    error($translate.instant('lg_member.js_pwd_msg1'));
                     err++;
                 }
                 if (!passwd2) {
@@ -3626,6 +3704,16 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                 }
                 $('.rwd-tables').basictable({ breakpoint: 768 });
                 console.log(my);
+            }
+        });
+    };
+
+    my.cp58_fn = function (kind) {
+        CRUD.list({ task: "get_cp58" }, "GET").then(function (res) {
+            if (res.status == 1) {
+                my.cp58_list = res.cp58_list;
+                my.cp58_exist = res.cp58_exist;
+                console.log(my.cp58_list);
             }
         });
     };
@@ -4292,7 +4380,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
     my.go_pay = function (type,orderNum) {
         // console.log(arguments);
         if(type == 'pb'){
-            window.location.replace("/app/controllers/publicBank.php?task=orderSale&orderNum="+orderNum);
+            //window.location.replace("/app/controllers/publicBank.php?task=orderSale&handMode=1&orderNum="+orderNum);
+            window.location.replace("/app/controllers/publicBank.php?task=orderSale&session=0&orderNum="+orderNum);
         }
         // var form = document.createElement("form");
         // form.method = "POST";
@@ -4520,6 +4609,7 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         $('.cg-busy').removeClass('ng-hide');
         my.money_list_fn();
     }
+    
     if (my.member_page == "m_info") {
         $('.cg-busy').removeClass('ng-hide');
         my.m_info_fn();
@@ -4768,8 +4858,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                         if (res.status == 1) {
                             my.signNew.udlvrAddr2 = res.address;
                             if (payType == 6) {
-                                var url = res.url;
-                                window.location.replace(url);
+                                //window.location.replace("/app/controllers/publicBank.php?task=orderSale&handMode=1&session=0&orderNum="+res.orderNum);
+                                window.location.replace(res.url);
                             } else {
                                 my.chk_pay.code4 = "2";
                                 $("#myModal_CHKPAY2").modal("show");
@@ -4787,7 +4877,10 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
 
         }
     }
-
+    if (my.member_page == "cp58") {
+        // $('.cg-busy').removeClass('ng-hide');
+        my.cp58_fn();
+    }
 
     my.toggle_pwd = function () {
         $type = $('.thepwd').prop('type');
@@ -4964,7 +5057,15 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         CRUD.detail({ task: "get_share_url" }, "GET").then(function (res) {
             if (res.status == 1) {
                 var $html = $translate.instant('lg_main.js_msg5') + "<br><span id='surl'>" + res.share_url + "</span>";
-                var $html2 = "<span id='surl2'>您好，我是" + my.user.name + "，點選下方連結，輕鬆加入紅崴經銷商<br>" + res.share_url + "<br>和我一起科技養生，重塑人生</span>";
+                var $html2 = "<span id='surl2'>";
+                $html2 += $translate.instant('lg_main.rec_msg1');
+                $html2 += my.user.name;
+                $html2 += $translate.instant('lg_main.rec_msg2');
+                $html2 += "<br>";
+                $html2 += res.share_url;
+                $html2 += "<br>";
+                $html2 += $translate.instant('lg_main.rec_msg3');
+                $html2 += "</span>";
                 $('#s_url').html($html);
                 $('#s_url2').html($html2);
                 $('#myModal_surl').addClass('in act');
@@ -4985,7 +5086,17 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             if (res.status == 1) {
                 var $html = $translate.instant('lg_main.js_msg5');
                 $html += "<br><span id='surl'>" + res.share_url + "</span>";
-                var $html2 = "<span id='surl2'>您好，我是" + my.user.name + "，點選下方連結，輕鬆加入紅崴網路福利會員<br>" + res.share_url + "<br>和我一起創造您的斜槓人生</span>";
+                var $html2 = "<span id='surl2'>";
+                $html2 += $translate.instant('lg_main.rec_msg1');
+                $html2 += my.user.name;
+                $html2 += $translate.instant('lg_main.rec_msg4');
+                $html2 += "<br>";
+                $html2 += res.share_url;
+                $html2 += "<br>";
+                $html2 += $translate.instant('lg_main.rec_msg5');
+                $html2 += "</span>";
+                
+
                 $('#s_url').html($html);
                 $('#s_url2').html($html2);
                 $('#myModal_surl').addClass('in act');
@@ -5371,7 +5482,8 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
     if (my.member_page == "mlm_order") {
         my.mlm_order_list_fn();
     }
-
+    
+ 
     my.check_tspg = function () {
         CRUD.list({ task: "check_tspg" }, "GET").then(function (res) {
 
@@ -5398,6 +5510,100 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
         $('#pmpage').toggle();
     }
 
+    my.linkTrack = function(num) {
+        TrackButton.track({
+          tracking_no: num
+        });
+      }
+      my.m_info_fn = function () {
+        my.productimg = [];
+        my.productimg2 = [];
+        my.productimg3 = [];
+        $scope.previewImage = [];
+        $scope.previewImage2 = [];
+        $scope.previewImage3 = [];
+        CRUD.list({ task: "minfo_list" }, "GET").then(function (res) {
+          if (res.status == 1) {
+            my.minfo = res.result;
+            //console.log(my.minfo);
+          } else {
+            error("查無資料");
+          }
+          $(".cg-busy").addClass("ng-hide");
+        });
+      };
+      my.footpic_fn = function(){
+        my.productimg = [];
+        $scope.previewImage = [];
+        /*my.productimg2 = [];
+        $scope.previewImage2 = [];
+        my.productimg3 = [];
+        $scope.previewImage3 = [];*/
+        CRUD.list({ task: "footpic" }, "GET").then(function (res) {
+          if (res.status == 1) {
+            my.footpic = res.result;
+            my.list = res.list;
+            //console.log('1');
+          } else {
+            error("查無資料");
+          }
+          $(".cg-busy").addClass("ng-hide");
+        });
+      }
+      my.footpic_large_fn = function(){
+        var getId = event.target.id;
+        var a = document.getElementById(getId).style.width;
+        //console.log(getId);
+        document.getElementById(getId).removeAttribute("style");
+        document.getElementById(getId).setAttribute("style", "width: 100% !important; cursor : pointer; box-shadow: 5px 5px 5px #888888;");
+        if(a == "100%"){
+          document.getElementById(getId).removeAttribute("style");
+          document.getElementById(getId).setAttribute("style", "max-width:300px; cursor : pointer; box-shadow: 5px 5px 5px #888888;");
+        }
+      };
+      if (my.member_page == "footpic") {
+        my.footpic_fn();
+    }
+    my.my_bone_density_fn = function(){
+        CRUD.list({ task: "my_bone_density" }, "GET").then(function (res) {
+          if (res.status == 1) {
+            my.list = res.list;
+            my.tscore = res.result;
+            //console.log(my.inputdate);
+            //console.log(my.tscore);
+            //console.log(my.list);
+          } else {
+            error("查無資料");
+          }
+          $(".cg-busy").addClass("ng-hide");
+        });
+      };
+      if (my.member_page == "my_bone_density") {
+        my.my_bone_density_fn();
+    }
+
+    my.genomics_fn = function()
+    {       
+        my.cur = !$location.search().cur ? 1 : $location.search().cur;
+        my.add_to_favorite_arr = [];  
+        console.log(1);  
+        
+    
+        CRUD.list({ task: "genomics", page: my.cur, type: my.genomics_page }, "GET").then(function(res) {
+            if (res.status == 1) {
+                console.log(1);  
+                my.data_list = res.data;
+                my.cnt = res.cnt;
+                console.log(res.test);            
+            }else{
+                console.log(3);
+            }
+            });
+        
+    };
+    if (my.member_page == "genomics") {
+        my.genomics_fn();
+    }
 
 }]).controller('member_page2', ['$rootScope', '$scope', '$http', '$location', '$route', '$routeParams', '$translate', 'CRUD', '$filter', '$sce', function ($rootScope, $scope, $http, $location, $route, $routeParams, $translate, CRUD, $filter, $sce) {
     var my = this;

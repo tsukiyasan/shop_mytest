@@ -1,6 +1,6 @@
 "lg_cart":{
 	"title":"我的購物車",
-	"title_bonus":"我的紅利兌換",
+	"title_bonus":"我的紅利兑換",
 	"slogan":"-全方位的科學養生保健之道-",
 	"note":"※提醒您！若僅先將商品點選『放入購物車』時，不算完成該商品的訂購，系統亦不會保留庫存量。故若未完成結帳流程，且此商品已售完的狀況下，將無法繼續進行結帳。",
 	"amtpro_icon":"【加購品】",
@@ -53,7 +53,7 @@
 	"please_set_city":"請填寫城市",
 	"please_set_address":"請填寫地址",
 	"end":"",
-	"tax":"稅金",
+	"tax":"税金",
 	"use_points":"購物金折抵",
 	"use_points2":"配銷折扣",
 	"after_discount":"應付金額",
@@ -65,6 +65,20 @@
 	"up_msg_2":"購物金",
 	"use_all":"全部使用",
 	"cash_back_points":"回饋點",
-	"points" : "購物金"
+	"points" : "購物金",
+	"terms1" : "我同意所有",
+	"terms2" : "購物條款和條件",
+	"terms3" : "、",
+	"terms4" : "退換貨政策",
+	"terms5" : "和",
+	"terms6" : "隱私政策",
+	"please_check_terms" : "請勾選同意條款",
+	"please_select_cartmode" : "請選擇您要結帳的購物車",
+	"select_cartmode" : "選擇購物車",
+	"home" : "首頁",
+	"common_shipping_products" : "一般宅配商品(",
+	"taiwan_shipping_products" : "台灣宅配商品(",
+	"please_check_point": "請檢查購物金",
+    "please_check_cb": "請檢查回饋點"
 	
 }

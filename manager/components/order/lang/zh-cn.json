@@ -63,7 +63,7 @@
 	"order_invoiceType": "收据类型",
 	"order_invoiceSN": "统一编号",
 	"order_invoice": "捐献单位",
-	"order_invoiceTitle": "发票抬头",
+	"order_invoiceTitle": "发票擡头",
 	"order_dlvrTimePeriod": "指定时间",
 	"order_dlvrDate": "指定配送日期",
 	"order_dlvrTime": "指定配送时间",
@@ -92,6 +92,7 @@
 	"order_store": "自取门市",
 	"order_cancel_order": "取消此订单",
 	"order_city": "居住县市",
+	"order_state": "居住城市",
 	"order_area": "居住地区",
 	"order_dlvrTime": "宅配时段 (不指定时间)",
 	"order_dlvrTime1": "13时前",
@@ -113,5 +114,8 @@
 	"order_last30days": "最近 30 天",
 	"order_bonus": "确定合并所选项目",
 	"order_msg4": "付款方式为在线付款，不可切换订单状态。",
-	"order_end": ""
+	"order_end": "",
+	"order_use_points": "购物金折抵",
+    "order_cb_use_points": "回馈点折抵",
+    "order_acb_use_points": "活动回馈点折抵"
 }

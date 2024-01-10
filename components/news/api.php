@@ -11,7 +11,9 @@ switch ($task) {
 	case "detail":
 	    detail();
 	    break;
-	    
+	case "list_detail":
+		list_detail();
+		break;
 }
 
 function showlist(){
@@ -21,7 +23,31 @@ function showlist(){
 	
 	$page = max(intval(global_get_param( $_REQUEST, 'page', 1 )), 1);
 	
-	$sql = "SELECT * FROM news where publish=1 AND (newsDate='' OR newsDate<='".date("Y-m-d")."') AND (pubDate='' OR pubDate>='".date("Y-m-d")."') ORDER BY newsDate desc,id desc";	
+	$type = global_get_param($_REQUEST, 'type', null, 0, 1);
+
+	switch ($type) {
+		case 'news_list':
+			$typeid = '1';
+			break;
+
+			case 'calendar_list':
+				$typeid = '2';
+				break;
+
+				case 'course_list':
+					$typeid = '3';
+					break;
+
+					case 'duty_list':
+						$typeid = '4';
+						break;
+		
+		default:
+		$typeid = '1';
+			break;
+	}
+
+	$sql = "SELECT * FROM news where publish=1 AND target!=1 AND post_type='$typeid' AND (newsDate='' OR newsDate<='".date("Y-m-d")."') AND (pubDate='' OR pubDate>='".date("Y-m-d")."') ORDER BY newsDate desc,id desc";
 	$db->setQuery( $sql );
 	$r = $db->loadRowList();
 	
@@ -65,6 +91,7 @@ function showlist(){
 	$arrJson['status'] = 1;
 	$arrJson['data'] = $data;
 	$arrJson['cnt'] = $pagecnt;
+	$arrJson['sql'] = $sql;
 	JsonEnd($arrJson);
 }
 
@@ -121,6 +148,66 @@ function detail(){
 	JsonEnd($arrJson);
 }
 
+function list_detail(){
+	global $db,$conf_upload;
+	$arrJson = array();
+	$type = global_get_param($_REQUEST, 'type', null, 0, 1);
+
+	switch ($type) {
+		case 'news_list':
+			$typeid = '1';
+			break;
+
+			case 'calendar_list':
+				$typeid = '2';
+				break;
+
+				case 'course_list':
+					$typeid = '3';
+					break;
+
+					case 'duty_list':
+						$typeid = '4';
+						break;
+		
+		default:
+		$typeid = '1';
+			break;
+	}
+	
+	$sql="select * from news where post_type='$typeid' AND publish=1 AND target!=1 order by odring asc,id desc limit 1";
+	$db->setQuery( $sql );
+	$r = $db->loadRow();
+	if(count($r)==0){
+		JsonEnd(array("status"=>0,"msg"=>"無此訊息"));
+	}
+	
+	$arrJson['status'] = 1;
+	$arrJson['xcontent'] = urlencode($r['content']);
+	$arrJson['data']['post_type']=$r['post_type'];
+	$arrJson['data']['name']=$r['name'];
+	$arrJson['data']['newsDate']=$r['newsDate'];
+	
+	$arrJson['data']['_content']=mb_substr( strip_tags($r['content']),0,150,"utf-8");
+	preg_match('/<img[^>]*>/Ui', $r['content'], $content_img); 
+	
+	preg_match( '@src="([^"]+)"@' , $content_img[0], $contentimg_src );
+	$src = array_pop($contentimg_src);
+	$imginfo=getimagesize($conf_dir_path."../..".$src);
+	$arrJson['data']['_content_img']=$src;
+	$arrJson['data']['_imgwidth']=$imginfo[0];
+	$arrJson['data']['_imgheight']=$imginfo[1];
+	
+	$arrJson['data']['content']=$r['content']."<script>
+										$(document).ready(
+											function(){
+												$('#dbpage_content').find('img').addClass('img-responsive');
+											}
+										);
+										
+									</script>";
+	JsonEnd($arrJson);
+}
 
 include( $conf_php.'common_end.php' ); 
 ?>

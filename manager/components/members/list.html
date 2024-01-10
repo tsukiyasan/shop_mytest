@@ -11,8 +11,11 @@
 	<div class="col-lg-12">
 		<div class="main-box clearfix">
 			<header class="main-box-header clearfix">
-				<h2 class="pull-left" ><i class="fa fa-gear"></i><span id="views_title_name" ng-bind="'lg_members.members' | translate">&nbsp;</span></h2>
-
+				<h2 class="pull-left" >
+					<i class="fa fa-gear"></i>
+					<span id="views_title_name" ng-bind="'lg_members.members' | translate">&nbsp;</span>
+				</h2>
+				
 				<div class="filter-block pull-right">
 					
 					<div  ng-if="ctrl.funcPerm.U == 'true' || ctrl.funcPerm.D == 'true'" class="form-group pull-left">
@@ -57,6 +60,18 @@
 							<li><a ng-click="ctrl.memTypeChg(6)"><i class="fa fa-cube"></i><txt ng-bind="'lg_members.members_memType6' | translate">待升級</txt></a></li>
 						</ul>
 					</div>
+
+					<div class="form-group pull-left">
+						<a class="form-control" data-toggle="dropdown" >
+							<span ng-bind="ctrl.memLockedStr?ctrl.memLockedStr:('lg_members.members_memLocked' | translate)"></span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a ng-click="ctrl.memLockedChg(-1)"><i class="fa fa-cube"></i><txt ng-bind="'lg_members.members_memLocked0' | translate">所有類別</txt></a></li>
+							<li><a ng-click="ctrl.memLockedChg(0)"><i class="fa fa-cube"></i><txt ng-bind="'lg_members.members_memLocked1' | translate">一般會員</txt></a></li>
+							<li><a ng-click="ctrl.memLockedChg(1)"><i class="fa fa-cube"></i><txt ng-bind="'lg_members.members_memLocked2' | translate">Ｅ化加入會員</txt></a></li>
+						</ul>
+					</div>
 					
 					<div class="form-group pull-left">
 						<div class="input-group" style="max-width:220px;">
@@ -86,6 +101,13 @@
 					</a>
 				</div>
 			</header>
+
+			<div style="font-size:120%;background-color:rgba(0,255,0,0.3);padding:7px 0px;">
+				<span style="padding-left:12px" ng-bind="'lg_members.members_dis_cnt' | translate"></span>
+				<span ng-bind="ctrl.cnt1"></span>
+				<span style="padding-left:12px" ng-bind="'lg_members.members_mem_cnt' | translate"></span>
+				<span ng-bind="ctrl.cnt2"></span>
+			</div>
 			
 			<div class="main-box-body clearfix"  >
 				<div class="table-responsive">

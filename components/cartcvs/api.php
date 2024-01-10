@@ -546,6 +546,9 @@ function order_submit(){
 	$mode=getCartMode();
 	$uid=LoginChk();
 	$uemail=$_SESSION[$conf_user]['uemail'];
+	if(empty($uemail)){
+		$uemail = getFieldValue("SELECT email FROM members WHERE id = '$uid'","email");
+	}
 	$uname=$_SESSION[$conf_user]['uname'];
 	$umobile=$_SESSION[$conf_user]['umobile'];
 	$uaddress=$_SESSION[$conf_user]['uaddress'];
@@ -582,18 +585,33 @@ function order_submit(){
 	
 	$bill = array();
 	$bill['address'] = $bill_address = global_get_param( $_POST, 'bill_address', null ,0,1);
+	$bill['address2'] = $bill_address2 = global_get_param( $_POST, 'bill_address2', null ,0,1);
+
+	//銀行限制60個字
+	if(strlen($bill_address) > 60){
+		JsonEnd(array("status"=>0,"msg"=>_BILL_ADDRESS_ERROR));
+	}
+
+	if(strlen($bill_address2) > 60){
+		JsonEnd(array("status"=>0,"msg"=>_BILL_ADDRESS2_ERROR));
+	}
+
+
 	$bill_city_arr = global_get_param( $_POST, 'bill_city', null ,0,1);
-	$bill['city'] = $bill_city = $bill_city_arr['state_u'];
+	$bill_city_id = $bill_city_arr['id'];
+	$bill_city_str = getFieldValue("SELECT state_u from region where id = '$bill_city_id'","state_u");
+	$bill['city'] = $bill_city = $bill_city_str;
 	$bill['zip'] = $bill_zip = global_get_param( $_POST, 'bill_zip', null ,0,1);
 	$_SESSION[$conf_user]['bill_info'] = $bill;
 
 
 	if(empty($bill_address)){
-		$bill_address = $address;
+		JsonEnd(array("status"=>0,"msg"=>_BILL_ADDRESS_EMPTY));
 	}
 
+
 	if(empty($bill_city)){
-		$bill_city = $ucity;
+		JsonEnd(array("status"=>0,"msg"=>_BILL_CITY_EMPTY));
 	}
 
 	
@@ -627,6 +645,9 @@ function order_submit(){
 	$db->setQuery($sisql);
 	$siteinfo = $db->loadRow();
 
+	$ta = $_SESSION[$conf_user]['totalAmt'];
+
+
 	$use_p = $_SESSION[$conf_user]['use_p'];
 	$use_points = $_SESSION[$conf_user]['use_points'];
 	if($use_p == 0){
@@ -640,6 +661,26 @@ function order_submit(){
 		$cb_use_points = '0';
 	}
 
+	$batotal = 0;
+	if ($activeBundleCart && count($activeBundleCart) > 0) {
+		foreach ($activeBundleCart as $key => $value) {
+			$batotal += $value['total_bundleadd'];
+		}
+	}
+
+	$chk_point = $batotal + $ta + $_SESSION[$conf_user]['realDlvrAmt'];
+	$check_point = 0;
+	$chk_use_points = $use_points + $cb_use_points;
+	if ($chk_point == $chk_use_points) {
+		$check_point = 1;
+		$status = '1';
+	}
+	$nc_total = 0;
+	foreach ($proArr['data'] as $key => $pro) {
+		if ($pro['nccbChk'] == '1') {
+			$nc_total += $pro['siteAmt'] * $pro['num'];
+		}
+	}
 
 	$taxrate = $siteinfo['taxrate'] / 100;
 	
@@ -676,11 +717,8 @@ function order_submit(){
 			$now_points = bcsub($now_points,$each['point'],2);
 		}
 	}
-	if($now_points < 0){
-		$now_points = 0;
- 	}
 	if($now_points < $use_points){
-		JsonEnd(array("status"=>0,"msg"=>_POINTS_NOT_ENOUGH,'use_p' => $use_p,'use_po' => $use_points,'now_po' => $now_points));
+		JsonEnd(array("status"=>0,"msg"=>_POINTS_NOT_ENOUGH));
 	}
 	
 	$sql="BEGIN;";
@@ -688,11 +726,11 @@ function order_submit(){
 		
 		$sql.="insert into orders 
 			(orderMode,memberid,email,buyDate,payType,dlvrType,status,sumAmt,discount,dcntAmt,dlvrFee,usecoin,totalAmt,ccv,taxrate,taxfee,dlvrName,
-			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,use_p,use_points,cb_use_p,cb_use_points,bill_address,bill_city,bill_zip)
+			dlvrMobile,dlvrCanton,dlvrCity,dlvrAddr,dlvrDate,dlvrTime,dlvrNote,invoiceType,invoiceTitle,invoiceSN,invoice,ctime,mtime,muser,use_p,use_points,cb_use_p,cb_use_points,nc_total,bill_address,bill_address2,bill_city,bill_zip)
 			values 
 			('$mode','$uid','$uemail','$today','{$_SESSION[$conf_user]['pay_type']}','{$_SESSION[$conf_user]['take_type']}',$status,'{$proArr['total']}',
 			 '{$proArr['discount']}','".($proArr['total']-$proArr['discount'])."','{$_SESSION[$conf_user]['realDlvrAmt']}','{$_SESSION[$conf_user]['usecoin']}','$total','$finalccv','$taxrate','$tax_fee',N'$name','$mobile','$ucanton','$ucity',N'$address',
-			 '$dlvrDate','$dlvrTime','$notes','$invoiceType','$invoiceTitle','$invoiceSN','$invoice','$now','$now','$uid','$use_p','$use_points','$cb_use_p','$cb_use_points','$bill_address','$bill_city','$bill_zip');";
+			 '$dlvrDate','$dlvrTime','$notes','$invoiceType','$invoiceTitle','$invoiceSN','$invoice','$now','$now','$uid','$use_p','$use_points','$cb_use_p','$cb_use_points','$nc_total',N'$bill_address',N'$bill_address2','$bill_city','$bill_zip');";
 		
 		$sql.="
 			SET @insertid=LAST_INSERT_ID();
@@ -757,7 +795,7 @@ function order_submit(){
 		$unitCcv = $pro['unitCcv'];
 		$ccvAmt = $pro['CalcCcv'];
 		
-		if($mode=="cart"){
+		if($mode=="cart" || $mode=="twcart"){
 			$sql.="insert into orderdtl (oid,pid,unitAmt,quantity,subAmt,pv,bv,bonus,protype,format1,format2,format1name,format2name,ctime,mtime,muser,unitCcv,ccvAmt)
 			     values 
 			     (@insertid,'$pid','$unitAmt','$quantity','$subAmt','$pv','$bv','$bonus','$protype','$format1','$format2','$format1name','$format2name','$now','$now','$uid','$unitCcv','$ccvAmt');";
@@ -1178,7 +1216,6 @@ function order_submit(){
 		$field2.=",dlvrCity='$city'";
 	}
 	if($canton){
-		
 		$field2.=",dlvrCanton='$canton'";
 	}else{
 		$canton=$ucanton;
@@ -1205,7 +1242,7 @@ function order_submit(){
 	
 	if(!$r){
 		
-		JsonEnd(array("status"=>0,"msg"=>_CART_NET_ERROR_MSG));
+		JsonEnd(array("status"=>0,"msg"=>_CART_NET_ERROR_MSG,"sql" => $sql));
 	}
 	
 	$oid=getFieldValue("select id from orders where memberid='$uid' order by id desc ","id");
@@ -1215,14 +1252,14 @@ function order_submit(){
 	$db->query();
 	
 
-	$osql = "SELECT point,expiry_date from cash_back where mb_no = '$mb_no' and note = '初次發放' and kind = '0' and expiry_date > '$today'";
+	$osql = "SELECT point,expiry_date from cash_back where mb_no = '$mb_no' and note = '初次發放' and kind = '0' and expiry_date > '$today' and is_invalid = '0'";
 	$db3->setQuery($osql);
 	$oresult = $db3->loadRow();
 	$first_ed = date('Y-m-d');
 	if (!empty($oresult)) { //如果有找到
 		$first_point = $oresult['point'];
 		$first_ed = $oresult['expiry_date'];
-		$usql = "SELECT sum(point) as use_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date = '$first_ed'";
+		$usql = "SELECT sum(point) as use_points from cash_back where mb_no = '$mb_no' and kind = '1' and expiry_date = '$first_ed' and is_invalid = '0'";
 		$db3->setQuery($usql);
 		$uresult = $db3->loadRow();
 		if (!empty($uresult)) {
@@ -1409,36 +1446,49 @@ function order_submit(){
 	
 	$pay_type = $_SESSION[$conf_user]['pay_type'];
 	$mode=getCartMode();
-	// unset($_SESSION[$conf_user]["{$mode}_list"]);
-	// unset($_SESSION[$conf_user]['disDlvrAmt']);
-	// unset($_SESSION[$conf_user]['pay_type']);
-	// unset($_SESSION[$conf_user]['take_type']);
-	// unset($_SESSION[$conf_user]['dlvrAmt']);
-	// unset($_SESSION[$conf_user]['usecoin']);
-	// unset($_SESSION[$conf_user]['proArr']);
-	// unset($_SESSION[$conf_user]['realDlvrAmt']);
-	// unset($_SESSION[$conf_user]['totalAmt']);
-	// unset($_SESSION[$conf_user]["cart_list_mode"]);
-    // unset($_SESSION[$conf_user]["freepro_list"]);
-    // unset($_SESSION[$conf_user]['activeBundleCart']);
-    // unset($_SESSION[$conf_user]['use_p']);
-    // unset($_SESSION[$conf_user]['use_points']);
+	unset($_SESSION[$conf_user]["{$mode}_list"]);
+	unset($_SESSION[$conf_user]['disDlvrAmt']);
+	unset($_SESSION[$conf_user]['pay_type']);
+	unset($_SESSION[$conf_user]['take_type']);
+	unset($_SESSION[$conf_user]['dlvrAmt']);
+	unset($_SESSION[$conf_user]['usecoin']);
+	unset($_SESSION[$conf_user]['proArr']);
+	unset($_SESSION[$conf_user]['realDlvrAmt']);
+	unset($_SESSION[$conf_user]['totalAmt']);
+	unset($_SESSION[$conf_user]["cart_list_mode"]);
+    unset($_SESSION[$conf_user]["freepro_list"]);
+    unset($_SESSION[$conf_user]['activeBundleCart']);
+    unset($_SESSION[$conf_user]['use_p']);
+    unset($_SESSION[$conf_user]['use_points']);
     $_SESSION[$conf_user]['activeBundleCart']=array();
 	$_SESSION[$conf_user]['cart_addpro_list']=array();
 	unset($_SESSION[$conf_user]['cart_addpro_list']);
 
 	$orderid = getFieldValue("SELECT id FROM orders WHERE orderNum = '$orderNum'","id");
+	$orderMode = getFieldValue("SELECT orderMode FROM orders WHERE orderNum = '$orderNum'","orderMode");
 	//未付款先進傳銷訂單
-	toMLM($orderid,'0');
-
+	//台灣單排除
+	if($orderMode == 'twcart'){
+		
+	}else{
+		toMLM($orderid,'0');
+	}
+	
 
 	if($pay_type==3 || $pay_type==4){
 		JsonEnd(array("status"=>'aio',"oid"=>$oid));
 	}else if($pay_type==6){
-		$url = '';
-		$url = "/app/controllers/publicBank.php?task=orderSale&orderNum=".$orderNum;
 
-		JsonEnd(array("status"=>'tspg',"oid"=>$oid,"orderNum" => $orderNum,"rs"=>$rs,"url"=>$url ));
+		if ($check_point == 1) {
+			JsonEnd(array("status" => '1', "oid" => $oid, "data" => $orderNum));
+		} else {
+			$url = '';
+			$url = "/app/controllers/publicBank.php?task=orderSale&orderNum=".$orderNum."&test=1&handMode=1";
+
+			JsonEnd(array("status"=>'tspg',"oid"=>$oid,"orderNum" => $orderNum,"rs"=>$rs,"url"=>$url ));
+		}
+
+		
 	}else if($pay_type==7){
 		
 		
@@ -1519,8 +1569,6 @@ function order_submit(){
 		
 		$deadLineDT = date("Y/m/d 23:59:59",strtotime("+4 day"));
 		
-		
-
 		JsonEnd(array("status"=>'vatm',"data"=>$orderNum,"data2"=>$virtualAccount,"data3"=>$deadLineDT));
 	}
 	else{

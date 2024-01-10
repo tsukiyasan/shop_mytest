@@ -467,12 +467,8 @@ switch ($task) {
                 $log['status'] = "1";
             } else {
                 echo "OK";
-                // $orderMode = getFieldValue(" SELECT orderMode FROM orders WHERE orderNum = '$orderNum' ", "orderMode");
-                // //不是addMember才取消
-                // if (!($orderMode == 'addMember')) {
-                //     //訂單取消更新
-                //     $result = orderCancelUpdate($orderNum);
-                // }
+                //訂單取消更新
+                // orderCancelUpdate($orderNum);
                 //其他
                 $log['status'] = "-1";
             }

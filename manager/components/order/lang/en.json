@@ -62,7 +62,7 @@
 	"order_pay_time": "Payment time",
 	"order_invoiceInfo": "Invoice information",
 	"order_invoiceType": "Type of invoice",
-	"order_invoiceSN": "TAX ID number",
+	"order_invoiceSN": "TAX IC Number",
 	"order_invoice": "Donate to ",
 	"order_invoiceTitle": "Invoice title",
 	"order_dlvrTimePeriod": "Select delivery time",
@@ -122,5 +122,8 @@
 	"order_taxfee": "Tax",
 	"order_orderMode": "orderType",
 	"order_cart":"General",
-	"order_twcart":"Taiwan"
+	"order_twcart":"Taiwan",
+	"order_use_points": "Points Used",
+    "order_cb_use_points": "CashBack Points Used",
+    "order_acb_use_points": "Active CashBack Points Used"
 }
