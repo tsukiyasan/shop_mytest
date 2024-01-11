@@ -13,9 +13,6 @@ $returnData = array(
 session_set_cookie_params(["SameSite" => "Strict"]);
 
 switch ($task) {
-case "stock_2023":
-	stock_2023();
-	break;
 case "spouse_add":
 	spouse_add();
 	break;
@@ -35,105 +32,6 @@ function mobileChk($str)
 	return $str;
 }
 
-function stock_2023()
-{
-	global $db, $db2, $conf_user, $yymm;
-	$res = array();
-	$data_arr = array();
-	$u_data = get_user_info_m();
-	$mb_no = $u_data['mb_no'];
-	// $mb_no = 'TW020211100160';
-
-	$sql = "SELECT pk_date1 FROM paper_keys WHERE pk_id = ".STOCKDATE." ";
-	$db->setQuery($sql);
-	$yymm = $db->loadRow();
-
-	$stockDate = strtotime($yymm['pk_date1'] ."01");
-
-	//$stockDate = strtotime(STOCKDATE . '-01');
-	//+1month
-	$stockDate = strtotime('+ 1 month', $stockDate);
-	//-1day
-	$stockDate = strtotime('- 1 day', $stockDate);
-	$stockDateYm = date('Ym', $stockDate);
-
-	$sql = "SELECT * FROM stock2023 where mb_no = '$mb_no' and yymm = '$stockDateYm' and mb_status = '1'";
-	$db2->setQuery($sql);
-	$data = $db2->loadRow();
-	$stock_total = '0'; //stock8~stock14
-	$stock_name = '';
-	$stock_num = '';
-	$stock_1 = '0';
-	$stock_m = '0';
-	$stock_pv = '0';
-	$stock_sum = '0';
-	$pv1 = '0';
-	$pv2 = '0';
-	$pv1_2 = '0';
-	if (!empty($data)) {
-		$pv1 = $data['pv1'];
-		$pv2 = $data['pv2'];
-		$pv1_2 = $data['pv1'] + $data['pv2'];
-
-		if (!empty($data['stock8'])) {
-			$stock_name = '明珠級代理店';
-			$stock_num = '3';
-			$stock_total = $data['stock8'];
-		}
-		if (!empty($data['stock9'])) {
-			$stock_name = '翡翠級代理店';
-			$stock_num = '5';
-			$stock_total = $data['stock9'];
-		}
-		if (!empty($data['stock10'])) {
-			$stock_name = '鑽石級代理店';
-			$stock_num = '8';
-			$stock_total = $data['stock10'];
-		}
-		if (!empty($data['stock11'])) {
-			$stock_name = '雙鑽級代理店';
-			$stock_num = '11';
-			$stock_total = $data['stock11'];
-		}
-		if (!empty($data['stock12'])) {
-			$stock_name = '三鑽級代理店';
-			$stock_num = '14';
-			$stock_total = $data['stock12'];
-		}
-		if (!empty($data['stock13'])) {
-			$stock_name = '皇冠級代理店';
-			$stock_num = '17';
-			$stock_total = $data['stock13'];
-		}
-		if (!empty($data['stock14'])) {
-			$stock_name = '皇冠大使級代理店';
-			$stock_num = '20';
-			$stock_total = $data['stock14'];
-		}
-		$stock_sum = $data['stock_pv'] + $data['stock_1'] + $data['stock_m'] + $stock_total;
-		$stock_pv = $data['stock_pv'];
-		$stock_1 = $data['stock_1'];
-		$stock_m = $data['stock_m'];
-	}
-	$data_arr['pv1'] = $pv1;
-	$data_arr['pv2'] = $pv2;
-	$data_arr['pv1_2'] = $pv1_2;
-	$data_arr['stock_total'] = $stock_total;
-	$data_arr['stock_name'] = $stock_name;
-	$data_arr['stock_num'] = $stock_num;
-	$data_arr['stock_sum'] = $stock_sum;
-	$data_arr['stock_pv'] = $stock_pv;
-	$data_arr['stock_1'] = $stock_1;
-	$data_arr['stock_m'] = $stock_m;
-	$res['data'] = $data_arr;
-	$res['stockDateYm'] = $stockDateYm;
-	$res['stock_year'] = '2023';
-	//$res['e_date'] = '2021-08-31';
-	$res['stock_date'] = date("Y-m-d", $stockDate);
-	$res['stockDate'] = date("Y-m-d", $stockDate);
-	$res['status'] = '1';
-	JsonEnd($res);
-}
 
 function spouse_add()
 {

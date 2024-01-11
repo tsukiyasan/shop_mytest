@@ -103,6 +103,25 @@ app.controller("mbst_page", [
 
     var imagelimit = 1;
 
+
+
+    angular.forEach(my.multileftmenu1, function (v, k) {
+      angular.forEach(v.child, function (v2, k2) {
+          if (v2.dtl) {
+              if (v2.id == my.mbst_page) {
+                  my.subtitle1 = v2.title;
+                  my.dtltitle1 = v2.dtl;
+              }
+          } else {
+              if (v2.id == my.mbst_page) {
+                  my.subtitle1 = v2.title;
+              }
+          }
+      });
+  });
+
+
+
     CRUD.detail({ task: "userInfo" }, "GET").then(function (res) {
       if (res.status == 1) {
         my.user = res.data;
@@ -446,7 +465,7 @@ app.controller("mbst_page", [
             loginonly: true,
           },
           {
-            id: "update_spouse",
+            id: "spouse_add",
             name: "配偶資料填寫",
             title: "配偶資料填寫",
             loginonly: true,

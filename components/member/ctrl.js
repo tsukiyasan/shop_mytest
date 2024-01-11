@@ -113,6 +113,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
                     loginonly: true
                 },
                 {
+                    id: "spouse",
+                    name: $translate.instant('lg_member.spouse'),
+                    title: $translate.instant('lg_member.spouse'),
+                    loginonly: true,
+                },
+                {
                     id: "m_info",
                     name: $translate.instant('lg_member.member_profile'),
                     title: $translate.instant('lg_member.member_profile'),
@@ -299,6 +305,12 @@ app.controller('member_page', ['$rootScope', '$scope', '$http', '$location', '$r
             id: "info",
             name: $translate.instant('lg_member.info'),
             title: $translate.instant('lg_member.info'),
+            loginonly: true
+        },
+        {
+            id: "spouse",
+            name: $translate.instant('lg_member.spouse'),
+            title: $translate.instant('lg_member.spouse'),
             loginonly: true
         },
         {

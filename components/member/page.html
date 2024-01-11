@@ -1204,6 +1204,216 @@
 									</div>
 								</div>
 
+
+
+								
+
+								&ensp;
+                                <hr style="border-top: 3px solid #bbbbbb;">
+
+								<div class="form-group" >
+                                    <label for="spouse" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                        style="padding-top: 7px; text-align: right;">&nbsp;<span
+                                        class="text-danger">*
+                                    </span>	<txt ng-bind="'lg_member.spouse_new' | translate">填寫配偶</txt></label>                                    
+                                    <div class="col-sm-9 col-md-8 col-lg-9">
+                                        <div class="radio i-checks ng-scope" style="">
+                                            <label class="ng-binding">
+                                                <input type="radio" ng-model="ctrl.spouse" ng-value="1"
+                                                    class="ng-pristine ng-untouched ng-valid ng-not-empty" value="1"
+                                                    ng-click="ctrl.isspouse(1)" /><i></i> 填寫
+                                            </label>
+                                            <label class="ng-binding">
+                                                <input type="radio" ng-model="ctrl.spouse" ng-value="2"
+                                                    class="ng-pristine ng-untouched ng-valid ng-not-empty" value="2"
+                                                    ng-click="ctrl.isspouse(2)" /><i></i> 不填寫
+                                            </label>&emsp;
+                                          
+                                        </div>
+                                    </div>                                     
+                                </div>
+                                
+                                
+
+                                <div  ng-if="ctrl.spouse == '1'"> 
+                                    <h4>&nbsp;<br /><i
+                                        class="fa fa-info-circle"></i>&nbsp;&nbsp;提醒：配偶申請僅能1位加入經營權，如夫妻要獨立經營權責不用填寫配偶申請資料，
+                                        若夫妻享要獨立經營權合併，敬請填寫OP-310合併申請書，方能共享「主經營權」之階級榮譽。
+                             
+                                    </h4>                              
+
+                                    <label for="spouseshoes" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                        style="padding-top: 9px; padding-left:0px; text-align: left;"><span
+                                            class="text-danger">*
+                                        </span>配偶購買鞋組
+                                    </label>
+                                    <div class="col-sm-9 col-md-8 col-lg-9">
+                                        <div class="radio i-checks ng-scope" style="">
+                                            <label class="ng-binding">
+                                                <input type="radio" ng-model="ctrl.spouseshoes" ng-value="1"
+                                                    class="ng-pristine ng-untouched ng-valid ng-not-empty"/><i></i>已購買
+                                            </label>&emsp;
+                                            <label class="ng-binding">
+                                                <input type="radio" ng-model="ctrl.spouseshoes" ng-value="2"
+                                                    class="ng-pristine ng-untouched ng-valid ng-not-empty"/><i></i>未購買
+                                            </label>
+                                        </div>
+                                    </div>
+                                   
+                                   
+
+                                    <div class="form-group clearfix ">
+                                        <label for="spouseERPID" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            &ensp;&thinsp;配偶會編
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">                                         
+                                            <input type="text"
+                                            class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
+                                            id="spouseERPID" name="spouseERPID" ng-model="ctrl.spouseERPID" placeholder="請輸入配偶會編" 
+                                            style="padding: 5px;" />
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group clearfix " >
+                                        <label for="spousename" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            <span  class="text-danger">*
+                                            </span>配偶姓名
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">     
+                                            <input type="text"
+                                            class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
+                                            id="spousename" name="spousename" ng-model="ctrl.spousename" placeholder="請輸入配偶姓名"
+                                            style="padding: 5px;" />                             
+                                           
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group clearfix " >
+                                        <label for="spousephone" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            &ensp;&thinsp;配偶手機
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">                                  
+                                            <input type="text" id="spousephone" name="spousephone" ng-model="ctrl.spousephone" placeholder="請輸入配偶手機
+                                            " class="form-control ng-pristine ng-valid ng-not-empty ng-touched" style="padding: 5px;"  >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group clearfix " >
+                                        <label for="spousetel" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            &ensp;&thinsp;配偶電話
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">                                  
+                                            <input type="text" id="spousetel" name="spousetel" ng-model="ctrl.spousetel" placeholder="請輸入配偶電話
+                                            " class="form-control ng-pristine ng-valid ng-not-empty ng-touched" style="padding: 5px;"  >
+                                        </div><br>
+                                        <br><span style="color:red;">
+                                            *配偶手機與電話擇一選填
+                                         </span>
+                                    </div>
+                                        
+                                    <div class="form-group">
+
+                                        <label for="spousebirdate" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            *配偶生日
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">
+                                            <input type="text"
+                                                class="form-control ng-pristine ng-valid ng-not-empty ng-touched"
+                                                style="padding: 5px;" id="spousebirdate" show-button-bar="false"
+                                                uib-datepicker-popup ng-model="ctrl.spousebri"
+                                                ng-click="popupSpouse.opened = true" is-open="popupSpouse.opened"
+                                                placeholder="西元年-月-日" />
+                                              
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group clearfix ">
+                                        <label for="spouserelation" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 9px; padding-left:0px; text-align: left;"><span
+                                                class="text-danger">*
+                                            </span>關係</label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">
+                                            <div class="radio i-checks ng-scope" style="">
+                                                <label class="ng-binding">
+                                                    <input type="radio" ng-model="ctrl.spouserelation" ng-value="1"
+                                                        class="ng-pristine ng-untouched ng-valid ng-not-empty" /><i></i> 夫
+                                                </label>&emsp;
+                                                <label class="ng-binding">
+                                                    <input type="radio" ng-model="ctrl.spouserelation" ng-value="2"
+                                                        class="ng-pristine ng-untouched ng-valid ng-not-empty" /><i></i> 妻
+                                                </label>
+                                            </div>
+                                        </div>
+                                                        
+                                    </div>
+
+
+                                    <div class="form-group clearfix " >
+                                        <label for="spousebossid" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;">
+                                            <span  class="text-danger">*
+                                            </span>配偶身分證
+                                        </label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">                                  
+                                            <input type="text" id="spousebossid" name="spousebossid" ng-model="ctrl.spousebossid" placeholder="請輸入配偶身分證"
+                                            class="form-control ng-pristine ng-valid ng-not-empty ng-touched" style="padding: 5px;" ng-blur="ctrl.chk_spousebossid(ctrl.spousebossid)">
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group clearfix " ng-repeat="seq4 in ctrl.spouseplist">
+                                        <label for="spousep" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px;padding-left:0px; text-align: left;font-size: 14px;"><span
+                                                class="text-danger">*
+                                            </span>配偶身分證正面</label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">
+                                            <!-- <input type="file" accept="image/*" id="idcardp" /> -->
+                                            <img-fields ng-model="ctrl.productimg4[seq4]" preview="previewImage4"
+                                                seq="{{seq4}}" class="btn btn-primary">選擇檔案</img-fields>
+                                            <img ng-show="previewImage4[seq4]" ng-src="{{previewImage4[seq4]}}"
+                                                style="width:auto;height:160px;margin-bottom:10px;" />
+                                            <br>
+
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="form-group clearfix" ng-repeat="seq5 in ctrl.spousenlist">
+                                        <label for="spousen" class="col-sm-3 col-md-4 col-lg-3 control-label"
+                                            style="padding-top: 7px; text-align: left; padding-left:0px;font-size: 14px;"><span
+                                                class="text-danger">*
+                                            </span>配偶身分證反面</label>
+                                        <div class="col-sm-9 col-md-8 col-lg-9">
+                                            <!-- <input type="file" accept="image/*" id="idcardp" /> -->
+                                            <img-fields ng-model="ctrl.productimg5[seq5]" preview="previewImage5"
+                                                seq="{{seq5}}" class="btn btn-primary">選擇檔案</img-fields>
+                                            <img ng-show="previewImage5[seq5]" ng-src="{{previewImage5[seq5]}}"
+                                                style="width:auto;height:160px;margin-bottom:10px;" />
+                                            <br>
+                                        </div>
+                                       
+                                    </div>
+
+                                </div>
+
+
+                                &ensp;
+                                <hr style="border-top: 3px solid #bbbbbb;">
+
+
+
+
+
 								<div class="form-group">
                                     <h4>&nbsp;<br /><i
                                             class="fa fa-info-circle"></i>&nbsp;&nbsp;<txt ng-bind="'lg_member.signupNew3_msg3' | translate">
